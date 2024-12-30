@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UDC check-in form</title>
+    <!-- <link href="css/form.css" rel="stylesheet" type="text/css"> -->
+    
+    <?!= include_('src/stylesheet') ?>
+    <?!= include_('src/handleTabJS') ?>
+
+    <script>
+      // Prevent forms from submitting.
+      function preventFormSubmit() {
+        var forms = document.querySelectorAll('form');
+        for (var i = 0; i < forms.length; i++) {
+          forms[i].addEventListener('submit', function(event) {
+            event.preventDefault();
+          });
+        }
+      }
+      window.addEventListener('load', preventFormSubmit);
+      window.addEventListener('DOMContentLoaded', () => showTab(0));
+
+
+      // function postFormSubmit(formObject) {
+      //   const scriptURL = 'https://script.google.com/macros/s/AKfycby3STqolbuRf7cXKuAsZjwLqUON9zZ69p-1Gu9xVEg/dev'
+
+      //   let requestBody = {'testKey': 'testValue'}
+      //   // let requestBody = new FormData(form)
+      //   console.log(requestBody)
+      //   fetch(scriptURL, { 
+      //     method: 'POST', 
+      //     body: requestBody,
+      //     mode: 'no-cors'
+      //     })
+      //     .then(response => {
+      //         alert('Success!', response)
+      //       })
+      //     .catch(error => { 
+      //       alert('Error!', error.message)
+      //     })
+      // }
+
+      function handleFormSubmit(formObject) {
+        var formData = new FormData(formObject)
+        var payload = Object.fromEntries(formData)
+        delete payload.output
+        payload['signature'] = $('.sigPad').signaturePad().getSignatureImage()
+
+        console.log(payload)
+        google.script.run.withSuccessHandler(successHandler).processForm(payload);
+      }
+
+      function successHandler(url) {
+        alert('Success!', url)
+      }
+    </script>
+
+    <!-- <script src="validation.gs"></script> -->
+    <!-- <script src="signature.gs"></script> -->
+</head>
+<body class="zf-backgroundBg zf-section">
+  <!-- Change or deletion of the name attributes in the input tag will lead to empty values on record submission -->
+  <div class="zf-templateWidth">
+      <form name="form" enctype="multipart/form-data" id="form" onsubmit="handleFormSubmit(this)">
+          <!-- <input type="hidden" name="zf_referrer_name" value="">
+          <!-- To Track referrals , place the referrer name within the " " in the above hidden input field -->
+          <!-- <input type="hidden" name="zf_redirect_url" value=""> -->
+          <!-- To redirect to a specific page after record submission , place the respective url within the " " in the above hidden input field -->
+          <!-- <input type="hidden" name="zc_gad" value=""> -->
+          <!-- If GCLID is enabled in Zoho CRM Integration, click details of AdWords Ads will be pushed to Zoho CRM -->
+          <div class="zf-templateWrapper">
+              <!-- Template Header Starts Here -->
+              <ul class="zf-tempHeadBdr">
+                  <li class="zf-tempHeadContBdr">
+                      <h2 class="zf-frmTitle"><em>UDC check-in form</em></h2>
+                      <p class="zf-frmDesc">Please give accurate information.</p>
+                      <div class="zf-clearBoth"></div>
+                  </li>
+              </ul>
+              <!-- Template Header Ends Here -->
+
+              <!-- Template Container Starts Here -->
+              <div class="zf-subContWrap zf-leftAlign">
+                  <ul>
+                    <div class="tab">
+                    <!-- Name Starts Here -->
+                    <li class="zf-tempFrmWrapper zf-name zf-namelarge">
+                        <label class="zf-labelName">
+                            Full Name
+                            <em class="zf-important">*</em>
+                        </label>
+                        <div class="zf-tempContDiv zf-twoType">
+                            <div class="zf-nameWrapper">
+                                <span>
+                                    <input id="first_name" type="text" maxlength="255" name="first_name" fieldType="7" placeholder="" />
+                                    <label>First</label>
+                                </span>
+                                <span>
+                                    <input id="last_name" type="text" maxlength="255" name="last_name" fieldType="7" placeholder="" />
+                                    <label>Last</label>
+                                </span>
+                                <div class="zf-clearBoth"></div>
+                            </div>
+                            <p id="Name_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                        </div>
+                        <div class="zf-clearBoth"></div>
+                    </li>
+                    </div>
+                    <!-- Name Ends Here -->
+                  
+                      
+                    <div class="tab">
+                    <!-- Email Starts Here -->
+                    <li class="zf-tempFrmWrapper zf-small">
+                        <label class="zf-labelName">
+                            Email
+                            <em class="zf-important">*</em>
+                        </label>
+                        <div class="zf-tempContDiv">
+                            <span>
+                                <input fieldType="9" type="text" maxlength="255" name="email" checktype="c5" value="" placeholder="" />
+                            </span>
+                            <p id="email_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                        </div>
+                        <div class="zf-clearBoth"></div>
+                    </li>
+                    <!-- Email Ends Here -->
+                    </div>
+
+                    <div class="tab">
+                      <li>
+                        <p>I <span id='liability'></span> hereby acknowledge the risks involved in the practice of scuba diving. I acknowledge that none of the staff members, boat crew, administrators, or employee else connected with UDC, in any way whatsoever, can be responsible for physical or psychological damage occurred during the practice of such sport.</p>
+                      </li>
+                    </div>
+
+
+                      <!-- Phone Starts Here -->
+                      <!-- <li class="zf-tempFrmWrapper zf-small">
+                          <label class="zf-labelName">
+                              Phone
+                              <em class="zf-important">*</em>
+                          </label>
+                          <div class="zf-tempContDiv zf-phonefld">
+                              <div class="zf-phwrapper zf-phNumber">
+                                  <span>
+                                      <input
+                                          type="text"
+                                          compname="PhoneNumber1"
+                                          name="PhoneNumber1_countrycode"
+                                          maxlength="20"
+                                          checktype="c7"
+                                          value=""
+                                          phoneFormat="1"
+                                          isCountryCodeEnabled="false"
+                                          fieldType="11"
+                                          id="international_PhoneNumber1_countrycode"
+                                          valType="number"
+                                          phoneFormatType="1"
+                                          placeholder=""
+                                      />
+                                      <label>Number</label>
+                                  </span>
+                                  <div class="zf-clearBoth"></div>
+                              </div>
+                              <p id="PhoneNumber1_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                          </div>
+                          <div class="zf-clearBoth"></div>
+                      </li> -->
+                      <!-- Phone Ends Here -->
+
+                      <!-- Date Starts Here -->
+                      <!-- <li class="zf-tempFrmWrapper zf-date">
+                          <label class="zf-labelName">
+                              Birthdate
+                              <em class="zf-important">*</em>
+                          </label>
+                          <div class="zf-tempContDiv">
+                              <span>
+                                  <input type="text" name="Date" checktype="c4" value="" maxlength="25" placeholder="" />
+                                  <label>dd/MM/yyyy</label>
+                              </span>
+                              <div class="zf-clearBoth"></div>
+                              <p id="Date_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                          </div>
+                          <div class="zf-clearBoth"></div>
+                      </li> -->
+                      <!-- Date Ends Here -->
+
+                      <!-- Dropdown Starts Here -->
+                      <!-- <li class="zf-tempFrmWrapper zf-large">
+                          <label class="zf-labelName">
+                              Blood group
+                              <em class="zf-important">*</em>
+                          </label>
+                          <div class="zf-tempContDiv">
+                              <select class="zf-form-sBox" name="Dropdown" checktype="c1">
+                                  <option selected="true" value="-Select-">-Select-</option>
+                                  <option value="A&#x2b;">A&#x2b;</option>
+                                  <option value="A-">A-</option>
+                                  <option value="B&#x2b;">B&#x2b;</option>
+                                  <option value="B-">B-</option>
+                                  <option value="AB&#x2b;">AB&#x2b;</option>
+                                  <option value="AB-">AB-</option>
+                                  <option value="O&#x2b;">O&#x2b;</option>
+                                  <option value="O-">O-</option>
+                              </select>
+                              <p id="Dropdown_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                          </div>
+                          <div class="zf-clearBoth"></div>
+                      </li> -->
+                      <!-- Dropdown Ends Here -->
+
+                      <!-- Emergency Contact Number Starts Here -->
+                      <!-- <li class="zf-tempFrmWrapper zf-large">
+                          <label class="zf-labelName">
+                              Emergency contact number
+                              <em class="zf-important">*</em>
+                          </label>
+                          <div class="zf-tempContDiv zf-phonefld">
+                              <div class="zf-phwrapper zf-phNumber">
+                                  <span>
+                                      <input
+                                          type="text"
+                                          compname="PhoneNumber"
+                                          name="PhoneNumber_countrycode"
+                                          maxlength="20"
+                                          checktype="c7"
+                                          value=""
+                                          phoneFormat="1"
+                                          isCountryCodeEnabled="false"
+                                          fieldType="11"
+                                          id="international_PhoneNumber_countrycode"
+                                          valType="number"
+                                          phoneFormatType="1"
+                                          placeholder=""
+                                      />
+                                      <label>Number</label>
+                                  </span>
+                                  <div class="zf-clearBoth"></div>
+                              </div>
+                              <p id="PhoneNumber_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                          </div>
+                          <div class="zf-clearBoth"></div>
+                      </li> -->
+                      <!-- Emergency Contact Number Ends Here -->
+
+                      <!-- Radio Button Starts Here -->
+                      <!-- <li class="zf-radio zf-tempFrmWrapper zf-sideBySide">
+                          <label class="zf-labelName">
+                              Do you have a medical insurance?
+                              <em class="zf-important">*</em>
+                          </label>
+                          <div class="zf-tempContDiv">
+                              <div class="zf-overflow">
+                                  <span class="zf-multiAttType">
+                                      <input class="zf-radioBtnType" type="radio" id="Radio1_1" name="Radio1" checktype="c1" value="Yes">
+                                      <label for="Radio1_1" class="zf-radioChoice">Yes</label>
+                                  </span>
+                                  <span class="zf-multiAttType">
+                                      <input class="zf-radioBtnType" type="radio" id="Radio1_2" name="Radio1" checktype="c1" value="No">
+                                      <label for="Radio1_2" class="zf-radioChoice">No</label>
+                                  </span>
+                                  <div class="zf-clearBoth"></div>
+                              </div>
+                              <p id="Radio1_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                          </div>
+                          <div class="zf-clearBoth"></div>
+                      </li> -->
+                      <!-- Radio Button Ends Here -->
+
+                      <!-- Single Line Input Starts Here -->
+                      <!-- <li class="zf-tempFrmWrapper zf-large">
+                          <label class="zf-labelName">
+                              Who's your insurance agent?
+                              <em class="zf-important">*</em>
+                          </label>
+                          <div class="zf-tempContDiv">
+                              <span>
+                                  <input type="text" name="SingleLine1" checktype="c1" value="" maxlength="255" fieldType="1" placeholder="" />
+                              </span>
+                              <p id="SingleLine1_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                          </div>
+                          <div class="zf-clearBoth"></div>
+                      </li> -->
+                      <!-- Single Line Input Ends Here -->
+
+                      <!-- Radio Button Starts Here -->
+                      <!-- <li class="zf-radio zf-tempFrmWrapper zf-sideBySide">
+                          <label class="zf-labelName">
+                              Have you undergone any surgery?
+                              <em class="zf-important">*</em>
+                          </label>
+                          <div class="zf-tempContDiv">
+                              <div class="zf-overflow">
+                                  <span class="zf-multiAttType">
+                                      <input class="zf-radioBtnType" type="radio" id="Radio3_1" name="Radio3" checktype="c1" value="Yes">
+                                      <label for="Radio3_1" class="zf-radioChoice">Yes</label>
+                                  </span>
+                                  <span class="zf-multiAttType">
+                                      <input class="zf-radioBtnType" type="radio" id="Radio3_2" name="Radio3" checktype="c1" value="No">
+                                      <label for="Radio3_2" class="zf-radioChoice">No</label>
+                                  </span>
+                                  <div class="zf-clearBoth"></div>
+                              </div>
+                              <p id="Radio3_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                          </div>
+                          <div class="zf-clearBoth"></div>
+                      </li> -->
+                      <!-- Radio Button Ends Here -->
+
+                      <!-- Single Line Input Starts Here -->
+                      <!-- <li class="zf-tempFrmWrapper zf-large">
+                          <label class="zf-labelName">
+                              Give your surgery details
+                          </label>
+                          <div class="zf-tempContDiv">
+                              <span>
+                                  <input type="text" name="SingleLine4" checktype="c1" value="" maxlength="255" fieldType="1" placeholder="" />
+                              </span>
+                              <p id="SingleLine4_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                          </div>
+                          <div class="zf-clearBoth"></div>
+                      </li> -->
+                      <!-- Single Line Input Ends Here -->
+
+                      <!-- Signature Starts Here -->
+                      <!-- <li class="zf-sign zf-tempFrmWrapper zf-large">
+                          <label class="zf-labelName">
+                              Signature
+                          </label>
+                          <div class="zf-tempContDiv">
+                              <div class="zf-signContainer" id="signContainer-Signature">
+                                  <object name="Signature_obj" checktype="c8" compname="Signature">
+                                      <canvas id="drawingCanvas-Signature" tabindex="-1"></canvas>
+                                      <input type="hidden" id="hiddenSignInput-Signature" name="Signature" value="">
+                                      <div class="zf-signArea" id="sign-area-Signature" style="display:none"></div>
+                                      <a id="clearSign" href="javascript:void(0);" onclick="zf_ClearSignature('drawingCanvas-Signature');">Clear</a>
+                                  </object>
+                              </div>
+                              <p id="Signature_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                          </div>
+                          <div class="zf-clearBoth"></div>
+                          <!-- <script>
+                              zf_SetCanvasElemWidth("Signature"); // No I18N
+                              var canvasElemEvntListener = document.getElementById("drawingCanvas-Signature"); // No I18N
+                              zf_AddEventListenersToCanvas(canvasElemEvntListener);
+                          </script> -->
+                      <!-- </li> -->
+                      <!-- Signature Ends Here -->
+                  </ul>
+                  <div class="tab sigPad"><?!= include_('src/signaturepad') ?></div>
+              </div>
+              <!-- Template Container Ends Here -->
+
+              <ul class="zf-fmFooter">
+                  <!-- <li class="zf-fmFooter">
+                      <button class="zf-submitColor" type="submit" id="submit">Next</button>
+                  </li> -->
+
+                  <li style="overflow:auto;">
+                    <div style="float:right;">
+                      <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                      <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                    </div>
+                  </dliiv>
+
+                  <!-- Circles which indicates the steps of the form: -->
+                  <li style="text-align:center;margin-top:40px;">
+                    <span class="step active"></span>
+                    <span class="step"></span>
+                    <span class="step"></span>
+                    <span class="step"></span>
+                  </li>
+              </ul>
+          </div>
+          <!-- 'zf-templateWrapper' ends -->
+      </form>
+  </div>
+  <!-- 'zf-templateWidth' ends -->
+
+  <script type="text/javascript">
+      var zf_DateRegex = new RegExp("^(([0][1-9])|([1-2][0-9])|([3][0-1]))[\/]([0][1-9]|1[012])[\/](?:(?:19|20)[0-9]{2})$");
+      var zf_MandArray = ["first_name", "last_name", "email", "PhoneNumber1_countrycode", "Date", "Dropdown", "PhoneNumber_countrycode", "Radio1", "SingleLine1", "Radio3"];
+      var zf_FieldArray = ["first_name", "last_name", "email", "PhoneNumber1_countrycode", "Date", "Dropdown", "PhoneNumber_countrycode", "Radio1", "SingleLine1", "Radio3", "SingleLine4", "Signature_obj"];
+      var isSalesIQIntegrationEnabled = false;
+      var salesIQFieldsArray = [];
+  </script>
+
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.min.js" integrity="sha512-uWk2ZXl3GVrq6DZsrL5dSg1S/F3MNQ9VaDFigqXOoKUnWG58UxOuJGfTrzh5KjpoBvPiFniL2PahU2HUTFMJXw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <?!= include_('src/jquery.signaturepad.min') ?>  <!-- jQuery signature Pad plugin: https://github.com/thread-pond/signature-pad/blob/main/documentation.md -->
+  <?!= include_('src/signaturepad.stylesheet') ?>
+
+  <script>
+    $(document).ready(function () {
+      var signatureHandler = $('.sigPad').signaturePad({drawOnly: true, output: ".signature"})
+    })
+  </script>
+
+</body>
+</html>
