@@ -2,35 +2,31 @@
   var currentTab = 0; // Current tab is set to be the first tab (0)
   // showTab(currentTab); // Display the current tab
 
+  // This function will display the specified tab of the form ...
   function showTab(n) {
-    console.log(n)
-    // This function will display the specified tab of the form ...
-    var x = document.getElementsByClassName("tab");
-    x[n].style.display = "block";
+    var tabs = $(".tab")
+    tabs.eq(n).css({ display: "block" })
+
     // ... and fix the Previous/Next buttons:
-    if (n == 0) {
-      document.getElementById("prevBtn").style.display = "none";
-    } else {
-      document.getElementById("prevBtn").style.display = "inline";
-    }
-    if (n == (x.length - 1)) {
-      document.getElementById("nextBtn").innerHTML = "Submit";
-    } else {
-      document.getElementById("nextBtn").innerHTML = "Next";
-    }
+    const prevBtnDisplay = {display: n == 0 ? "none" : "inline"}
+    $("#prevBtn").css(prevBtnDisplay)
+
+    const nextBtnText= n == tabs.length - 1? "Submit" : "Next"
+    $("#nextBtn").text(nextBtnText)
+
     // ... and run a function that displays the correct step indicator:
-    fixStepIndicator(n)
+    fixStepIndicator(n);
   }
 
-  function nextPrev(n) {
+  function nextPrev(stepValue) {
     // This function will figure out which tab to display
     var x = document.getElementsByClassName("tab");
     // Exit the function if any field in the current tab is invalid:
-    if (n == 1 && !validateForm()) return false;
+    if (stepValue == 1 && !validateForm()) return false;
     // Hide the current tab:
     x[currentTab].style.display = "none";
-    // Increase or decrease the current tab by 1:
-    currentTab = currentTab + n;
+
+    currentTab = currentTab + stepValue;
     // if you have reached the end of the form... :
     if (currentTab >= x.length) {
       //...the form gets submitted:
@@ -39,7 +35,7 @@
     }
 
     if (currentTab >= x.length - 2) {
-      populateLiability()
+      populateLiability();
     }
 
     // Otherwise, display the correct tab:
@@ -48,7 +44,10 @@
 
   function validateForm() {
     // // This function deals with validation of the form fields
-    var x, y, i, valid = true;
+    var x,
+      y,
+      i,
+      valid = true;
     // x = document.getElementsByClassName("tab");
     // y = x[currentTab].getElementsByTagName("input");
     // // A loop that checks every input field in the current tab:
@@ -63,22 +62,22 @@
     // }
     // If the valid status is true, mark the step as finished and valid:
     if (valid) {
-      document.getElementsByClassName("step")[currentTab].className += " finish";
+      document.getElementsByClassName("step")[currentTab].className +=
+        " finish";
     }
     return valid; // return the valid status
   }
 
+  //TODO: handle visited
   function fixStepIndicator(n) {
-    // This function removes the "active" class of all steps...
-    var i, x = document.getElementsByClassName("step");
-    for (i = 0; i < x.length; i++) {
-      x[i].className = x[i].className.replace(" active", "");
-    }
-    //... and adds the "active" class to the current step:
-    x[n].className += " active";
+    const steps = $(".step")
+    steps.removeClass("active");
+    steps.eq(n).addClass(" active")
   }
 
   function populateLiability() {
-    document.getElementById('liability').textContent = document.getElementById('first_name').value.toUpperCase() + ' ' + document.getElementById('last_name').value.toUpperCase()
+    const fullName = $("#first_name").val()?.toUpperCase() + " " + $("#last_name").val()?.toUpperCase() ??  "";
+    $("#liability").text(fullName)
+    $("#sig-typed-name").val(fullName).trigger( "blur" )
   }
 </script>

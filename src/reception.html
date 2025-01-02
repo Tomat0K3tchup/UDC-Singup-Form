@@ -67,8 +67,7 @@
           <!-- Template Header Starts Here -->
           <ul class="zf-tempHeadBdr">
             <li class="zf-tempHeadContBdr">
-              <h2 class="zf-frmTitle"><em>UDC check-in form</em></h2>
-              <p class="zf-frmDesc">Please give accurate information.</p>
+              <h2 class="zf-frmTitle"><em>UDC reception Staff form</em></h2>
               <div class="zf-clearBoth"></div>
             </li>
           </ul>
@@ -77,97 +76,6 @@
           <!-- Template Container Starts Here -->
           <div class="zf-subContWrap zf-leftAlign">
             <ul>
-              <div class="tab">
-
-                <!-- Name Starts Here -->
-                <li class="zf-tempFrmWrapper zf-name zf-namelarge">
-                  <label class="zf-labelName">
-                    Full Name
-                    <em class="zf-important">*</em>
-                  </label>
-                  <div class="zf-tempContDiv zf-twoType">
-                    <div class="zf-nameWrapper">
-                      <span>
-                        <input
-                          id="first_name"
-                          type="text"
-                          maxlength="255"
-                          name="first_name"
-                          fieldType="7"
-                          placeholder=""
-                        />
-                        <label>First</label>
-                      </span>
-                      <span>
-                        <input
-                          id="last_name"
-                          type="text"
-                          maxlength="255"
-                          name="last_name"
-                          fieldType="7"
-                          placeholder=""
-                        />
-                        <label>Last</label>
-                      </span>
-                      <div class="zf-clearBoth"></div>
-                    </div>
-                    <p
-                      id="Name_error"
-                      class="zf-errorMessage"
-                      style="display: none"
-                    >
-                      Invalid value
-                    </p>
-                  </div>
-                  <div class="zf-clearBoth"></div>
-                </li>
-              <!-- Name Ends Here -->
-
-                <!-- Email Starts Here -->
-                <li class="zf-tempFrmWrapper zf-small">
-                  <label class="zf-labelName">
-                    Email
-                    <em class="zf-important">*</em>
-                  </label>
-                  <div class="zf-tempContDiv">
-                    <span>
-                      <input
-                        fieldType="9"
-                        type="text"
-                        maxlength="255"
-                        name="email"
-                        checktype="c5"
-                        value=""
-                        placeholder=""
-                      />
-                    </span>
-                    <p
-                      id="email_error"
-                      class="zf-errorMessage"
-                      style="display: none"
-                    >
-                      Invalid value
-                    </p>
-                  </div>
-                  <div class="zf-clearBoth"></div>
-                </li>
-                <!-- Email Ends Here -->
-              </div>
-
-              <div class="tab">
-                <li>
-                  <p class="zf-normalText">
-                    I <span id="liability"></span> hereby acknowledge the risks
-                    involved in the practice of scuba diving. I acknowledge that
-                    none of the staff members, boat crew, administrators, or
-                    employee else connected with UDC, in any way whatsoever, can
-                    be responsible for physical or psychological damage occurred
-                    during the practice of such sport.
-                  </p>
-                </li>
-                <div class="sigPad"><?!= include_('src/signature/signaturepad') ?></div>
-              </div>
-
               <!-- Phone Starts Here -->
               <!-- <li class="zf-tempFrmWrapper zf-small">
                           <label class="zf-labelName">
@@ -277,30 +185,80 @@
                           <div class="zf-clearBoth"></div>
                       </li> -->
               <!-- Emergency Contact Number Ends Here -->
-
-              <!-- Radio Button Starts Here -->
-              <!-- <li class="zf-radio zf-tempFrmWrapper zf-sideBySide">
-                          <label class="zf-labelName">
-                              Do you have a medical insurance?
-                              <em class="zf-important">*</em>
-                          </label>
-                          <div class="zf-tempContDiv">
-                              <div class="zf-overflow">
-                                  <span class="zf-multiAttType">
-                                      <input class="zf-radioBtnType" type="radio" id="Radio1_1" name="Radio1" checktype="c1" value="Yes">
-                                      <label for="Radio1_1" class="zf-radioChoice">Yes</label>
-                                  </span>
-                                  <span class="zf-multiAttType">
-                                      <input class="zf-radioBtnType" type="radio" id="Radio1_2" name="Radio1" checktype="c1" value="No">
-                                      <label for="Radio1_2" class="zf-radioChoice">No</label>
-                                  </span>
-                                  <div class="zf-clearBoth"></div>
-                              </div>
-                              <p id="Radio1_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
-                          </div>
+              <div class="tab">
+                <!-- Radio Button Starts Here -->
+                <li class="zf-radio zf-tempFrmWrapper zf-sideBySide">
+                  <label class="zf-labelName">
+                      BCD?
+                      <em class="zf-important">*</em>
+                  </label>
+                  <div class="zf-tempContDiv">
+                      <div class="zf-overflow">
+                          <span class="zf-multiAttType">
+                              <input class="zf-radioBtnType" type="radio" id="Radio1_1" name="Radio1" checktype="c1" value="Yes">
+                              <label for="Radio1_1" class="zf-radioChoice">Yes</label>
+                          </span>
+                          <span class="zf-multiAttType">
+                              <input class="zf-radioBtnType" type="radio" id="Radio1_2" name="Radio1" checktype="c1" value="No">
+                              <label for="Radio1_2" class="zf-radioChoice">No</label>
+                          </span>
                           <div class="zf-clearBoth"></div>
-                      </li> -->
-              <!-- Radio Button Ends Here -->
+                      </div>
+                      <p id="Radio1_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                  </div>
+                  <div class="zf-clearBoth"></div>
+                </li>
+                <!-- Radio Button Ends Here -->
+
+                <!-- Radio Button Starts Here -->
+                <li class="zf-radio zf-tempFrmWrapper zf-sideBySide">
+                  <label class="zf-labelName">
+                      Mask?
+                      <em class="zf-important">*</em>
+                  </label>
+                  <div class="zf-tempContDiv">
+                      <div class="zf-overflow">
+                          <span class="zf-multiAttType">
+                              <input class="zf-radioBtnType" type="radio" id="Radio2_1" name="Radio2" checktype="c1" value="Yes">
+                              <label for="Radio2_1" class="zf-radioChoice">Yes</label>
+                          </span>
+                          <span class="zf-multiAttType">
+                              <input class="zf-radioBtnType" type="radio" id="Radio2_2" name="Radio2" checktype="c1" value="No">
+                              <label for="Radio2_2" class="zf-radioChoice">No</label>
+                          </span>
+                          <div class="zf-clearBoth"></div>
+                      </div>
+                      <p id="Radio1_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                  </div>
+                  <div class="zf-clearBoth"></div>
+                </li>
+                <!-- Radio Button Ends Here -->
+
+                <!-- Radio Button Starts Here -->
+                <li class="zf-radio zf-tempFrmWrapper zf-sideBySide">
+                  <label class="zf-labelName">
+                      Fins?
+                      <em class="zf-important">*</em>
+                  </label>
+                  <div class="zf-tempContDiv">
+                      <div class="zf-overflow">
+                          <span class="zf-multiAttType">
+                              <input class="zf-radioBtnType" type="radio" id="Radio3_1" name="Radio3" checktype="c1" value="Yes">
+                              <label for="Radio3_1" class="zf-radioChoice">Yes</label>
+                          </span>
+                          <span class="zf-multiAttType">
+                              <input class="zf-radioBtnType" type="radio" id="Radio3_2" name="Radio3" checktype="c1" value="No">
+                              <label for="Radio3_2" class="zf-radioChoice">No</label>
+                          </span>
+                          <div class="zf-clearBoth"></div>
+                      </div>
+                      <p id="Radio1_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                  </div>
+                  <div class="zf-clearBoth"></div>
+                </li>
+                <!-- Radio Button Ends Here -->
+              </div>
+
 
               <!-- Single Line Input Starts Here -->
               <!-- <li class="zf-tempFrmWrapper zf-large">
