@@ -3,7 +3,17 @@ import {LitElement, css, html} from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core
 
 export class FormInput extends LitElement {
   static formAssociated = true;
-  static styles = css`li { color: blue }`;
+  static styles = css`
+    label { color: black } 
+    
+    .important {
+      color: #ff0000 !important;
+      font-weight: normal;
+      margin-left: 0px;
+      padding: 0;
+      font-size: 13px !important;
+    }
+  `;
 
   #internals;
 
@@ -21,12 +31,13 @@ export class FormInput extends LitElement {
     this.label = 'default';
     this.id = 'default-id'
     this.value = '';
-    this.required = true;
+    this.required = false;
   }
 
-  // Override createRenderRoot to set delegateFocus to true
   createRenderRoot() {
-    return this.attachShadow({ mode: 'open', delegatesFocus: true });
+    const renderRoot = super.createRenderRoot();
+    renderRoot.delegateFocus = true;
+    return renderRoot;
   }
 
   connectedCallback() {
@@ -53,7 +64,10 @@ export class FormInput extends LitElement {
 
   render() {
     return html`
-    <label class="zf-labelName" for="${this.id}"> ${this.label} </label>
+    <label class="zf-labelName" for="${this.id}">
+      ${this.label}${this.required ? html`<em class="important">*</em>` : ''}
+    </label>
+    <div class="zf-tempContDiv">
       <span>
         <input
           id="${this.id}"
@@ -64,9 +78,8 @@ export class FormInput extends LitElement {
           @input="${this.handleInput}"
           ?required=${this.required}
         />
-        <label>First</label>
       </span>
-      <em class="zf-important">*</em>
+    </div>
     `;
   }
 }

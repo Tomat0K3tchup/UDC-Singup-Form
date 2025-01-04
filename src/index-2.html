@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>UDC check-in form</title>
+    <!-- <link href="css/form.css" rel="stylesheet" type="text/css"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <?!= include_('src/stylesheet') ?> <?!= include_('src/handleTabJS') ?>
+
+    <script>
+      // Prevent forms from submitting.
+      function preventFormSubmit() {
+        var forms = document.querySelectorAll("form");
+        for (var i = 0; i < forms.length; i++) {
+          forms[i].addEventListener("submit", function (event) {
+            event.preventDefault();
+          });
+        }
+      }
+      window.addEventListener("load", preventFormSubmit);
+      window.addEventListener("DOMContentLoaded", () => showTab(0));
+
+      function handleFormSubmit(formObject) {
+        var formData = new FormData(formObject);
+        var payload = Object.fromEntries(formData);
+        delete payload.output;
+        payload["signature"] = $(".sigPad").signaturePad().getSignatureImage();
+
+        console.log(payload);
+        google.script.run
+          .withSuccessHandler(successHandler)
+          .processForm(payload);
+      }
+
+      function successHandler(url) {
+        alert("Success!");
+      }
+
+      function showAlert() {
+        alert("I was blured");
+      }
+    </script>
+
+  </head>
+  <body class="zf-backgroundBg zf-section">
+    <div class="zf-templateWidth">
+      <form
+        name="form"
+        enctype="multipart/form-data"
+        id="form"
+        onsubmit="handleFormSubmit(this)"
+      >
+        <div class="zf-templateWrapper">
+
+          <!-- Template Header Starts Here -->
+          <ul class="zf-tempHeadBdr">
+            <li class="zf-tempHeadContBdr">
+              <h2 class="zf-frmTitle"><em>UDC check-in form</em></h2>
+              <p class="zf-frmDesc">Please give accurate information.</p>
+              <div class="zf-clearBoth"></div>
+            </li>
+          </ul>
+          <!-- Template Header Ends Here -->
+
+          <multistep-form class="zf-subContWrap zf-leftAlign">
+            <fieldset>
+              <legend>Personal Details</legend>
+              <form-input label="First Name" id="first_name" required></form-input>
+              <form-input label="Last Name" id="last_name" required></form-input>
+              <form-input label="Date of Birth" id="dob" required></form-input>
+
+              <form-input label="Email" id="email" required></form-input>
+              <form-input label="Mailing address" id="adress" required></form-input>
+              <form-input label="Phone" id="phone" required></form-input>
+          </fieldset>
+  
+          <fieldset>
+              <legend>Emergency Contact</legend>
+              <form-input label="First Name" id="em_first_name" required></form-input>
+              <form-input label="Last Name" id="em_last_name" required></form-input>
+              <form-input label="Phone" id="em_phone" required></form-input>
+              <form-input label="Relationship" id="em_relationship" required></form-input>
+              <form-input label="Phone" id="em_phone" required></form-input>
+
+              <form-input label="Dive insurance provider" id="diprovider"></form-input>
+              <form-input label="Dive insurance phone" id="di_phone"></form-input>
+              <form-input label="Policy number" id="di_policy_nb"></form-input>
+              <form-input label="Other travel insurance details" id="di_other"></form-input>              
+          </fieldset>
+
+          <fieldset>
+            <legend>Passport Information</legend>
+            <form-input label="Issuing Country" id="id_country" required></form-input>
+            <form-input label="Passport number" id="id_nb" required></form-input>
+
+            <form-input label="Issue Date" id="id_iss_date" required></form-input>
+            <form-input label="Expiration date" id="id_exp_date" required></form-input>
+          </fieldset>
+
+          <fieldset>
+            <legend>UDC / MANGO INN RESORT TERMS AND CONDITIONS</legend>
+            <?!= include_('src/udcTAndC') ?> 
+          </fieldset>
+
+          <fieldset>
+            <legend>UDC / MANGO INN RESORT TERMS AND CONDITIONS</legend>
+            <?!= include_('src/udcTAndC') ?> 
+          </fieldset>
+          </multistep-form>
+        </div>
+      </form>
+    </div>
+
+    <script type="text/javascript">
+      var zf_DateRegex = new RegExp(
+        "^(([0][1-9])|([1-2][0-9])|([3][0-1]))[\/]([0][1-9]|1[012])[\/](?:(?:19|20)[0-9]{2})$",
+      );
+      var zf_MandArray = [
+        "first_name",
+        "last_name",
+        "email",
+        "PhoneNumber1_countrycode",
+        "Date",
+        "Dropdown",
+        "PhoneNumber_countrycode",
+        "Radio1",
+        "SingleLine1",
+        "Radio3",
+      ];
+      var zf_FieldArray = [
+        "first_name",
+        "last_name",
+        "email",
+        "PhoneNumber1_countrycode",
+        "Date",
+        "Dropdown",
+        "PhoneNumber_countrycode",
+        "Radio1",
+        "SingleLine1",
+        "Radio3",
+        "SingleLine4",
+        "Signature_obj",
+      ];
+      var isSalesIQIntegrationEnabled = false;
+      var salesIQFieldsArray = [];
+    </script>
+
+    <!-- Import custom components -->
+    <?!= include_('src/components/utils') ?>
+    <?!= include_('src/components/FormInput') ?>
+    <?!= include_('src/components/FormTab') ?>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.min.js"></script>
+    <?!= include_('src/signature/jquery.signaturepad.min') ?>
+    <!-- jQuery signature Pad plugin: https://github.com/thread-pond/signature-pad/blob/main/documentation.md -->
+    <?!= include_('src/signature/signaturepad.stylesheet') ?>
+
+    <script>
+      // Initialize the signature pad
+      $(document).ready(() => {
+        var signatureHandler = $(".sigPad").signaturePad({
+            name: '#sig-typed-name'
+        });
+      });
+    </script>
+  </body>
+</html>
