@@ -1,7 +1,11 @@
 {
   "devDependencies": {
+    "@google/clasp": "^2.4.2",
     "@types/google-apps-script": "^1.0.89",
-    "prettier": "^3.4.2",
-    "@google/clasp": "^2.4.2"
+    "lit": "^3.2.1",
+    "prettier": "^3.4.2"
+  },
+  "scripts": {
+    "start": "npx clasp push -w"
   }
 }
