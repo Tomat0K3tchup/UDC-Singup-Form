@@ -1,0 +1,39 @@
+<?!= include_('src/components/utils') ?>
+<?!= include_('src/components/FormInput') ?>
+<?!= include_('src/components/FormTab') ?>
+
+
+
+<form id="form">
+    <multistep-form>
+        <fieldset>
+            <legend>Test input Pt 1</legend>
+            <form-input label="1" name="test-input" id="1" required></form-input>
+            <form-input label="2" name="test-input" id="2" required></form-input>
+        </fieldset>
+
+        <fieldset>
+            <legend>Test input Pt 2</legend>
+            <form-input label="3" name="test-input" id="3" required></form-input>
+            <form-input label="4" name="test-input" id="4" required></form-input>
+        </fieldset>
+    </multistep-form>
+</form>
+
+<script>
+    function onSubmitHandler(e) {
+        const formData = new FormData(e.target);
+        console.log(e.target.checkValidity())
+        var payload = Object.fromEntries(formData);
+        console.log(payload);
+    }
+
+    const form = document.getElementById("form");
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        onSubmitHandler(e);
+    });
+</script>
+
+
+

@@ -1,0 +1,76 @@
+<script type="module">
+import {LitElement, css, html} from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';
+
+export class FormInput extends LitElement {
+  static formAssociated = true;
+  static styles = css`li { color: blue }`;
+
+  #internals;
+
+  static properties = {
+    name: {type: String},
+    id : {type: String},
+    label: {type: String},
+    value: {type: String},
+    required: {type: Boolean}
+  };
+
+  constructor() {
+    super();
+    this.name = '';
+    this.label = 'default';
+    this.id = 'default-id'
+    this.value = '';
+    this.required = true;
+  }
+
+  // Override createRenderRoot to set delegateFocus to true
+  createRenderRoot() {
+    return this.attachShadow({ mode: 'open', delegatesFocus: true });
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.#internals = this.attachInternals();
+    if (!this.#internals) {
+      console.error("ElementInternals could not be attached.");
+    }
+  }
+
+  firstUpdated() {
+    super.firstUpdated();
+    this.$input = this.shadowRoot.querySelector('input');
+    this.#internals.setFormValue(this.value);
+    this.#internals.setValidity(this.$input.validity, this.$input.validationMessage, this.$input);
+  }
+
+  handleInput() {
+    this.value = this.$input.value 
+    this.#internals.setFormValue(this.value);
+    this.#internals.setValidity(this.$input.validity, this.$input.validationMessage, this.$input);
+
+  }
+
+  render() {
+    return html`
+    <label class="zf-labelName" for="${this.id}"> ${this.label} </label>
+      <span>
+        <input
+          id="${this.id}"
+          type="text"
+          maxlength="255"
+          name="${this.id}"
+          fieldType="7"
+          @input="${this.handleInput}"
+          ?required=${this.required}
+        />
+        <label>First</label>
+      </span>
+      <em class="zf-important">*</em>
+    `;
+  }
+}
+
+customElements.define('form-input', FormInput);
+
+</script>

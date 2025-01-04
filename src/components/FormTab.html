@@ -1,0 +1,64 @@
+<script type="module">
+import {LitElement, css, html} from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';
+
+class MultistepForm extends LitElement {
+
+    firstUpdated() {
+        super.firstUpdated();
+
+        this.$sets = this.querySelectorAll('fieldset');
+        this.totalSets = this.$sets.length;
+        console.log(this.$sets, this.totalSets);
+        this.current = 0;
+
+        this.$nextBtn = this.renderRoot.querySelector('#mf-next-btn');
+        this.$prevBtn = this.renderRoot.querySelector('#mf-prev-btn');
+        this.$currentSetNum = this.renderRoot.querySelector('#mf-current');
+
+        this.$sets.forEach(s => {
+            s.style.display='none';
+        });
+        this.updateDisplay();
+        this.render()
+    }
+
+
+    nextSet() {
+        console.log('next');
+        if(this.current+1 == this.totalSets) return; 
+        this.current++;
+        this.updateDisplay();
+    }
+
+    prevSet() {
+        console.log('prev');
+        if(this.current == 0) return; 
+        this.current--;
+        this.updateDisplay();
+    }
+
+    updateDisplay() {
+        this.$sets.forEach((_, idx) => {
+            if(idx === this.current) this.$sets[idx].style.display = 'block';
+            else this.$sets[idx].style.display = 'none';
+        });
+        this.$currentSetNum.innerText = this.current+1;
+    }
+
+render() {
+    return html`
+        <div>
+            <slot></slot>
+            <button id="mf-prev-btn" @click=${this.prevSet}>Previous</button>
+            <p>Step <span id="mf-current"></span> of <span>${this.totalSets}</span></p>
+            <button id="mf-next-btn" @click=${this.nextSet}>Next</button>
+        </div>
+    `;
+}   
+
+}
+
+customElements.define('multistep-form', MultistepForm);
+
+
+</script>
