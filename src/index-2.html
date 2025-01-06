@@ -65,7 +65,7 @@
           <!-- Template Header Ends Here -->
 
           <multi-step-form>
-            <fieldset class="formStep">
+            <!-- <fieldset class="formStep">
               <legend>Personal Details</legend>
               <form-input label="First Name" id="first_name" required></form-input>
               <form-input label="Last Name" id="last_name" required></form-input>
@@ -78,63 +78,63 @@
                 <label for="phone">Phone<em class="important">*</em></label>
                 <input label="Phone" id="phone" name="phone" type="tel" class="passport" required></input>
               </div>
-          </fieldset>
-  
-          <fieldset class="formStep">
-              <legend>Emergency Contact</legend>
-              <form-input label="Full Name" id="em_full_name" required></form-input>
-              <div class= "formInput">
-                <label for="phone">Phone<em class="important">*</em></label>
-                <input label="Phone" id="em_phone" name="em_phone" type="tel" required></input>
+            </fieldset>
+    
+            <fieldset class="formStep">
+                <legend>Emergency Contact</legend>
+                <form-input label="Full Name" id="em_full_name" required></form-input>
+                <div class= "formInput">
+                  <label for="phone">Phone<em class="important">*</em></label>
+                  <input label="Phone" id="em_phone" name="em_phone" type="tel" required></input>
+                </div>
+                <form-input label="Relationship" id="em_relationship" required></form-input>
+
+                <fieldset>
+                  <legend>Do you have a dive insurance?<em class="important">*</em></legend>
+                  <p>
+                    <input name="di" type="radio" id="di_yes" value="true" required/>
+                    <label for="di_yes">Yes</label>
+                  </p>
+                  <p>
+                    <input name="di" type="radio" id="di_no" value="false"/>
+                    <label for="di_no">No</label>
+                  </p>
+                </fieldset>
+                <fieldset id="di" class="flx-form">
+                  <form-input label="Dive insurance provider" id="di_provider"></form-input>
+                  <form-input label="Dive insurance phone" id="di_phone"></form-input>
+                  <form-input label="Policy number" id="di_policy_nb"></form-input>
+                  <form-input label="Other travel insurance details" id="di_other"></form-input>
+              </fieldset>        
+            </fieldset>
+
+            <fieldset class="formStep">
+              <legend>Passport Information</legend>
+              <div class="formInput">
+                <label for="phone">Issuing Country<em class="important">*</em></label>
+                <select id="id_country" placeholder="Select a country..." required>
+                  <option value="">Select a country...</option>
+                  <option value="fr">France</option>
+                  <option value="uk">United Kingdom</option>
+                  <option value="us">United States</option>
+                  <option value="ca">Canada</option>
+                </select>
               </div>
-              <form-input label="Relationship" id="em_relationship" required></form-input>
+              <form-input label="Passport number" id="id_nb" required></form-input>
 
-              <fieldset>
-                <legend>Do you have a dive insurance?<em class="important">*</em></legend>
-                <p>
-                  <input name="di" type="radio" id="di_yes" value="true" required/>
-                  <label for="di_yes">Yes</label>
-                </p>
-                <p>
-                  <input name="di" type="radio" id="di_no" value="false"/>
-                  <label for="di_no">No</label>
-                </p>
-              </fieldset>
-              <fieldset id="di" class="flx-form">
-                <form-input label="Dive insurance provider" id="di_provider"></form-input>
-                <form-input label="Dive insurance phone" id="di_phone"></form-input>
-                <form-input label="Policy number" id="di_policy_nb"></form-input>
-                <form-input label="Other travel insurance details" id="di_other"></form-input>
-            </fieldset>        
-          </fieldset>
+              <form-input label="Issue Date" id="id_iss_date" type="date" required></form-input>
+              <form-input label="Expiration date" id="id_exp_date" type="date" required></form-input>
+            </fieldset> -->
 
-          <fieldset class="formStep">
-            <legend>Passport Information</legend>
-            <div class="formInput">
-              <label for="phone">Issuing Country<em class="important">*</em></label>
-              <select id="id_country" placeholder="Select a country..." required>
-                <option value="">Select a country...</option>
-                <option value="fr">France</option>
-                <option value="uk">United Kingdom</option>
-                <option value="us">United States</option>
-                <option value="ca">Canada</option>
-              </select>
-            </div>
-            <form-input label="Passport number" id="id_nb" required></form-input>
+            <fieldset class="formStep">
+              <legend display="none">UDC and Mango Inn Resort Terms and Conditions</legend>
+              <?!= include_('src/udcTAndC-2') ?> 
+            </fieldset>
 
-            <form-input label="Issue Date" id="id_iss_date" type="date" required></form-input>
-            <form-input label="Expiration date" id="id_exp_date" type="date" required></form-input>
-          </fieldset>
-
-          <fieldset class="formStep">
-            <legend>UDC / MANGO INN RESORT TERMS AND CONDITIONS</legend>
-            <?!= include_('src/udcTAndC') ?> 
-          </fieldset>
-
-          <fieldset class="formStep">
-            <legend>UDC / MANGO INN RESORT TERMS AND CONDITIONS</legend>
-            <?!= include_('src/udcTAndC') ?> 
-          </fieldset>
+            <fieldset class="formStep">
+              <legend>UDC / MANGO INN RESORT TERMS AND CONDITIONS</legend>
+              <?!= include_('src/udcTAndC') ?> 
+            </fieldset>
           </multi-step-form>
         </div>
       </form>
