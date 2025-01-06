@@ -1,37 +1,16 @@
-<form id="form">
-    <multistep-form>
-        <fieldset>
-            <legend>Test input Pt 1</legend>
-            <form-input label="1" name="test-input" id="1" required></form-input>
-            <form-input label="2" name="test-input" id="2" required></form-input>
-        </fieldset>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@placekit/autocomplete-js@latest/dist/placekit-autocomplete.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/@placekit/autocomplete-js@latest"></script>
 
-        <fieldset>
-            <legend>Test input Pt 2</legend>
-            <form-input label="3" name="test-input" id="3" required></form-input>
-            <form-input label="4" name="test-input" id="4" required></form-input>
-        </fieldset>
-    </multistep-form>
-</form>
-
+<input type="search" placeholder="Search place..." class="pka-input" id="placekit" />
+okok
 <script>
-    function onSubmitHandler(e) {
-        const formData = new FormData(e.target);
-        console.log(e.target.checkValidity())
-        var payload = Object.fromEntries(formData);
-        console.log(payload);
-    }
-
-    const form = document.getElementById("form");
-    form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        onSubmitHandler(e);
-    });
+  const pka = placekitAutocomplete('pk_V0nwVIf42oa6RoG9x5xmiZGembb2e1CKW/FsdzI47Tc=', {
+    target: '#placekit',
+    countrySelect: false,
+    type: 'street'
+    // other options...
+  });
 </script>
-
-<?!= include_('src/components/utils') ?>
-<?!= include_('src/components/FormInput') ?>
-<?!= include_('src/components/FormTab') ?>
-
-
-

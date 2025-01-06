@@ -14,6 +14,11 @@ function doGet(e) {
     title: "UDC signup form"
   }
 
+  if (e.pathInfo == 'test') {
+    pageInfo.fileName = "src/components/test";
+    pageInfo.title = "UDC test";
+  }
+
   if (e.pathInfo == 'admin') {
     pageInfo.fileName = "src/reception";
     pageInfo.title = "UDC admin reception form";

@@ -1,10 +1,21 @@
 <script type="module">
 import {LitElement, css, html} from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';
 
-export class FormInput extends LitElement {
+class FormInput extends LitElement {
   static formAssociated = true;
   static styles = css`
-    label { color: black } 
+    /* Same as formInput class */
+    :host {     
+      display: flex;
+      flex-direction: column;
+      width: 100%
+    }
+
+    input {
+      padding: 0.5rem 1rem;
+      font-family: var(--body-font-family-text);
+      font-size: 1rem;
+    }
     
     .important {
       color: #ff0000 !important;
@@ -20,6 +31,7 @@ export class FormInput extends LitElement {
   static properties = {
     name: {type: String},
     id : {type: String},
+    type : {type: String},
     label: {type: String},
     value: {type: String},
     required: {type: Boolean}
@@ -29,6 +41,7 @@ export class FormInput extends LitElement {
     super();
     this.name = '';
     this.label = 'default';
+    this.type = 'text';
     this.id = 'default-id'
     this.value = '';
     this.required = false;
@@ -51,15 +64,21 @@ export class FormInput extends LitElement {
   firstUpdated() {
     super.firstUpdated();
     this.$input = this.shadowRoot.querySelector('input');
+    this.updateFormValue()
+  }
+
+  updateValue() {
+    this.value = this.$input.value 
+  }
+
+  updateFormValue() {
     this.#internals.setFormValue(this.value);
     this.#internals.setValidity(this.$input.validity, this.$input.validationMessage, this.$input);
   }
 
   handleInput() {
-    this.value = this.$input.value 
-    this.#internals.setFormValue(this.value);
-    this.#internals.setValidity(this.$input.validity, this.$input.validationMessage, this.$input);
-
+    this.updateValue()
+    this.updateFormValue()
   }
 
   render() {
@@ -67,23 +86,20 @@ export class FormInput extends LitElement {
     <label class="zf-labelName" for="${this.id}">
       ${this.label}${this.required ? html`<em class="important">*</em>` : ''}
     </label>
-    <div class="zf-tempContDiv">
-      <span>
-        <input
-          id="${this.id}"
-          type="text"
-          maxlength="255"
-          name="${this.id}"
-          fieldType="7"
-          @input="${this.handleInput}"
-          ?required=${this.required}
-        />
-      </span>
-    </div>
+    <input
+      id="${this.id}"
+      type="${this.type}"
+      maxlength="255"
+      name="${this.id}"
+      fieldType="7"
+      @input="${this.handleInput}"
+      ?required=${this.required}
+    />
     `;
   }
 }
 
 customElements.define('form-input', FormInput);
+window.FormInput = FormInput;
 
 </script>

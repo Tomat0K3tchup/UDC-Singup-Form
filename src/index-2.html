@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <?!= include_('src/stylesheet') ?> <?!= include_('src/handleTabJS') ?>
 
@@ -45,8 +46,8 @@
     </script>
 
   </head>
-  <body class="zf-backgroundBg zf-section">
-    <div class="zf-templateWidth">
+  <body class="zf-section">
+    <div class="formWidth formDropShadow">
       <form
         name="form"
         enctype="multipart/form-data"
@@ -56,60 +57,85 @@
         <div class="zf-templateWrapper">
 
           <!-- Template Header Starts Here -->
-          <ul class="zf-tempHeadBdr">
-            <li class="zf-tempHeadContBdr">
+            <div class="zf-tempHeadContBdr">
               <h2 class="zf-frmTitle"><em>UDC check-in form</em></h2>
               <p class="zf-frmDesc">Please give accurate information.</p>
               <div class="zf-clearBoth"></div>
-            </li>
-          </ul>
+            </div>
           <!-- Template Header Ends Here -->
 
-          <multistep-form class="zf-subContWrap zf-leftAlign">
-            <fieldset>
+          <multi-step-form>
+            <fieldset class="formStep">
               <legend>Personal Details</legend>
               <form-input label="First Name" id="first_name" required></form-input>
               <form-input label="Last Name" id="last_name" required></form-input>
-              <form-input label="Date of Birth" id="dob" required></form-input>
+              <form-input label="Date of Birth" id="dob" type="date" required></form-input>
 
-              <form-input label="Email" id="email" required></form-input>
+              <form-input label="Email" id="email" type="email" required></form-input>
               <form-input label="Mailing address" id="adress" required></form-input>
-              <form-input label="Phone" id="phone" required></form-input>
+              
+              <div class= "formInput">
+                <label for="phone">Phone<em class="important">*</em></label>
+                <input label="Phone" id="phone" name="phone" type="tel" class="passport" required></input>
+              </div>
           </fieldset>
   
-          <fieldset>
+          <fieldset class="formStep">
               <legend>Emergency Contact</legend>
-              <form-input label="First Name" id="em_first_name" required></form-input>
-              <form-input label="Last Name" id="em_last_name" required></form-input>
-              <form-input label="Phone" id="em_phone" required></form-input>
+              <form-input label="Full Name" id="em_full_name" required></form-input>
+              <div class= "formInput">
+                <label for="phone">Phone<em class="important">*</em></label>
+                <input label="Phone" id="em_phone" name="em_phone" type="tel" required></input>
+              </div>
               <form-input label="Relationship" id="em_relationship" required></form-input>
-              <form-input label="Phone" id="em_phone" required></form-input>
 
-              <form-input label="Dive insurance provider" id="diprovider"></form-input>
-              <form-input label="Dive insurance phone" id="di_phone"></form-input>
-              <form-input label="Policy number" id="di_policy_nb"></form-input>
-              <form-input label="Other travel insurance details" id="di_other"></form-input>              
+              <fieldset>
+                <legend>Do you have a dive insurance?<em class="important">*</em></legend>
+                <p>
+                  <input name="di" type="radio" id="di_yes" value="true" required/>
+                  <label for="di_yes">Yes</label>
+                </p>
+                <p>
+                  <input name="di" type="radio" id="di_no" value="false"/>
+                  <label for="di_no">No</label>
+                </p>
+              </fieldset>
+              <fieldset id="di" class="flx-form">
+                <form-input label="Dive insurance provider" id="di_provider"></form-input>
+                <form-input label="Dive insurance phone" id="di_phone"></form-input>
+                <form-input label="Policy number" id="di_policy_nb"></form-input>
+                <form-input label="Other travel insurance details" id="di_other"></form-input>
+            </fieldset>        
           </fieldset>
 
-          <fieldset>
+          <fieldset class="formStep">
             <legend>Passport Information</legend>
-            <form-input label="Issuing Country" id="id_country" required></form-input>
+            <div class="formInput">
+              <label for="phone">Issuing Country<em class="important">*</em></label>
+              <select id="id_country" placeholder="Select a country..." required>
+                <option value="">Select a country...</option>
+                <option value="fr">France</option>
+                <option value="uk">United Kingdom</option>
+                <option value="us">United States</option>
+                <option value="ca">Canada</option>
+              </select>
+            </div>
             <form-input label="Passport number" id="id_nb" required></form-input>
 
-            <form-input label="Issue Date" id="id_iss_date" required></form-input>
-            <form-input label="Expiration date" id="id_exp_date" required></form-input>
+            <form-input label="Issue Date" id="id_iss_date" type="date" required></form-input>
+            <form-input label="Expiration date" id="id_exp_date" type="date" required></form-input>
           </fieldset>
 
-          <fieldset>
+          <fieldset class="formStep">
             <legend>UDC / MANGO INN RESORT TERMS AND CONDITIONS</legend>
             <?!= include_('src/udcTAndC') ?> 
           </fieldset>
 
-          <fieldset>
+          <fieldset class="formStep">
             <legend>UDC / MANGO INN RESORT TERMS AND CONDITIONS</legend>
             <?!= include_('src/udcTAndC') ?> 
           </fieldset>
-          </multistep-form>
+          </multi-step-form>
         </div>
       </form>
     </div>
@@ -152,8 +178,10 @@
     <?!= include_('src/components/utils') ?>
     <?!= include_('src/components/FormInput') ?>
     <?!= include_('src/components/FormTab') ?>
-
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+
+    <!-- Import signature Pad dependencies-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.min.js"></script>
     <?!= include_('src/signature/jquery.signaturepad.min') ?>
     <!-- jQuery signature Pad plugin: https://github.com/thread-pond/signature-pad/blob/main/documentation.md -->
@@ -167,5 +195,80 @@
         });
       });
     </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+
+    <link
+     rel="stylesheet"
+     href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/css/intlTelInput.min.css"
+      />
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/js/intlTelInputWithUtils.min.js"></script>
+
+    <script>
+    const $phoneInput = document.querySelector("#phone");
+    const $emPhoneInput = document.querySelector("#em_phone");
+    const itiOptions = {
+      initialCountry: "auto",
+      preferredCountries: ["us", "ca", "uk", "fr", "de", "hn", "nl", "be", "ch"],
+      geoIpLookup: _getLanguage,
+      formatAsYouType: true,
+      }
+
+    function _getLanguage(callback) {
+        const langCountryCode = navigator.languages
+            ? navigator.languages[0]
+            : navigator.language;
+
+        if (!langCountryCode) {
+            callback('us');
+            return;
+        }
+
+        try {
+            const lang = langCountryCode.split("-")[1].toLowerCase();
+            callback(lang);
+        } catch (error) {
+            callback(langCountryCode);
+        }
+    }
+
+    //TODO: reorder preferred languages list alphabetically
+    const phoneInputHandler = window.intlTelInput($phoneInput, itiOptions);
+    const emPhoneInputHandler = window.intlTelInput($emPhoneInput, itiOptions);
+
+    function process(event) {
+      event.preventDefault();
+
+      const phoneNumber = phoneInputHandler.getNumber();
+      console.log(phoneNumber);
+    }
+    </script>
+
+    <script>
+      $(document).ready(() => {
+          const $fieldToToggle = $("#di")
+          $fieldToToggle.hide();
+
+          $('input[type="radio"]').on("click", function() {
+            console.log($(this).val())
+            const inputValue = $(this).val() == "true"
+            inputValue ?  $fieldToToggle.show() : $fieldToToggle.hide();
+          });
+      }); 
+    </script>
+
+    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.4.1/dist/css/tom-select.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.4.1/dist/js/tom-select.base.min.js"></script>
+    <script>
+      new TomSelect("#id_country",{
+      create: true,
+      sortField: {
+        field: "text",
+        direction: "asc"
+      }
+    });
+    </script>
+    
+    
   </body>
 </html>
