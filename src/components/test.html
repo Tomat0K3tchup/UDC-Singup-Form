@@ -1,16 +1,19 @@
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/@placekit/autocomplete-js@latest/dist/placekit-autocomplete.min.css"
-/>
-<script src="https://cdn.jsdelivr.net/npm/@placekit/autocomplete-js@latest"></script>
+<form id="myForm">
+  <fieldset class>
+    <form-radio id="check1" options='[{"value": "true", "label": "Yes"}, {"value": "false", "label": "No"}]'>
 
-<input type="search" placeholder="Search place..." class="pka-input" id="placekit" />
-okok
+    <button type="submit">Submit</button>
+  </fieldset>
+</form>
 <script>
-  const pka = placekitAutocomplete('pk_V0nwVIf42oa6RoG9x5xmiZGembb2e1CKW/FsdzI47Tc=', {
-    target: '#placekit',
-    countrySelect: false,
-    type: 'street'
-    // other options...
+  const form = document.querySelector("#myForm");
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const formData = new FormData(form);
+    console.log(Object.fromEntries(formData));
   });
 </script>
+
+<?!= include_('src/components/FormInput') ?>
+<?!= include_('src/components/FormRadio') ?>
+

@@ -1,94 +1,132 @@
 <script type="module">
-import {LitElement, css, html} from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';
+  import {
+    LitElement,
+    css,
+    html,
+  } from "https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js";
 
-class MultiStepForm extends LitElement {
+  class MultiStepForm extends LitElement {
+    static formAssociated = true;
+    _internals;
 
     static styles = css`
-        :host {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 0 15%;
-            margin: 1rem 0;
-        }
+      :host {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 15%;
+        margin: 1rem 0;
+      }
 
-        button {
-            background-color: var(--dark-blue);
-            color: var(--main-accent-color);
-            font-size: 1.2rem;
-            font-weight: 900;
-            font-family: Montserrat, sans-serif;
-            text-transform: uppercase;
-            border-radius: var(--border-radius);
-            padding: 0.5rem
-        }
+      button {
+        flex-grow: 0;
+        background-color: var(--dark-blue);
+        color: var(--main-accent-color);
+        font-size: 1.2rem;
+        font-weight: 900;
+        font-family: Montserrat, sans-serif;
+        text-transform: uppercase;
+        border-radius: var(--border-radius);
+        padding: 0.5rem;
+      }
 
-        div {
-            display: flex;
-            justify-content: space-between;
-            margin: 2rem 0 0 0;
-            width: 100%;
-        }
+      div {
+        display: flex;
+        justify-content: space-between;
+        margin: 2rem 0 0 0;
+        width: 100%;
+        position: relative;
+      }
+
+      p {
+        position: absolute; /* Removes the text from the normal flow */
+        left: 50%; /* Positions the text horizontally in the middle */
+        transform: translateX(
+          -50%
+        ); /* Adjusts for the text's width to truly center it */
+      }
     `;
 
-    firstUpdated() {
-        super.firstUpdated();
-        
-        // Here we are selecting slotted fieldset, hence no renderRoot
-        this.$sets = this.querySelectorAll('fieldset.formStep');
-        this.totalSets = this.$sets.length;
-
-        this.renderRoot.querySelector("#mf-total").innerText = this.totalSets ?? '?';
-        this.current = 0;
-
-        this.$nextBtn = this.renderRoot.querySelector('#mf-next-btn');
-        this.$prevBtn = this.renderRoot.querySelector('#mf-prev-btn');
-        this.$currentSetNum = this.renderRoot.querySelector('#mf-current');
-
-        this.$sets.forEach(s => {
-            s.style.display='none';
-        });
-        this.updateDisplay();
-        this.render()
+    connectedCallback() {
+      super.connectedCallback();
+      this._internals = this.attachInternals();
+      if (!this._internals) {
+        console.error("ElementInternals could not be attached.");
+      }
     }
 
+    firstUpdated() {
+      super.firstUpdated();
+
+      // Here we are selecting slotted fieldset, hence no renderRoot
+      this.$sets = this.querySelectorAll("fieldset.formStep");
+      this.totalSets = this.$sets.length;
+
+      this.renderRoot.querySelector("#mf-total").innerText =
+        this.totalSets ?? "?";
+      this.current = 0;
+
+      this.$nextBtn = this.renderRoot.querySelector("#mf-next-btn");
+      this.$prevBtn = this.renderRoot.querySelector("#mf-prev-btn");
+      this.$currentSetNum = this.renderRoot.querySelector("#mf-current");
+
+      this.$sets.forEach((s) => {
+        s.style.display = "none";
+      });
+      this.updateDisplay();
+      this.render();
+    }
 
     nextSet() {
-        console.log('next');
-        if(this.current+1 == this.totalSets) return; 
-        this.current++;
-        this.updateDisplay();
+      if (this.current + 1 == this.totalSets)
+        return this._internals.form.requestSubmit();
+      this.current++;
+      this.updateDisplay();
     }
 
     prevSet() {
-        console.log('prev');
-        if(this.current == 0) return; 
-        this.current--;
-        this.updateDisplay();
+      if (this.current == 0) return;
+      this.current--;
+      this.updateDisplay();
     }
 
     updateDisplay() {
-        this.$sets.forEach((_, idx) => {
-            if(idx === this.current) this.$sets[idx].style.display = 'flex';
-            else this.$sets[idx].style.display = 'none';
-        });
-        this.$currentSetNum.innerText = this.current+1;
+      const prevBtnDisplay = this.current == 0 ? "hidden" : "visible";
+      this.$prevBtn.style.visibility = prevBtnDisplay;
+
+      const nextBtnText =
+        this.current == this.totalSets - 1 ? "Submit" : "Next";
+      this.$nextBtn.innerHTML = nextBtnText;
+
+      this.$sets.forEach(($set, idx) => {
+        if (idx === this.current) {
+          $set.style.display = "flex";
+
+          // const $firstInputOfSet = $set.querySelector("input, select, textarea");
+          // console.log(this.$sets[idx], $set)
+          // console.log(this.$firstInputOfSet)
+          //     if ($firstInputOfSet) {
+          //         $firstInputOfSet.focus();
+          //     }
+        } else $set.style.display = "none";
+      });
+      this.$currentSetNum.innerText = this.current + 1;
     }
 
-render() {
-    return html`
+    render() {
+      return html`
         <slot></slot>
         <div>
-            <button id="mf-prev-btn" @click=${this.prevSet}>Previous</button>
-            <p><span id="mf-current"></span> of <span id="mf-total">${this.totalSets}</span></p>
-            <button id="mf-next-btn" @click=${this.nextSet}>Next</button>
+          <button id="mf-prev-btn" @click=${this.prevSet}>Previous</button>
+          <p>
+            <span id="mf-current"></span> of
+            <span id="mf-total">${this.totalSets}</span>
+          </p>
+          <button id="mf-next-btn" @click=${this.nextSet}>Next</button>
         </div>
-    `;
-}   
+      `;
+    }
+  }
 
-}
-
-customElements.define('multi-step-form', MultiStepForm);
-
-
+  customElements.define("multi-step-form", MultiStepForm);
 </script>
