@@ -1,9 +1,0 @@
-<script>
-    function interpolate(template, params) {
-        const replaceTags = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '(': '%28', ')': '%29' };
-        const safeInnerHTML = text => text.toString().replace(/[&<>\(\)]/g, tag => replaceTags[tag] || tag);
-        const keys = Object.keys(params);
-        const keyVals = Object.values(params).map(safeInnerHTML);
-        return new Function(...keys, `return \`${template}\``)(...keyVals);
-    }
-</script>

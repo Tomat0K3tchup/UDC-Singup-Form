@@ -102,10 +102,11 @@
     --border-radius-xl: 0.6rem;
     --border-radius-2xl: 2rem;
     --border-radius-pill: 50rem;
+
+    --drop-shadow-size: 1.5rem;
   }
 
   body {
-    background-attachment: fixed;
     background: var(--main-bg-color);
     min-height: 100vh;
 
@@ -119,6 +120,9 @@
     -webkit-tap-highlight-color: transparent;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    display: flex;
+    justify-content: center;
   }
 
   input,
@@ -143,10 +147,10 @@
     font-family: Montserrat, sans-serif;
     text-transform: uppercase;
     border-radius: var(--border-radius);
-  } 
+  }
 
   input::invalid {
-	background-color: #04aa6d;
+    background-color: #04aa6d;
   }
 
   a {
@@ -155,7 +159,7 @@
     color: #3a6cae;
     text-decoration: none;
   }
-  
+
   a:hover {
     text-decoration: underline;
   }
@@ -167,15 +171,17 @@
   ol,
   ul {
     list-style-position: inside;
+    text-indent: -20px; /* key property */
+    margin-left: 20px; /* key property */
   }
 
   ol ul {
     list-style-type: disc;
     padding-left: 1.5rem;
-}
+  }
 
   .tAndCList > li {
-    margin-top: 0.5rem;
+    margin-top: 1.15rem;
   }
 
   .zf-split {
@@ -184,17 +190,24 @@
   }
 
   .formWidth {
-    margin: 2%;
+    margin: var(--drop-shadow-size) 0 0 0;
     width: 800px;
+    height: min-content;
   }
 
   .formDropShadow {
-    transform: translate(1.5rem, -1.5rem);
+    transform: translate(
+      var(--drop-shadow-size),
+      calc(-1 * var(--drop-shadow-size))
+    );
     background: var(--main-accent-color);
   }
 
-  .zf-templateWrapper {
-    transform: translate(-1.5rem, 1.5rem);;
+  .formWrapper {
+    transform: translate(
+      calc(-1 * var(--drop-shadow-size)),
+      var(--drop-shadow-size)
+    );
     background: #fff;
     overflow: hidden;
     -webkit-border-radius: var(--border-radius-lg);
@@ -239,17 +252,10 @@
     margin: 0;
     padding: 0.6rem 2rem;
   }
-  .zf-tempHeadContBdr .zf-frmTitle {
-    color: var(--main-accent-color);
-    margin: 0;
-    padding: 0;
-    font-size: 32px;
-	font-weight: 900;
-	text-transform: uppercase;
-  }
+
   .zf-tempHeadContBdr .zf-frmDesc {
     color: #dddddd;
-    font-size: 14px;
+    font-size: 0.9rem;
     font-weight: normal;
     margin: 0;
     padding: 0;
@@ -278,20 +284,31 @@
     color: #444;
   }
 
-  .zf-section h2, .zf-section h3 {
+  h1,
+  h2,
+  h3 {
     font-weight: 700;
     font-family: Montserrat, sans-serif;
   }
 
-  /* TODO: Remove section ?*/
-  .zf-section h2 {
-    font-size: 2rem;
-    background: var(--dark-blue);
-    width: auto;
+  h1,
+  h2 {
     color: var(--main-accent-color);
+    font-size: 2rem;
   }
 
-  .zf-section h3 {
+  h1 {
+    padding: 0.5rem 0 1rem 0;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    background: var(--dark-blue);
+    width: auto;
+  }
+
+  h3 {
     font-size: 1.5rem;
     color: var(--dark-blue);
   }
@@ -429,33 +446,59 @@
 
   .passport > .iti__dial-code {
     background: green;
-}
+  }
 
-  .formInput { 
+  .formInput {
     display: flex;
     flex-direction: column;
     width: 100%;
   }
 
   /* Override Tom select CSS */
-  div.ts-control {
-    border: 1px, solid,  #767676;
-    padding: 0.5rem 1rem ;
+  .countrySelect .optgroup-header {
+    font-weight: bold;
   }
 
-  div.ts-control, 
-  div.ts-dropdown,
-  div.ts-control input {
+  .countrySelect .optgroup .option {
+    padding: 0.5rem 1rem;
+  }
+
+  .countrySelect .ts-control {
+    border: 1px, solid, #767676;
+    padding: 0.5rem 1rem;
+  }
+
+  .countrySelect .ts-control,
+  .countrySelect .ts-dropdown,
+  .countrySelect .ts-control input {
     font-size: var(--body-font-size);
   }
 
-  /* div .ts-control > input {
-    color: #000000;
-    font-size: var(--body-font-size);
-  } */
-
-  /* Override ini plugin CSS */
-  div.iti > input {
+  /* Override iti plugin CSS */
+  .iti input {
     width: 100%;
   }
+
+  .iti input.iti__tel-input[type="tel"]:focus,
+  .iti button.iti__selected-country:focus {
+    outline: -webkit-focus-ring-color auto 1px;
+  }
+
+
+  /****************Medical Demo styling****************/
+
+  .box {
+    outline: 1px solid var(--main-bg-color);
+    outline-offset: 0.5rem;
+    display: none;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+  fieldset > p {
+    padding: 0.5rem 0 0 1rem;
+  }
+
 </style>

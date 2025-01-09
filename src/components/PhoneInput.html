@@ -1,52 +1,54 @@
 <link
-     rel="stylesheet"
-     href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css"
-   />
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css"
+/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 
 <div class="container">
-    <form id="login" onsubmit="process(event)">
-      <p>Enter your phone number:</p>
-      <input id="phone" type="tel" name="phone" />
-      <input type="submit" class="btn" value="Verify" />
-    </form>
+  <form id="login" onsubmit="process(event)">
+    <p>Enter your phone number:</p>
+    <input id="phone" type="tel" name="phone" />
+    <input type="submit" class="btn" value="Verify" />
+  </form>
 </div>
 
 <script>
-const $phoneInput = document.querySelector("#phone");
+  const $phoneInput = document.querySelector("#phone");
 
-function getLanguage(callback) {
+  function getLanguage(callback) {
     const langCountryCode = navigator.languages
-        ? navigator.languages[0]
-        : navigator.language;
+      ? navigator.languages[0]
+      : navigator.language;
 
     if (!langCountryCode) {
-        callback('us');
-        return;
+      callback("us");
+      return;
     }
 
     try {
-        const lang = langCountryCode.split("-")[1].toLowerCase();
-        callback(lang);
+      const lang = langCountryCode.split("-")[1].toLowerCase();
+      callback(lang);
     } catch (error) {
-        callback(langCountryCode);
+      callback(langCountryCode);
     }
-}
+  }
 
-//TODO: reorder preferred languages list alphabetically
-const phoneInputHandler = window.intlTelInput($phoneInput, {
- initialCountry: "auto",
- preferredCountries: ["us", "ca", "uk", "fr", "de", "hn", "nl", "be", "ch"],
- geoIpLookup: getLanguage,
- formatAsYouType: true,
- loadUtils: () => import("https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/js/utils.js"),
-});
+  //TODO: reorder preferred languages list alphabetically
+  const phoneInputHandler = window.intlTelInput($phoneInput, {
+    initialCountry: "auto",
+    preferredCountries: ["us", "ca", "uk", "fr", "de", "hn", "nl", "be", "ch"],
+    geoIpLookup: getLanguage,
+    formatAsYouType: true,
+    loadUtils: () =>
+      import(
+        "https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/js/utils.js"
+      ),
+  });
 
+  function process(event) {
+    event.preventDefault();
 
-function process(event) {
- event.preventDefault();
-
- const phoneNumber = phoneInputHandler.getNumber();
- console.log(phoneNumber);
-}
+    const phoneNumber = phoneInputHandler.getNumber();
+    console.log(phoneNumber);
+  }
 </script>

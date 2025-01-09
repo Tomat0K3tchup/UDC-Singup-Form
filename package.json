@@ -6,6 +6,7 @@
     "prettier": "^3.4.2"
   },
   "scripts": {
-    "start": "npx clasp push -w"
+    "start": "npx clasp push -w",
+    "prettier": "npx prettier -w ."
   }
 }

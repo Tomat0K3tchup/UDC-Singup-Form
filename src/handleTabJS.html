@@ -4,15 +4,15 @@
 
   // This function will display the specified tab of the form ...
   function showTab(n) {
-    var tabs = $(".tab")
-    tabs.eq(n).css({ display: "block" })
+    var tabs = $(".tab");
+    tabs.eq(n).css({ display: "block" });
 
     // ... and fix the Previous/Next buttons:
-    const prevBtnDisplay = {display: n == 0 ? "none" : "inline"}
-    $("#prevBtn").css(prevBtnDisplay)
+    const prevBtnDisplay = { display: n == 0 ? "none" : "inline" };
+    $("#prevBtn").css(prevBtnDisplay);
 
-    const nextBtnText= n == tabs.length - 1? "Submit" : "Next"
-    $("#nextBtn").text(nextBtnText)
+    const nextBtnText = n == tabs.length - 1 ? "Submit" : "Next";
+    $("#nextBtn").text(nextBtnText);
 
     // ... and run a function that displays the correct step indicator:
     fixStepIndicator(n);
@@ -70,14 +70,17 @@
 
   //TODO: handle visited
   function fixStepIndicator(n) {
-    const steps = $(".step")
+    const steps = $(".step");
     steps.removeClass("active");
-    steps.eq(n).addClass(" active")
+    steps.eq(n).addClass(" active");
   }
 
   function populateLiability() {
-    const fullName = $("#first_name").val()?.toUpperCase() + " " + $("#last_name").val()?.toUpperCase() ??  "";
-    $("#liability").text(fullName)
-    $("#sig-typed-name").val(fullName).trigger( "blur" )
+    const fullName =
+      $("#first_name").val()?.toUpperCase() +
+        " " +
+        $("#last_name").val()?.toUpperCase() ?? "";
+    $("#liability").text(fullName);
+    $("#sig-typed-name").val(fullName).trigger("blur");
   }
 </script>

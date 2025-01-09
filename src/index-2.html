@@ -22,13 +22,12 @@
         }
       }
       window.addEventListener("load", preventFormSubmit);
-      window.addEventListener("DOMContentLoaded", () => showTab(0));
 
       function handleFormSubmit(formObject) {
         var formData = new FormData(formObject);
         var payload = Object.fromEntries(formData);
-        delete payload.output;
-        payload["signature"] = $(".sigPad").signaturePad().getSignatureImage();
+        // delete payload.output;
+        // payload["signature"] = $(".sigPad").signaturePad().getSignatureImage();
 
         console.log(payload);
         google.script.run
@@ -39,14 +38,10 @@
       function successHandler(url) {
         alert("Success!");
       }
-
-      function showAlert() {
-        alert("I was blured");
-      }
     </script>
 
   </head>
-  <body class="zf-section">
+  <body>
     <div class="formWidth formDropShadow">
       <form
         name="form"
@@ -54,29 +49,27 @@
         id="form"
         onsubmit="handleFormSubmit(this)"
       >
-        <div class="zf-templateWrapper">
-
+        <div class="formWrapper">
           <!-- Template Header Starts Here -->
             <div class="zf-tempHeadContBdr">
-              <h2 class="zf-frmTitle"><em>UDC check-in form</em></h2>
-              <p class="zf-frmDesc">Please give accurate information.</p>
-              <div class="zf-clearBoth"></div>
+              <h1><em>UDC check-in form</em></h1>
+              <!-- <p class="zf-frmDesc">Please give accurate information.</p> -->
             </div>
           <!-- Template Header Ends Here -->
 
           <multi-step-form>
-            <!-- <fieldset class="formStep">
+            <fieldset class="formStep">
               <legend>Personal Details</legend>
               <form-input label="First Name" id="first_name" required></form-input>
               <form-input label="Last Name" id="last_name" required></form-input>
               <form-input label="Date of Birth" id="dob" type="date" required></form-input>
 
               <form-input label="Email" id="email" type="email" required></form-input>
-              <form-input label="Mailing address" id="adress" required></form-input>
+              <form-input label="Mailing address" id="address" required></form-input>
               
               <div class= "formInput">
                 <label for="phone">Phone<em class="important">*</em></label>
-                <input label="Phone" id="phone" name="phone" type="tel" class="passport" required></input>
+                <input label="Phone" id="phone" name="phone" type="tel" class="passport" required/>
               </div>
             </fieldset>
     
@@ -85,7 +78,7 @@
                 <form-input label="Full Name" id="em_full_name" required></form-input>
                 <div class= "formInput">
                   <label for="phone">Phone<em class="important">*</em></label>
-                  <input label="Phone" id="em_phone" name="em_phone" type="tel" required></input>
+                  <input label="Phone" id="em_phone" name="em_phone" type="tel" required/>
                 </div>
                 <form-input label="Relationship" id="em_relationship" required></form-input>
 
@@ -102,7 +95,6 @@
                 </fieldset>
                 <fieldset id="di" class="flx-form">
                   <form-input label="Dive insurance provider" id="di_provider"></form-input>
-                  <form-input label="Dive insurance phone" id="di_phone"></form-input>
                   <form-input label="Policy number" id="di_policy_nb"></form-input>
                   <form-input label="Other travel insurance details" id="di_other"></form-input>
               </fieldset>        
@@ -111,29 +103,24 @@
             <fieldset class="formStep">
               <legend>Passport Information</legend>
               <div class="formInput">
-                <label for="phone">Issuing Country<em class="important">*</em></label>
-                <select id="id_country" placeholder="Select a country..." required>
-                  <option value="">Select a country...</option>
-                  <option value="fr">France</option>
-                  <option value="uk">United Kingdom</option>
-                  <option value="us">United States</option>
-                  <option value="ca">Canada</option>
-                </select>
+                <label for="id_country">Issuing Country<em class="important">*</em></label>
+                <?!= include_('src/components/CountrySelect') ?> 
               </div>
               <form-input label="Passport number" id="id_nb" required></form-input>
 
               <form-input label="Issue Date" id="id_iss_date" type="date" required></form-input>
               <form-input label="Expiration date" id="id_exp_date" type="date" required></form-input>
-            </fieldset> -->
+            </fieldset>
 
             <fieldset class="formStep">
               <legend display="none">UDC and Mango Inn Resort Terms and Conditions</legend>
               <?!= include_('src/udcTAndC-2') ?> 
+              <form-input label="I have read, understood and I agree with the terms and conditions." id="id_t_c" type="checkbox" required></form-input>
             </fieldset>
 
-            <fieldset class="formStep">
+            <!-- <fieldset class="formStep">
               <legend>UDC / MANGO INN RESORT TERMS AND CONDITIONS</legend>
-              <?!= include_('src/udcTAndC') ?> 
+              <?!= include_('src/udcTAndC') ?>  -->
             </fieldset>
           </multi-step-form>
         </div>
@@ -210,11 +197,11 @@
     const itiOptions = {
       initialCountry: "auto",
       preferredCountries: ["us", "ca", "uk", "fr", "de", "hn", "nl", "be", "ch"],
-      geoIpLookup: _getLanguage,
+      geoIpLookup: _getCountryFromBrowser,
       formatAsYouType: true,
       }
 
-    function _getLanguage(callback) {
+    function _getCountryFromBrowser(callback) {
         const langCountryCode = navigator.languages
             ? navigator.languages[0]
             : navigator.language;
@@ -250,7 +237,6 @@
           $fieldToToggle.hide();
 
           $('input[type="radio"]').on("click", function() {
-            console.log($(this).val())
             const inputValue = $(this).val() == "true"
             inputValue ?  $fieldToToggle.show() : $fieldToToggle.hide();
           });
@@ -261,7 +247,6 @@
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.4.1/dist/js/tom-select.base.min.js"></script>
     <script>
       new TomSelect("#id_country",{
-      create: true,
       sortField: {
         field: "text",
         direction: "asc"

@@ -32,6 +32,5 @@ function createLastRowDocument() {
     return dataObject;
   }, {});
 
-  // console.log(data)
   createCustomerDoc(data);
 }
