@@ -8,22 +8,25 @@ const SHEET_NAME = "Sheet2";
 
 /** Endoint router of the webapp. As of now, the only route served is the default. It serves index.html*/
 function doGet(e) {
-
   let pageInfo = {
     fileName: "src/index-2",
-    title: "UDC signup form"
-  }
+    title: "UDC signup form",
+  };
 
-  if (e.pathInfo == 'test') {
+  if (e.pathInfo == "test") {
     pageInfo.fileName = "src/components/test";
     pageInfo.title = "UDC test";
   }
 
-  if (e.pathInfo == 'admin') {
+  if (e.pathInfo == "demo") {
+    pageInfo.fileName = "src/demo-medical";
+    pageInfo.title = "UDC Demo Medical";
+  }
+
+  if (e.pathInfo == "admin") {
     pageInfo.fileName = "src/reception";
     pageInfo.title = "UDC admin reception form";
   }
-
 
   // var params = JSON.stringify(e);
   // return ContentService.createTextOutput(params).setMimeType(ContentService.MimeType.JSON);
@@ -45,8 +48,6 @@ function processForm(formObject) {
 
   try {
     const doc = SpreadsheetApp.openById(SPREADSHEET_ID);
-
-    console.log(doc.getName());
     const sheet = doc.getSheetByName(SHEET_NAME);
 
     const headers = sheet
@@ -71,6 +72,15 @@ function processForm(formObject) {
   } finally {
     lock.releaseLock();
   }
+}
+
+function handleFormResponseMedical(formObject) {
+  Logger.log(formObject)
+
+  const data = transformDataFromMedical(formObject)
+  Logger.log(data)
+  generateMedicalPDF(data)
+  Logger.log("Success!")
 }
 
 /**
