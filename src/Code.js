@@ -6,7 +6,7 @@
 const SPREADSHEET_ID = "1mO4clKaXB5KSpBq7cF8CDWtWiNadSouvTPqC83YhegY";
 const SHEET_NAME = "Sheet2";
 
-/** Endoint router of the webapp. As of now, the only route served is the default. It serves index.html*/
+/** Endpoint router of the webapp. As of now, the only route served is the default. It serves index.html*/
 function doGet(e) {
   let pageInfo = {
     fileName: "src/index-2",
@@ -73,12 +73,8 @@ function processForm(formObject) {
 }
 
 function handleFormResponseMedical(formObject) {
-  Logger.log(formObject);
-
   const data = transformDataFromMedical(formObject);
-  Logger.log(data);
   generateMedicalPDF(data);
-  Logger.log("Success!");
 }
 
 /**

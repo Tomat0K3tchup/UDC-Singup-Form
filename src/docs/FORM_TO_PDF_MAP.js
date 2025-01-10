@@ -43,4 +43,12 @@ const FORM_TO_PDF_MAP = {
   qx: { true: "Yes_40", false: "No_41" },
   qx: { true: "Yes_41", false: "No_42" },
   qx: { true: "Yes_42", false: "No_43" },
+  participantName: [
+    "Participant Name Print",
+    "Participant",
+    "Participant Name",
+    "Participant Name2",
+  ],
+  dob: ["Birthdate", "Birthdate2"],
+  date: "Date ddmmyyyy",
 };
