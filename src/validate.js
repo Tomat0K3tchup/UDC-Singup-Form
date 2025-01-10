@@ -80,10 +80,7 @@ function zf_ValidCheck() {
           }
         } else if (checkType == "c3") {
           // No I18N
-          if (
-            !zf_ValidateCurrency(fieldObj) ||
-            !zf_ValidateDecimalLength(fieldObj, 10)
-          ) {
+          if (!zf_ValidateCurrency(fieldObj) || !zf_ValidateDecimalLength(fieldObj, 10)) {
             isValid = false;
             fieldObj.focus();
             zf_ShowErrorMsg(zf_FieldArray[ind]);
@@ -268,11 +265,7 @@ function zf_ValidatePhone(inpElem) {
   } else if (phoneFormat === 2) {
     var InpMaxlength = inpElem.getAttribute("maxlength");
     var USARexp = ZFPhoneRegex.PHONE_USA_REG;
-    if (
-      fieldInpVal != "" &&
-      USARexp.test(fieldInpVal) &&
-      fieldInpVal.length == InpMaxlength
-    ) {
+    if (fieldInpVal != "" && USARexp.test(fieldInpVal) && fieldInpVal.length == InpMaxlength) {
       toReturn = true;
     } else if (fieldInpVal == "") {
       toReturn = true;
@@ -287,9 +280,7 @@ function zf_ValidateSignature(objElem) {
   var linkName = objElem.getAttribute("compname");
   var canvasElem = document.getElementById("drawingCanvas-" + linkName);
   var isValidSign = zf_IsSignaturePresent(objElem, linkName, canvasElem);
-  var hiddenSignInputElem = document.getElementById(
-    "hiddenSignInput-" + linkName,
-  );
+  var hiddenSignInputElem = document.getElementById("hiddenSignInput-" + linkName);
   if (isValidSign) {
     hiddenSignInputElem.value = canvasElem.toDataURL();
   } else {

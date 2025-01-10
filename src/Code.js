@@ -50,9 +50,7 @@ function processForm(formObject) {
     const doc = SpreadsheetApp.openById(SPREADSHEET_ID);
     const sheet = doc.getSheetByName(SHEET_NAME);
 
-    const headers = sheet
-      .getRange(1, 1, 1, sheet.getLastColumn())
-      .getValues()[0];
+    const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
     const nextRow = sheet.getLastRow() + 1;
 
     const newRow = headers.map((header) => {
@@ -75,12 +73,12 @@ function processForm(formObject) {
 }
 
 function handleFormResponseMedical(formObject) {
-  Logger.log(formObject)
+  Logger.log(formObject);
 
-  const data = transformDataFromMedical(formObject)
-  Logger.log(data)
-  generateMedicalPDF(data)
-  Logger.log("Success!")
+  const data = transformDataFromMedical(formObject);
+  Logger.log(data);
+  generateMedicalPDF(data);
+  Logger.log("Success!");
 }
 
 /**

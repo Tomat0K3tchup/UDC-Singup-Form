@@ -4,10 +4,19 @@
     <meta charset="UTF-8" />
     <title>UDC check-in form</title>
     <!-- <link href="css/form.css" rel="stylesheet" type="text/css"> -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+      integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
     <?!= include_('src/stylesheet') ?> <?!= include_('src/handleTabJS') ?>
 
@@ -24,41 +33,33 @@
       window.addEventListener("load", preventFormSubmit);
 
       function handleFormSubmit(formObject) {
-        console
         var formData = new FormData(formObject);
         var payload = Object.fromEntries(formData);
         // // delete payload.output;
         // // payload["signature"] = $(".sigPad").signaturePad().getSignatureImage();
 
         console.log(payload);
-        google.script.run
-          .withSuccessHandler(successHandler)
-          .handleFormResponseMedical(payload);
+        google.script.run.withSuccessHandler(successHandler).handleFormResponseMedical(payload);
       }
 
       function successHandler(url) {
         alert("Success!");
       }
     </script>
-
   </head>
   <body>
     <div class="formWidth formDropShadow">
-      <form
-        name="form"
-        enctype="multipart/form-data"
-        id="form"
-        onsubmit="handleFormSubmit(this)"
-      >
+      <form name="form" enctype="multipart/form-data" id="form" onsubmit="handleFormSubmit(this)">
         <div class="formWrapper">
           <!-- Template Header Starts Here -->
-            <div class="zf-tempHeadContBdr">
-              <h1><em>Diver Medical</em></h1>
-              <p class="zf-frmDesc">
-                Complete this questionnaire as a prerequisite to a recreational scuba diving or freediving course.
-                Note to women: If you are pregnant, or attempting to become pregnant, do not dive.
-              </p>
-            </div>
+          <div class="zf-tempHeadContBdr">
+            <h1><em>Diver Medical</em></h1>
+            <p class="zf-frmDesc">
+              Complete this questionnaire as a prerequisite to a recreational scuba diving or
+              freediving course. Note to women: If you are pregnant, or attempting to become
+              pregnant, do not dive.
+            </p>
+          </div>
           <!-- Template Header Ends Here -->
 
           <multi-step-form>
@@ -68,91 +69,100 @@
               <form-input label="Last Name" id="last_name" required></form-input>
               <form-input label="Date of Birth" id="dob" type="date" required></form-input>
             </fieldset>
-    
+
             <fieldset class="formStep">
+              <fieldset>
+                <!-- Q1 -->
+                <legend>
+                  I have had problems with my lungs, breathing, heart and/or blood affecting my
+                  normal physical or mental performance.<em class="important">*</em>
+                </legend>
+                <p>
+                  <input name="q1" type="radio" id="q1_yes" value="true" required />
+                  <label for="q1_yes">Yes</label>
+                </p>
+                <p>
+                  <input name="q1" type="radio" id="q1_no" value="false" />
+                  <label for="q1_no">No</label>
+                </p>
+              </fieldset>
+              <fieldset id="q1" class="flx-form box">
+                <!-- Box A: If Q1 = true -->
+                <legend class="bold">I have/have had<em class="important">*</em></legend>
                 <fieldset>
-                  <!-- Q1 -->
-                  <legend>I have had problems with my lungs, breathing, heart and/or blood affecting my normal physical or mental performance.<em class="important">*</em></legend>
+                  <!-- Q1.1 -->
+                  <legend>
+                    Chest surgery, heart surgery, heart valve surgery, an implantable medical device
+                    (eg, stent, pacemaker, neurostimulator), pneumothorax, and/or chronic lung
+                    disease.<em class="important">*</em>
+                  </legend>
                   <p>
-                    <input name="q1" type="radio" id="q1_yes" value="true" required/>
-                    <label for="q1_yes">Yes</label>
+                    <input name="q1_1" type="radio" id="q1_1_yes" value="true" required />
+                    <label for="q1_1_yes">Yes</label>
                   </p>
                   <p>
-                    <input name="q1" type="radio" id="q1_no" value="false"/>
-                    <label for="q1_no">No</label>
+                    <input name="q1_1" type="radio" id="q1_1_no" value="false" />
+                    <label for="q1_1_no">No</label>
                   </p>
                 </fieldset>
-                <fieldset id="q1" class="flx-form box">
-                  <!-- Box A: If Q1 = true -->
-                  <legend class="bold">I have/have had<em class="important">*</em></legend>
-                  <fieldset>
-                    <!-- Q1.1 -->
-                    <legend>Chest surgery, heart surgery, heart valve surgery, an implantable medical device (eg, stent, pacemaker, neurostimulator), pneumothorax,
-                      and/or chronic lung disease.<em class="important">*</em></legend>
-                    <p>
-                      <input name="q1_1" type="radio" id="q1_1_yes" value="true" required/>
-                      <label for="q1_1_yes">Yes</label>
-                    </p>
-                    <p>
-                      <input name="q1_1" type="radio" id="q1_1_no" value="false"/>
-                      <label for="q1_1_no">No</label>
-                    </p>
-                  </fieldset>
 
-                  <fieldset>
-                    <!-- Q1.2 -->
-                    <legend>Asthma, wheezing, severe allergies, hay fever or congested airways within the last 12 months that limits my physical activity/exercise.<em class="important">*</em></legend>
-                    <p>
-                      <input name="q1_2" type="radio" id="q1_2_yes" value="true" required/>
-                      <label for="q1_2_yes">Yes</label>
-                    </p>
-                    <p>
-                      <input name="q1_2" type="radio" id="q1_2_no" value="false"/>
-                      <label for="q1_2_no">No</label>
-                    </p>
-                  </fieldset>
+                <fieldset>
+                  <!-- Q1.2 -->
+                  <legend>
+                    Asthma, wheezing, severe allergies, hay fever or congested airways within the
+                    last 12 months that limits my physical activity/exercise.<em class="important"
+                      >*</em
+                    >
+                  </legend>
+                  <p>
+                    <input name="q1_2" type="radio" id="q1_2_yes" value="true" required />
+                    <label for="q1_2_yes">Yes</label>
+                  </p>
+                  <p>
+                    <input name="q1_2" type="radio" id="q1_2_no" value="false" />
+                    <label for="q1_2_no">No</label>
+                  </p>
+                </fieldset>
               </fieldset>
-              
+
               <fieldset>
                 <!-- Q2 -->
                 <legend>I am over 45 years of age.<em class="important">*</em></legend>
                 <p>
-                  <input name="q2" type="radio" id="q2_yes" value="true" required/>
+                  <input name="q2" type="radio" id="q2_yes" value="true" required />
                   <label for="q2_yes">Yes</label>
                 </p>
                 <p>
-                  <input name="q2" type="radio" id="q2_no" value="false"/>
+                  <input name="q2" type="radio" id="q2_no" value="false" />
                   <label for="q2_no">No</label>
                 </p>
               </fieldset>
             </fieldset>
-
           </multi-step-form>
         </div>
       </form>
     </div>
 
     <!-- Import custom components -->
-    <?!= include_('src/components/utils') ?>
-    <?!= include_('src/components/FormInput') ?>
-    <?!= include_('src/components/FormTab') ?>
-    
+    <?!= include_('src/components/utils') ?> <?!= include_('src/components/FormInput') ?> <?!=
+    include_('src/components/FormTab') ?>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
     <script>
       $(document).ready(() => {
-          // const $fieldToToggle = $("#di")
-          // $fieldToToggle.hide();
+        // const $fieldToToggle = $("#di")
+        // $fieldToToggle.hide();
 
-          $('input[type="radio"]').on("click", function() {
-            const targetName = $(this).attr("name")
-            const $fieldToToggle = $("#" + targetName)
+        $('input[type="radio"]').on("click", function () {
+          const targetName = $(this).attr("name");
+          const $fieldToToggle = $("#" + targetName);
 
-            if ($fieldToToggle) {
-              const inputValue = $(this).val() == "true"
-              inputValue ?  $fieldToToggle.show() : $fieldToToggle.hide();
-            }
-          });
-      }); 
+          if ($fieldToToggle) {
+            const inputValue = $(this).val() == "true";
+            inputValue ? $fieldToToggle.show() : $fieldToToggle.hide();
+          }
+        });
+      });
     </script>
   </body>
 </html>

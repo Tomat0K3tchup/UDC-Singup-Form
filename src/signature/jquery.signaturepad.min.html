@@ -27,8 +27,7 @@
         typeItCurrentFontSize = typeItDefaultFontSize,
         typeItNumChars = 0;
       function clearMouseLeaveTimeout() {
-        clearTimeout(mouseLeaveTimeout),
-          (mouseButtonDown = mouseLeaveTimeout = !1);
+        clearTimeout(mouseLeaveTimeout), (mouseButtonDown = mouseLeaveTimeout = !1);
       }
       function drawLine(e, newYOffset) {
         var offset, newX, newY;
@@ -41,8 +40,7 @@
             void 0 !== e.targetTouches
               ? ((newX = Math.floor(e.targetTouches[0].pageX - offset.left)),
                 Math.floor(e.targetTouches[0].pageY - offset.top))
-              : ((newX = Math.floor(e.pageX - offset.left)),
-                Math.floor(e.pageY - offset.top))),
+              : ((newX = Math.floor(e.pageX - offset.left)), Math.floor(e.pageY - offset.top))),
           previous.x === newX && previous.y === newY)
         )
           return !0;
@@ -58,9 +56,7 @@
           output.push({ lx: newX, ly: newY, mx: previous.x, my: previous.y }),
           (previous.x = newX),
           (previous.y = newY),
-          settings.onDraw &&
-            "function" == typeof settings.onDraw &&
-            settings.onDraw.apply(self);
+          settings.onDraw && "function" == typeof settings.onDraw && settings.onDraw.apply(self);
       }
       function stopDrawingWrapper() {
         stopDrawing();
@@ -94,10 +90,7 @@
                 (canvasContext.lineWidth = settings.lineWidth),
                 (canvasContext.strokeStyle = settings.lineColour),
                 canvasContext.moveTo(settings.lineMargin, settings.lineTop),
-                canvasContext.lineTo(
-                  element.width - settings.lineMargin,
-                  settings.lineTop,
-                ),
+                canvasContext.lineTo(element.width - settings.lineMargin, settings.lineTop),
                 canvasContext.stroke(),
                 canvasContext.closePath();
             })(),
@@ -147,10 +140,7 @@
           clearCanvas(),
           canvas.each(function () {
             this.addEventListener("touchstart", function (e) {
-              e.preventDefault(),
-                (mouseButtonDown = !0),
-                initDrawEvents(e),
-                startDrawing(e, this);
+              e.preventDefault(), (mouseButtonDown = !0), initDrawEvents(e), startDrawing(e, this);
             });
           }),
           canvas.bind("mousedown.signaturepad", function (e) {
@@ -212,15 +202,10 @@
           cleanedVal = $.trim(val.replace(/>/g, "&gt;").replace(/</g, "&lt;")),
           oldLength = typeItNumChars,
           edgeOffset = 0.5 * typeItCurrentFontSize;
-        if (
-          ((typeItNumChars = cleanedVal.length),
-          typed.html(cleanedVal),
-          cleanedVal)
-        ) {
+        if (((typeItNumChars = cleanedVal.length), typed.html(cleanedVal), cleanedVal)) {
           if (oldLength < typeItNumChars && typed.outerWidth() > element.width)
             for (; typed.outerWidth() > element.width; )
-              typeItCurrentFontSize--,
-                typed.css("font-size", typeItCurrentFontSize + "px");
+              typeItCurrentFontSize--, typed.css("font-size", typeItCurrentFontSize + "px");
           if (
             typeItNumChars < oldLength &&
             typed.outerWidth() + edgeOffset < element.width &&
@@ -232,8 +217,7 @@
               typeItCurrentFontSize < typeItDefaultFontSize;
 
             )
-              typeItCurrentFontSize++,
-                typed.css("font-size", typeItCurrentFontSize + "px");
+              typeItCurrentFontSize++, typed.css("font-size", typeItCurrentFontSize + "px");
         } else typed.css("font-size", typeItDefaultFontSize + "px");
       }
       function validateForm() {
@@ -242,38 +226,29 @@
           onBeforeArguments = [context, settings],
           onErrorArguments = [errors, context, settings];
         return (
-          settings.onBeforeValidate &&
-          "function" == typeof settings.onBeforeValidate
+          settings.onBeforeValidate && "function" == typeof settings.onBeforeValidate
             ? settings.onBeforeValidate.apply(self, onBeforeArguments)
             : function (context, settings) {
                 $("p." + settings.errorClass, context).remove(),
                   context.removeClass(settings.errorClass),
                   $("input, label", context).removeClass(settings.errorClass);
               }.apply(self, onBeforeArguments),
-          settings.drawOnly &&
-            output.length < 1 &&
-            (valid = !(errors.drawInvalid = !0)),
-          "" === $(settings.name, context).val() &&
-            (valid = !(errors.nameInvalid = !0)),
+          settings.drawOnly && output.length < 1 && (valid = !(errors.drawInvalid = !0)),
+          "" === $(settings.name, context).val() && (valid = !(errors.nameInvalid = !0)),
           settings.onFormError && "function" == typeof settings.onFormError
             ? settings.onFormError.apply(self, onErrorArguments)
             : function (errors, context, settings) {
                 errors.nameInvalid &&
                   (context.prepend(
-                    [
-                      '<p class="',
-                      settings.errorClass,
-                      '">',
-                      settings.errorMessage,
-                      "</p>",
-                    ].join(""),
+                    ['<p class="', settings.errorClass, '">', settings.errorMessage, "</p>"].join(
+                      "",
+                    ),
                   ),
                   $(settings.name, context).focus(),
                   $(settings.name, context).addClass(settings.errorClass),
-                  $(
-                    "label[for=" + $(settings.name).attr("id") + "]",
-                    context,
-                  ).addClass(settings.errorClass)),
+                  $("label[for=" + $(settings.name).attr("id") + "]", context).addClass(
+                    settings.errorClass,
+                  )),
                   errors.drawInvalid &&
                     context.prepend(
                       [
@@ -310,57 +285,38 @@
         signaturePad: "2.5.2",
         init: function () {
           parseFloat(
-            (/CPU.+OS ([0-9_]{3}).*AppleWebkit.*Mobile/i.exec(
-              navigator.userAgent,
-            ) || [0, "4_2"])[1].replace("_", "."),
+            (/CPU.+OS ([0-9_]{3}).*AppleWebkit.*Mobile/i.exec(navigator.userAgent) || [
+              0,
+              "4_2",
+            ])[1].replace("_", "."),
           ) < 4.1 &&
             (($.fn.Oldoffset = $.fn.offset),
             ($.fn.offset = function () {
               var result = $(this).Oldoffset();
-              return (
-                (result.top -= window.scrollY),
-                (result.left -= window.scrollX),
-                result
-              );
+              return (result.top -= window.scrollY), (result.left -= window.scrollX), result;
             })),
-            $(settings.typed, context).bind(
-              "selectstart.signaturepad",
-              function (e) {
-                return $(e.target).is(":input");
-              },
-            ),
+            $(settings.typed, context).bind("selectstart.signaturepad", function (e) {
+              return $(e.target).is(":input");
+            }),
             canvas.bind("selectstart.signaturepad", function (e) {
               return $(e.target).is(":input");
             }),
-            !element.getContext &&
-              FlashCanvas &&
-              FlashCanvas.initElement(element),
+            !element.getContext && FlashCanvas && FlashCanvas.initElement(element),
             element.getContext &&
               ((canvasContext = element.getContext("2d")),
               $(settings.sig, context).show(),
               settings.displayOnly ||
                 (settings.drawOnly ||
-                  ($(settings.name, context).bind(
-                    "keyup.signaturepad",
-                    function () {
-                      type($(this).val());
-                    },
-                  ),
-                  $(settings.name, context).bind(
-                    "blur.signaturepad",
-                    function () {
-                      type($(this).val());
-                    },
-                  ),
-                  $(settings.drawIt, context).bind(
-                    "click.signaturepad",
-                    function (e) {
-                      e.preventDefault(), drawIt();
-                    },
-                  )),
-                settings.drawOnly || "drawIt" === settings.defaultAction
-                  ? drawIt()
-                  : typeIt(),
+                  ($(settings.name, context).bind("keyup.signaturepad", function () {
+                    type($(this).val());
+                  }),
+                  $(settings.name, context).bind("blur.signaturepad", function () {
+                    type($(this).val());
+                  }),
+                  $(settings.drawIt, context).bind("click.signaturepad", function (e) {
+                    e.preventDefault(), drawIt();
+                  })),
+                settings.drawOnly || "drawIt" === settings.defaultAction ? drawIt() : typeIt(),
                 settings.validateFields &&
                   ($(selector).is("form")
                     ? $(selector).bind("submit.signaturepad", function () {
@@ -404,11 +360,8 @@
             (tmpCanvas.width = element.width),
             (tmpCanvas.height = element.height),
             document.body.appendChild(tmpCanvas),
-            !tmpCanvas.getContext &&
-              FlashCanvas &&
-              FlashCanvas.initElement(tmpCanvas),
-            ((tmpContext = tmpCanvas.getContext("2d")).fillStyle =
-              settings.bgColour),
+            !tmpCanvas.getContext && FlashCanvas && FlashCanvas.initElement(tmpCanvas),
+            ((tmpContext = tmpCanvas.getContext("2d")).fillStyle = settings.bgColour),
             tmpContext.fillRect(0, 0, element.width, element.height),
             (tmpContext.lineWidth = settings.penWidth),
             (tmpContext.strokeStyle = settings.penColour),

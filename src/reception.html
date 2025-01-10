@@ -33,9 +33,7 @@
         payload["signature"] = $(".sigPad").signaturePad().getSignatureImage();
 
         console.log(payload);
-        google.script.run
-          .withSuccessHandler(successHandler)
-          .processForm(payload);
+        google.script.run.withSuccessHandler(successHandler).processForm(payload);
       }
 
       function successHandler(url) {
@@ -54,12 +52,7 @@
     <!-- Change or deletion of the name attributes in the input tag will lead to empty values on record submission -->
 
     <div class="zf-templateWidth">
-      <form
-        name="form"
-        enctype="multipart/form-data"
-        id="form"
-        onsubmit="handleFormSubmit(this)"
-      >
+      <form name="form" enctype="multipart/form-data" id="form" onsubmit="handleFormSubmit(this)">
         <!-- <input type="hidden" name="zf_referrer_name" value="">
           <!-- To Track referrals , place the referrer name within the " " in the above hidden input field -->
         <!-- <input type="hidden" name="zf_redirect_url" value=""> -->
@@ -221,11 +214,7 @@
                       </span>
                       <div class="zf-clearBoth"></div>
                     </div>
-                    <p
-                      id="Radio1_error"
-                      class="zf-errorMessage"
-                      style="display: none"
-                    >
+                    <p id="Radio1_error" class="zf-errorMessage" style="display: none">
                       Invalid value
                     </p>
                   </div>
@@ -265,11 +254,7 @@
                       </span>
                       <div class="zf-clearBoth"></div>
                     </div>
-                    <p
-                      id="Radio1_error"
-                      class="zf-errorMessage"
-                      style="display: none"
-                    >
+                    <p id="Radio1_error" class="zf-errorMessage" style="display: none">
                       Invalid value
                     </p>
                   </div>
@@ -309,11 +294,7 @@
                       </span>
                       <div class="zf-clearBoth"></div>
                     </div>
-                    <p
-                      id="Radio1_error"
-                      class="zf-errorMessage"
-                      style="display: none"
-                    >
+                    <p id="Radio1_error" class="zf-errorMessage" style="display: none">
                       Invalid value
                     </p>
                   </div>
@@ -412,12 +393,8 @@
 
             <li style="overflow: auto">
               <div style="float: right">
-                <button type="button" id="prevBtn" onclick="nextPrev(-1)">
-                  Previous
-                </button>
-                <button type="button" id="nextBtn" onclick="nextPrev(1)">
-                  Next
-                </button>
+                <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
               </div>
             </li>
 

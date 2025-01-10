@@ -62,8 +62,7 @@
     // }
     // If the valid status is true, mark the step as finished and valid:
     if (valid) {
-      document.getElementsByClassName("step")[currentTab].className +=
-        " finish";
+      document.getElementsByClassName("step")[currentTab].className += " finish";
     }
     return valid; // return the valid status
   }
@@ -77,9 +76,7 @@
 
   function populateLiability() {
     const fullName =
-      $("#first_name").val()?.toUpperCase() +
-        " " +
-        $("#last_name").val()?.toUpperCase() ?? "";
+      $("#first_name").val()?.toUpperCase() + " " + $("#last_name").val()?.toUpperCase() ?? "";
     $("#liability").text(fullName);
     $("#sig-typed-name").val(fullName).trigger("blur");
   }

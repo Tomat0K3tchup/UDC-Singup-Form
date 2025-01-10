@@ -1,9 +1,19 @@
 <form id="myForm">
-  <fieldset class>
-    <form-radio id="check1" options='[{"value": "true", "label": "Yes"}, {"value": "false", "label": "No"}]'>
-
-    <button type="submit">Submit</button>
-  </fieldset>
+  <form-accordion>
+    <form-radio
+      id="di"
+      slot="decision"
+      required
+      label="Do you have a dive insurance?"
+      options='[{"value": "true", "label": "Yes"}, {"value": "false", "label": "No"}]'
+    ></form-radio>
+    <fieldset id="di_hidden" class="flx-form" slot="hidden">
+      <form-input label="Dive insurance provider" id="di_provider"></form-input>
+      <form-input label="Policy number" id="di_policy_nb"></form-input>
+      <form-input label="Other travel insurance details" id="di_other"></form-input>
+    </fieldset>
+  </form-accordion>
+  <button type="submit">Submit</button>
 </form>
 <script>
   const form = document.querySelector("#myForm");
@@ -14,6 +24,5 @@
   });
 </script>
 
-<?!= include_('src/components/FormInput') ?>
-<?!= include_('src/components/FormRadio') ?>
-
+<?!= include_('src/components/FormInput') ?> <?!= include_('src/components/FormRadio') ?> <?!=
+include_('src/components/FormAccordion') ?>

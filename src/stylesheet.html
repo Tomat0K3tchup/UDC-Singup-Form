@@ -196,18 +196,12 @@
   }
 
   .formDropShadow {
-    transform: translate(
-      var(--drop-shadow-size),
-      calc(-1 * var(--drop-shadow-size))
-    );
+    transform: translate(var(--drop-shadow-size), calc(-1 * var(--drop-shadow-size)));
     background: var(--main-accent-color);
   }
 
   .formWrapper {
-    transform: translate(
-      calc(-1 * var(--drop-shadow-size)),
-      var(--drop-shadow-size)
-    );
+    transform: translate(calc(-1 * var(--drop-shadow-size)), var(--drop-shadow-size));
     background: #fff;
     overflow: hidden;
     -webkit-border-radius: var(--border-radius-lg);
@@ -368,13 +362,7 @@
     border: 1px solid;
     border-color: #2f9eec #1988d6 #1988d6;
     background: #2596e6;
-    background: -webkit-gradient(
-      linear,
-      left top,
-      left bottom,
-      from(#2f9eec),
-      to(#1988d6)
-    );
+    background: -webkit-gradient(linear, left top, left bottom, from(#2f9eec), to(#1988d6));
     background: -moz-linear-gradient(top, #2f9eec, #1988d6);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2f9eec', endColorstr='#1988d6');
     -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
@@ -385,13 +373,7 @@
 
   .zf-submitColor:hover {
     background: #1988d6;
-    background: -webkit-gradient(
-      linear,
-      left top,
-      left bottom,
-      from(#1988d6),
-      to(#1988d6)
-    );
+    background: -webkit-gradient(linear, left top, left bottom, from(#1988d6), to(#1988d6));
     background: -moz-linear-gradient(top, #1988d6, #1988d6);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1988d6', endColorstr='#1988d6');
   }
@@ -484,7 +466,6 @@
     outline: -webkit-focus-ring-color auto 1px;
   }
 
-
   /****************Medical Demo styling****************/
 
   .box {
@@ -500,5 +481,4 @@
   fieldset > p {
     padding: 0.5rem 0 0 1rem;
   }
-
 </style>

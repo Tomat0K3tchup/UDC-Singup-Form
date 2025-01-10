@@ -42,7 +42,7 @@
       id: { type: String },
       type: { type: String },
       label: { type: String },
-      value: { type: String },
+      value: { type: String, reflect: true },
       required: { type: Boolean },
     };
 
@@ -92,11 +92,7 @@
 
     updateFormValue() {
       this._internals.setFormValue(this.value);
-      this._internals.setValidity(
-        this.$input.validity,
-        this.$input.validationMessage,
-        this.$input,
-      );
+      this._internals.setValidity(this.$input.validity, this.$input.validationMessage, this.$input);
 
       const f = new FormData(this._internals.form);
       console.log(Object.fromEntries(f));
@@ -109,16 +105,14 @@
 
     render() {
       return html`
-        <label class="zf-labelName" for="${this.id}">
-          ${this.label}${this.required
-            ? html`<em class="important">*</em>`
-            : ""}
+        <label for="${this.id}">
+          ${this.label}${this.required ? html`<em class="important">*</em>` : ""}
         </label>
         <input
           id="${this.id}"
           type="${this.type}"
           name="${this.name || this.id}"
-          @input="${this.handleInput}"
+          @input="${(e) => this.handleInput(e)}"
           ?required=${this.required}
         />
       `;

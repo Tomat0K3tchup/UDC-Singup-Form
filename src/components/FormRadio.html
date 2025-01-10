@@ -1,62 +1,53 @@
-<!-- <link
-     rel="stylesheet"
-     href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/css/intlTelInput.min.css"
-   /> -->
-   <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/js/intlTelInputWithUtils.min.js"></script>
+<script type="module">
+  import {
+    LitElement,
+    css,
+    html,
+  } from "https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js";
 
-   <script type="module">
-     import {
-       LitElement,
-       css,
-       html,
-       unsafeCSS,
-     } from "https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js";
-     // import 'https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/js/intlTelInput.min.js'
-   
-     import styles from "https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/css/intlTelInput.min.css" with { type: "css" };
-     const styleFix = css`
-       .iti {
-         --iti-path-flags-1x: url("https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/img/flags.png");
-         --iti-path-flags-2x: url("https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/img/flags@2x.png");
-         --iti-path-globe-1x: url("https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/img/globe.png");
-         --iti-path-globe-2x: url("https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/img/globe@2x.png");
-       }
-     `;
-   
-     export class FormInputRadio extends window.FormInput {
-    //    static styles = [unsafeCSS(styles), styleFix];
+  export class FormInputRadio extends window.FormInput {
+    static properties = { ...window.FormInput.properties, options: { type: Object } };
 
-        static properties = {...super.properties, options: {type: Object}}
-   
-       render() {
-        return html`
-            <fieldset>
-                <legend class="zf-labelName" for="${this.id}">
-                    ${this.label}${this.required
-                    ? html`<em class="important">*</em>`
-                    : ""}
-                </legend>
-                ${this.options.map((option) => {
-                    const optionId = option.id || `${this.id}_${option.label.toLowerCase()}`
-                    return html`
-                        <p>
-                          <input
-                            type="radio"
-                            id="${optionId}"
-                            name="${this.id}"
-                            value="${option.value}"
-                            @change=${e => this.handleInput(e)}
-                          />
-                          <label for="${optionId}">${option.label}</label>
-                        </p>
-                        `;
-                    }
-                )}
-            </fieldset>
-        `;
-       }
+    static styles = [
+      window.FormInput.styles,
+      css`
+        fieldset {
+          margin: 0;
+          border: 0;
+          padding: 0;
+        }
+
+        fieldset > p {
+          margin: 0;
+          padding: 0.5rem 0 0 1rem;
+        }
+      `,
+    ];
+
+    render() {
+      return html`
+        <fieldset>
+          <legend>${this.label}${this.required ? html`<em class="important">*</em>` : ""}</legend>
+          ${this.options.map((option) => {
+            const optionId = option.id || `${this.id}_${option.label.toLowerCase()}`;
+            return html`
+              <p>
+                <input
+                  type="radio"
+                  id="${optionId}"
+                  name="${this.id}"
+                  value="${option.value}"
+                  @change=${(e) => this.handleInput(e)}
+                  ?required=${this.required}
+                />
+                <label for="${optionId}">${option.label}</label>
+              </p>
+            `;
+          })}
+        </fieldset>
+      `;
     }
-   
-    customElements.define("form-radio", FormInputRadio);
+  }
+
+  customElements.define("form-radio", FormInputRadio);
 </script>
-   

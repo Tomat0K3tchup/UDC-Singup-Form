@@ -16,9 +16,7 @@
   const $phoneInput = document.querySelector("#phone");
 
   function getLanguage(callback) {
-    const langCountryCode = navigator.languages
-      ? navigator.languages[0]
-      : navigator.language;
+    const langCountryCode = navigator.languages ? navigator.languages[0] : navigator.language;
 
     if (!langCountryCode) {
       callback("us");
@@ -39,10 +37,7 @@
     preferredCountries: ["us", "ca", "uk", "fr", "de", "hn", "nl", "be", "ch"],
     geoIpLookup: getLanguage,
     formatAsYouType: true,
-    loadUtils: () =>
-      import(
-        "https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/js/utils.js"
-      ),
+    loadUtils: () => import("https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/js/utils.js"),
   });
 
   function process(event) {

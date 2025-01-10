@@ -37,17 +37,7 @@
       //TODO: reorder preferred languages list alphabetically
       this.phoneInputHandler = window.intlTelInput(this.$input, {
         initialCountry: "auto",
-        preferredCountries: [
-          "us",
-          "ca",
-          "uk",
-          "fr",
-          "de",
-          "hn",
-          "nl",
-          "be",
-          "ch",
-        ],
+        preferredCountries: ["us", "ca", "uk", "fr", "de", "hn", "nl", "be", "ch"],
         geoIpLookup: this._getLanguage,
         formatAsYouType: true,
         // loadUtils: () => import("https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/js/utils.js")
@@ -55,9 +45,7 @@
     }
 
     _getLanguage(callback) {
-      const langCountryCode = navigator.languages
-        ? navigator.languages[0]
-        : navigator.language;
+      const langCountryCode = navigator.languages ? navigator.languages[0] : navigator.language;
 
       if (!langCountryCode) {
         callback("us");
@@ -75,9 +63,7 @@
     render() {
       return html`
         <label class="zf-labelName" for="${this.id}">
-          ${this.label}${this.required
-            ? html`<em class="important">*</em>`
-            : ""}
+          ${this.label}${this.required ? html`<em class="important">*</em>` : ""}
         </label>
         <div class="zf-tempContDiv">
           <span>

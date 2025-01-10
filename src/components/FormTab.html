@@ -41,9 +41,7 @@
       p {
         position: absolute; /* Removes the text from the normal flow */
         left: 50%; /* Positions the text horizontally in the middle */
-        transform: translateX(
-          -50%
-        ); /* Adjusts for the text's width to truly center it */
+        transform: translateX(-50%); /* Adjusts for the text's width to truly center it */
       }
     `;
 
@@ -62,8 +60,7 @@
       this.$sets = this.querySelectorAll("fieldset.formStep");
       this.totalSets = this.$sets.length;
 
-      this.renderRoot.querySelector("#mf-total").innerText =
-        this.totalSets ?? "?";
+      this.renderRoot.querySelector("#mf-total").innerText = this.totalSets ?? "?";
       this.current = 0;
 
       this.$nextBtn = this.renderRoot.querySelector("#mf-next-btn");
@@ -78,8 +75,7 @@
     }
 
     nextSet() {
-      if (this.current + 1 == this.totalSets)
-        return this._internals.form.requestSubmit();
+      if (this.current + 1 == this.totalSets) return this._internals.form.requestSubmit();
       this.current++;
       this.updateDisplay();
     }
@@ -94,8 +90,7 @@
       const prevBtnDisplay = this.current == 0 ? "hidden" : "visible";
       this.$prevBtn.style.visibility = prevBtnDisplay;
 
-      const nextBtnText =
-        this.current == this.totalSets - 1 ? "Submit" : "Next";
+      const nextBtnText = this.current == this.totalSets - 1 ? "Submit" : "Next";
       this.$nextBtn.innerHTML = nextBtnText;
 
       this.$sets.forEach(($set, idx) => {

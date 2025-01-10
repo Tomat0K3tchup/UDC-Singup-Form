@@ -17,7 +17,8 @@ function searchAndReplace(doc, data) {
     name: `${data.first_name} ${data.last_name}`,
   };
 
-  delete clientInfo.first_name; delete clientInfo.last_name;
+  delete clientInfo.first_name;
+  delete clientInfo.last_name;
   delete clientInfo.signature;
 
   for (const key in clientInfo) {

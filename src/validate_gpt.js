@@ -42,9 +42,7 @@ function zf_CheckMandatory() {
         return false;
       } else if (fieldObj.length) {
         // Handle multi-selects or groups like checkboxes/radios
-        const checkedValsCount = Array.from(fieldObj).filter(
-          (el) => el.checked,
-        ).length;
+        const checkedValsCount = Array.from(fieldObj).filter((el) => el.checked).length;
         if (checkedValsCount === 0) {
           fieldObj[0].focus();
           zf_ShowErrorMsg(fieldName);
@@ -77,9 +75,7 @@ function zf_ValidateField(fieldObj, checkType) {
     case "c2":
       return zf_ValidateNumber(fieldObj);
     case "c3":
-      return (
-        zf_ValidateCurrency(fieldObj) && zf_ValidateDecimalLength(fieldObj, 10)
-      );
+      return zf_ValidateCurrency(fieldObj) && zf_ValidateDecimalLength(fieldObj, 10);
     case "c4":
       return zf_ValidateDateFormat(fieldObj);
     case "c5":
@@ -175,8 +171,7 @@ function zf_ValidatePhone(elem) {
     const maxLength = elem.getAttribute("maxlength");
     return (
       fieldInpVal === "" ||
-      (ZFPhoneRegex.PHONE_USA_REG.test(fieldInpVal) &&
-        fieldInpVal.length === maxLength)
+      (ZFPhoneRegex.PHONE_USA_REG.test(fieldInpVal) && fieldInpVal.length === maxLength)
     );
   }
   return true;
@@ -186,9 +181,7 @@ function zf_ValidateSignature(objElem) {
   const linkName = objElem.getAttribute("compname");
   const canvasElem = document.getElementById("drawingCanvas-" + linkName);
   const isValidSign = zf_IsSignaturePresent(objElem, linkName, canvasElem);
-  const hiddenSignInputElem = document.getElementById(
-    "hiddenSignInput-" + linkName,
-  );
+  const hiddenSignInputElem = document.getElementById("hiddenSignInput-" + linkName);
   hiddenSignInputElem.value = isValidSign ? canvasElem.toDataURL() : "";
   return isValidSign;
 }
@@ -201,20 +194,12 @@ function zf_MandatoryCheckSignature(objElem) {
 
 function zf_IsSignaturePresent(objElem, linkName, canvasElem) {
   const context = canvasElem.getContext("2d");
-  const canvasData = context.getImageData(
-    0,
-    0,
-    canvasElem.width,
-    canvasElem.height,
-  );
+  const canvasData = context.getImageData(0, 0, canvasElem.width, canvasElem.height);
   return [...canvasData.data].some((value) => value !== 0);
 }
 
 function zf_FocusNext(elem, event) {
-  if (
-    [9, 16].includes(event.keyCode) ||
-    (event.keyCode >= 37 && event.keyCode <= 40)
-  ) {
+  if ([9, 16].includes(event.keyCode) || (event.keyCode >= 37 && event.keyCode <= 40)) {
     return;
   }
   const compname = elem.getAttribute("compname");

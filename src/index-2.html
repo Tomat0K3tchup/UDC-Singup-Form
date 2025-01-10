@@ -39,7 +39,6 @@
         alert("Success!");
       }
     </script>
-
   </head>
   <body>
     <div class="formWidth formDropShadow">
@@ -82,22 +81,19 @@
                 </div>
                 <form-input label="Relationship" id="em_relationship" required></form-input>
 
-                <fieldset>
-                  <legend>Do you have a dive insurance?<em class="important">*</em></legend>
-                  <p>
-                    <input name="di" type="radio" id="di_yes" value="true" required/>
-                    <label for="di_yes">Yes</label>
-                  </p>
-                  <p>
-                    <input name="di" type="radio" id="di_no" value="false"/>
-                    <label for="di_no">No</label>
-                  </p>
-                </fieldset>
-                <fieldset id="di" class="flx-form">
-                  <form-input label="Dive insurance provider" id="di_provider"></form-input>
-                  <form-input label="Policy number" id="di_policy_nb"></form-input>
-                  <form-input label="Other travel insurance details" id="di_other"></form-input>
-              </fieldset>        
+                <form-accordion>
+                  <form-radio 
+                    id="di"
+                    slot="decision"
+                    required
+                    label="Do you have a dive insurance?"
+                    options='[{"value": "true", "label": "Yes"}, {"value": "false", "label": "No"}]'></form-radio>
+                  <fieldset id="di_hidden" class="flx-form" slot="hidden">
+                    <form-input label="Dive insurance provider" id="di_provider"></form-input>
+                    <form-input label="Policy number" id="di_policy_nb"></form-input>
+                    <form-input label="Other travel insurance details" id="di_other"></form-input>
+                  </fieldset>
+                </form-accordion> 
             </fieldset>
 
             <fieldset class="formStep">
@@ -120,8 +116,8 @@
 
             <!-- <fieldset class="formStep">
               <legend>UDC / MANGO INN RESORT TERMS AND CONDITIONS</legend>
-              <?!= include_('src/udcTAndC') ?>  -->
-            </fieldset>
+              <?!= include_('src/udcTAndC') ?>  
+            </fieldset> -->
           </multi-step-form>
         </div>
       </form>
@@ -162,10 +158,11 @@
     </script>
 
     <!-- Import custom components -->
-    <?!= include_('src/components/utils') ?>
     <?!= include_('src/components/FormInput') ?>
     <?!= include_('src/components/FormTab') ?>
-    
+    <?!= include_('src/components/FormRadio') ?>
+    <?!= include_('src/components/FormAccordion') ?>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 
     <!-- Import signature Pad dependencies-->
@@ -183,14 +180,12 @@
       });
     </script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-
+    <!-- IntTelInput -->
     <link
      rel="stylesheet"
      href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/css/intlTelInput.min.css"
       />
     <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/js/intlTelInputWithUtils.min.js"></script>
-
     <script>
     const $phoneInput = document.querySelector("#phone");
     const $emPhoneInput = document.querySelector("#em_phone");
@@ -229,31 +224,6 @@
       const phoneNumber = phoneInputHandler.getNumber();
       console.log(phoneNumber);
     }
-    </script>
-
-    <script>
-      $(document).ready(() => {
-          const $fieldToToggle = $("#di")
-          $fieldToToggle.hide();
-
-          $('input[type="radio"]').on("click", function() {
-            const inputValue = $(this).val() == "true"
-            inputValue ?  $fieldToToggle.show() : $fieldToToggle.hide();
-          });
-      }); 
-    </script>
-
-    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.4.1/dist/css/tom-select.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.4.1/dist/js/tom-select.base.min.js"></script>
-    <script>
-      new TomSelect("#id_country",{
-      sortField: {
-        field: "text",
-        direction: "asc"
-      }
-    });
-    </script>
-    
-    
+    </script>    
   </body>
 </html>

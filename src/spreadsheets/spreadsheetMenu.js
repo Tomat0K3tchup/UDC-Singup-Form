@@ -15,14 +15,8 @@ function onOpen() {
 function createLastRowDocument() {
   var sheet = SpreadsheetApp.getActive().getSheetByName(SHEET_NAME);
 
-  var lastRow = sheet
-    .getRange(1, 1)
-    .getNextDataCell(SpreadsheetApp.Direction.DOWN)
-    .getRow();
-  var nbCells = sheet
-    .getRange(1, 1)
-    .getNextDataCell(SpreadsheetApp.Direction.NEXT)
-    .getColumn();
+  var lastRow = sheet.getRange(1, 1).getNextDataCell(SpreadsheetApp.Direction.DOWN).getRow();
+  var nbCells = sheet.getRange(1, 1).getNextDataCell(SpreadsheetApp.Direction.NEXT).getColumn();
 
   var headers = sheet.getRange(1, 1, 1, nbCells).getValues()[0];
   var values = sheet.getRange(lastRow, 1, 1, nbCells).getValues()[0];
