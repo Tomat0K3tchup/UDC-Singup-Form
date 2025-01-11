@@ -9,7 +9,7 @@ const SHEET_NAME = "Sheet2";
 /** Endpoint router of the webapp. As of now, the only route served is the default. It serves index.html*/
 function doGet(e) {
   let pageInfo = {
-    fileName: "src/pages/index-2",
+    fileName: "src/pages/index",
     title: "UDC signup form",
   };
 

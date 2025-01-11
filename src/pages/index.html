@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width; initial-scale=1.0" />
     <title>UDC check-in form</title>
     <!-- <link href="css/form.css" rel="stylesheet" type="text/css"> -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -38,8 +39,8 @@
 
         payload["phone"] = phoneInputHandler.getNumber();
         payload["em_phone"] = emPhoneInputHandler.getNumber();
-        // delete payload.output;
-        // payload["signature"] = $(".sigPad").signaturePad().getSignatureImage();
+        delete payload.output;
+        payload["signature"] = $(".sigPad").signaturePad().getSignatureImage();
 
         console.log(payload);
         google.script.run.withSuccessHandler(successHandler).processForm(payload);
@@ -119,21 +120,25 @@
               ></form-input>
             </fieldset> -->
 
-            <fieldset class="formStep">
-              <legend display="none">UDC and Mango Inn Resort Terms and Conditions</legend>
-              <?!= include_('src/components/udcTAndC-2') ?>
+            <!-- <fieldset class="formStep tAndC">
+              <?!= include_('src/components/UdcTAndC-2') ?> <?!=
+              include_('src/components/LiabilityRelease') ?>
               <form-input
                 label="I have read, understood and I agree with the terms and conditions."
                 id="id_t_c"
                 type="checkbox"
                 required
               ></form-input>
-            </fieldset>
-
-            <!-- <fieldset class="formStep">
-              <legend>UDC / MANGO INN RESORT TERMS AND CONDITIONS</legend>
-              <?!= include_('src/archive/udcTAndC') ?>  
             </fieldset> -->
+
+            <fieldset class="formStep">
+              <?!= include_('src/components/LiabilityRelease') ?>
+              <form-signature
+                id="siganture"
+                label="Participant Signature"
+                required
+              ></form-signature>
+            </fieldset>
           </multi-step-form>
         </div>
       </form>
@@ -145,23 +150,9 @@
     <?!= include_('src/components/FormTab') ?> 
     <?!= include_('src/components/FormRadio') ?> 
     <?!= include_('src/components/FormAccordion') ?>
+    <?!= include_('src/components/FormSignature') ?>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-
-    <!-- Import signature Pad dependencies-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.min.js"></script>
-    <?!= include_('src/signature/jquery.signaturepad.min') ?>
-    <!-- jQuery signature Pad plugin: https://github.com/thread-pond/signature-pad/blob/main/documentation.md -->
-    <?!= include_('src/signature/signaturepad.stylesheet') ?>
-
-    <script>
-      // Initialize the signature pad
-      $(document).ready(() => {
-        var signatureHandler = $(".sigPad").signaturePad({
-          name: "#sig-typed-name",
-        });
-      });
-    </script>
 
     <!-- IntTelInput -->
     <link

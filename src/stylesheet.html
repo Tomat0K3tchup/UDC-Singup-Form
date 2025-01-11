@@ -35,7 +35,6 @@
   samp,
   small,
   strike,
-  strong,
   sub,
   sup,
   tt,
@@ -81,6 +80,7 @@
     font: inherit;
     vertical-align: baseline;
   }
+  /* Removed strong because already fixed by normalize.css */
 
   :root {
     --main-bg-color: #01436f;
@@ -170,20 +170,9 @@
     clear: both;
   }
 
-  ol,
-  ul {
-    list-style-position: inside;
-    text-indent: -20px; /* key property */
-    margin-left: 20px; /* key property */
-  }
-
   ol ul {
     list-style-type: disc;
     padding-left: 1.5rem;
-  }
-
-  .tAndCList > li {
-    margin-top: 1.15rem;
   }
 
   .zf-split {
@@ -211,23 +200,22 @@
     border-radius: var(--border-radius-lg);
   }
 
-  /**********Error Message***********/
-  .zf-errorMessage {
-    font:
-      12px Arial,
-      Helvetica,
-      sans-serif;
-    color: #ff0000;
-    padding-top: 5px;
-  }
+  @media (max-width: 600px) {
+    body {
+      background-color: var(--main-accent-color);
+    }
 
-  /**********Mandatory Message***********/
-  .zf-important {
-    color: #ff0000 !important;
-    font-weight: normal;
-    margin-left: 0px;
-    padding: 0;
-    font-size: 13px !important;
+    .formWidth {
+      width: 100%;
+    }
+
+    .formDropShadow {
+      transform: none;
+    }
+
+    .formWrapper {
+      transform: none;
+    }
   }
 
   /**********instruction Message***********/
@@ -281,82 +269,35 @@
   }
 
   h1,
-  h2,
-  h3 {
-    font-weight: 700;
+  h2 {
     font-family: Montserrat, sans-serif;
   }
 
-  h1,
-  h2 {
-    color: var(--main-accent-color);
-    font-size: 2rem;
-  }
-
   h1 {
+    font-size: 2rem;
+    color: var(--main-accent-color);
     padding: 0.5rem 0 1rem 0;
     font-weight: 900;
     text-transform: uppercase;
   }
 
-  h2 {
-    background: var(--dark-blue);
-    width: auto;
-  }
-
-  h3 {
-    font-size: 1.5rem;
+  h2,
+  fieldset.formStep > legend {
+    font-weight: 700;
+    font-size: 1.5em;
     color: var(--dark-blue);
   }
 
-  .zf-tempContDiv input[type="checkbox"],
-  .zf-tempContDiv input[type="radio"] {
-    display: block;
-    height: 13px;
-    margin: 4px 0 0;
-    padding: 0;
-    width: 13px;
-  }
-
-  .zf-sideBySide .zf-tempContDiv span {
-    margin: 0 15px 5px 0;
-    padding: 0;
+  /* h2 {
+    background: var(--dark-blue);
     width: auto;
-    float: left;
-    display: block;
-  }
-  .zf-sideBySide .zf-tempContDiv span input[type="checkbox"] {
-    display: block;
-    width: 13px;
-    height: 13px;
-    padding: 0;
-    margin-top: 3px;
-    float: left;
-  }
-  .zf-sideBySide .zf-tempContDiv span input[type="radio"] {
-    display: block;
-    width: 13px;
-    height: 13px;
-    margin-top: 4px;
-    padding: 0;
-    float: left;
-  }
-  .zf-sideBySide .zf-tempContDiv span label {
-    line-height: 21px;
-    display: block;
-    margin: 0 0 0 20px;
-    padding: 0 0 5px;
-  }
+  } */
 
-  .zf-fmFooter {
-    margin: 0;
-    padding: 25px;
-    text-align: center;
-  }
-
-  .zf-fmFooter .zf-submitColor {
-    font-size: 14px;
-    padding: 4px 10px;
+  h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-indent: 0.5rem;
+    color: var(--dark-blue);
   }
 
   .zf-submitColor {
@@ -384,28 +325,6 @@
     width: 100%;
   }
 
-  /* Make circles that indicate the steps of the form: */
-  .step {
-    height: 15px;
-    width: 15px;
-    margin: 0 2px;
-    background-color: #bbbbbb;
-    border: none;
-    border-radius: 50%;
-    display: inline-block;
-    opacity: 0.5;
-  }
-
-  /* Mark the active step: */
-  .step.active {
-    opacity: 1;
-  }
-
-  /* Mark the steps that are finished and valid: */
-  .step.finish {
-    background-color: #04aa6d;
-  }
-
   #liability {
     font-weight: 900;
   }
@@ -420,14 +339,6 @@
     gap: 1rem 0;
   }
 
-  multi-step-form > fieldset > legend {
-    font-size: 1.5em;
-    color: var(--dark-blue);
-    font-weight: 700;
-    font-family: Montserrat, sans-serif;
-    padding-bottom: 0.7rem;
-  }
-
   .passport > .iti__dial-code {
     background: green;
   }
@@ -438,7 +349,41 @@
     width: 100%;
   }
 
-  /* Override Tom select CSS */
+  /****************Medical Demo styling****************/
+
+  .box {
+    outline: 1px solid var(--main-bg-color);
+    outline-offset: 0.5rem;
+    display: none;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+  fieldset > p {
+    padding: 0 0 0.5rem 0.5rem;
+  }
+
+  /****************T&C styling****************/
+
+  .tAndCList > li {
+    margin-bottom: 1.15rem;
+  }
+
+  .tAndCList ol,
+  .tAndCList ul {
+    list-style-position: inside;
+    text-indent: -1rem; /* key property */
+    margin-left: 1.5rem; /* text-indent + padding of p*/
+  }
+
+  /* .tAndC {
+    width: 80%;
+  } */
+
+  /****************Tom select CSS Override ****************/
+
   .countrySelect .optgroup-header {
     font-weight: bold;
   }
@@ -458,7 +403,8 @@
     font-size: var(--body-font-size);
   }
 
-  /* Override iti plugin CSS */
+  /****************IntlTelInput CSS Override****************/
+
   .iti input {
     width: 100%;
   }
@@ -468,19 +414,15 @@
     outline: -webkit-focus-ring-color auto 1px;
   }
 
-  /****************Medical Demo styling****************/
+  /****************SigPad CSS Override****************/
 
-  .box {
-    outline: 1px solid var(--main-bg-color);
-    outline-offset: 0.5rem;
-    display: none;
-  }
-
-  .bold {
-    font-weight: bold;
-  }
-
-  fieldset > p {
-    padding: 0.5rem 0 0 1rem;
+  .sigPad .typeItDesc,
+  .sigPad .drawItDesc {
+    font-family: var(--body-font-family-text);
+    font-size: var(--body-font-size);
+    font-weight: var(--body-font-weight);
+    line-height: var(--body-line-height);
+    color: var(--main-bg-color);
+    border: none;
   }
 </style>
