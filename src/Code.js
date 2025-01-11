@@ -9,22 +9,22 @@ const SHEET_NAME = "Sheet2";
 /** Endpoint router of the webapp. As of now, the only route served is the default. It serves index.html*/
 function doGet(e) {
   let pageInfo = {
-    fileName: "src/index-2",
+    fileName: "src/pages/index-2",
     title: "UDC signup form",
   };
 
   if (e.pathInfo == "test") {
-    pageInfo.fileName = "src/components/test";
+    pageInfo.fileName = "src/pages/test";
     pageInfo.title = "UDC test";
   }
 
   if (e.pathInfo == "demo") {
-    pageInfo.fileName = "src/demo-medical";
+    pageInfo.fileName = "src/pages/demo-medical";
     pageInfo.title = "UDC Demo Medical";
   }
 
   if (e.pathInfo == "admin") {
-    pageInfo.fileName = "src/reception";
+    pageInfo.fileName = "src/pages/reception";
     pageInfo.title = "UDC admin reception form";
   }
 

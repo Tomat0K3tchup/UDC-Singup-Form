@@ -18,7 +18,7 @@
       referrerpolicy="no-referrer"
     />
 
-    <?!= include_('src/stylesheet') ?> <?!= include_('src/handleTabJS') ?>
+    <?!= include_('src/stylesheet') ?> <?!= include_('src/archive/handleTabJS') ?>
 
     <script>
       // Prevent forms from submitting.
@@ -102,7 +102,7 @@
               </form-accordion>
             </fieldset> -->
 
-            <fieldset class="formStep">
+            <!-- <fieldset class="formStep">
               <legend>Passport Information</legend>
               <div class="formInput">
                 <label for="id_country">Issuing Country<em class="important">*</em></label>
@@ -117,11 +117,11 @@
                 type="date"
                 required
               ></form-input>
-            </fieldset>
+            </fieldset> -->
 
             <fieldset class="formStep">
               <legend display="none">UDC and Mango Inn Resort Terms and Conditions</legend>
-              <?!= include_('src/udcTAndC-2') ?>
+              <?!= include_('src/components/udcTAndC-2') ?>
               <form-input
                 label="I have read, understood and I agree with the terms and conditions."
                 id="id_t_c"
@@ -132,50 +132,19 @@
 
             <!-- <fieldset class="formStep">
               <legend>UDC / MANGO INN RESORT TERMS AND CONDITIONS</legend>
-              <?!= include_('src/udcTAndC') ?>  
+              <?!= include_('src/archive/udcTAndC') ?>  
             </fieldset> -->
           </multi-step-form>
         </div>
       </form>
     </div>
 
-    <script type="text/javascript">
-      var zf_DateRegex = new RegExp(
-        "^(([0][1-9])|([1-2][0-9])|([3][0-1]))[\/]([0][1-9]|1[012])[\/](?:(?:19|20)[0-9]{2})$",
-      );
-      var zf_MandArray = [
-        "first_name",
-        "last_name",
-        "email",
-        "PhoneNumber1_countrycode",
-        "Date",
-        "Dropdown",
-        "PhoneNumber_countrycode",
-        "Radio1",
-        "SingleLine1",
-        "Radio3",
-      ];
-      var zf_FieldArray = [
-        "first_name",
-        "last_name",
-        "email",
-        "PhoneNumber1_countrycode",
-        "Date",
-        "Dropdown",
-        "PhoneNumber_countrycode",
-        "Radio1",
-        "SingleLine1",
-        "Radio3",
-        "SingleLine4",
-        "Signature_obj",
-      ];
-      var isSalesIQIntegrationEnabled = false;
-      var salesIQFieldsArray = [];
-    </script>
-
     <!-- Import custom components -->
-    <?!= include_('src/components/FormInput') ?> <?!= include_('src/components/FormTab') ?> <?!=
-    include_('src/components/FormRadio') ?> <?!= include_('src/components/FormAccordion') ?>
+    <!-- prettier-ignore -->
+    <?!= include_('src/components/FormInput') ?> 
+    <?!= include_('src/components/FormTab') ?> 
+    <?!= include_('src/components/FormRadio') ?> 
+    <?!= include_('src/components/FormAccordion') ?>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 
