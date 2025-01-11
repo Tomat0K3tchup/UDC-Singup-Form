@@ -4,10 +4,19 @@
     <meta charset="UTF-8" />
     <title>UDC check-in form</title>
     <!-- <link href="css/form.css" rel="stylesheet" type="text/css"> -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+      integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
     <?!= include_('src/stylesheet') ?> <?!= include_('src/handleTabJS') ?>
 
@@ -26,13 +35,14 @@
       function handleFormSubmit(formObject) {
         var formData = new FormData(formObject);
         var payload = Object.fromEntries(formData);
+
+        payload["phone"] = phoneInputHandler.getNumber();
+        payload["em_phone"] = emPhoneInputHandler.getNumber();
         // delete payload.output;
         // payload["signature"] = $(".sigPad").signaturePad().getSignatureImage();
 
         console.log(payload);
-        google.script.run
-          .withSuccessHandler(successHandler)
-          .processForm(payload);
+        google.script.run.withSuccessHandler(successHandler).processForm(payload);
       }
 
       function successHandler(url) {
@@ -42,76 +52,82 @@
   </head>
   <body>
     <div class="formWidth formDropShadow">
-      <form
-        name="form"
-        enctype="multipart/form-data"
-        id="form"
-        onsubmit="handleFormSubmit(this)"
-      >
+      <form name="form" enctype="multipart/form-data" id="form" onsubmit="handleFormSubmit(this)">
         <div class="formWrapper">
           <!-- Template Header Starts Here -->
-            <div class="zf-tempHeadContBdr">
-              <h1><em>UDC check-in form</em></h1>
-              <!-- <p class="zf-frmDesc">Please give accurate information.</p> -->
-            </div>
+          <div class="zf-tempHeadContBdr">
+            <h1><em>UDC check-in form</em></h1>
+            <!-- <p class="zf-frmDesc">Please give accurate information.</p> -->
+          </div>
           <!-- Template Header Ends Here -->
 
           <multi-step-form>
-            <fieldset class="formStep">
+            <!-- <fieldset class="formStep">
               <legend>Personal Details</legend>
               <form-input label="First Name" id="first_name" required></form-input>
               <form-input label="Last Name" id="last_name" required></form-input>
               <form-input label="Date of Birth" id="dob" type="date" required></form-input>
 
               <form-input label="Email" id="email" type="email" required></form-input>
-              <form-input label="Mailing address" id="address" required></form-input>
-              
-              <div class= "formInput">
-                <label for="phone">Phone<em class="important">*</em></label>
-                <input label="Phone" id="phone" name="phone" type="tel" class="passport" required/>
-              </div>
-            </fieldset>
-    
-            <fieldset class="formStep">
-                <legend>Emergency Contact</legend>
-                <form-input label="Full Name" id="em_full_name" required></form-input>
-                <div class= "formInput">
-                  <label for="phone">Phone<em class="important">*</em></label>
-                  <input label="Phone" id="em_phone" name="em_phone" type="tel" required/>
-                </div>
-                <form-input label="Relationship" id="em_relationship" required></form-input>
+              <form-input label="Postal address" id="address" required></form-input>
 
-                <form-accordion>
-                  <form-radio 
-                    id="di"
-                    slot="decision"
-                    required
-                    label="Do you have a dive insurance?"
-                    options='[{"value": "true", "label": "Yes"}, {"value": "false", "label": "No"}]'></form-radio>
-                  <fieldset id="di_hidden" class="flx-form" slot="hidden">
-                    <form-input label="Dive insurance provider" id="di_provider"></form-input>
-                    <form-input label="Policy number" id="di_policy_nb"></form-input>
-                    <form-input label="Other travel insurance details" id="di_other"></form-input>
-                  </fieldset>
-                </form-accordion> 
-            </fieldset>
+              <div class="formInput">
+                <label for="phone">Phone<em class="important">*</em></label>
+                <input label="Phone" id="phone" name="phone" type="tel" class="passport" required />
+              </div>
+            </fieldset> -->
+
+            <!-- <fieldset class="formStep">
+              <legend>Emergency Contact</legend>
+              <form-input label="Full Name" id="em_full_name" required></form-input>
+              <div class="formInput">
+                <label for="em_phone">Phone<em class="important">*</em></label>
+                <input label="Phone" id="em_phone" name="em_phone" type="tel" required />
+              </div>
+              <form-input label="Relationship" id="em_relationship" required></form-input>
+
+              <form-accordion>
+                <form-radio
+                  id="di"
+                  slot="decision"
+                  required
+                  label="Do you have a dive insurance?"
+                  options='[{"value": "true", "label": "Yes"}, {"value": "false", "label": "No"}]'
+                ></form-radio>
+                <fieldset id="di_hidden" class="flx-form" slot="hidden">
+                  <form-input label="Dive insurance provider" id="di_provider"></form-input>
+                  <form-input label="Policy number" id="di_policy_nb"></form-input>
+                  <form-input label="Other travel insurance details" id="di_other"></form-input>
+                </fieldset>
+              </form-accordion>
+            </fieldset> -->
 
             <fieldset class="formStep">
               <legend>Passport Information</legend>
               <div class="formInput">
                 <label for="id_country">Issuing Country<em class="important">*</em></label>
-                <?!= include_('src/components/CountrySelect') ?> 
+                <?!= include_('src/components/CountrySelect') ?>
               </div>
               <form-input label="Passport number" id="id_nb" required></form-input>
 
               <form-input label="Issue Date" id="id_iss_date" type="date" required></form-input>
-              <form-input label="Expiration date" id="id_exp_date" type="date" required></form-input>
+              <form-input
+                label="Expiration date"
+                id="id_exp_date"
+                type="date"
+                required
+              ></form-input>
             </fieldset>
 
             <fieldset class="formStep">
               <legend display="none">UDC and Mango Inn Resort Terms and Conditions</legend>
-              <?!= include_('src/udcTAndC-2') ?> 
-              <form-input label="I have read, understood and I agree with the terms and conditions." id="id_t_c" type="checkbox" required></form-input>
+              <?!= include_('src/udcTAndC-2') ?>
+              <form-input
+                label="I have read, understood and I agree with the terms and conditions."
+                id="id_t_c"
+                type="checkbox"
+                required
+              ></form-input>
             </fieldset>
 
             <!-- <fieldset class="formStep">
@@ -158,10 +174,8 @@
     </script>
 
     <!-- Import custom components -->
-    <?!= include_('src/components/FormInput') ?>
-    <?!= include_('src/components/FormTab') ?>
-    <?!= include_('src/components/FormRadio') ?>
-    <?!= include_('src/components/FormAccordion') ?>
+    <?!= include_('src/components/FormInput') ?> <?!= include_('src/components/FormTab') ?> <?!=
+    include_('src/components/FormRadio') ?> <?!= include_('src/components/FormAccordion') ?>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 
@@ -175,55 +189,60 @@
       // Initialize the signature pad
       $(document).ready(() => {
         var signatureHandler = $(".sigPad").signaturePad({
-            name: '#sig-typed-name'
+          name: "#sig-typed-name",
         });
       });
     </script>
 
     <!-- IntTelInput -->
     <link
-     rel="stylesheet"
-     href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/css/intlTelInput.min.css"
-      />
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/css/intlTelInput.min.css"
+    />
     <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/js/intlTelInputWithUtils.min.js"></script>
     <script>
-    const $phoneInput = document.querySelector("#phone");
-    const $emPhoneInput = document.querySelector("#em_phone");
-    const itiOptions = {
-      initialCountry: "auto",
-      preferredCountries: ["us", "ca", "uk", "fr", "de", "hn", "nl", "be", "ch"],
-      geoIpLookup: _getCountryFromBrowser,
-      formatAsYouType: true,
-      }
+      const $phoneInput = document.querySelector("#phone");
+      const $emPhoneInput = document.querySelector("#em_phone");
+      const itiOptions = {
+        initialCountry: "auto",
+        preferredCountries: ["us", "ca", "uk", "fr", "de", "hn", "nl", "be", "ch"],
+        geoIpLookup: _getCountryFromBrowser,
+        formatAsYouType: true,
+      };
 
-    function _getCountryFromBrowser(callback) {
-        const langCountryCode = navigator.languages
-            ? navigator.languages[0]
-            : navigator.language;
+      function _getCountryFromBrowser(callback) {
+        const langCountryCode = navigator.languages ? navigator.languages[0] : navigator.language;
 
         if (!langCountryCode) {
-            callback('us');
-            return;
+          callback("us");
+          return;
         }
 
         try {
-            const lang = langCountryCode.split("-")[1].toLowerCase();
-            callback(lang);
+          const lang = langCountryCode.split("-")[1].toLowerCase();
+          callback(lang);
         } catch (error) {
-            callback(langCountryCode);
+          callback(langCountryCode);
         }
-    }
+      }
 
-    //TODO: reorder preferred languages list alphabetically
-    const phoneInputHandler = window.intlTelInput($phoneInput, itiOptions);
-    const emPhoneInputHandler = window.intlTelInput($emPhoneInput, itiOptions);
+      //TODO: reorder preferred languages list alphabetically
+      const phoneInputHandler = window.intlTelInput($phoneInput, itiOptions);
+      const emPhoneInputHandler = window.intlTelInput($emPhoneInput, itiOptions);
 
-    function process(event) {
-      event.preventDefault();
+      // Initialize the signature pad
+      $(document).ready(
+        $($phoneInput).on("input", function (event) {
+          console.log("phone", phoneInputHandler.getNumber());
+        }),
+      );
 
-      const phoneNumber = phoneInputHandler.getNumber();
-      console.log(phoneNumber);
-    }
-    </script>    
+      function process(event) {
+        event.preventDefault();
+
+        const phoneNumber = phoneInputHandler.getNumber();
+        console.log(phoneNumber);
+      }
+    </script>
   </body>
 </html>

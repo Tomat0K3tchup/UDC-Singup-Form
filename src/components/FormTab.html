@@ -30,6 +30,11 @@
         padding: 0.5rem;
       }
 
+      button:focus {
+        outline: -webkit-focus-ring-color auto 1px;
+        outline-offset: 4px;
+      }
+
       div {
         display: flex;
         justify-content: space-between;
@@ -74,7 +79,20 @@
       this.render();
     }
 
+    checkValidity() {
+      const elToValidate = this.$sets[this.current].elements;
+
+      let isValid = true;
+      for (let i = 0; i < elToValidate.length; i++) {
+        isValid = elToValidate[i].checkValidity() && isValid;
+        console.log(isValid, elToValidate[i].id);
+      }
+
+      return isValid;
+    }
+
     nextSet() {
+      if (!this.checkValidity()) return;
       if (this.current + 1 == this.totalSets) return this._internals.form.requestSubmit();
       this.current++;
       this.updateDisplay();
