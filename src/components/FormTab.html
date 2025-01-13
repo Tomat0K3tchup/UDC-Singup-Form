@@ -20,14 +20,23 @@
 
       button {
         flex-grow: 0;
-        background-color: var(--dark-blue);
-        color: var(--main-accent-color);
-        font-size: 1.2rem;
-        font-weight: 900;
+        font-size: 1rem;
+        font-weight: 700;
         font-family: Montserrat, sans-serif;
         text-transform: uppercase;
         border-radius: var(--border-radius);
+        border: 2px solid var(--dark-blue);
         padding: 0.5rem;
+      }
+
+      button.primary {
+        background-color: var(--dark-blue);
+        color: var(--main-accent-color);
+      }
+
+      button.secondary {
+        background-color: #fff;
+        color: var(--dark-blue);
       }
 
       button:focus {
@@ -114,28 +123,25 @@
       this.$sets.forEach(($set, idx) => {
         if (idx === this.current) {
           $set.style.display = "flex";
-
-          // const $firstInputOfSet = $set.querySelector("input, select, textarea");
-          // console.log(this.$sets[idx], $set)
-          // console.log(this.$firstInputOfSet)
-          //     if ($firstInputOfSet) {
-          //         $firstInputOfSet.focus();
-          //     }
+          $set.focus();
         } else $set.style.display = "none";
       });
       this.$currentSetNum.innerText = this.current + 1;
+
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     }
 
     render() {
       return html`
         <slot></slot>
         <div>
-          <button id="mf-prev-btn" @click=${this.prevSet}>Previous</button>
+          <button id="mf-prev-btn" class="secondary" @click=${this.prevSet}>Previous</button>
           <p>
             <span id="mf-current"></span> of
             <span id="mf-total">${this.totalSets}</span>
           </p>
-          <button id="mf-next-btn" @click=${this.nextSet}>Next</button>
+          <button id="mf-next-btn" class="primary" @click=${this.nextSet}>Next</button>
         </div>
       `;
     }

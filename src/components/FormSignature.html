@@ -32,15 +32,21 @@
         penColor: "#145394",
       });
 
-      window.addEventListener("resize", () => this.resizeCanvas());
-      this.resizeCanvas();
+      this._resizeObserver = new ResizeObserver(() => this.resizeCanvas());
+      this._resizeObserver.observe(this.parentElement); // Observe the parent container
 
-      this.signaturePad.addEventListener("endStroke", () => {
-        console.log("Signature finished");
-      });
+      // window.addEventListener("resize", () => this.resizeCanvas());
+      // this.resizeCanvas();
+
+      this.signaturePad.addEventListener("endStroke", () => this.updateValue());
     }
 
-    updateValue(e) {
+    disconnectedCallback() {
+      super.disconnectedCallback();
+      this._resizeObserver.disconnect(); // Clean up observer
+    }
+
+    updateValue() {
       this.value = this.signaturePad.toDataURL();
     }
 
@@ -54,17 +60,17 @@
 
     clear() {
       this.signaturePad.clear();
-      console.log("cleared");
+      this.updateValue();
     }
 
     save() {
       if (this.signaturePad.isEmpty()) {
+        //FIXME: error handling
         return alert("Please provide a signature first.");
       }
 
       var data = this.signaturePad.toDataURL("image/png");
       console.log(data);
-      window.open(data);
     }
 
     render() {
@@ -73,8 +79,8 @@
           <button @click=${this.clear}>Clear</button>
         </div>
         <div class="sigWrapper">
-          <canvas class="newPad"></canvas>
-          <input type="hidden" id="sigOutput2" name="output" class="output" />
+          <canvas></canvas>
+          <input type="hidden" id="${this.id}" name="${this.name || this.id}" />
         </div>
       `;
     }

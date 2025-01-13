@@ -349,6 +349,20 @@
     width: 100%;
   }
 
+  .multiInput {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0 1rem;
+  }
+
+  @media (max-width: 600px) {
+    .multiInput {
+      flex-direction: column;
+      gap: 0;
+    }
+  }
+
   /****************Medical Demo styling****************/
 
   .box {
@@ -367,12 +381,12 @@
 
   /****************T&C styling****************/
 
-  .tAndCList > li {
+  .tAndC li {
     margin-bottom: 1.15rem;
   }
 
-  .tAndCList ol,
-  .tAndCList ul {
+  .tAndC ol,
+  .tAndC ul {
     list-style-position: inside;
     text-indent: -1rem; /* key property */
     margin-left: 1.5rem; /* text-indent + padding of p*/
@@ -381,6 +395,11 @@
   /* .tAndC {
     width: 80%;
   } */
+
+  .liabilityName {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
 
   /****************Tom select CSS Override ****************/
 

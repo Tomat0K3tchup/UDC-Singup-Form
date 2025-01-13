@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width; initial-scale=1.0" />
     <title>UDC check-in form</title>
-    <!-- <link href="css/form.css" rel="stylesheet" type="text/css"> -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -19,18 +18,16 @@
       referrerpolicy="no-referrer"
     />
 
-    <?!= include_('src/stylesheet') ?> <?!= include_('src/archive/handleTabJS') ?>
-
+    <?!= include_('src/stylesheet') ?>
     <script>
       // Prevent forms from submitting.
       function preventFormSubmit() {
-        var forms = document.querySelectorAll("form");
-        for (var i = 0; i < forms.length; i++) {
-          forms[i].addEventListener("submit", function (event) {
-            event.preventDefault();
-          });
-        }
+        const $form = document.getElementById("udc-form");
+        $form.addEventListener("submit", function (event) {
+          event.preventDefault();
+        });
       }
+
       window.addEventListener("load", preventFormSubmit);
 
       function handleFormSubmit(formObject) {
@@ -39,8 +36,6 @@
 
         payload["phone"] = phoneInputHandler.getNumber();
         payload["em_phone"] = emPhoneInputHandler.getNumber();
-        delete payload.output;
-        payload["signature"] = $(".sigPad").signaturePad().getSignatureImage();
 
         console.log(payload);
         google.script.run.withSuccessHandler(successHandler).processForm(payload);
@@ -53,20 +48,25 @@
   </head>
   <body>
     <div class="formWidth formDropShadow">
-      <form name="form" enctype="multipart/form-data" id="form" onsubmit="handleFormSubmit(this)">
+      <form
+        name="udc-form"
+        enctype="multipart/form-data"
+        id="udc-form"
+        onsubmit="handleFormSubmit(this)"
+      >
         <div class="formWrapper">
-          <!-- Template Header Starts Here -->
           <div class="zf-tempHeadContBdr">
             <h1><em>UDC check-in form</em></h1>
             <!-- <p class="zf-frmDesc">Please give accurate information.</p> -->
           </div>
-          <!-- Template Header Ends Here -->
 
           <multi-step-form>
             <!-- <fieldset class="formStep">
               <legend>Personal Details</legend>
-              <form-input label="First Name" id="first_name" required></form-input>
-              <form-input label="Last Name" id="last_name" required></form-input>
+              <div class="multiInput" id="test" oninput="test">
+                <form-input label="First Name" id="first_name" required></form-input>
+                <form-input label="Last Name" id="last_name" required></form-input>
+              </div>
               <form-input label="Date of Birth" id="dob" type="date" required></form-input>
 
               <form-input label="Email" id="email" type="email" required></form-input>
@@ -76,9 +76,9 @@
                 <label for="phone">Phone<em class="important">*</em></label>
                 <input label="Phone" id="phone" name="phone" type="tel" class="passport" required />
               </div>
-            </fieldset> -->
+            </fieldset>
 
-            <!-- <fieldset class="formStep">
+            <fieldset class="formStep">
               <legend>Emergency Contact</legend>
               <form-input label="Full Name" id="em_full_name" required></form-input>
               <div class="formInput">
@@ -101,9 +101,9 @@
                   <form-input label="Other travel insurance details" id="di_other"></form-input>
                 </fieldset>
               </form-accordion>
-            </fieldset> -->
+            </fieldset>
 
-            <!-- <fieldset class="formStep">
+            <fieldset class="formStep">
               <legend>Passport Information</legend>
               <div class="formInput">
                 <label for="id_country">Issuing Country<em class="important">*</em></label>
@@ -120,21 +120,20 @@
               ></form-input>
             </fieldset> -->
 
-            <!-- <fieldset class="formStep tAndC">
-              <?!= include_('src/components/UdcTAndC-2') ?> <?!=
-              include_('src/components/LiabilityRelease') ?>
+            <fieldset class="formStep tAndC">
+              <?!= include_('src/components/UdcTAndC-2') ?>
               <form-input
                 label="I have read, understood and I agree with the terms and conditions."
                 id="id_t_c"
                 type="checkbox"
                 required
               ></form-input>
-            </fieldset> -->
+            </fieldset>
 
             <fieldset class="formStep">
               <?!= include_('src/components/LiabilityRelease') ?>
               <form-signature
-                id="siganture"
+                id="signature"
                 label="Participant Signature"
                 required
               ></form-signature>
@@ -152,7 +151,7 @@
     <?!= include_('src/components/FormAccordion') ?>
     <?!= include_('src/components/FormSignature') ?>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script> -->
 
     <!-- IntTelInput -->
     <link
@@ -189,19 +188,22 @@
       //TODO: reorder preferred languages list alphabetically
       const phoneInputHandler = window.intlTelInput($phoneInput, itiOptions);
       const emPhoneInputHandler = window.intlTelInput($emPhoneInput, itiOptions);
+    </script>
 
-      // Initialize the signature pad
-      $(document).ready(
-        $($phoneInput).on("input", function (event) {
-          console.log("phone", phoneInputHandler.getNumber());
-        }),
-      );
+    <!-- Auto-fill the liability page with the customer's full name from the personal details -->
+    <script>
+      const $fullNameInputContainer = document.getElementById("test");
+      $fullNameInputContainer.addEventListener("input", mirrorFullNameLiability);
 
-      function process(event) {
-        event.preventDefault();
+      function mirrorFullNameLiability(e) {
+        const $inputs = $fullNameInputContainer.querySelectorAll("form-input");
 
-        const phoneNumber = phoneInputHandler.getNumber();
-        console.log(phoneNumber);
+        const fullName = $inputs[0].value + " " + $inputs[1].value;
+        const $nodesToReplace = document.getElementsByClassName("liabilityName");
+
+        Array.from($nodesToReplace).forEach(($node) => {
+          $node.innerHTML = fullName;
+        });
       }
     </script>
   </body>

@@ -4,7 +4,7 @@
 // https://medium.com/google-cloud/easily-implementing-html-form-with-google-spreadsheet-as-database-using-google-apps-script-66472ab7bf6c
 
 const SPREADSHEET_ID = "1mO4clKaXB5KSpBq7cF8CDWtWiNadSouvTPqC83YhegY";
-const SHEET_NAME = "Sheet2";
+const SHEET_NAME = "Form Responses";
 
 /** Endpoint router of the webapp. As of now, the only route served is the default. It serves index.html*/
 function doGet(e) {
@@ -40,6 +40,32 @@ function doGet(e) {
 // TODO
 function backendValidation() {}
 
+function test() {
+  const formObject = {
+    id_nb: "1234",
+    em_full_name: "Ruth Scott",
+    phone: "+33668416435",
+    id_exp_date: "2025-02-03",
+    signature: "",
+    email: "tmp.1998@gmail.com",
+    em_phone: "+447400123456",
+    em_relationship: "Friend",
+    di_other: "No",
+    id_iss_date: "2024-12-02",
+    dob: "1998-01-01",
+    last_name: "Doe",
+    first_name: "Tom",
+    id_t_c: "true",
+    di: "true",
+    di_policy_nb: "12345",
+    address: "1 street X, 00000, Farfarway",
+    country: "FR",
+    di_provider: "DAN",
+  };
+
+  processForm(formObject);
+}
+
 function processForm(formObject) {
   console.log(formObject);
 
@@ -54,10 +80,20 @@ function processForm(formObject) {
     const nextRow = sheet.getLastRow() + 1;
 
     const newRow = headers.map((header) => {
-      return header === "Date" ? new Date() : formObject[header];
+      if (header == "date") return new Date();
+      if (header in formObject) return formObject[header];
+      return "";
     });
 
     sheet.getRange(nextRow, 1, 1, newRow.length).setValues([newRow]);
+    //FIXME: checkboxes ??
+    // const diCol = 11,
+    //   tAndCCol = 19;
+    // const needCheckbox = new RangeList([
+    //   sheet.getRange(nextRow, diCol),
+    //   sheet.getRange(nextRow, diCol),
+    // ]);
+    // needCheckbox.insertCheckboxes();
 
     // return ContentService
     //   .createTextOutput(JSON.stringify({ 'result': 'success', 'row': 'nextRow' }))

@@ -14,12 +14,18 @@
       :host {
         display: flex;
         flex-direction: column;
+        align-items: start;
         width: 100%;
       }
 
-      :host:has(input[type="checkbox"]) {
-        flex-direction: row;
-        flex-wrap: wrap;
+      div {
+        display: flex;
+        flex-direction: column;
+      }
+
+      div:has(input[type="checkbox"]) {
+        flex-direction: row-reverse;
+        align-items: center;
       }
 
       input {
@@ -30,7 +36,6 @@
 
       input[type="checkbox"] {
         margin-right: 0.5rem;
-        order: -1;
       }
 
       .invalid {
@@ -159,19 +164,21 @@
 
     render() {
       return html`
-        <label class="${this._hasError ? "invalid" : ""}" for="${this.id}">
-          ${this.label}${this.required ? html`<em class="important">*</em>` : ""}
-        </label>
-        <input
-          id="${this.id}"
-          type="${this.type}"
-          name="${this.name || this.id}"
-          class="${this._hasError ? "invalid" : ""}"
-          @input=${(e) => this.handleInput(e)}
-          @blur=${this.onBlurValidation}
-          @invalid=${() => this.toggleError(true)}
-          ?required=${this.required}
-        />
+        <div>
+          <label class="${this._hasError ? "invalid" : ""}" for="${this.id}">
+            ${this.label}${this.required ? html`<em class="important">*</em>` : ""}
+          </label>
+          <input
+            id="${this.id}"
+            type="${this.type}"
+            name="${this.name || this.id}"
+            class="${this._hasError ? "invalid" : ""}"
+            @input=${(e) => this.handleInput(e)}
+            @blur=${this.onBlurValidation}
+            @invalid=${() => this.toggleError(true)}
+            ?required=${this.required}
+          />
+        </div>
         <span class="invalid ${this._hasError ? "visible" : ""}">Error</span>
       `;
     }
