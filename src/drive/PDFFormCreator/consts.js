@@ -1,5 +1,5 @@
 // (?<=No_\d').
-const FORM_TO_PDF_MAP = {
+const MEDICAL_FORM_ANSWER_TO_DOC_MAP = {
   q1: { true: "Yes", false: "No" },
   q2: { true: "Yes_2", false: "No_2" },
   q3: { true: "Yes_3", false: "No_3" },
@@ -51,4 +51,43 @@ const FORM_TO_PDF_MAP = {
   ],
   dob: ["Birthdate", "Birthdate2"],
   date: "Date ddmmyyyy",
+};
+
+const MAP_SIGN = {
+  MEDICAL: {
+    page: 0,
+    X: 0.23,
+    Y: 0.205,
+  },
+  CONED: {
+    page: 1,
+    X: 0.28,
+    Y: 0.085,
+    GUARDIAN: {
+      X: 0.28,
+      Y: 0.045,
+    },
+  },
+};
+
+const LIABILITY_FORM_TO_PDF_MAP = {
+  id: "1XxaIgvBfxYTAbaH4kCMBXuIqPHQYMqeN",
+  title: "Liability Release",
+  form: {
+    shop: "Store/Resort Name",
+    participantName: ["Diver Name", "Diver Name 2"],
+    date: "Date DayMonthYear",
+    dateMinor: "Date DayMonthYear_2",
+    di_yesNo: "No/Yes",
+    di_policyNb: "Policy Number",
+  },
+  signature: {
+    page: 1,
+    X: 0.275,
+    Y: 0.295,
+    GUARDIAN: {
+      X: 0.275,
+      Y: 0.255,
+    },
+  },
 };
