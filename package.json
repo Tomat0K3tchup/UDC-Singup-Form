@@ -3,10 +3,13 @@
     "@google/clasp": "^2.4.2",
     "@types/google-apps-script": "^1.0.89",
     "lit": "^3.2.1",
+    "npm-run-all": "^4.1.5",
     "prettier": "^3.4.2"
   },
   "scripts": {
-    "start": "npx clasp push -w",
+    "start": "npm-run-all --parallel clasp export-locales",
+    "clasp": "npx clasp push -w",
+    "export-locales": "node ./scripts/export-locales.js --watch",
     "prettier": "npx prettier -w ."
   }
 }

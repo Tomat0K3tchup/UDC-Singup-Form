@@ -31,7 +31,10 @@ function doGet(e) {
   // var params = JSON.stringify(e);
   // return ContentService.createTextOutput(params).setMimeType(ContentService.MimeType.JSON);
 
-  return HtmlService.createTemplateFromFile(pageInfo.fileName)
+  const template = HtmlService.createTemplateFromFile(pageInfo.fileName);
+  template.data = { title: pageInfo.title };
+
+  return template
     .evaluate()
     .setTitle(pageInfo.title)
     .setFaviconUrl("https://utiladivecenter.com/img/logo/UDC-LOGO-TINY.png");
@@ -39,32 +42,6 @@ function doGet(e) {
 
 // TODO
 function backendValidation() {}
-
-function test() {
-  const formObject = {
-    id_nb: "1234",
-    em_full_name: "Ruth Scott",
-    phone: "+33668416435",
-    id_exp_date: "2025-02-03",
-    signature: "",
-    email: "tmp.1998@gmail.com",
-    em_phone: "+447400123456",
-    em_relationship: "Friend",
-    di_other: "No",
-    id_iss_date: "2024-12-02",
-    dob: "1998-01-01",
-    last_name: "Doe",
-    first_name: "Tom",
-    id_t_c: "true",
-    di: "true",
-    di_policy_nb: "12345",
-    address: "1 street X, 00000, Farfarway",
-    country: "FR",
-    di_provider: "DAN",
-  };
-
-  processForm(formObject);
-}
 
 function processForm(formObject) {
   console.log(formObject);

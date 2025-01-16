@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width; initial-scale=1.0" />
-    <title>UDC check-in form</title>
+    <title><?= data.title ?></title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -18,7 +18,7 @@
       referrerpolicy="no-referrer"
     />
 
-    <?!= include_('src/stylesheet') ?>
+    <?!= include_('src/stylesheet') ?> <?!= include_('dist/locales')?>
     <script>
       // Prevent forms from submitting.
       function preventFormSubmit() {
@@ -56,15 +56,15 @@
       >
         <div class="formWrapper">
           <div class="zf-tempHeadContBdr">
-            <h1><em>UDC check-in form</em></h1>
+            <h1><em data-i18n="title"></em></h1>
             <!-- <p class="zf-frmDesc">Please give accurate information.</p> -->
           </div>
 
           <multi-step-form>
-            <!-- <fieldset class="formStep">
+            <fieldset class="formStep">
               <legend>Personal Details</legend>
-              <div class="multiInput" id="test" oninput="test">
-                <form-input label="First Name" id="first_name" required></form-input>
+              <div class="multiInput" id="full_name">
+                <form-input data-i18n="[label]firstName" id="first_name" required></form-input>
                 <form-input label="Last Name" id="last_name" required></form-input>
               </div>
               <form-input label="Date of Birth" id="dob" type="date" required></form-input>
@@ -78,7 +78,7 @@
               </div>
             </fieldset>
 
-            <fieldset class="formStep">
+            <!-- <fieldset class="formStep">
               <legend>Emergency Contact</legend>
               <form-input label="Full Name" id="em_full_name" required></form-input>
               <div class="formInput">
@@ -118,7 +118,8 @@
                 type="date"
                 required
               ></form-input>
-            </fieldset> -->
+            </fieldset>
+            -->
 
             <fieldset class="formStep tAndC">
               <?!= include_('src/components/UdcTAndC-2') ?>
@@ -151,7 +152,7 @@
     <?!= include_('src/components/FormAccordion') ?>
     <?!= include_('src/components/FormSignature') ?>
 
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script> -->
+    <?!= include_('src/i18n') ?>
 
     <!-- IntTelInput -->
     <link
@@ -192,7 +193,7 @@
 
     <!-- Auto-fill the liability page with the customer's full name from the personal details -->
     <script>
-      const $fullNameInputContainer = document.getElementById("test");
+      const $fullNameInputContainer = document.getElementById("full_name");
       $fullNameInputContainer.addEventListener("input", mirrorFullNameLiability);
 
       function mirrorFullNameLiability(e) {
