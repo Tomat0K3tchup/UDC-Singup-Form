@@ -70,8 +70,9 @@ const MAP_SIGN = {
   },
 };
 
+// "1XxaIgvBfxYTAbaH4kCMBXuIqPHQYMqeN"
 const LIABILITY_FORM_TO_PDF_MAP = {
-  id: "1XxaIgvBfxYTAbaH4kCMBXuIqPHQYMqeN",
+  id: "1CSRdWSEvVDd62O0gcbAqlxQklw1_NpH2",
   title: "Liability Release",
   form: {
     shop: "Store/Resort Name",

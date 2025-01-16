@@ -1,20 +1,20 @@
 const MEDICAL_PDF_ID = "1FN5e_z_5bvIqXuaU1ho08awKCL9AGQ8m";
 const MEDICAL_PDF_ID_SPA = "1-c85xqY8GSalZBMHWVG4cuQAV20JOf-R";
 
-function testLiability() {
-  const clientData = {
-    first_name: "Janette",
-    last_name: "Doe",
-    date: new Date(),
-    signature: SIG,
-    di: false,
-    di_policy_nb: "1234",
-  };
+// function testLiability() {
+//   const clientData = {
+//     first_name: "Janette",
+//     last_name: "Doe",
+//     date: new Date(),
+//     signature: SIG,
+//     di: false,
+//     di_policy_nb: "1234",
+//   };
 
-  generateLiabilityPDF(clientData);
-}
+//   generateLiabilityPDF(clientData);
+// }
 
-async function generateLiabilityPDF(clientData) {
+async function generateLiabilityPDF(clientData, destinationFolder) {
   const pdfConst = LIABILITY_FORM_TO_PDF_MAP;
   const pdfDoc = await loadGoogleFileToPdfLib(pdfConst.id);
   const pdfForm = pdfDoc.getForm();
@@ -26,7 +26,7 @@ async function generateLiabilityPDF(clientData) {
     sign(pdfDoc, pdfConst.signature, clientData.signature);
 
     const title = `${liabilityData.participantName} - ${pdfConst.title} - ${liabilityData.date}`;
-    savePdfLibDocToGoogle(pdfDoc, DESTINATION_FOLDER_ID, title);
+    savePdfLibDocToGoogle(pdfDoc, destinationFolder, title);
   } catch (e) {
     Logger.log(e);
   }
@@ -111,15 +111,20 @@ function fillMedicalForm(pdfForm, answerToDocMap, clientData) {
 async function loadGoogleFileToPdfLib(id) {
   const file = DriveApp.getFileById(id);
   const existingPdfBytes = Uint8Array.from(file.getBlob().getBytes());
-  const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
-  return pdfDoc;
+  try {
+    const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
+    return pdfDoc;
+  } catch (error) {
+    console.error("Error loading PDF:", error);
+    throw new Error("Error loading PDF");
+  }
 }
 
-async function savePdfLibDocToGoogle(pdfDoc, folderId, name) {
+async function savePdfLibDocToGoogle(pdfDoc, destinationFolder, name) {
   const pdfBytes = await pdfDoc.save();
 
   const blob = Utilities.newBlob(pdfBytes).setContentType(MimeType.PDF).setName(name);
-  DriveApp.getFolderById(folderId).createFile(blob);
+  destinationFolder.createFile(blob);
 }
 
 async function sign(pdfDoc, map, signature) {

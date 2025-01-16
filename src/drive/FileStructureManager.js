@@ -10,7 +10,6 @@ function getOrCreateWeekFolder(date) {
   const lastUpdateDate = lastUpdateDateString ? new Date(lastUpdateDateString) : null;
 
   // If last update date is before this week's Monday, create a new folder
-  console.log(lastUpdateDate, lastMonday);
   if (!!lastUpdateDate && lastUpdateDate >= lastMonday) {
     const currentWeekFolderId = propertyService.getProperty("currentWeekFolderId");
     const folder = DriveApp.getFolderById(currentWeekFolderId);
@@ -69,25 +68,25 @@ function getOrCreateMonthlyFolder(today, propertyService) {
   return newFolder;
 }
 
-function cleanDataPackage() {
-  /**
-   * Capitalize course name or FD
-   * remove whitesspaces
-   * FDX10, AOW, OW, RESC
-   */
+function getFolderNameFromPackage(package) {
+  return package.toLowerCase().includes("fd") ? "Fun Divers" : "Courses";
 }
 
-function createCustomerFolder(name, data) {
-  /**
-   * getCurrentWeekFolder
-   * folderName = is "FD" in data.package.clean()
-   *
-   * folder = currentWeekFolder.getFolder(folderName)[0]
-   * customerFolder = folder.createFolder(data.instructor data.package - name)
-   * or folder.createFolder(name) if funDiver
-   *
-   * return customerFolder
-   */
+function createCustomerFolder(data) {
+  console.log(data);
+  const currentWeekFolder = getOrCreateWeekFolder(data.date);
+  const folderName = getFolderNameFromPackage(data.package);
+
+  const folderIt = currentWeekFolder.getFoldersByName(folderName);
+  if (!folderIt.hasNext()) throw new Error("Failed to find a valid folder");
+  const folder = folderIt.next();
+  const name = `${data.first_name} ${data.last_name}`;
+  // FIXME: package might need to be cleaned up
+  const customerFolderName =
+    folderName == "Fun Divers" ? `${name}` : `${data.instructor} - ${data.package} - ${name}`;
+  const customerFolder = folder.createFolder(customerFolderName);
+
+  return customerFolder;
 }
 
 function getOrCreateCustomerFolder(name, data) {

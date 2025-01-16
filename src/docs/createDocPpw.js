@@ -4,9 +4,9 @@ const DESTINATION_FOLDER_ID = "1eUidUtWoJaFE6MzZE-9p3exhd03UNagU";
 const DEBUG_CREATE_FILE = true;
 const DEBUG_FILE_ID = "1gI_7XX1kzRNJXaYkVTbqmUEZK_OD3kKVGR_mIxPwJts";
 
-function createTemplatedDoc() {
+function createTemplatedDoc(destinationFolder) {
   var template = DriveApp.getFileById(TEMPLATE_FILE_ID);
-  return template.makeCopy(DriveApp.getFolderById(DESTINATION_FOLDER_ID));
+  return template.makeCopy(destinationFolder);
 }
 
 function searchAndReplace(doc, data) {
@@ -34,22 +34,24 @@ function searchAndReplace(doc, data) {
   }
 }
 
-function test() {
-  var doc = DocumentApp.openById(TEMPLATE_FILE_ID);
-  var paragraphs = doc.getBody().getParagraphs();
-  paragraphs.forEach((paragraph) => {
-    if (paragraph.getType() == DocumentApp.ElementType.LIST_ITEM)
-      console.log(paragraph.getText(), paragraph.getAttributes());
-  });
-}
+// function test() {
+//   var doc = DocumentApp.openById(TEMPLATE_FILE_ID);
+//   var paragraphs = doc.getBody().getParagraphs();
+//   paragraphs.forEach((paragraph) => {
+//     if (paragraph.getType() == DocumentApp.ElementType.LIST_ITEM)
+//       console.log(paragraph.getText(), paragraph.getAttributes());
+//   });
+// }
 
-function createCustomerDoc(data) {
-  var file = createTemplatedDoc();
+function createCustomerDoc(data, destinationFolder) {
+  var file = createTemplatedDoc(destinationFolder);
   var doc = DocumentApp.openById(file.getId());
+
+  console.log(data);
 
   searchAndReplace(doc, data);
   insertImageAndExport(doc, data.signature);
-  file.setName(`${data.first_name}_${data.last_name}_${new Date()}`);
+  file.setName(`${data.first_name} ${data.last_name} - ${formatDate(data.date)}`);
 }
 
 function formatDate(date) {
@@ -60,7 +62,7 @@ function formatDate(date) {
   return `${day}-${month}-${year}`;
 }
 
-function insertImageAndExport(doc, base64String = BA) {
+function insertImageAndExport(doc, base64String) {
   // Sample image in base64
 
   // decode the image to make a blob
