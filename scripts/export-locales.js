@@ -1,11 +1,19 @@
-const fs = require("fs");
-const path = require("path");
+import * as fs from "fs";
+import * as path from "path";
+import * as prettier from "prettier";
+
+const __dirname = import.meta.dirname;
+
+console.log(__dirname);
 
 // Input and output directories
-const fileName = "locales.html";
 const inputDir = path.join(__dirname, "../locales");
+
+const fileName = "locales.html";
 const outputDir = path.join(__dirname, "../dist");
 const outputFile = path.join(outputDir, fileName);
+
+const prettierOptions = await prettier.resolveConfig(__dirname);
 
 // Check for the `--watch` flag
 const args = process.argv.slice(2);
@@ -34,46 +42,53 @@ if (isWatchMode) {
   createLocales();
 }
 
-function createLocales() {
+async function createLocales() {
   // Ensure output directory exists
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
 
   // Start building the content for the output file
-  let fileContent = "<!-- Automatically generated file - DO NOT EDIT -->\n\n";
+  let fileContent = "";
 
   // Read all JSON files in the input directory
-  fs.readdir(inputDir, (err, files) => {
-    if (err) {
-      console.error("Error reading i18n directory:", err);
-      return;
-    }
+  const allLocales = fs
+    .readdirSync(inputDir, { withFileTypes: true })
+    .filter((dirent) => dirent.isDirectory())
+    .map((dirent) => dirent.name);
 
-    fileContent += `<script>\n const locales = {\n`;
-
-    files.forEach((file) => {
+  allLocales.forEach((lang) => {
+    let langContent = "";
+    const namespace = fs.readdirSync(path.join(inputDir, lang));
+    namespace.forEach((file) => {
       if (path.extname(file) === ".json") {
-        const lang = path.basename(file, ".json"); // Get file name without extension
-        const filePath = path.join(inputDir, file);
+        const ns = path.basename(file, ".json"); // Get file name without extension
+        const filePath = path.join(inputDir, lang, file);
 
         // Read and parse the JSON content
         const jsonContent = fs.readFileSync(filePath, "utf-8");
 
         // Append the content as a constant to the output file
-        fileContent += `${lang}: {\n  "translation": ${jsonContent}},\n`;
+        langContent += `${ns}: ${jsonContent},\n`;
       }
     });
+    fileContent += `${lang}: {${langContent}},`;
+  });
 
-    fileContent += "};\n </script>\n";
+  fileContent = `<script>const locales = {${fileContent}};</script>`;
+  fileContent = "<!-- Automatically generated file - DO NOT EDIT -->\n\n" + fileContent;
 
-    // Write the content to the output file
-    fs.writeFile(outputFile, fileContent, (writeErr) => {
-      if (writeErr) {
-        console.error(`Error writing ${fileName}`, writeErr);
-      } else {
-        console.log(`Locales successfully exported to ${outputFile}`);
-      }
-    });
+  const formattedFile = await prettier.format(fileContent, {
+    ...prettierOptions,
+    parser: "html",
+  });
+
+  // Write the content to the output file
+  fs.writeFileSync(outputFile, formattedFile, (writeErr) => {
+    if (writeErr) {
+      console.error(`Error writing ${fileName}`, writeErr);
+    } else {
+      console.log(`Locales successfully exported to ${outputFile}`);
+    }
   });
 }

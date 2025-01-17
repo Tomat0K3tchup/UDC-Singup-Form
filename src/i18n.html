@@ -5,8 +5,19 @@
 <script src="https://cdn.jsdelivr.net/npm/i18next-browser-languagedetector@6.1.3/i18nextBrowserLanguageDetector.min.js"></script>
 
 <script>
-  console.log(locales);
   $(function () {
+    const nameSpaces = [];
+    Object.keys(locales.en).forEach((ns) => {
+      nameSpaces.push(ns);
+    });
+
+    const supportedLngs = [];
+    Object.keys(locales).forEach((lng) => {
+      supportedLngs.push(lng);
+    });
+
+    console.log(nameSpaces, supportedLngs);
+
     i18next
       // learn more: https://github.com/i18next/i18next-browser-languageDetector
       .use(i18nextBrowserLanguageDetector)
@@ -14,8 +25,11 @@
       .init(
         {
           debug: true,
-          fallbackLng: "es",
+          supportedLngs: supportedLngs,
+          fallbackLng: "en",
           resources: locales,
+          ns: nameSpaces,
+          defaultNS: "form",
         },
         (err, t) => {
           if (err) return console.error(err);

@@ -1,9 +1,5 @@
 <script type="module">
-  import {
-    LitElement,
-    css,
-    html,
-  } from "https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js";
+  import { LitElement, css, html } from "https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js";
 
   class MultiStepForm extends LitElement {
     static formAssociated = true;
@@ -130,18 +126,21 @@
 
       document.body.scrollTop = 0; // For Safari
       document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+      $(this.renderRoot).localize();
     }
 
     render() {
       return html`
         <slot></slot>
         <div>
-          <button id="mf-prev-btn" class="secondary" @click=${this.prevSet}>Previous</button>
+          <button data-i18n="test" id="mf-prev-btn" class="secondary" @click=${this.prevSet}>
+            Previous
+          </button>
           <p>
-            <span id="mf-current"></span> of
+            <span id="mf-current" data-i18n="test"></span> of
             <span id="mf-total">${this.totalSets}</span>
           </p>
-          <button id="mf-next-btn" class="primary" @click=${this.nextSet}>Next</button>
+          <button data-i18n="test" id="mf-next-btn" class="primary" @click=${this.nextSet}>OKOK</button>
         </div>
       `;
     }

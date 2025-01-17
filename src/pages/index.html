@@ -18,7 +18,7 @@
       referrerpolicy="no-referrer"
     />
 
-    <?!= include_('src/stylesheet') ?> <?!= include_('dist/locales')?>
+    <?!= include_('src/stylesheet') ?>
     <script>
       // Prevent forms from submitting.
       function preventFormSubmit() {
@@ -48,12 +48,7 @@
   </head>
   <body>
     <div class="formWidth formDropShadow">
-      <form
-        name="udc-form"
-        enctype="multipart/form-data"
-        id="udc-form"
-        onsubmit="handleFormSubmit(this)"
-      >
+      <form name="udc-form" enctype="multipart/form-data" id="udc-form" onsubmit="handleFormSubmit(this)">
         <div class="formWrapper">
           <div class="zf-tempHeadContBdr">
             <h1><em data-i18n="title"></em></h1>
@@ -61,29 +56,44 @@
           </div>
 
           <multi-step-form>
-            <fieldset class="formStep">
-              <legend>Personal Details</legend>
+            <!-- <fieldset class="formStep">
+              <legend data-i18n="personal.title"></legend>
               <div class="multiInput" id="full_name">
-                <form-input data-i18n="[label]firstName" id="first_name" required></form-input>
-                <form-input label="Last Name" id="last_name" required></form-input>
+                <form-input data-i18n="[label]personal.firstName" id="first_name" required></form-input>
+                <form-input data-i18n="[label]personal.lastName" id="last_name" required></form-input>
               </div>
-              <form-input label="Date of Birth" id="dob" type="date" required></form-input>
+              <form-input data-i18n="[label]personal.dob" id="dob" type="date" required></form-input>
 
-              <form-input label="Email" id="email" type="email" required></form-input>
-              <form-input label="Postal address" id="address" required></form-input>
+              <form-input data-i18n="[label]personal.email" id="email" type="email" required></form-input>
+              <form-input data-i18n="[label]personal.address" id="address" required></form-input>
 
               <div class="formInput">
-                <label for="phone">Phone<em class="important">*</em></label>
-                <input label="Phone" id="phone" name="phone" type="tel" class="passport" required />
+                <label for="phone" data-i18n="personal.phone"><em class="important">*</em></label>
+                <input
+                  data-i18n="[label]personal.phone"
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  class="passport"
+                  required
+                />
               </div>
             </fieldset>
 
-            <!-- <fieldset class="formStep">
-              <legend>Emergency Contact</legend>
-              <form-input label="Full Name" id="em_full_name" required></form-input>
+            <fieldset class="formStep">
+              <legend data-i18n="[label]emergency.title">Emergency Contact</legend>
+              <form-input data-i18n="[label]emergency.fullName" id="em_full_name" required></form-input>
               <div class="formInput">
-                <label for="em_phone">Phone<em class="important">*</em></label>
-                <input label="Phone" id="em_phone" name="em_phone" type="tel" required />
+                <label for="em_phone" data-i18n="[label]emergency.phone"
+                  ><em class="important">*</em></label
+                >
+                <input
+                  data-i18n="[label]emergency.phone"
+                  id="em_phone"
+                  name="em_phone"
+                  type="tel"
+                  required
+                />
               </div>
               <form-input label="Relationship" id="em_relationship" required></form-input>
 
@@ -91,58 +101,46 @@
                 <form-radio
                   id="di"
                   slot="decision"
+                  data-i18n="[label]emergency.di.label;[options]emergency.di.options"
                   required
-                  label="Do you have a dive insurance?"
-                  options='[{"value": "true", "label": "Yes"}, {"value": "false", "label": "No"}]'
                 ></form-radio>
                 <fieldset id="di_hidden" class="flx-form" slot="hidden">
-                  <form-input label="Dive insurance provider" id="di_provider"></form-input>
-                  <form-input label="Policy number" id="di_policy_nb"></form-input>
-                  <form-input label="Other travel insurance details" id="di_other"></form-input>
+                  <form-input data-i18n="[label]emergency.diProvider" id="di_provider"></form-input>
+                  <form-input data-i18n="[label]emergency.diPolicyNb" id="di_policy_nb"></form-input>
+                  <form-input data-i18n="[label]emergency.diOther" id="di_other"></form-input>
                 </fieldset>
               </form-accordion>
             </fieldset>
 
             <fieldset class="formStep">
-              <legend>Passport Information</legend>
+              <legend data-i18n="[label]id.title"></legend>
               <div class="formInput">
-                <label for="id_country">Issuing Country<em class="important">*</em></label>
+                <label for="id_country" data-i18n="[label]id.country"><em class="important">*</em></label>
                 <?!= include_('src/components/CountrySelect') ?>
               </div>
-              <form-input label="Passport number" id="id_nb" required></form-input>
+              <form-input data-i18n="[label]id.number" id="id_nb" required></form-input>
 
-              <form-input label="Issue Date" id="id_iss_date" type="date" required></form-input>
-              <form-input
-                label="Expiration date"
-                id="id_exp_date"
-                type="date"
-                required
-              ></form-input>
-            </fieldset>
-            -->
+              <form-input data-i18n="[label]id.issDate" id="id_iss_date" type="date" required></form-input>
+              <form-input data-i18n="[label]id.expDate" type="date" required></form-input>
+            </fieldset> -->
 
             <fieldset class="formStep tAndC">
               <?!= include_('src/components/UdcTAndC-2') ?>
-              <form-input
-                label="I have read, understood and I agree with the terms and conditions."
-                id="id_t_c"
-                type="checkbox"
-                required
-              ></form-input>
+              <form-input data-i18n="[label]tAndC.accept" id="id_t_c" type="checkbox" required></form-input>
             </fieldset>
 
             <fieldset class="formStep">
               <?!= include_('src/components/LiabilityRelease') ?>
-              <form-signature
-                id="signature"
-                label="Participant Signature"
-                required
-              ></form-signature>
+              <form-signature id="signature" label="Participant Signature" required></form-signature>
             </fieldset>
           </multi-step-form>
         </div>
       </form>
     </div>
+
+    <!-- prettier-ignore -->
+    <?!= include_('dist/locales')?> 
+    <?!= include_('src/i18n') ?>
 
     <!-- Import custom components -->
     <!-- prettier-ignore -->
@@ -151,8 +149,6 @@
     <?!= include_('src/components/FormRadio') ?> 
     <?!= include_('src/components/FormAccordion') ?>
     <?!= include_('src/components/FormSignature') ?>
-
-    <?!= include_('src/i18n') ?>
 
     <!-- IntTelInput -->
     <link

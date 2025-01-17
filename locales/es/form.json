@@ -1,0 +1,40 @@
+{
+  "title": "UDC Registro de buceadores",
+  "personal": {
+    "title": "Información Personal",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "dob": "Fecha de nacimiento",
+    "email": "Correo electrónico",
+    "address": "Dirección de correo",
+    "phone": "Número de teléphono",
+    "fullName": "Nombre Completo"
+  },
+  "emergency": {
+    "title": "Contacto de Emergencia",
+    "fullName": "Nombre Completo",
+    "relation": "Relación",
+    "phone": "Número de teléfono",
+    "di": {
+      "label": "Tengo un Seguro de buceo",
+      "options": "[{'value': 'true', 'label': 'Si'}, {'value': 'false', 'label': 'No'}]"
+    },
+    "diProvider": "Compañía de Seguro de bueco",
+    "diPolicyNb": "Número de póliza",
+    "diOther": "Otros detalles de seguro de viaje"
+  },
+  "id": {
+    "title": "Información de identidad Hondureña",
+    "country": "País de expedición",
+    "number": "Número",
+    "issDate": "Fecha de expedición",
+    "expDate": "Fecha de expiración"
+  },
+  "tAndC": {
+    "title": "",
+    "accept": "He leído, entiendo y acepto los términos y condiciones."
+  },
+  "liability": {
+    "signature": ""
+  }
+}

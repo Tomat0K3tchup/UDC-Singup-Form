@@ -376,15 +376,18 @@
 
   /****************T&C styling****************/
 
-  .tAndC li {
-    margin-bottom: 1.15rem;
-  }
-
   .tAndC ol,
   .tAndC ul {
     list-style-position: inside;
     text-indent: -1rem; /* key property */
     margin-left: 1.5rem; /* text-indent + padding of p*/
+  }
+
+  .tAndC > ol,
+  .tAndC > ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 
   /* .tAndC {

@@ -1,9 +1,5 @@
 <script type="module">
-  import {
-    LitElement,
-    css,
-    html,
-  } from "https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js";
+  import { LitElement, css, html } from "https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js";
 
   const NAME_VALIDATION_REGEX = /^\s*[\p{L}](([ ,.'-](?<!( {2}|[,.'-]{2})))*[\p{L}])*[ ,.'-]?$/u;
 
@@ -14,7 +10,7 @@
       :host {
         display: flex;
         flex-direction: column;
-        align-items: start;
+        // align-items: start;
         width: 100%;
       }
 
@@ -25,6 +21,7 @@
 
       div:has(input[type="checkbox"]) {
         flex-direction: row-reverse;
+        justify-content: flex-end;
         align-items: center;
       }
 
