@@ -38,11 +38,12 @@
         payload["em_phone"] = emPhoneInputHandler.getNumber();
 
         console.log(payload);
-        google.script.run.withSuccessHandler(successHandler).processForm(payload);
+        toggleSpinner();
+        google.script.run.withSuccessHandler(toggleSpinner).processForm(payload);
       }
 
-      function successHandler(url) {
-        alert("Success!");
+      function toggleSpinner() {
+        document.querySelector("spinner-modal").toggle();
       }
     </script>
   </head>
@@ -134,6 +135,7 @@
               <form-signature id="signature" label="Participant Signature" required></form-signature>
             </fieldset>
           </multi-step-form>
+          <spinner-modal></spinner-modal>
         </div>
       </form>
     </div>
@@ -149,6 +151,7 @@
     <?!= include_('src/components/FormRadio') ?> 
     <?!= include_('src/components/FormAccordion') ?>
     <?!= include_('src/components/FormSignature') ?>
+    <?!= include_('src/components/SpinnerModal') ?>
 
     <!-- IntTelInput -->
     <link

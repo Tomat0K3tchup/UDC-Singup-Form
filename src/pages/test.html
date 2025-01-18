@@ -1,4 +1,4 @@
-<form id="myForm">
+<!-- <form id="myForm">
   <form-accordion>
     <form-radio
       id="di"
@@ -25,4 +25,43 @@
 </script>
 
 <?!= include_('src/components/FormInput') ?> <?!= include_('src/components/FormRadio') ?> <?!=
-include_('src/components/FormAccordion') ?>
+include_('src/components/FormAccordion') ?> -->
+<style type="text/css">
+  /* CSS for the form */
+  :root {
+    --main-bg-color: #01436f;
+  }
+
+  .blue {
+    background-color: var(--main-bg-color);
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+  }
+
+  .form {
+    background-color: #ffffff;
+    width: 700px;
+    height: 80vh;
+  }
+</style>
+
+<div class="blue">
+  <div class="form">
+    <button />
+  </div>
+</div>
+
+<spinner-modal></spinner-modal>
+
+<?!= include_('src/components/SpinnerModal') ?>
+
+<script>
+  function toggle() {
+    document.querySelector("spinner-modal").toggle();
+  }
+
+  document.querySelector("button").addEventListener("click", toggle);
+</script>
