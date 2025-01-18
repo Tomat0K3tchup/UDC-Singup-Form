@@ -9,22 +9,22 @@ const SHEET_NAME = "Form Responses";
 /** Endpoint router of the webapp. As of now, the only route served is the default. It serves index.html*/
 function doGet(e) {
   let pageInfo = {
-    fileName: "src/pages/index",
+    fileName: "src/frontend/pages/index",
     title: "UDC signup form",
   };
 
   if (e.pathInfo == "test") {
-    pageInfo.fileName = "src/pages/test";
+    pageInfo.fileName = "src/frontend/pages/test";
     pageInfo.title = "UDC test";
   }
 
   if (e.pathInfo == "demo") {
-    pageInfo.fileName = "src/pages/demo-medical";
+    pageInfo.fileName = "src/frontend/pages/demo-medical";
     pageInfo.title = "UDC Demo Medical";
   }
 
   if (e.pathInfo == "admin") {
-    pageInfo.fileName = "src/pages/reception";
+    pageInfo.fileName = "src/frontend/pages/reception";
     pageInfo.title = "UDC admin reception form";
   }
 

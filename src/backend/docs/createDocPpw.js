@@ -29,19 +29,45 @@ function searchAndReplace(doc, data) {
       } else {
         value = clientInfo[key];
       }
+      if (value == "TRUE" || value == "FALSE") {
+        searchAndReplaceBoolean(body, key, value === "TRUE");
+        continue;
+      }
       body.replaceText(`{{${key}}}`, value);
     } catch (e) {}
   }
 }
 
-// function test() {
-//   var doc = DocumentApp.openById(TEMPLATE_FILE_ID);
-//   var paragraphs = doc.getBody().getParagraphs();
-//   paragraphs.forEach((paragraph) => {
-//     if (paragraph.getType() == DocumentApp.ElementType.LIST_ITEM)
-//       console.log(paragraph.getText(), paragraph.getAttributes());
-//   });
-// }
+function searchAndReplaceBoolean(body, key, value) {
+  // Start and end index of the element to strikethrough in the string will be added
+  const spaces = 10;
+  const replacementString = "Yes" + " ".repeat(spaces) + "No";
+  const OFFSET_MAP = {
+    // offset of No
+    true: {
+      offset: spaces + 3, // spaces + Yes.length - 1
+      length: 1, // No.length - 1
+    },
+    // offset of Yes
+    false: {
+      offset: 0,
+      length: 2, // Yes.length - 1
+    },
+  };
+  // Find all occurrences of the pattern
+  const foundElement = body.findText(`{{${key}}}`);
+
+  const element = foundElement.getElement();
+  const start = foundElement.getStartOffset();
+  const end = foundElement.getEndOffsetInclusive();
+
+  const text = element.asText();
+  text.deleteText(start, end);
+  text.insertText(start, replacementString);
+
+  const { offset, length } = OFFSET_MAP[value];
+  text.setStrikethrough(start + offset, start + offset + length, true);
+}
 
 function createCustomerDoc(data, destinationFolder) {
   var file = createTemplatedDoc(destinationFolder);
@@ -63,9 +89,6 @@ function formatDate(date) {
 }
 
 function insertImageAndExport(doc, base64String) {
-  // Sample image in base64
-
-  // decode the image to make a blob
   var decoded = Utilities.base64Decode(base64String.split(",")[1]);
   var blob = Utilities.newBlob(decoded);
 

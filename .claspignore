@@ -12,4 +12,4 @@
 .git/**
 node_modules/**
 scripts/**
-src/archive/**
+src/front/archive/**

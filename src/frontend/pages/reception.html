@@ -11,7 +11,7 @@
       rel="stylesheet"
     />
 
-    <?!= include_('src/stylesheet') ?> <?!= include_('src/handleTabJS') ?>
+    <?!= include_('src/frontend/stylesheet') ?> <?!= include_('src/frontend/handleTabJS') ?>
 
     <script>
       // Prevent forms from submitting.
@@ -45,8 +45,8 @@
       }
     </script>
 
-    <!-- <script src="validation.gs"></script> -->
-    <!-- <script src="signature.gs"></script> -->
+    <!-- <script src/frontend="validation.gs"></script> -->
+    <!-- <script src/frontend="signature.gs"></script> -->
   </head>
   <body class="zf-backgroundBg zf-section">
     <!-- Change or deletion of the name attributes in the input tag will lead to empty values on record submission -->
@@ -446,17 +446,17 @@
 
     <script
       type="text/javascript"
-      src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"
+      src/frontend="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"
     ></script>
     <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.min.js"
+      src/frontend="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.min.js"
       integrity="sha512-uWk2ZXl3GVrq6DZsrL5dSg1S/F3MNQ9VaDFigqXOoKUnWG58UxOuJGfTrzh5KjpoBvPiFniL2PahU2HUTFMJXw=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-    <?!= include_('src/signature/jquery.signaturepad.min') ?>
+    <?!= include_('src/frontend/signature/jquery.signaturepad.min') ?>
     <!-- jQuery signature Pad plugin: https://github.com/thread-pond/signature-pad/blob/main/documentation.md -->
-    <?!= include_('src/signature/signaturepad.stylesheet') ?>
+    <?!= include_('src/frontend/signature/signaturepad.stylesheet') ?>
 
     <script>
       $(document).ready(function () {
