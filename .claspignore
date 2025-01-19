@@ -3,13 +3,14 @@
 
 # except the extensions…
 !appsscript.json
-!**/*.gs
-!**/*.js
-!**/*.ts
-!**/*.html
+!src/backend/**
+!dist/**
+!lib/**
+# !**/*.gs
+# !**/*.js
+# !**/*.ts
 
 # ignore even valid files if in…
 .git/**
 node_modules/**
-scripts/**
-src/front/archive/**
+dist/frontend/archive/**

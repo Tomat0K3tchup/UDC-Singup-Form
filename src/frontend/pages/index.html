@@ -18,7 +18,7 @@
       referrerpolicy="no-referrer"
     />
 
-    <?!= include_('src/frontend/stylesheet') ?>
+    <?!= include_('dist/frontend/stylesheet') ?>
     <script>
       // Prevent forms from submitting.
       function preventFormSubmit() {
@@ -117,7 +117,7 @@
               <legend data-i18n="[label]id.title"></legend>
               <div class="formInput">
                 <label for="id_country" data-i18n="[label]id.country"><em class="important">*</em></label>
-                <?!= include_('src/frontend/components/CountrySelect') ?>
+                <?!= include_('dist/frontend/components/CountrySelect') ?>
               </div>
               <form-input data-i18n="[label]id.number" id="id_nb" required></form-input>
 
@@ -126,12 +126,12 @@
             </fieldset>
 
             <fieldset class="formStep tAndC">
-              <?!= include_('src/frontend/components/UdcTAndC-2') ?>
+              <?!= include_('dist/frontend/components/UdcTAndC-2') ?>
               <form-input data-i18n="[label]tAndC.accept" id="id_t_c" type="checkbox" required></form-input>
             </fieldset>
 
             <fieldset class="formStep">
-              <?!= include_('src/frontend/components/LiabilityRelease') ?>
+              <?!= include_('dist/frontend/components/LiabilityRelease') ?>
               <form-signature id="signature" label="Participant Signature" required></form-signature>
             </fieldset>
           </multi-step-form>
@@ -142,23 +142,23 @@
 
     <!-- prettier-ignore -->
     <?!= include_('dist/locales')?> 
-    <?!= include_('src/frontend/i18n') ?>
+    <?!= include_('dist/frontend/i18n') ?>
 
     <!-- Import custom components -->
     <!-- prettier-ignore -->
-    <?!= include_('src/frontend/components/FormInput') ?> 
-    <?!= include_('src/frontend/components/FormTab') ?> 
-    <?!= include_('src/frontend/components/FormRadio') ?> 
-    <?!= include_('src/frontend/components/FormAccordion') ?>
-    <?!= include_('src/frontend/components/FormSignature') ?>
-    <?!= include_('src/frontend/components/SpinnerModal') ?>
+    <?!= include_('dist/frontend/components/FormInput') ?> 
+    <?!= include_('dist/frontend/components/FormTab') ?> 
+    <?!= include_('dist/frontend/components/FormRadio') ?> 
+    <?!= include_('dist/frontend/components/FormAccordion') ?>
+    <?!= include_('dist/frontend/components/FormSignature') ?>
+    <?!= include_('dist/frontend/components/SpinnerModal') ?>
 
     <!-- IntTelInput -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/css/intlTelInput.min.css"
     />
-    <script src/frontend="https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/js/intlTelInputWithUtils.min.js"></script>
+    <script dist/frontend="https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/js/intlTelInputWithUtils.min.js"></script>
     <script>
       const $phoneInput = document.querySelector("#phone");
       const $emPhoneInput = document.querySelector("#em_phone");
