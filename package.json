@@ -8,8 +8,11 @@
     "prettier": "^3.4.2"
   },
   "scripts": {
-    "start": "npm-run-all --parallel clasp export-locales",
+    "start": "npm-run-all --parallel clasp transpile-code export-locales",
+    "deploy-test": "npm run push && npx clasp deploy -i AKfycbxMJBv7SQsFBsIz2emct58L-sPo_r-3MAhOmgowSQf4HiPuzkH0XZ1NCzm5__f0bU7Y",
+    "push": "node ./scripts/export-js-to-html.js && npx clasp push",
     "clasp": "npx clasp push -w",
+    "transpile-code": "node ./scripts/export-js-to-html.js --watch",
     "export-locales": "node ./scripts/export-locales.js --watch",
     "prettier": "npx prettier -w ."
   }

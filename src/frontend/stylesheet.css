@@ -89,6 +89,7 @@ video {
   --main-accent-color: #ffdd14;
   --primary-color: #ffffff;
   --button-color: #00000066;
+  --border-color: #767676;
   --error-color: #dd0011;
 
   --body-font-family: Inter, Rubik, Open Sans, Roboto, sans-serif;
@@ -138,6 +139,8 @@ button {
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box; /* Firefox, other Gecko */
   box-sizing: border-box; /* Opera/IE 8+ */
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
 }
 
 button {
@@ -333,14 +336,15 @@ multi-step-form > fieldset,
   gap: 1rem 0;
 }
 
-.passport > .iti__dial-code {
-  background: green;
-}
-
 .formInput {
   display: flex;
   flex-direction: column;
   width: 100%;
+}
+
+.formInput > div {
+  display: flex;
+  flex-direction: column;
 }
 
 .multiInput {
@@ -430,6 +434,25 @@ fieldset > p {
   outline: -webkit-focus-ring-color auto 1px;
 }
 
+.invalid {
+  color: var(--error-color);
+}
+
+input.invalid {
+  border: 1px solid var(--error-color);
+}
+
+/* FIXME: iti elements should be components */
+.error {
+  display: none;
+  padding: 0.4rem 0 0 0.5rem;
+  font-size: 0.9rem;
+}
+
+span.visible {
+  display: block;
+}
+
 /****************SigPad CSS Override****************/
 
 .sigPad .typeItDesc,
@@ -440,4 +463,33 @@ fieldset > p {
   line-height: var(--body-line-height);
   color: var(--main-bg-color);
   border: none;
+}
+
+/****************Duet Date Picker Override****************/
+
+.date .duet-date__input {
+  padding: 0.5rem 1rem;
+  font-family: var(--body-font-family-text);
+  font-size: 1rem;
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--border-color);
+}
+
+.date .duet-date__toggle {
+  box-shadow: none;
+  background: #fff0;
+}
+
+.date .duet-date__toggle:focus {
+  /* box-shadow: 0 0 0 2px var(--duet-color-primary); */
+  outline: -webkit-focus-ring-color auto 1px;
+}
+
+.date .duet-date__input:focus {
+  box-shadow: none;
+  outline: -webkit-focus-ring-color auto 1px;
+}
+
+.date .duet-date__toggle-icon > svg {
+  height: 1.25rem;
 }

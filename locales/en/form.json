@@ -16,7 +16,7 @@
     "phone": "Phone",
     "di": {
       "label": "Do you have a dive insurance?",
-      "options": "[{'value': 'true', 'label': 'Yes'}, {'value': 'false', 'label': 'No'}]"
+      "options": "[{\"value\": \"true\", \"label\": \"Yes\"}, {\"value\": \"false\", \"label\": \"No\"}]"
     },
     "diProvider": "Dive insurance provider",
     "diPolicyNb": "Policy number",
@@ -69,7 +69,7 @@
       "tc": {
         "title": "Terms and Conditions",
         "rules": {
-          "reefTax": "Participation in the Dive Operator's Reef Tax Scheme is compulsory for everyone diving at Utila Dive Centre (UDC). This tax includes a contribution to conservation, the community, and the hyperbaric chamber facility.",
+          "reefTax": "Participation in the Dive Operator\"s Reef Tax Scheme is compulsory for everyone diving at Utila Dive Centre (UDC). This tax includes a contribution to conservation, the community, and the hyperbaric chamber facility.",
           "depthLimits": {
             "description": "Strict depth limits are applied to all divers as follows:",
             "limits": {

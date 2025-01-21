@@ -1,10 +1,11 @@
 const TEMPLATE_FILE_ID = "1KC-eK-c23lJdM4egjqk60v3l9SbQ0_ZW9KCPa-EEZPQ";
 const DESTINATION_FOLDER_ID = "1eUidUtWoJaFE6MzZE-9p3exhd03UNagU";
-
+// FIXME: use properties
 const DEBUG_CREATE_FILE = true;
 const DEBUG_FILE_ID = "1gI_7XX1kzRNJXaYkVTbqmUEZK_OD3kKVGR_mIxPwJts";
 
 function createTemplatedDoc(destinationFolder) {
+  // FIXME: no partial updates
   var template = DriveApp.getFileById(TEMPLATE_FILE_ID);
   return template.makeCopy(destinationFolder);
 }
@@ -12,6 +13,7 @@ function createTemplatedDoc(destinationFolder) {
 function searchAndReplace(doc, data) {
   var body = doc.getBody();
 
+  // FIXME: not so many keys
   var clientInfo = {
     ...data,
     name: `${data.first_name} ${data.last_name}`,
@@ -33,8 +35,10 @@ function searchAndReplace(doc, data) {
         searchAndReplaceBoolean(body, key, value === "TRUE");
         continue;
       }
-      body.replaceText(`{{${key}}}`, value);
-    } catch (e) {}
+      body.replaceText(`{{${key.toString()}}}`, value);
+    } catch (e) {
+      console.warn(e.message);
+    }
   }
 }
 
@@ -73,8 +77,6 @@ function createCustomerDoc(data, destinationFolder) {
   var file = createTemplatedDoc(destinationFolder);
   var doc = DocumentApp.openById(file.getId());
 
-  console.log(data);
-
   searchAndReplace(doc, data);
   insertImageAndExport(doc, data.signature);
   file.setName(`${data.first_name} ${data.last_name} - ${formatDate(data.date)}`);
@@ -89,10 +91,12 @@ function formatDate(date) {
 }
 
 function insertImageAndExport(doc, base64String) {
-  var decoded = Utilities.base64Decode(base64String.split(",")[1]);
-  var blob = Utilities.newBlob(decoded);
+  if (!base64String) throw new Error("Please provide a signature for the customer");
+  const dataPart = base64String.split(",")[1];
 
-  // Append the image as blob
+  if (!dataPart) throw new Error("The provided signature is invalid");
+  var blob = Utilities.newBlob(Utilities.base64Decode(dataPart));
+
   doc.getBody().appendImage(blob);
 
   // // Export to PDF

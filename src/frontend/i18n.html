@@ -16,15 +16,13 @@
       supportedLngs.push(lng);
     });
 
-    console.log(nameSpaces, supportedLngs);
-
     i18next
       // learn more: https://github.com/i18next/i18next-browser-languageDetector
       .use(i18nextBrowserLanguageDetector)
       // for all options read: https://www.i18next.com/overview/configuration-options
       .init(
         {
-          debug: true,
+          debug: false,
           supportedLngs: supportedLngs,
           fallbackLng: "en",
           resources: locales,

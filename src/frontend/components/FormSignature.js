@@ -56,10 +56,7 @@ export class FormSignature extends window.FormInput {
     this._resizeObserver = new ResizeObserver(() => this.resizeCanvas());
     this._resizeObserver.observe(this.parentElement); // Observe the parent container
 
-    // window.addEventListener("resize", () => this.resizeCanvas());
-    // this.resizeCanvas();
-
-    this.signaturePad.addEventListener("endStroke", () => this.updateValue());
+    this.signaturePad.addEventListener("endStroke", () => this.handleInput());
   }
 
   disconnectedCallback() {
@@ -84,22 +81,22 @@ export class FormSignature extends window.FormInput {
     this.updateValue();
   }
 
-  save() {
-    if (this.signaturePad.isEmpty()) {
-      //FIXME: error handling
-      return alert("Please provide a signature first.");
-    }
+  // checkValidity() {
+  //   if (this.signaturePad.isEmpty()) {
+  //     //FIXME: error handling
+  //     return alert("Please provide a signature first.");
+  //   }
 
-    var data = this.signaturePad.toDataURL("image/png");
-    console.log(data);
-  }
+  //   var data = this.signaturePad.toDataURL("image/png");
+  //   console.log(data);
+  // }
 
   render() {
     return html`
       <div class="sigNav">
         <button @click=${this.clear}>Clear</button>
       </div>
-      <div class="sigWrapper">
+      <div class="sigWrapper" @invalid=${() => this.toggleError(true)}>
         <canvas></canvas>
         <input type="hidden" id="${this.id}" name="${this.name || this.id}" />
       </div>

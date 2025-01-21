@@ -18,6 +18,19 @@
       referrerpolicy="no-referrer"
     />
 
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/@duetds/date-picker@1.4.0/dist/duet/duet.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://cdn.jsdelivr.net/npm/@duetds/date-picker@1.4.0/dist/duet/duet.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@duetds/date-picker@1.4.0/dist/duet/themes/default.css"
+    />
+
     <?!= include_('dist/frontend/stylesheet') ?>
     <script>
       // Prevent forms from submitting.
@@ -31,19 +44,27 @@
       window.addEventListener("load", preventFormSubmit);
 
       function handleFormSubmit(formObject) {
+        console.log("called");
         var formData = new FormData(formObject);
         var payload = Object.fromEntries(formData);
 
-        payload["phone"] = phoneInputHandler.getNumber();
-        payload["em_phone"] = emPhoneInputHandler.getNumber();
+        // payload["phone"] = phoneInputHandler.getNumber();
+        // payload["em_phone"] = emPhoneInputHandler.getNumber();
 
         console.log(payload);
         toggleSpinner();
-        google.script.run.withSuccessHandler(toggleSpinner).processForm(payload);
+        google.script.run.withSuccessHandler(handleSuccess).processForm(payload);
       }
 
       function toggleSpinner() {
         document.querySelector("spinner-modal").toggle();
+      }
+
+      function handleSuccess() {
+        console.log(document.querySelector("multi-step-form"));
+        document.querySelector("multi-step-form").style.display = "none";
+        document.querySelector("success-failure-display").toggleVisibility();
+        toggleSpinner();
       }
     </script>
   </head>
@@ -63,39 +84,40 @@
                 <form-input data-i18n="[label]personal.firstName" id="first_name" required></form-input>
                 <form-input data-i18n="[label]personal.lastName" id="last_name" required></form-input>
               </div>
-              <form-input data-i18n="[label]personal.dob" id="dob" type="date" required></form-input>
+              <div class="formInput">
+                <label for="date" data-i18n="[prepend]personal.dob"><em class="important">*</em></label>
+                <duet-date-picker class="date" identifier="dob" required></duet-date-picker>
+              </div>
 
               <form-input data-i18n="[label]personal.email" id="email" type="email" required></form-input>
               <form-input data-i18n="[label]personal.address" id="address" required></form-input>
 
               <div class="formInput">
-                <label for="phone" data-i18n="personal.phone"><em class="important">*</em></label>
-                <input
-                  data-i18n="[label]personal.phone"
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  class="passport"
-                  required
-                />
+                <div>
+                  <label for="phone" data-i18n="[prepend]personal.phone"
+                    ><em class="important">*</em></label
+                  >
+                  <input id="phone" name="phone" type="tel" required />
+                </div>
+                <span id="phone_err" class="error invalid">Please enter a phone number.</span>
               </div>
             </fieldset>
 
             <fieldset class="formStep">
               <legend data-i18n="[label]emergency.title">Emergency Contact</legend>
               <form-input data-i18n="[label]emergency.fullName" id="em_full_name" required></form-input>
+
               <div class="formInput">
-                <label for="em_phone" data-i18n="[label]emergency.phone"
-                  ><em class="important">*</em></label
-                >
-                <input
-                  data-i18n="[label]emergency.phone"
-                  id="em_phone"
-                  name="em_phone"
-                  type="tel"
-                  required
-                />
+                <div>
+                  <label for="em_phone" data-i18n="[prepend]emergency.phone"
+                    ><em class="important">*</em></label
+                  >
+                  <input id="em_phone" name="em_phone" type="tel" required />
+                </div>
+                <!-- FIXME: plain text -->
+                <span id="phone_err" class="error invalid">Please enter a phone number.</span>
               </div>
+
               <form-input label="Relationship" id="em_relationship" required></form-input>
 
               <form-accordion>
@@ -114,15 +136,15 @@
             </fieldset>
 
             <fieldset class="formStep">
-              <legend data-i18n="[label]id.title"></legend>
+              <legend data-i18n="id.title"></legend>
               <div class="formInput">
-                <label for="id_country" data-i18n="[label]id.country"><em class="important">*</em></label>
+                <label for="id_country" data-i18n="id.country"><em class="important">*</em></label>
                 <?!= include_('dist/frontend/components/CountrySelect') ?>
               </div>
               <form-input data-i18n="[label]id.number" id="id_nb" required></form-input>
 
               <form-input data-i18n="[label]id.issDate" id="id_iss_date" type="date" required></form-input>
-              <form-input data-i18n="[label]id.expDate" type="date" required></form-input>
+              <form-input data-i18n="[label]id.expDate" id="id_exp_date" type="date" required></form-input>
             </fieldset>
 
             <fieldset class="formStep tAndC">
@@ -136,6 +158,7 @@
             </fieldset>
           </multi-step-form>
           <spinner-modal></spinner-modal>
+          <success-failure-display></success-failure-display>
         </div>
       </form>
     </div>
@@ -152,15 +175,17 @@
     <?!= include_('dist/frontend/components/FormAccordion') ?>
     <?!= include_('dist/frontend/components/FormSignature') ?>
     <?!= include_('dist/frontend/components/SpinnerModal') ?>
+    <?!= include_('dist/frontend/components/SuccessFailureDisplay') ?>
 
     <!-- IntTelInput -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/css/intlTelInput.min.css"
     />
-    <script dist/frontend="https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/js/intlTelInputWithUtils.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/js/intlTelInputWithUtils.min.js"></script>
     <script>
       const $phoneInput = document.querySelector("#phone");
+      const $phoneInputErr = document.querySelector("#phone_err");
       const $emPhoneInput = document.querySelector("#em_phone");
       const itiOptions = {
         initialCountry: "auto",
@@ -168,6 +193,16 @@
         geoIpLookup: _getCountryFromBrowser,
         formatAsYouType: true,
       };
+
+      $phoneInput.addEventListener("invalid", function (event) {
+        $phoneInput.classList.add("invalid");
+        $phoneInputErr.classList.add("visible");
+      });
+
+      $phoneInput.addEventListener("input", function (event) {
+        $phoneInput.classList.remove("invalid");
+        $phoneInputErr.classList.remove("visible");
+      });
 
       function _getCountryFromBrowser(callback) {
         const langCountryCode = navigator.languages ? navigator.languages[0] : navigator.language;
@@ -188,6 +223,36 @@
       //TODO: reorder preferred languages list alphabetically
       const phoneInputHandler = window.intlTelInput($phoneInput, itiOptions);
       const emPhoneInputHandler = window.intlTelInput($emPhoneInput, itiOptions);
+
+      // customElements.whenDefined("duet-date-picker").then(() => {
+      //   document.querySelector("duet-date-picker").show();
+      // });
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const picker = document.querySelector("duet-date-picker");
+        // const DATE_FORMAT = /^(\d{1,2})-(\d{1,2})-(\d{4})$/;
+
+        // picker.dateAdapter = {
+        //   parse(value = "", createDate) {
+        //     const matches = value.match(DATE_FORMAT);
+
+        //     if (matches) {
+        //       return createDate(matches[3], matches[2], matches[1]);
+        //     }
+        //   },
+        //   format(date) {
+        //     return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+        //   },
+        // };
+
+        // console.log(picker);
+        // console.log(picker.classList);
+        // console.log(picker.localization);
+
+        // picker.localization = { placeholder: "dd-mm-yyyy" };
+      });
     </script>
 
     <!-- Auto-fill the liability page with the customer's full name from the personal details -->

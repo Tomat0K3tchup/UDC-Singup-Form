@@ -40,6 +40,7 @@ function createSelectedRowsDocuments() {
   });
 
   values.forEach((row) => createDocumentFromSpreadsheet(headers, row));
+  SpreadsheetApp.getUi().alert("All documents where created successfully");
 }
 
 function createDocumentFromSpreadsheet(keysArray, valuesArray) {

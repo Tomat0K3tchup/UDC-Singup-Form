@@ -25,6 +25,8 @@ class FormInput extends LitElement {
     }
 
     input {
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius-sm);
       padding: 0.5rem 1rem;
       font-family: var(--body-font-family-text);
       font-size: 1rem;

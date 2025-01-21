@@ -13,7 +13,7 @@ function getOrCreateWeekFolder(date) {
   if (!!lastUpdateDate && lastUpdateDate >= lastMonday) {
     const currentWeekFolderId = propertyService.getProperty("currentWeekFolderId");
     const folder = DriveApp.getFolderById(currentWeekFolderId);
-    Logger.log("Found valid week folder " + folder.getName());
+    console.info("Found valid week folder " + folder.getName());
     return folder;
   }
 
@@ -34,7 +34,7 @@ function getOrCreateWeekFolder(date) {
   propertyService.setProperty("lastWeekUpdateDate", today.toISOString());
   propertyService.setProperty("currentWeekFolderId", newFolder.getId());
 
-  Logger.log("Created new week folder " + newFolder.getName());
+  console.info("Created new week folder " + newFolder.getName());
   return newFolder;
 }
 
@@ -49,7 +49,7 @@ function getOrCreateMonthlyFolder(today, propertyService) {
   if (!!lastUpdateDate && lastUpdateDate > firstDayOfThisMonth) {
     const currentMonthFolderId = propertyService.getProperty("currentMonthFolderId");
     const folder = DriveApp.getFolderById(currentMonthFolderId);
-    Logger.log("Found valid month folder " + folder.getName());
+    console.info("Found valid month folder " + folder.getName());
     return folder;
   }
 
@@ -64,7 +64,7 @@ function getOrCreateMonthlyFolder(today, propertyService) {
   propertyService.setProperty("lastMonthUpdateDate", today.toISOString());
   propertyService.setProperty("currentMonthFolderId", newFolder.getId());
 
-  Logger.log("Created new month folder " + newFolder.getName());
+  console.info("Created new month folder " + newFolder.getName());
   return newFolder;
 }
 
@@ -73,7 +73,7 @@ function getFolderNameFromPackage(package) {
 }
 
 function createCustomerFolder(data) {
-  console.log(data);
+  console.info({ ...data, signature: "redacted" });
   const currentWeekFolder = getOrCreateWeekFolder(data.date);
   const folderName = getFolderNameFromPackage(data.package);
 
@@ -106,11 +106,7 @@ function _getWeekRange(date) {
   const lastMonday = new Date(date);
   lastMonday.setDate(lastMonday.getDate() + diffToMonday);
 
-  const lastMondayNoTime = new Date(
-    lastMonday.getFullYear(),
-    lastMonday.getMonth(),
-    lastMonday.getDate(),
-  );
+  const lastMondayNoTime = new Date(lastMonday.getFullYear(), lastMonday.getMonth(), lastMonday.getDate());
 
   const nextSunday = new Date(lastMondayNoTime);
   nextSunday.setDate(lastMondayNoTime.getDate() + 6);

@@ -6,7 +6,7 @@
 const SPREADSHEET_ID = "1mO4clKaXB5KSpBq7cF8CDWtWiNadSouvTPqC83YhegY";
 const SHEET_NAME = "Form Responses";
 
-/** Endpoint router of the webapp. As of now, the only route served is the default. It serves index.html*/
+/** Endpoint router of the webapp. As of now, the only route served is the default. It serves index.html */
 function doGet(e) {
   let pageInfo = {
     fileName: "dist/frontend/pages/index",

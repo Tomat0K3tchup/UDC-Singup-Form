@@ -1,18 +1,18 @@
 const MEDICAL_PDF_ID = "1FN5e_z_5bvIqXuaU1ho08awKCL9AGQ8m";
 const MEDICAL_PDF_ID_SPA = "1-c85xqY8GSalZBMHWVG4cuQAV20JOf-R";
 
-// function testLiability() {
-//   const clientData = {
-//     first_name: "Janette",
-//     last_name: "Doe",
-//     date: new Date(),
-//     signature: SIG,
-//     di: false,
-//     di_policy_nb: "1234",
-//   };
+function testLiability() {
+  const clientData = {
+    first_name: "Janette",
+    last_name: "Doe",
+    date: new Date(),
+    signature: SIG,
+    di: false,
+    di_policy_nb: "1234",
+  };
 
-//   generateLiabilityPDF(clientData);
-// }
+  generateLiabilityPDF(clientData);
+}
 
 async function generateLiabilityPDF(clientData, destinationFolder) {
   const pdfConst = LIABILITY_FORM_TO_PDF_MAP;
@@ -28,7 +28,8 @@ async function generateLiabilityPDF(clientData, destinationFolder) {
     const title = `${liabilityData.participantName} - ${pdfConst.title} - ${liabilityData.date}`;
     savePdfLibDocToGoogle(pdfDoc, destinationFolder, title);
   } catch (e) {
-    Logger.log(e);
+    console.error(e.message);
+    throw new Error("Could not generate Liability PDF");
   }
 }
 
@@ -38,7 +39,7 @@ function getLiabilityData(clientData) {
     participantName: `${clientData.first_name} ${clientData.last_name}`,
     date: formatDate(clientData.date),
     di_yesNo: clientData.di ? "Yes" : "No",
-    di_policyNb: clientData.di_policy_nb,
+    di_policyNb: clientData.di_policy_nb.toString(),
   };
 }
 
@@ -52,13 +53,17 @@ function fillLiabilityForm(pdfForm, map, data) {
       } else if (field.constructor.name == "PDFRadioGroup") {
         field.select(data[key]);
       } else {
-        Logger.log(field.constructor.name);
+        console.warn(`Received unhandled field type: ${field.constructor.name}`);
       }
     } else {
       const fields = map[key];
 
       fields.forEach((fieldName) => {
-        pdfForm.getField(fieldName).setText(data[key]);
+        try {
+          pdfForm.getField(fieldName).setText(data[key]);
+        } catch (e) {
+          throw new Error(`Failed to fill field ${fieldName}.`, { cause: e });
+        }
       });
     }
   });
@@ -71,7 +76,7 @@ async function generateMedicalPDF(clientData) {
   try {
     fillMedicalForm(pdfForm, MEDICAL_FORM_ANSWER_TO_DOC_MAP, clientData);
   } catch (e) {
-    Logger.log(e);
+    console.error(e);
   }
   const title = `${clientData.participantName} - Medical Form - ${clientData.date}`;
   savePdfLibDocToGoogle(pdfDoc, DESTINATION_FOLDER_ID, title);
@@ -115,8 +120,8 @@ async function loadGoogleFileToPdfLib(id) {
     const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
     return pdfDoc;
   } catch (error) {
-    console.error("Error loading PDF:", error);
-    throw new Error("Error loading PDF");
+    console.error("Error loading PDF:", error.message, "docId:", id);
+    throw new Error("Error loading PDF template");
   }
 }
 

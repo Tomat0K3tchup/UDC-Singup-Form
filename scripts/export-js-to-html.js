@@ -2,25 +2,58 @@ import * as fs from "fs";
 import * as path from "path";
 import * as prettier from "prettier";
 
-import { withWatchMode } from "./utils";
+// import { withWatchMode } from "./utils";
 
 const __dirname = import.meta.dirname;
 
 // Input and output directories
 const inputDir = path.join(__dirname, "../src/frontend");
-await fs.readdir(inputDir, { recursive: true }, (err, files) => {
-  if (err) {
-    console.error(`Error reading directory: ${err.message}`);
-    return;
-  }
 
-  files.forEach((file) => {
-    const ext = path.extname(file);
-    if (ext === ".css" || ext === ".js" || ext === ".html") {
-      transpileFile(inputDir, file, ext);
+// Check for the `--watch` flag
+const args = process.argv.slice(2);
+const isWatchMode = args.includes("--watch");
+
+// Debounce implementation
+let debounceTimeout;
+const debounce = (func, delay) => {
+  if (!debounceTimeout) {
+    debounceTimeout = setTimeout(func, delay); // give 5 seconds for multiple events
+  }
+};
+
+if (isWatchMode) {
+  console.info("Running in watch mode...");
+  transpileCode(); // Initial execution
+
+  // Set up a watcher on the input directory
+  fs.watch(inputDir, { recursive: true }, (eventType, filename) => {
+    console.info(eventType);
+    if (filename) {
+      console.info(`Detected change in ${filename}, updating dist file...`);
+      transpileFile(srcDir, filename, path.extname(filename));
+      // debounce(transpileCode, 2000); // Debounce to avoid rapid updates
     }
   });
-});
+} else {
+  console.info("Running in single execution mode...");
+  transpileCode();
+}
+
+async function transpileCode() {
+  await fs.readdir(inputDir, { recursive: true }, (err, files) => {
+    if (err) {
+      console.error(`Error reading directory: ${err.message}`);
+      return;
+    }
+
+    files.forEach((file) => {
+      const ext = path.extname(file);
+      if (ext === ".css" || ext === ".js" || ext === ".html") {
+        transpileFile(inputDir, file, ext);
+      }
+    });
+  });
+}
 
 function transpileFile(srcDir, localPath, ext) {
   const file = path.join(srcDir, localPath);

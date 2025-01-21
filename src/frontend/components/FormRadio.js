@@ -19,6 +19,11 @@ export class FormInputRadio extends window.FormInput {
     `,
   ];
 
+  firstUpdated() {
+    super.firstUpdated();
+    console.log(this.options);
+  }
+
   render() {
     return html`
       <fieldset>

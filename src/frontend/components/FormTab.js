@@ -125,7 +125,7 @@ class MultiStepForm extends LitElement {
 
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-    $(this.renderRoot).localize();
+    // $(this.renderRoot).localize();
   }
 
   render() {

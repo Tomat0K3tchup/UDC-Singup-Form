@@ -6,7 +6,7 @@ class Spinner extends LitElement {
       background: #7773;
       top: 0;
       left: 0;
-      height: 100%;
+      height: 100vh;
       width: 100%;
       display: flex;
       align-items: center;
@@ -46,8 +46,6 @@ class Spinner extends LitElement {
   firstUpdated() {
     super.firstUpdated();
     this.$container = this.renderRoot.querySelector(".bg");
-
-    console.log(this.$container);
     this.toggle();
   }
 
