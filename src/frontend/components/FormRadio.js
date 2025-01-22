@@ -12,6 +12,10 @@ export class FormInputRadio extends window.FormInput {
         padding: 0;
       }
 
+      legend {
+        padding-inline: 0;
+      }
+
       fieldset > p {
         margin: 0;
         padding: 0.5rem 0 0 1rem;
@@ -19,9 +23,21 @@ export class FormInputRadio extends window.FormInput {
     `,
   ];
 
-  firstUpdated() {
-    super.firstUpdated();
-    console.log(this.options);
+  constructor() {
+    super();
+    this.options = [];
+  }
+
+  handleInput(e) {
+    super.handleInput(e);
+    const composedShadowEvent = new Event(e.type, { bubbles: true, composed: true });
+    this.shadowRoot.dispatchEvent(composedShadowEvent);
+  }
+
+  updated(changedProperties) {
+    if (changedProperties.has("options")) {
+      this.$input = this.renderRoot.querySelector("input");
+    }
   }
 
   render() {

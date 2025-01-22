@@ -1,0 +1,49 @@
+/**** Radio Lists ****/
+
+ol.radioList li {
+  counter-increment: medicalCounter;
+  display: inline-flex;
+}
+
+ol.radioList li:before {
+  content: counter(medicalCounter) ". ";
+  padding-right: 1rem;
+}
+
+ol.radioList {
+  list-style: none;
+  counter-reset: medicalCounter;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+/**** Boxes ****/
+
+.boxList {
+  display: flex;
+  gap: 2rem;
+}
+
+.boxList legend {
+  font-weight: bold;
+  margin-bottom: 1.2rem;
+}
+
+.box {
+  outline: 1px solid var(--main-bg-color);
+  outline-offset: 0.5rem;
+  display: none;
+}
+
+.box.visible {
+  display: flex;
+}
+
+/* .bold {
+  font-weight: bold;
+} */
+
+/* fieldset > p {
+  padding: 0 0 0.5rem 0.5rem;
+} */

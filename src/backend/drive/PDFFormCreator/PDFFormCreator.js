@@ -1,4 +1,3 @@
-const MEDICAL_PDF_ID = "1FN5e_z_5bvIqXuaU1ho08awKCL9AGQ8m";
 const MEDICAL_PDF_ID_SPA = "1-c85xqY8GSalZBMHWVG4cuQAV20JOf-R";
 
 function testLiability() {
@@ -69,17 +68,23 @@ function fillLiabilityForm(pdfForm, map, data) {
   });
 }
 
-async function generateMedicalPDF(clientData) {
-  const pdfDoc = await loadGoogleFileToPdfLib(MEDICAL_PDF_ID);
+async function generateMedicalPDF(clientData, destinationFolder) {
+  const pdfConst = MEDICAL_FORM_TO_PDF_MAP;
+  const pdfDoc = await loadGoogleFileToPdfLib(pdfConst.id);
   const pdfForm = pdfDoc.getForm();
 
+  const medicalData = transformDataFromMedical(clientData);
+
   try {
-    fillMedicalForm(pdfForm, MEDICAL_FORM_ANSWER_TO_DOC_MAP, clientData);
+    fillMedicalForm(pdfForm, pdfConst.form, medicalData);
+    sign(pdfDoc, pdfConst.signature, clientData.signature);
+
+    const title = `${medicalData.participantName} - ${pdfConst.title} - ${medicalData.date}`;
+    savePdfLibDocToGoogle(pdfDoc, destinationFolder, title);
   } catch (e) {
     console.error(e);
+    throw new Error("Couldn't fill medical form", { cause: e });
   }
-  const title = `${clientData.participantName} - Medical Form - ${clientData.date}`;
-  savePdfLibDocToGoogle(pdfDoc, DESTINATION_FOLDER_ID, title);
 }
 
 function transformDataFromMedical(data) {
@@ -88,18 +93,73 @@ function transformDataFromMedical(data) {
   return {
     ...data,
     participantName: `${data.first_name} ${data.last_name}`,
+    shop: "Utila Dive Center",
     date: today,
     dob: dob,
   };
 }
 
+function testMedical() {
+  const clientData = {
+    first_name: "T",
+    last_name: "M",
+    dob: "01/01/1999",
+    q1: "false",
+    q2: "true",
+    q3: "false",
+    q4: "false",
+    q5: "false",
+    q6: "false",
+    q7: "false",
+    q8: "false",
+    q9: "false",
+    q10: "false",
+    qA_1: "",
+    qA_2: "",
+    qA_3: "",
+    qA_4: "",
+    qA_5: "",
+    qB_1: "true",
+    qB_2: "true",
+    qB_3: "false",
+    qB_4: "false",
+    qC_1: "",
+    qC_2: "",
+    qC_3: "",
+    qC_4: "",
+    qD_1: "",
+    qD_2: "",
+    qD_3: "",
+    qD_4: "",
+    qE_1: "",
+    qE_2: "",
+    qE_3: "",
+    qE_4: "",
+    qF_1: "",
+    qF_2: "",
+    qF_3: "",
+    qF_4: "",
+    GA_1: "",
+    qG_2: "",
+    qG_3: "",
+    qG_4: "",
+    signature:
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAVsAAABkCAYAAAAolJMhAAAAAXNSR0IArs4c6QAADYlJREFUeF7tnT+MJEcVxl/NLMhIIJ11S+RknZFaIgAJ6e6EHJDZt4vkbO8iBB7EOUc6nwgICDBiTwgJyesIJHbPJiPzWhAQEJBBgORFcuBgV5yEA0vMTEH1TM/29Ez31P96Vf1NYuu2uuq933v1dXV1VbUgx58gIlnVcfN/G1Xa/cnRMlxeJIGeXCrSXziVOYF1hczcmbLMN9cS8yu2E/NVT1nxgDcg4IuA6mH4gQBjAmlvAmlbZxwWmGZMAGJrjAwXDI8Ac8llbp6PfCnBRYitj0xAHSDQ/9YCfHwQyFxxIbY+kgB1gAAIgMAOAszFNvNbmVH6hfE1TK1GjqEwCIDA8sknOQgIQvIQ5GUAu4RhZ1Be8RyItWlGtshNp/QCPid8uFgRSJ1EqdtPkAVpxDaBo2gyEwKFdEJvbnirKI/4l+wuxDaPHISVIAACmROA2EYOYMl37sgo/TWHoPhjiZo6CUBskRwgsEEgkfomapZFAgzAd4gti0yDESAAAt4IMBVuiK23CKMiEGgRYNrpEac0BCC2abjzaLVEMSjRJx7ZkrcVDPICYusxhRjEc90bdgZ5hI2qQCAzAqzENq42xG2NRV4M0GUW3GFEP4GB5CUPsR0IbPQ5EACB4RLgIbbD5R/I8+67F4f7GgcbAoFHtb0Ehh15iG3R3WPYyV10aOFcdgS2iy2bPsrGEMPA5mq3oZsoDgIgoE0AI1ttVPwL8pd4/hbyjzIsDEWgPzvdc7dMsXXnYhTPyM0Z2RavMDcKevbolYpHES2VS6BMsS02XpCGYkM7VMdCpHSIOj3EJ53YMgXigWnQKoAtKF5UDgJrBHz2t3Rii6CCAAiAwIAIQGwHFGy4OnQCPsdpiqXv+tLGJ7Q3TmIb2ri06NE6CIAACPgj4CS228yIKcAx2/KHHDXFI4AMice6uyXTKJiWX7VsfWEcSt7Ftm12Kv9TtRsnbANtpZSgmvhhUjZZWvAxko8lm8HoFlvOVidLKjQMAiAQnkBa8QnVevCRbfjAoAUQ4EsgVMct7/UU3xj6sgxi64tkjvWEVIIcecBmEPBJoNW/shXbF1//9bfGo//+hAT94eps8o5PRqirg4BXcfZaGUJWAoHCU6JfbBk7v394IlV+SZLT+fyL9/79/vf+nEu+McaaC8J0dkYOXuTm0nEdQMvuI1uXbLC8dv/o5BFJ+vkqPoL+eHU2+c4A4gUXQQAEnAlYCo9ju+5i62iA7eVfvf/0YynkwWJ0S5fX55OXbevCdSAAAuURSCOp3RyzFdvb958+EEK+W7smiU6vzycPy0sZeAQCBRDgpnwJkGYrtrde+9XB3nj2cUNsL4WQD6/OfniRgCOaBIHgBKBXwREHbSBbsVVU9u8/fUxCvg3BDZojvZXvH/3yLs1Hd0jIu1VBKS5oNP8IN710MUHLPAnkLbaqo0vxYQvt8+ls/MrzD75/yRN5/lZVTxUj+SMS80dr3kiltYuzoKqfoE+n0/E3EYv8Yw4P3AlkLbbtqYQVDkGfX51NvuSOBzU0CVSjWCkeE9FiFKv3u7g6n9zTK9pTCs/Qzgh9V4CQmBHNWmyVq7cPT/4uiL7WdltK8fD62ZunZjhQehuB5cvI4z6RVStCBFG1OqT5U/8+m43vaY1u0XuRgAUTyF5s9w+fvk8kX9vWybWWg4Xq4KHqjZSM6qlhPJ49FkQPupqUJD8RcvSbq2dvPqlufIsVImr9863WNX5Gt5F8RzM6BDJPcB0X+8pYuJ+92C637f5pKxch7+FFjVlW6Yksnc5m4yfbRqtd8cDSPLM4oLQjgQ0xtFBHRxPal3sU23TO7B+eqJdkG/OIN5sd0tnmOV5Bq2uvXW5NB5ySFB/pTM101YOpnaDhQ+XMCXgU23SeLl/ctFclLAyS4u36MTedhfxb7rphKX7T+eg9rTnXpZvLF5dqw8naDTD1Tr+h33Jt/Le5hn+2p7GwCLFV6PpGt9w2O3BK4PZa5ToNXR/7l9MRH268NHOc2uHELk2XbbYKGvFi4M66GLHtXAZW+tkJljlQjz4l0d1WElyQkE98zHU3pxPUEW1VO3jS0NIHy7Bq1Y1CgQl0BK8YsVX4+uYc0ckXCdb3AkwKOrs+m3zXVyp23AD/dnU+ecVXG7zrESTUIaBBjPQgxx6qCOJaoZW6iy2zgDUfi1ejqUXwPp/Nv/BqTufe+sy5xa6v+XFze3Oj/ovpbPzQZF5W17b63OFVeUGfXZ1NvqJ7vZ9yzJLUj1MBawGvEHDdxbbTqnQB65qHHOL20T6RVS+sSIonOisMbsJsFtf9o5P/kKQvr6WJ47xtiI6AOkEgNIGAYmtiulkH1qm558WP/o4mnYaYltklskKK0xirNG4fnfxeSDpqYkq9KoFpyGBW4QSYiG0YytUKBUHfIEkvtDu79hbSMKYFq9VKZP3f61b+db24xJrbYCmQXcUB048VC29iyxWYemlGQqptpxv79m3WkLKKXsuYvtF8rJHsNj63D0/evdn2u8gUvqNbrpnMLfO2cAK63iB5E1tuqdC0p09w63nL2Xx0EeIFUQwuSmSlmP9YkNhrj+BTimxtS+fo1vrrGtx7NXf7YmQl2mgTGITYKqfVLjMphRphbY5waypy9M7Vsx+8lUua1CPZ1qqLatTIQWTbN7zmZ4xWf8PLsvV0g05rdz/+qNYtHIzYqghu20aag1A1s2/HEi4ixjeMbbv8JNFn1+exl4Jp92ergipG6sK9velB9RWLBF+u0BYi7YJWKHBRg8CgxLb2uznKbYvtapDLbHS4S2Rdt9fG6BXdW3jtP0XPRStanwfaPFw91Ag+MoDIzcVIy2htDFJs10R3PvopifnX2/OdbdFNMTqpBVYK+aBn+sPb9toYWde5rTqzbbyN2Bz0nfm7yiMcZh8jvVi3MWixXXuBM5of7xC11VxoSOHdNYJt3gTMNyTwyMUXXz95Yzyi366sqR8vWAruzViuOqtXTL+9/Lil9qeBqpUXzyYvB9q3GzioGMtaA26hsxLbUvFrjiQr9tUqBqIL3TNe+wK2nNY41hohWe36sk6XYBduW6ZWvdhj+Dl63RtgnRfq5aQk+pcYzS99HOgTLAioOCoBK7GNamGCxqq5xdH8rhCy97tbTdOkFH9R24GFmP9iVwdT9Y/E/GgkxEsbX6jd4m+9usD0XNkE6LSb7DoQh9tKis6t30tPa3uVuJpte9ZGhYJMCZgOOiG2OwJpMqppVXWx7Ig3n1QXUj16aj1+1p045JRF6hzuOmR88eiQ7tB3jZj/g6T4XcmxSZ0bPNrvk1NTqV0eMRrNMXP7opmm01BzxPv/t//qxUi1xKe9osHWTT8jWNvWF8kQ5jjAbrqdKxTUJYL+OZ2OX42x2URDYBf3ALzo0ukqKLOFAEa2DmlRddC96YGU4ngkxd25mN8SJNpflt1ooSnO7S/UOpiT7aW9I1yiYMc/KmB95/u2n1R8HaruHii726LdVe7WBq8hE8cgtp4zoR79kpB3liPfatqgGrUuXm5dVE0mWOju2VWv1e06QMd05cWu/qc9kmW23tordFQWlYCT2O5K6KieoLEiCFSH1gh6o31S29I5tfrjwvVF4a6XXqubY6RjKI0Dh45njGx1QUJ2TmJr7zGuBIFuAjrnWEiSz4nEB0LI93at/qinC5ZfqnikZg82JtqX5nBbDYE8MSCQUEh1rHQS2zC+halVBwbK8CHQ++Jsi5nLdc/qL/tEUp1f/CmRmKp/6D18qCGyplMVfGjBEh4E+rXLSWxvHCxDIO29sL+SR5LwtWJxfGTvdmUn4+0+DeTUJKOLkbcxg+Estu7hcq8hJjC0lYZA9eXkkfwZSTVytfttHDqUaC1vO+PRA+ziGeMqn7FxFtsYDqMNEKgJ9J1P0HWCW5OeJPqESPx1Nhu9FWP9LiIHAjUBS7H1qfcIBgi0CGim12qZXTUxK+8s/jN6LoU8oOoF2uInSFyqF2IxPnDZ7FixN4ggj3gTsBRb3k6Va52mCmn2eMPagmLlZItPR/PzKz+LfcYrZF0Q25B0UTcI+CIADfRFMlk9gxdb5HCy3BtQw8iyekIn/ukbfNJs8GLLJxS7LOHVYXlZs4sd/u5OIETEQ9Tp7qn3GpZuQmy9k+2vMGV6pWw7MmZmzYE8Rraxj1hk1gVgDgiAAAjEIoCRbSzSaAcEQGDQBCC23MOPJ1DuEYJ9IKBFAGKrhQmFQAAEQMCNQL/YYlRV0QUGtyTD1eUQQF/YHcsuRhjZ7maHErkTKF4hindwPQMzdddJbDP1OXfpgP0gAAIZEnAS2wz9hckgAAIgkIRAmWKLIbdRMvHDxc8iI6AoDAJbCJQptgg1CIAACDAjEFhsmY5QmJrFLDeYmoPgMQ0MzNpBILDYgr8egfQCkt4CPVKLUnlZa+IZ57KgXkfHjgTElnN2w7ZBErDryilRCRIkq6/Dp/jlwgtimyI70CYIgIAVgVyEdZtzEFurkOMiEAABEDAjEFVsc74rmWFFaRAITACdKTBg/9VHFVv/5vfUmF0ycjWYq12W2dTrTmG+WiLCZZ4JLNMqI7FFR/CcAmVXh3QpO74ZepeR2GZIV9tkXWXQLafdcNYFQSPr8A3OeIjt4EIOh0EABGIRaA4I/gd215yhwCn4MAAAAABJRU5ErkJggg==",
+  };
+
+  const destFolder = DriveApp.getFolderById(DESTINATION_FOLDER_ID);
+
+  generateMedicalPDF(clientData, destFolder);
+}
+
 function fillMedicalForm(pdfForm, answerToDocMap, clientData) {
   for (const question in clientData) {
-    if (!question.includes("q")) {
-      continue;
-    }
-    const field = pdfForm.getField(answerToDocMap[question][clientData[question]]);
-    field.check();
+    if (!question.includes("q")) continue;
+
+    const fieldName = answerToDocMap[question][clientData[question]];
+
+    if (!fieldName) continue;
+    pdfForm.getField(fieldName).check();
   }
 
   answerToDocMap.participantName.forEach((nameInForm) => {
@@ -107,7 +167,7 @@ function fillMedicalForm(pdfForm, answerToDocMap, clientData) {
   });
 
   answerToDocMap.dob.forEach((dobInForm) => {
-    pdfForm.getField(dobInForm).setText(clientData.participantName);
+    pdfForm.getField(dobInForm).setText(clientData.dob);
   });
 
   pdfForm.getField(answerToDocMap.date).setText(clientData.date);

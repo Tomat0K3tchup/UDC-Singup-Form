@@ -95,17 +95,28 @@ class MultiStepForm extends LitElement {
     return isValid;
   }
 
+  dispatchActivatedEvent() {
+    const activatedEvent = new CustomEvent("activated", {
+      bubbles: true,
+      composed: true,
+      detail: "Triggered when a new .formStep is activated by the multi-form-step wizard",
+    });
+    this.$sets[this.current].dispatchEvent(activatedEvent);
+  }
+
   nextSet() {
     if (!this.checkValidity()) return;
     if (this.current + 1 == this.totalSets) return this._internals.form.requestSubmit();
     this.current++;
     this.updateDisplay();
+    this.dispatchActivatedEvent();
   }
 
   prevSet() {
     if (this.current == 0) return;
     this.current--;
     this.updateDisplay();
+    this.dispatchActivatedEvent();
   }
 
   updateDisplay() {
@@ -118,7 +129,7 @@ class MultiStepForm extends LitElement {
     this.$sets.forEach(($set, idx) => {
       if (idx === this.current) {
         $set.style.display = "flex";
-        $set.focus();
+        // $set.focus();
       } else $set.style.display = "none";
     });
     this.$currentSetNum.innerText = this.current + 1;
@@ -137,7 +148,7 @@ class MultiStepForm extends LitElement {
           <span id="mf-current" data-i18n="test"></span> of
           <span id="mf-total">${this.totalSets}</span>
         </p>
-        <button data-i18n="test" id="mf-next-btn" class="primary" @click=${this.nextSet}>OKOK</button>
+        <button data-i18n="test" id="mf-next-btn" class="primary" @click=${this.nextSet}>Next</button>
       </div>
     `;
   }

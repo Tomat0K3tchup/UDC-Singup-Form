@@ -148,8 +148,6 @@ class FormInput extends LitElement {
   updateFormValue() {
     this._internals.setFormValue(this.value);
     this._internals.setValidity(this.$input.validity, this.$input.validationMessage, this.$input);
-
-    const f = new FormData(this._internals.form);
   }
 
   handleInput(e) {

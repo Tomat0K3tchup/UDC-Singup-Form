@@ -361,22 +361,6 @@ multi-step-form > fieldset,
   }
 }
 
-/****************Medical Demo styling****************/
-
-.box {
-  outline: 1px solid var(--main-bg-color);
-  outline-offset: 0.5rem;
-  display: none;
-}
-
-.bold {
-  font-weight: bold;
-}
-
-fieldset > p {
-  padding: 0 0 0.5rem 0.5rem;
-}
-
 /****************T&C styling****************/
 
 .tAndC ol,
