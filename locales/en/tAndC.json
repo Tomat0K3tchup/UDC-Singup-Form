@@ -5,22 +5,10 @@
       "title": "Courses",
       "intro": "Should a student fail to complete their course for any reason, charges shall be levied as follows:",
       "conditions": {
-        "reservation": {
-          "label": "After reservation only: ",
-          "details": "the $200 deposit will not be refunded."
-        },
-        "1day": {
-          "label": "After 1 day: ",
-          "details": "$150 + $3 reef fee + $90 materials and 1 free night at the hotel."
-        },
-        "2days": {
-          "label": "After 2 days if no boat/diving trip has been taken: ",
-          "details": "$180 + $6 reef fee + $90 materials and 2 free nights at the hotel."
-        },
-        "3days": {
-          "label": "After 2 days if the student has been on a boat/diving trip, or after 3 days regardless: ",
-          "details": "no refund will be offered."
-        }
+        "reservation": "<b>After reservation only: </b> the $200 deposit will not be refunded.",
+        "1day": "<b>After 1 day: </b> 150 + $3 reef fee + $90 materials and 1 free night at the hotel.",
+        "2days": "<b>After 2 days if no boat/diving trip has been taken: </b> 180 + $6 reef fee + $90 materials and 2 free nights at the hotel.",
+        "3days": "<b>After 2 days if the student has been on a boat/diving trip, or after 3 days regardless: </b> no refund will be offered."
       }
     },
     "room": {
@@ -30,6 +18,13 @@
     "funDives": {
       "title": "Fun dives",
       "description": "For any cancellations for guided dives, the office must be notified before 5:00 PM on the day prior to the dive trip. Any last-minute cancellations are lost reservations and non-refundable. Free fun dives are offered as part of core course bookings (OW, AOW, Rescue) and are only valid until the day after the course has been completed and are not transferable."
+    },
+    "goPro": {
+      "title": "GoPro Refund Policy",
+      "noRefund": "<b>After the program has commenced no reimbursements can be made under any circumstances.</b> Also a package/program booked cannot be changed/transferred to a different program or course once started. We honor and schedule everything offered and communicated to you, and schedule staffing, materials and our training accordingly and a commitment needs to be honored and respected by all parties involved. However, should sickness or other special circumstances force a candidate to withdraw from the program then they can join the next scheduled course at no extra charge (at the discretion of the management).",
+      "travelInsurance": "<b>It is recommended that trip/travel insurance is carried for cases when the courses cannot be rescheduled.</b> DAN Americas offer trip/travel insurance though please check terms/conditions. Refunds will only be issued in cases of family emergency, bereavement or medical emergencies (only certain illnesses and not injuries). Certificates will need to be produced for refunds to be issued and will only be paid for courses not yet started. If a refund is issued and the package is not completed, then all previous discounts applied to courses will not be valid and the individual course rates will be charged. A $400 booking deposit will be deducted from all refunds. Bank fees will not be refunded, and any pre-week dives will be charged at full rate.",
+      "equipmentPurchase": "<b>No refunds on equipment or training will be issued when a client has purchased the GoPro 'Head to Toe' equipment package</b> that requires the client to complete up to Instructor training. Instead, the courses will be rescheduled at the client’s convenience.",
+      "diveInsurance": "<b>Dive accident insurance is mandatory and we recommend DAN Insurance.</b> Please check conditions of insurance as DAN have different policies for different regional coverage (DAN Americas, DAN Europe, DAN Asia Pacific etc.). Utila Dive Centre is not responsible for any costs or treatment needed as a result of diving activities. You may also be required to pay for any medical treatment in advance and have your insurer reimburse you. Please hand in a copy of your insurance certificate for dive accidents upon arrival."
     }
   },
   "tc": {
@@ -39,40 +34,19 @@
       "depthLimits": {
         "description": "Strict depth limits are applied to all divers as follows:",
         "extra": {
-          "ow": {
-            "condition": "Open Water Divers: ",
-            "text": "18m / 60 feet"
-          },
-          "aow": {
-            "condition": "Advanced divers certifed after June 1998: ",
-            "text": "30m / 100 feet"
-          },
-          "dm": {
-            "condition": "Divemasters: ",
-            "text": "30m / 100 feet"
-          },
-          "deep": {
-            "condition": "Advanced divers certified before June 1998 or PADI Deep Divers: ",
-            "text": "40m / 130 feet"
-          }
+          "ow": "<b>Open Water Divers:</b> 18m / 60 feet",
+          "aow": "<b>Advanced divers certified after June 1998:</b> 30m / 100 feet",
+          "dm": "<b>Divemasters:</b> 30m / 100 feet",
+          "deep": "<b>Advanced divers certified before June 1998 or PADI Deep Divers:</b> 40m / 130 feet"
         },
         "note": "UDC reserves the right to remove diving privileges from any diver who exceeds depth limits and/or follows unsafe diving practices."
       },
       "tuneUp": {
         "description": "A refresher/tune-up is required for divers who have been inactive for the following periods:",
         "extra": {
-          "20": {
-            "condition": "Less than 20 logged dives: ",
-            "text": "6 months or more"
-          },
-          "50": {
-            "condition": "Less than 50 logged dives: ",
-            "text": "1 year or more"
-          },
-          "100": {
-            "condition": "Less than 100 logged dives: ",
-            "text": "2 years or more"
-          }
+          "20": "<b>Less than 20 logged dives:</b> 6 months or more",
+          "50": "<b>Less than 50 logged dives:</b> 1 year or more",
+          "100": "<b>Less than 100 logged dives:</b> 2 years or more"
         }
       },
       "drugsOrAlcohol": "The use of drugs or alcohol before diving is strictly prohibited. Anyone arriving for class or fun dives under the influence or incapacitated will not be allowed to dive.",
@@ -80,32 +54,40 @@
       "largeGameEncounter": {
         "description": "In the event of a large game encounter, should you choose to enter the water (this is not required), there is a mandatory minimum fee to be paid directly to the Captain upon return to the Dive Centre:",
         "extra": {
-          "whaleSharks": {
-            "condition": "350 Lps or $14",
-            "text": "for Whale Sharks & Pilot Whales"
-          },
-          "dolphins": {
-            "condition": "250 Lps or $10",
-            "text": "for Dolphins"
-          }
+          "whaleSharks": "<b>350 Lps or $14</b> for Whale Sharks & Pilot Whales",
+          "dolphins": "<b>250 Lps or $10</b> for Dolphins"
         }
       },
       "liability": "UDC and the Mango Inn are exempt from liability for accidents or injuries occurring on the premises of either the dive shop or hotel. Please be careful as this is often a slippery and wet environment.",
       "personalItems": "UDC and the Mango Inn are not responsible for any damage, loss or theft of any personal items. Both the Hotel and UDC provide lockers, where we advise that personal items are kept. UDC and the Mango Inn reserve the right to open at any time any locker that is not labelled with a name, or suspected to have perishable items or substances stored.",
       "diveEquipment": "UDC and the Mango Inn are not responsible for dive equipment stored in their facilities as the service is offered in good faith.",
       "gearIncluded": "For fun divers a full set of gear is included in the price of dives/package, including mask, fins, snorkel, dive light (when applicable). Dive watches and compasses are available upon request. Dive computers can be rented at a price of $10/day.",
-      "equipmentForCourses": "By the beginning of their course, UDC will provide each student with the necessary equipment.",
-      "responsibilityForGear": "Each customer is fully responsible for any UDC gear they use and will be charged full replacement cost for any equipment lost ordamaged. Replacement costs are as follows: weights $4/pound, mask $30 (prescription $80), weight belt $10, BCD $300, regulator $300, fins $30, wetsuit $100, snorkel $5, watch $30, compass $75, dive computer $200, Zookeper $30, Lionfish Spear $50, PADI Course manual $30.",
+      "equipmentForCourses": {
+        "general": "By the beginning of their course, UDC will provide each student with the necessary equipment.",
+        "goPro": "By the beginning of his/her course, each GoPro student is required to have his/her own: <b>Dive computer, Compass, Surface Marker Buoy (SMB), Wetsuit (if using one), Fins, Mask and Snorkel, Dive Light</b>"
+      },
+      "responsibilityForGear": {
+        "general": "Each customer is fully responsible for any UDC gear they use and will be charged full replacement cost for any equipment lost or damaged. Replacement costs are as follows: weights $4/pound, mask $30 (prescription $80), weight belt $10, BCD $300, regulator $300, fins $30, wetsuit $100, snorkel $5, watch $30, compass $75, dive computer $200, Zookeper $30, Lionfish Spear $50, PADI Course manual $30.",
+        "goPro": "All other dive equipment can be included in the course but customers are fully responsible for any UDC gear they use and will be charged full replacement cost for any equipment lost or damaged. Please ensure equipment is logged in and out and taken care of. Replacement costs are as follows: weights $4/pound, mask $30 (prescription $80), weight belt $10, BCD $300, regulator $300, fins $30, wetsuit $100, snorkel $5, watch $30, compass $75, dive computer $200, course book (Recreational) $30, ZooKeeper $30, Lionfish Spear $50."
+      },
       "floodedRegulator": "There is a $20 service charge for any regulator rinsed without the dust cap. There is an $80 service charge if the submersible pressure gauge is flooded and needs replacement.",
+      "FFD4Life": "Unlimited diving is included in packages containing Divemaster and MSDT or IDC from January 2024. Should customers repeatedly turn up late or not at all UDC reserves the right to remove this offer. To begin the DM program, you must have at least 40 logged dives. If you have less than 40 dives, you may complete additional dives (called PreWeek Dives) for $10 per tank. For any dive cancellations for these guided dives, the office must be notified before 5.00pm on the day prior to the dive trip or the dives will be charged.",
       "courseDelays": "Course schedules and dive trips are offered in good faith. The management reserves the right to delay the start ofa course / dive package and is not responsible for delays due to weather conditions or any other unexpected situations that may arise. Should a course be delayed for any reason, students in the Mango Inn will be charged standard room rates.",
       "reimbursement": "After a course or dive package has commenced, no reimbursements can be made.",
-      "paymentUponArrival": "Full payment for all diving and course packages and accommodation must be completed upon arrival and prior to the start of any program or dives.",
+      "paymentUponArrival": {
+        "general": "Full payment for all diving and course packages and accommodation must be completed upon arrival and prior to the start of any program or dives.",
+        "goPro": "Full payment for all GoPro Packages must be completed prior to the start of any programs or dives."
+      },
       "dormNights": "Dorm room nights at the Mango Inn are included in good faith and the number of nights included is dependent on the package bought by the client. Any additional nights at the Mango Inn are subject to availability and will be charged in full, and rates are subject to change at any time without previous notice.",
       "photos": "UDC and the Mango Inn reserve the right to use any photos or video, taken at our facilities or from our boats, for marketing and advertising purposes including, but not limited to, social media, print, online ads etc.",
-      "reschedule": "Should a student need to change their time frame please consult with the Instructor prior to making any plans in order to assess the feasibility of completing the training in the proposed time frame. UDC staff will do their utmost to accommodate time changes but cannot guarantee completion on last minute notice.",
+      "reschedule": {
+        "general": "Should a student need to change their time frame please consult with the Instructor prior to making any plans in order to assess the feasibility of completing the training in the proposed time frame. UDC staff will do their utmost to accommodate time changes but cannot guarantee completion on last minute notice.",
+        "goPro": "Should a candidate need to change their time frame please consult with the GoPro staff (DM mentor, IDC Staff or management) prior to making any plans in order to assess the feasibility of completing the training in the proposed time frame. UDC staff will do their utmost to accommodate time changes but cannot guarantee completion on last minute notice."
+      },
       "makeUp": "Courses are scheduled so they can be finished in the number of days allocated. Should a student miss either a classroom or water session, he or she will have to reimburse the instructor at the rate of $20 per classroom session and $35 per water session. The session will be made up at the Instructor's convenience.",
       "cardFees": "There is a 4.5% bank fee applied to any payments made with a credit/debit card. Charges can be made in Lempira or US Dollars depending on the credit card issuer and using the most current dive centre exchange rate, which is subject to change at any time without notice.",
       "nbTanks": "Dive trips are two tanks; Single-tank trips are available only with specific 3-dive Resort packages. Night dives can be scheduled upon request as long as weather permits and are dependent on shop logistics and a minimum number of divers. Night dive trips are single tanks trips and are charged as a two-tank trip.",
+      "goPro": "The GoPro package is a 'Development' program. Please be open-minded and display a professional attitude and demeanor during the program and be flexible to change.",
       "tablet": "When scheduling requires, tablets may be issued to students to study from. Students will be charged full replacement cost of $100 for any loss or damage including but not limited to water damage, theft and screen breakages."
     }
   }

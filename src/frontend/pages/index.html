@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width; initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><?= data.title ?></title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -103,7 +103,7 @@
               </div>
             </fieldset>
 
-            <fieldset class="formStep">
+            <!--<fieldset class="formStep">
               <legend data-i18n="[label]emergency.title">Emergency Contact</legend>
               <form-input data-i18n="[label]emergency.fullName" id="em_full_name" required></form-input>
 
@@ -114,7 +114,7 @@
                   >
                   <input id="em_phone" name="em_phone" type="tel" required />
                 </div>
-                <!-- FIXME: plain text -->
+                <!-- FIXME: plain text
                 <span id="phone_err" class="error invalid">Please enter a phone number.</span>
               </div>
 
@@ -145,16 +145,29 @@
 
               <form-input data-i18n="[label]id.issDate" id="id_iss_date" type="date" required></form-input>
               <form-input data-i18n="[label]id.expDate" id="id_exp_date" type="date" required></form-input>
-            </fieldset>
+            </fieldset> -->
 
-            <fieldset class="formStep tAndC">
-              <?!= include_('dist/frontend/components/UdcTAndC-2') ?>
+            <fieldset class="formStep legal">
+              <?!= include_('dist/frontend/layouts/TAndC') ?>
               <form-input data-i18n="[label]tAndC.accept" id="id_t_c" type="checkbox" required></form-input>
             </fieldset>
 
-            <fieldset class="formStep">
-              <?!= include_('dist/frontend/components/LiabilityRelease') ?>
-              <form-signature id="signature" label="Participant Signature" required></form-signature>
+            <!-- <fieldset class="formStep legal">
+              <?!= include_('dist/frontend/layouts/SafeDiving') ?>
+              <form-signature
+                id="signature"
+                data-i18n="[label]liability.signature"
+                required
+              ></form-signature>
+            </fieldset> -->
+
+            <fieldset class="formStep legal">
+              <liability-layout></liability-layout>
+              <form-signature
+                id="signature"
+                data-i18n="[label]liability.signature"
+                required
+              ></form-signature>
             </fieldset>
           </multi-step-form>
           <spinner-modal></spinner-modal>
@@ -176,6 +189,10 @@
     <?!= include_('dist/frontend/components/FormSignature') ?>
     <?!= include_('dist/frontend/components/SpinnerModal') ?>
     <?!= include_('dist/frontend/components/SuccessFailureDisplay') ?>
+
+    <!-- Import custom layouts -->
+    <!-- prettier-ignore -->
+    <?!= include_('dist/frontend/layouts/Liability') ?>
 
     <!-- IntTelInput -->
     <link

@@ -42,7 +42,6 @@ class SuccessFailureDisplay extends LitElement {
   }
 
   toggleVisibility() {
-    console.log("toggle visibility");
     this.visible = !this.visible;
     this.$container.style.display = this.visible ? "flex" : "none";
   }

@@ -38,7 +38,6 @@ sub,
 sup,
 tt,
 var,
-b,
 u,
 i,
 center,
@@ -361,24 +360,49 @@ multi-step-form > fieldset,
   }
 }
 
-/****************T&C styling****************/
+/****************Legal pages styling****************/
 
-.tAndC ol,
-.tAndC ul {
-  list-style-position: inside;
-  text-indent: -1rem; /* key property */
-  margin-left: 1.5rem; /* text-indent + padding of p*/
-}
-
-.tAndC > ol,
-.tAndC > ul {
+.legal ol,
+.legal ul {
+  counter-reset: legalCounter;
+  list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  row-gap: 1rem;
 }
 
-.flexForm .tAndC {
-  gap: 0;
+.legal li {
+  counter-increment: legalCounter;
+  display: flex;
+  flex-flow: wrap;
+}
+
+.legal ol > li:before {
+  content: counter(legalCounter) ". ";
+  padding-right: 1rem;
+}
+
+.legal ul > li:before {
+  content: "• ";
+  padding-right: 1rem;
+}
+
+.legal p {
+  text-align: justify;
+}
+
+.legal li > * {
+  flex: 1;
+}
+
+.legal section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.legal .hidden {
+  display: none;
 }
 
 .liabilityName {
