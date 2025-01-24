@@ -60,13 +60,14 @@ class FormInput extends LitElement {
   `;
 
   _internals;
+  _value;
 
   static properties = {
     name: { type: String, reflect: true },
     id: { type: String },
     type: { type: String },
     label: { type: String },
-    value: { type: String, reflect: true },
+    value: { type: String },
     required: { type: Boolean },
     _hasError: { type: Boolean },
   };
@@ -106,7 +107,6 @@ class FormInput extends LitElement {
     this.$input = this.shadowRoot.querySelector("input");
     this.$errorMessage = this.shadowRoot.querySelector("span");
     this._internals.setFormValue("");
-    // this.updateFormValue()
   }
 
   updateValue(e) {
@@ -114,6 +114,23 @@ class FormInput extends LitElement {
       this.value = e.target.checked;
     } else {
       this.value = e.target.value;
+    }
+  }
+
+  get value() {
+    return this._value;
+  }
+
+  set value(val) {
+    console.log(val);
+    if (val !== this._value) {
+      this._value = val;
+      this.requestUpdate("value", this._value);
+      console.log(this._internals);
+      if (this._internals) this.updateFormValue();
+
+      // // Dispatch an input event for form or external listeners
+      // this.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
     }
   }
 
@@ -155,7 +172,6 @@ class FormInput extends LitElement {
       this.toggleError();
     }
     this.updateValue(e);
-    this.updateFormValue();
   }
 
   render() {
@@ -168,6 +184,7 @@ class FormInput extends LitElement {
           id="${this.id}"
           type="${this.type}"
           name="${this.name || this.id}"
+          value="${this.value}"
           class="${this._hasError ? "invalid" : ""}"
           @input=${(e) => this.handleInput(e)}
           @blur=${this.onBlurValidation}

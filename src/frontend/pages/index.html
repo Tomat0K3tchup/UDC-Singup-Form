@@ -32,6 +32,7 @@
     />
 
     <?!= include_('dist/frontend/stylesheet') ?>
+
     <script>
       // Prevent forms from submitting.
       function preventFormSubmit() {
@@ -78,6 +79,8 @@
           </div>
 
           <multi-step-form>
+            <input type="hidden" value="<?= JSON.stringify(data.form) ?>" id="prefill" />
+
             <fieldset class="formStep">
               <legend data-i18n="personal.title"></legend>
               <div class="multiInput" id="full_name">
@@ -194,6 +197,15 @@
     <!-- prettier-ignore -->
     <?!= include_('dist/frontend/layouts/Liability') ?>
 
+    <script>
+      const prefillData = JSON.parse(document.getElementById("prefill").value);
+      document.addEventListener("DOMContentLoaded", () => {
+        Object.keys(prefillData).forEach((id) => {
+          document.getElementById(id).value = prefillData[id];
+        });
+      });
+    </script>
+
     <!-- IntTelInput -->
     <link
       rel="stylesheet"
@@ -247,29 +259,34 @@
     </script>
 
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const picker = document.querySelector("duet-date-picker");
-        // const DATE_FORMAT = /^(\d{1,2})-(\d{1,2})-(\d{4})$/;
+      const $picker = document.querySelector("duet-date-picker");
 
-        // picker.dateAdapter = {
-        //   parse(value = "", createDate) {
-        //     const matches = value.match(DATE_FORMAT);
+      const datePickerObs = new MutationObserver((mutationsList, observer) => {
+        mutationsList.forEach((mutation) => {
+          if ($picker.classList.contains("hydrated")) {
+            setupPicker($picker);
+            observer.disconnect();
+          }
+        });
+      }).observe($picker, { attributes: true, attributeFilter: ["class"] });
 
-        //     if (matches) {
-        //       return createDate(matches[3], matches[2], matches[1]);
-        //     }
-        //   },
-        //   format(date) {
-        //     return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
-        //   },
-        // };
+      function setupPicker(picker) {
+        const DATE_FORMAT = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/;
+        picker.dateAdapter = {
+          parse(value = "", createDate) {
+            const matches = value.match(DATE_FORMAT);
 
-        // console.log(picker);
-        // console.log(picker.classList);
-        // console.log(picker.localization);
+            if (matches) {
+              return createDate(matches[3], matches[2], matches[1]);
+            }
+          },
+          format(date) {
+            return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+          },
+        };
 
-        // picker.localization = { placeholder: "dd-mm-yyyy" };
-      });
+        picker.localization = { ...picker.localization, placeholder: "dd/mm/yyyy" };
+      }
     </script>
 
     <!-- Auto-fill the liability page with the customer's full name from the personal details -->

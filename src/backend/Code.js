@@ -7,23 +7,23 @@ const SPREADSHEET_ID = "1mO4clKaXB5KSpBq7cF8CDWtWiNadSouvTPqC83YhegY";
 const SHEET_NAME = "Form Responses";
 
 /** Endpoint router of the webapp. As of now, the only route served is the default. It serves index.html */
-function doGet(e) {
+function doGet(req) {
   let pageInfo = {
     fileName: "dist/frontend/pages/index",
     title: "UDC signup form",
   };
 
-  if (e.pathInfo == "test") {
+  if (req.pathInfo == "test") {
     pageInfo.fileName = "dist/frontend/pages/test";
     pageInfo.title = "UDC test";
   }
 
-  if (e.pathInfo == "demo") {
+  if (req.pathInfo == "demo") {
     pageInfo.fileName = "dist/frontend/pages/demo-medical";
     pageInfo.title = "UDC Demo Medical";
   }
 
-  if (e.pathInfo == "admin") {
+  if (req.pathInfo == "admin") {
     pageInfo.fileName = "dist/frontend/pages/reception";
     pageInfo.title = "UDC admin reception form";
   }
@@ -32,7 +32,15 @@ function doGet(e) {
   // return ContentService.createTextOutput(params).setMimeType(ContentService.MimeType.JSON);
 
   const template = HtmlService.createTemplateFromFile(pageInfo.fileName);
-  template.data = { title: pageInfo.title };
+
+  const validKeys = ["first_name", "last_name", "dob", "pkg"];
+  const formPrefill = validKeys.reduce((o, key) => {
+    if (req.parameter[key]) o[key] = req.parameter[key];
+    return o;
+  }, {});
+
+  // console.log("prefill", formPrefill);
+  template.data = { title: pageInfo.title, form: formPrefill };
 
   return template
     .evaluate()
