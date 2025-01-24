@@ -18,19 +18,6 @@
       referrerpolicy="no-referrer"
     />
 
-    <script
-      type="module"
-      src="https://cdn.jsdelivr.net/npm/@duetds/date-picker@1.4.0/dist/duet/duet.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://cdn.jsdelivr.net/npm/@duetds/date-picker@1.4.0/dist/duet/duet.js"
-    ></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@duetds/date-picker@1.4.0/dist/duet/themes/default.css"
-    />
-
     <?!= include_('dist/frontend/stylesheet') ?>
 
     <script>
@@ -164,7 +151,7 @@
               ></form-signature>
             </fieldset> -->
 
-            <fieldset class="formStep legal">
+            <fieldset id="liabilityStep" class="formStep legal">
               <liability-layout></liability-layout>
               <form-signature
                 id="signature"
@@ -197,6 +184,7 @@
     <!-- prettier-ignore -->
     <?!= include_('dist/frontend/layouts/Liability') ?>
 
+    <!-- Prefill form value based on specific ulr params -->
     <script>
       const prefillData = JSON.parse(document.getElementById("prefill").value);
       document.addEventListener("DOMContentLoaded", () => {
@@ -258,6 +246,19 @@
       // });
     </script>
 
+    <!-- Modify date picker localization -->
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/@duetds/date-picker@1.4.0/dist/duet/duet.esm.js"
+    ></script>
+    <!-- <script
+      nomodule
+      src="https://cdn.jsdelivr.net/npm/@duetds/date-picker@1.4.0/dist/duet/duet.js"
+    ></script> -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@duetds/date-picker@1.4.0/dist/duet/themes/default.css"
+    />
     <script>
       const $picker = document.querySelector("duet-date-picker");
 
@@ -291,11 +292,11 @@
 
     <!-- Auto-fill the liability page with the customer's full name from the personal details -->
     <script>
-      const $fullNameInputContainer = document.getElementById("full_name");
-      $fullNameInputContainer.addEventListener("input", mirrorFullNameLiability);
-
+      document.addEventListener("activated", mirrorFullNameLiability);
       function mirrorFullNameLiability(e) {
-        const $inputs = $fullNameInputContainer.querySelectorAll("form-input");
+        if (!e.target.id == "liabilityStep") return;
+        const $fullNameContainer = document.getElementById("full_name");
+        const $inputs = $fullNameContainer.querySelectorAll("form-input");
 
         const fullName = $inputs[0].value + " " + $inputs[1].value;
         const $nodesToReplace = document.getElementsByClassName("liabilityName");

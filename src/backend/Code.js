@@ -8,28 +8,7 @@ const SHEET_NAME = "Form Responses";
 
 /** Endpoint router of the webapp. As of now, the only route served is the default. It serves index.html */
 function doGet(req) {
-  let pageInfo = {
-    fileName: "dist/frontend/pages/index",
-    title: "UDC signup form",
-  };
-
-  if (req.pathInfo == "test") {
-    pageInfo.fileName = "dist/frontend/pages/test";
-    pageInfo.title = "UDC test";
-  }
-
-  if (req.pathInfo == "demo") {
-    pageInfo.fileName = "dist/frontend/pages/demo-medical";
-    pageInfo.title = "UDC Demo Medical";
-  }
-
-  if (req.pathInfo == "admin") {
-    pageInfo.fileName = "dist/frontend/pages/reception";
-    pageInfo.title = "UDC admin reception form";
-  }
-
-  // var params = JSON.stringify(e);
-  // return ContentService.createTextOutput(params).setMimeType(ContentService.MimeType.JSON);
+  const pageInfo = getRoute(req);
 
   const template = HtmlService.createTemplateFromFile(pageInfo.fileName);
 
@@ -39,7 +18,6 @@ function doGet(req) {
     return o;
   }, {});
 
-  // console.log("prefill", formPrefill);
   template.data = { title: pageInfo.title, form: formPrefill };
 
   return template
@@ -47,9 +25,6 @@ function doGet(req) {
     .setTitle(pageInfo.title)
     .setFaviconUrl("https://utiladivecenter.com/img/logo/UDC-LOGO-TINY.png");
 }
-
-// TODO
-function backendValidation() {}
 
 function processForm(formObject) {
   console.log(formObject);
@@ -87,7 +62,7 @@ function processForm(formObject) {
     // return ContentService
     //   .createTextOutput(JSON.stringify({ 'result': 'error', 'error': e }))
     //   .setMimeType(ContentService.MimeType.JSON)
-    console.log(e);
+    console.error(e.message);
   } finally {
     lock.releaseLock();
   }
