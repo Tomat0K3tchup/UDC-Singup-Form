@@ -474,30 +474,3 @@ span.visible {
 }
 
 /****************Duet Date Picker Override****************/
-
-.date .duet-date__input {
-  padding: 0.5rem 1rem;
-  font-family: var(--body-font-family-text);
-  font-size: 1rem;
-  border-radius: var(--border-radius-sm);
-  border: 1px solid var(--border-color);
-}
-
-.date .duet-date__toggle {
-  box-shadow: none;
-  background: #fff0;
-}
-
-.date .duet-date__toggle:focus {
-  /* box-shadow: 0 0 0 2px var(--duet-color-primary); */
-  outline: -webkit-focus-ring-color auto 1px;
-}
-
-.date .duet-date__input:focus {
-  box-shadow: none;
-  outline: -webkit-focus-ring-color auto 1px;
-}
-
-.date .duet-date__toggle-icon > svg {
-  height: 1.25rem;
-}

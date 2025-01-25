@@ -13,7 +13,7 @@ class FormInput extends LitElement {
       width: 100%;
     }
 
-    div {
+    .container {
       display: flex;
       flex-direction: column;
     }
@@ -44,13 +44,13 @@ class FormInput extends LitElement {
       border: 1px solid var(--error-color);
     }
 
-    span {
+    span.invalid {
       padding: 0.4rem 0 0 0.5rem;
       font-size: 0.9rem;
       display: none;
     }
 
-    .visible {
+    span.visible {
       display: block;
     }
 
@@ -122,15 +122,10 @@ class FormInput extends LitElement {
   }
 
   set value(val) {
-    console.log(val);
     if (val !== this._value) {
       this._value = val;
       this.requestUpdate("value", this._value);
-      console.log(this._internals);
       if (this._internals) this.updateFormValue();
-
-      // // Dispatch an input event for form or external listeners
-      // this.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
     }
   }
 
@@ -176,7 +171,7 @@ class FormInput extends LitElement {
 
   render() {
     return html`
-      <div>
+      <div class="container">
         <label class="${this._hasError ? "invalid" : ""}" for="${this.id}">
           ${this.label}${this.required ? html`<em class="important">*</em>` : ""}
         </label>
