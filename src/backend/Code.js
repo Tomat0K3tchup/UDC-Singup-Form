@@ -8,22 +8,7 @@ const SHEET_NAME = "Form Responses";
 
 /** Endpoint router of the webapp. As of now, the only route served is the default. It serves index.html */
 function doGet(req) {
-  const pageInfo = getRoute(req);
-
-  const template = HtmlService.createTemplateFromFile(pageInfo.fileName);
-
-  const validKeys = ["first_name", "last_name", "dob", "pkg"];
-  const formPrefill = validKeys.reduce((o, key) => {
-    if (req.parameter[key]) o[key] = req.parameter[key];
-    return o;
-  }, {});
-
-  template.data = { title: pageInfo.title, form: formPrefill };
-
-  return template
-    .evaluate()
-    .setTitle(pageInfo.title)
-    .setFaviconUrl("https://utiladivecenter.com/img/logo/UDC-LOGO-TINY.png");
+  return getPage("index");
 }
 
 function processForm(formObject) {
@@ -66,6 +51,11 @@ function processForm(formObject) {
   } finally {
     lock.releaseLock();
   }
+}
+
+function processAndSendNextPage(formObject) {
+  processForm(formObject);
+  return getPageContent("medical");
 }
 
 function handleFormResponseMedical(formObject) {

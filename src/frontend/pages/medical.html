@@ -63,14 +63,11 @@
               <p class="zf-frmDesc" data-i18n="medical:intro"></p>
               <p class="zf-frmDesc" data-i18n="medical:directions"></p>
 
-              <div class="multiInput">
+              <div class="multiInput" id="full_name">
                 <form-input data-i18n="[label]personal.firstName" id="first_name" required></form-input>
                 <form-input data-i18n="[label]personal.lastName" id="last_name" required></form-input>
               </div>
-              <div class="formInput">
-                <label for="date" data-i18n="[prepend]personal.dob"><em class="important">*</em></label>
-                <duet-date-picker class="date" identifier="dob" required></duet-date-picker>
-              </div>
+              <date-picker data-i18n="[label]personal.dob" id="dob" required></date-picker>
             </fieldset>
 
             <fieldset class="formStep">

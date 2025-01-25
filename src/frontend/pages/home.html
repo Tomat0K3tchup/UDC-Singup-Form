@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><?= data.title ?></title>
+    <base target="_top" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -19,38 +20,8 @@
     />
 
     <?!= include_('dist/frontend/stylesheet') ?>
-    <script>
-      async function navigateTo(page) {
-        try {
-          // Fetch the new page content
-          const response = await google.script.run
-            .withSuccessHandler((html) => {
-              injectHTML(html);
-              // Update the browser's URL (optional)
-              history.pushState({ page }, "", `#${page}`);
-            })
-            .getPageContent(page);
-        } catch (error) {
-          console.error("Error fetching page content:", error);
-        }
-      }
 
-      // Handle back/forward navigation
-      window.onpopstate = (event) => {
-        const page = event.state?.page || "home"; // Default to home if no state
-        navigateTo(page);
-      };
-
-      // Initialize with the default page on load
-      window.onload = () => {
-        toggleSpinner();
-        google.script.url.getLocation((location) => {
-          const initialPage = location.hash.replace("#", "") || "home";
-          navigateTo(initialPage);
-        });
-      };
-    </script>
-    <script>
+    <!-- <script>
       // Prevent forms from submitting.
       function preventFormSubmit() {
         const $form = document.getElementById("udc-form");
@@ -62,6 +33,7 @@
       window.addEventListener("load", preventFormSubmit);
 
       function handleFormSubmit(formObject) {
+        console.log("called");
         var formData = new FormData(formObject);
         var payload = Object.fromEntries(formData);
 
@@ -70,50 +42,32 @@
 
         console.log(payload);
         toggleSpinner();
-        // google.script.run.withSuccessHandler(handleSuccess).processForm(payload);
-        google.script.run.withSuccessHandler(injectHTML).processAndSendNextPage(payload);
+        google.script.run.withSuccessHandler(handleSuccess).processForm(payload);
       }
 
       function toggleSpinner() {
         document.querySelector("spinner-modal").toggle();
       }
 
-      function injectHTML(html) {
-        try {
-          const content = document.getElementById("content");
-          content.innerHTML = html;
-
-          $(content).localize();
-          preventFormSubmit();
-        } catch (error) {
-          console.error("Error injecting HTML:", error);
-        } finally {
-          toggleSpinner();
-        }
-      }
-
       function handleSuccess() {
         console.log(document.querySelector("multi-step-form"));
-        // window.location.href =
-        //   "https://script.google.com/macros/s/AKfycby3STqolbuRf7cXKuAsZjwLqUON9zZ69p-1Gu9xVEg/dev/liability";
         document.querySelector("multi-step-form").style.display = "none";
         document.querySelector("success-failure-display").toggleVisibility();
         toggleSpinner();
       }
-    </script>
+    </script> -->
   </head>
   <body>
-    <div id="content" class="formWidth formDropShadow">
-      <form name="udc-form" enctype="multipart/form-data" id="udc-form" onsubmit="handleFormSubmit(this)">
-        <div class="formWrapper">
-          <div class="zf-tempHeadContBdr">
-            <h1><em data-i18n="title"></em></h1>
-            <!-- <p class="zf-frmDesc">Please give accurate information.</p> -->
-          </div>
+    <div class="formWidth formDropShadow">
+      <!-- <form name="udc-form" enctype="multipart/form-data" id="udc-form" onsubmit="handleFormSubmit(this)"> -->
+      <div class="formWrapper">
+        <div class="zf-tempHeadContBdr">
+          <h1><em data-i18n="title"></em></h1>
+          <!-- <p class="zf-frmDesc">Please give accurate information.</p> -->
+        </div>
 
-          <multi-step-form>
+        <!-- <multi-step-form>
             <input type="hidden" value="<?= JSON.stringify(data.form) ?>" id="prefill" />
-            <input type="hidden" value="<?= JSON.stringify(data.form) ?>" id="path" />
 
             <fieldset class="formStep">
               <legend data-i18n="personal.title"></legend>
@@ -123,7 +77,7 @@
               </div>
               <date-picker data-i18n="[label]personal.dob" id="dob" required></date-picker>
               <form-input data-i18n="[label]personal.email" id="email" type="email" required></form-input>
-              <!-- <form-input data-i18n="[label]personal.address" id="address" required></form-input>
+              <form-input data-i18n="[label]personal.address" id="address" required></form-input>
 
               <div class="formInput">
                 <div>
@@ -132,8 +86,8 @@
                   >
                   <input id="phone" name="phone" type="tel" required />
                 </div>
-                <span id="phone_err" class="error invalid">Please enter a phone number.</span> 
-              </div> -->
+                <span id="phone_err" class="error invalid">Please enter a phone number.</span>
+              </div>
             </fieldset>
 
             <!--<fieldset class="formStep">
@@ -181,12 +135,12 @@
                 <date-picker data-i18n="[label]id.expDate" id="id_exp_date" type="date" required></date-picker>
               </div>
 
-            </fieldset> -->
+            </fieldset> 
 
-            <!-- <fieldset class="formStep legal">
+            <fieldset class="formStep legal">
               <?!= include_('dist/frontend/layouts/TAndC') ?>
               <form-input data-i18n="[label]tAndC.accept" id="id_t_c" type="checkbox" required></form-input>
-            </fieldset> -->
+            </fieldset>
 
             <!-- <fieldset class="formStep legal">
               <?!= include_('dist/frontend/layouts/SafeDiving') ?>
@@ -195,22 +149,40 @@
                 data-i18n="[label]liability.signature"
                 required
               ></form-signature>
-            </fieldset> -->
+            </fieldset> 
 
-            <!-- <fieldset id="liabilityStep" class="formStep legal">
+            <fieldset id="liabilityStep" class="formStep legal">
               <liability-layout></liability-layout>
               <form-signature
                 id="signature"
                 data-i18n="[label]liability.signature"
                 required
               ></form-signature>
-            </fieldset> -->
-          </multi-step-form>
-          <success-failure-display></success-failure-display>
-        </div>
-      </form>
+            </fieldset>
+          </multi-step-form> -->
+        <section>
+          <p>Pick your course</p>
+          <div>
+            <a href="<?= ScriptApp.getService().getUrl() + '/medical'?>">Medical</a>
+            <a
+              href="https://script.google.com/macros/s/AKfycby3STqolbuRf7cXKuAsZjwLqUON9zZ69p-1Gu9xVEg/dev/liability"
+              >Liability</a
+            >
+            <a
+              href="https://script.google.com/macros/s/AKfycby3STqolbuRf7cXKuAsZjwLqUON9zZ69p-1Gu9xVEg/dev/safeDiving"
+              >Safe Diving</a
+            >
+            <a
+              href="https://script.google.com/macros/s/AKfycby3STqolbuRf7cXKuAsZjwLqUON9zZ69p-1Gu9xVEg/dev/tAndC"
+              >Terms and Conditions</a
+            >
+          </div>
+        </section>
+        <spinner-modal></spinner-modal>
+        <success-failure-display></success-failure-display>
+      </div>
+      <!-- </form> -->
     </div>
-    <spinner-modal></spinner-modal>
 
     <!-- prettier-ignore -->
     <?!= include_('dist/locales')?> 
@@ -300,8 +272,6 @@
 
     <!-- Auto-fill the liability page with the customer's full name from the personal details -->
     <script>
-      // Non ideal but allow the SPA to localize pages that were not loaded
-      document.addEventListener("activated", (e) => $(e.target).localize());
       document.addEventListener("activated", mirrorFullNameLiability);
       function mirrorFullNameLiability(e) {
         if (!e.target.id == "liabilityStep") return;
