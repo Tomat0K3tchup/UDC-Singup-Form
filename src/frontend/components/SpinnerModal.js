@@ -3,7 +3,7 @@ import { LitElement, css, html } from "https://cdn.jsdelivr.net/gh/lit/dist@3/co
 class Spinner extends LitElement {
   static styles = css`
     .bg {
-      background: #7773;
+      background: #000a;
       top: 0;
       left: 0;
       height: 100vh;
@@ -16,11 +16,11 @@ class Spinner extends LitElement {
 
     .loader {
       width: 2rem;
-      padding: 0.4rem;
+      padding: 0.6rem;
       aspect-ratio: 1;
       border-radius: 50%;
-      background: var(--main-bg-color);
-      --_m: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
+      background: var(--main-accent-color);
+      --_m: conic-gradient(#0000 0%, #000), linear-gradient(#000 0 0) content-box;
       -webkit-mask: var(--_m);
       mask: var(--_m);
       -webkit-mask-composite: source-out;
@@ -49,9 +49,29 @@ class Spinner extends LitElement {
     this.toggle();
   }
 
+  disableScroll() {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0;
+
+    window.onscroll = () => {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0;
+    };
+  }
+
+  enableScroll() {
+    window.onscroll = function () {};
+  }
+
   toggle() {
     this.hidden = !this.hidden;
     this.$container.style.display = this.hidden ? "none" : "flex";
+
+    if (!this.hidden) {
+      this.disableScroll();
+    } else {
+      this.enableScroll();
+    }
   }
 
   render() {

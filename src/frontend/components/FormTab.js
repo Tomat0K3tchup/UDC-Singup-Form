@@ -80,7 +80,7 @@ class MultiStepForm extends LitElement {
       s.style.display = "none";
     });
     this.updateDisplay();
-    this.render();
+    this.dispatchActivatedEvent();
   }
 
   checkValidity() {
