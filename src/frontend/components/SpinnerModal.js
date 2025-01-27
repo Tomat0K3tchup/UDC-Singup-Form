@@ -63,8 +63,8 @@ class Spinner extends LitElement {
     window.onscroll = function () {};
   }
 
-  toggle() {
-    this.hidden = !this.hidden;
+  toggle(force = undefined) {
+    this.hidden = force === undefined ? !force : !this.hidden;
     this.$container.style.display = this.hidden ? "none" : "flex";
 
     if (!this.hidden) {

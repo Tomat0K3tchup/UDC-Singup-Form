@@ -68,6 +68,10 @@ class DatePicker extends window.FormInput {
     this.addEventListener("duetChange", (e) => this.handleInput(e));
   }
 
+  get $input() {
+    return this.shadowRoot.querySelector(".duet-date__input");
+  }
+
   duetFirstUpdated(picker) {
     const DATE_FORMAT = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/;
     picker.dateAdapter = {
@@ -82,9 +86,6 @@ class DatePicker extends window.FormInput {
       },
     };
     picker.localization = { ...picker.localization, placeholder: "dd/mm/yyyy" };
-
-    this.$input = this.shadowRoot.querySelector(".duet-date__input");
-    console.log(this.$input);
   }
 
   checkValidity() {
@@ -96,7 +97,6 @@ class DatePicker extends window.FormInput {
 
   updateValue(e) {
     this.value = e.detail.value;
-    console.log(this.value);
   }
 
   render() {

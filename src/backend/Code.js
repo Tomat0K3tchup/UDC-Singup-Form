@@ -11,57 +11,37 @@ function doGet(req) {
   return getPage("index");
 }
 
-function processForm(formObject) {
-  console.log(formObject);
-
+function processForm(formId, formObject) {
   const lock = LockService.getScriptLock();
   lock.tryLock(10000);
 
   try {
-    const doc = SpreadsheetApp.openById(SPREADSHEET_ID);
-    const sheet = doc.getSheetByName(SHEET_NAME);
-
-    const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
-    const nextRow = sheet.getLastRow() + 1;
-
-    const newRow = headers.map((header) => {
-      if (header == "date") return new Date();
-      if (header in formObject) return formObject[header];
-      return "";
-    });
-
-    sheet.getRange(nextRow, 1, 1, newRow.length).setValues([newRow]);
-    //FIXME: checkboxes ??
-    // const diCol = 11,
-    //   tAndCCol = 19;
-    // const needCheckbox = new RangeList([
-    //   sheet.getRange(nextRow, diCol),
-    //   sheet.getRange(nextRow, diCol),
-    // ]);
-    // needCheckbox.insertCheckboxes();
-
-    // return ContentService
-    //   .createTextOutput(JSON.stringify({ 'result': 'success', 'row': 'nextRow' }))
-    //   .setMimeType(ContentService.MimeType.JSON)
+    FormProcessor.processForm(formId, formObject);
   } catch (e) {
     // return ContentService
     //   .createTextOutput(JSON.stringify({ 'result': 'error', 'error': e }))
     //   .setMimeType(ContentService.MimeType.JSON)
     console.error(e.message);
+    Logger.log(e);
   } finally {
     lock.releaseLock();
   }
 }
 
-function processAndSendNextPage(formObject) {
-  processForm(formObject);
-  return getPageContent("medical");
+function processAndSendNextPage(formId, formObject, page) {
+  processForm(formId, formObject);
+
+  if (page) {
+    return getPageContent(page);
+  } else {
+    return null;
+  }
 }
 
-function handleFormResponseMedical(formObject) {
-  const data = transformDataFromMedical(formObject);
-  generateMedicalPDF(data);
-}
+// function handleFormResponseMedical(formObject) {
+//   const data = transformDataFromMedical(formObject);
+//   generateMedicalPDF(data);
+// }
 
 /**
  * Helper function to include script and stylesheet into the html code.

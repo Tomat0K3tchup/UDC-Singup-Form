@@ -1,0 +1,400 @@
+<div class="formWidth formDropShadow">
+  <form
+    name="medical-form"
+    enctype="multipart/form-data"
+    id="medical-form"
+    onsubmit="handleFormSubmit(this)"
+  >
+    <div class="formWrapper">
+      <!-- Template Header Starts Here -->
+      <div class="zf-tempHeadContBdr">
+        <h1><em data-i18n="medical:title"></em></h1>
+      </div>
+      <!-- Template Header Ends Here -->
+
+      <multi-step-form>
+        <fieldset class="formStep">
+          <legend>Personal Details</legend>
+          <p class="zf-frmDesc" data-i18n="medical:intro"></p>
+          <p class="zf-frmDesc" data-i18n="medical:directions"></p>
+
+          <input type="hidden" id="pkg" name="pkg" />
+          <div class="multiInput" id="full_name">
+            <form-input data-i18n="[label]personal.firstName" id="first_name" required></form-input>
+            <form-input data-i18n="[label]personal.lastName" id="last_name" required></form-input>
+          </div>
+          <date-picker data-i18n="[label]personal.dob" id="dob" required></date-picker>
+        </fieldset>
+
+        <fieldset class="formStep">
+          <ol class="radioList">
+            <li>
+              <form-radio
+                id="q1"
+                data-i18n="[label]medical:q1;[options]medical:yesNoOptions"
+                required
+              ></form-radio>
+            </li>
+            <li>
+              <form-radio
+                id="q2"
+                data-i18n="[label]medical:q2;[options]medical:yesNoOptions"
+                required
+              ></form-radio>
+            </li>
+            <li>
+              <form-radio
+                id="q3"
+                data-i18n="[label]medical:q3;[options]medical:yesNoOptions"
+                required
+              ></form-radio>
+            </li>
+            <li>
+              <form-radio
+                id="q4"
+                data-i18n="[label]medical:q4;[options]medical:yesNoOptions"
+                required
+              ></form-radio>
+            </li>
+            <li>
+              <form-radio
+                id="q5"
+                data-i18n="[label]medical:q5;[options]medical:yesNoOptions"
+                required
+              ></form-radio>
+            </li>
+            <li>
+              <form-radio
+                id="q6"
+                data-i18n="[label]medical:q6;[options]medical:yesNoOptions"
+                required
+              ></form-radio>
+            </li>
+            <li>
+              <form-radio
+                id="q7"
+                data-i18n="[label]medical:q7;[options]medical:yesNoOptions"
+                required
+              ></form-radio>
+            </li>
+            <li>
+              <form-radio
+                id="q8"
+                data-i18n="[label]medical:q8;[options]medical:yesNoOptions"
+                required
+              ></form-radio>
+            </li>
+            <li>
+              <form-radio
+                id="q9"
+                data-i18n="[label]medical:q9;[options]medical:yesNoOptions"
+                required
+              ></form-radio>
+            </li>
+            <li>
+              <form-radio
+                id="q10"
+                data-i18n="[label]medical:q10;[options]medical:yesNoOptions"
+                required
+              ></form-radio>
+            </li>
+          </ol>
+        </fieldset>
+
+        <fieldset class="formStep boxList">
+          <fieldset id="boxA" class="flex-form box">
+            <!-- Box A: If Q1 = true -->
+            <legend data-i18n="medical:boxA.title"></legend>
+            <ol class="radioList">
+              <li>
+                <form-radio
+                  id="qA_1"
+                  data-i18n="[label]medical:boxA.1;[options]medical:yesNoOptions"
+                ></form-radio>
+              </li>
+              <li>
+                <form-radio
+                  id="qA_2"
+                  data-i18n="[label]medical:boxA.2;[options]medical:yesNoOptions"
+                ></form-radio>
+              </li>
+              <li>
+                <form-radio
+                  id="qA_3"
+                  data-i18n="[label]medical:boxA.3;[options]medical:yesNoOptions"
+                ></form-radio>
+              </li>
+              <li>
+                <form-radio
+                  id="qA_4"
+                  data-i18n="[label]medical:boxA.4;[options]medical:yesNoOptions"
+                ></form-radio>
+              </li>
+              <li>
+                <form-radio
+                  id="qA_5"
+                  data-i18n="[label]medical:boxA.5;[options]medical:yesNoOptions"
+                ></form-radio>
+              </li>
+            </ol>
+          </fieldset>
+
+          <fieldset id="boxB" class="box">
+            <!-- Box B: If Q2 = true -->
+            <legend data-i18n="medical:boxB.title"></legend>
+            <ol class="radioList">
+              <li>
+                <form-radio
+                  id="qB_1"
+                  data-i18n="[label]medical:boxB.1;[options]medical:yesNoOptions"
+                ></form-radio>
+              </li>
+              <li>
+                <form-radio
+                  id="qB_2"
+                  data-i18n="[label]medical:boxB.2;[options]medical:yesNoOptions"
+                ></form-radio>
+              </li>
+              <li>
+                <form-radio
+                  id="qB_3"
+                  data-i18n="[label]medical:boxB.3;[options]medical:yesNoOptions"
+                ></form-radio>
+              </li>
+              <li>
+                <form-radio
+                  id="qB_4"
+                  data-i18n="[label]medical:boxB.4;[options]medical:yesNoOptions"
+                ></form-radio>
+              </li>
+            </ol>
+          </fieldset>
+
+          <fieldset id="boxC" class="box">
+            <!-- Box C: If Q1 = true -->
+            <legend data-i18n="medical:boxC.title"></legend>
+            <ol class="radioList">
+              <li>
+                <form-radio
+                  id="qC_1"
+                  data-i18n="[label]medical:boxC.1;[options]medical:yesNoOptions"
+                ></form-radio>
+              </li>
+              <li>
+                <form-radio
+                  id="qC_2"
+                  data-i18n="[label]medical:boxC.2;[options]medical:yesNoOptions"
+                ></form-radio>
+              </li>
+              <li>
+                <form-radio
+                  id="qC_3"
+                  data-i18n="[label]medical:boxC.3;[options]medical:yesNoOptions"
+                ></form-radio>
+              </li>
+              <li>
+                <form-radio
+                  id="qC_4"
+                  data-i18n="[label]medical:boxC.4;[options]medical:yesNoOptions"
+                ></form-radio>
+              </li>
+            </ol>
+          </fieldset>
+
+          <fieldset id="boxD" class="box">
+            <!-- Box D: If Q1 = true -->
+            <legend data-i18n="medical:boxD.title"></legend>
+            <ol class="radioList">
+              <li>
+                <form-radio
+                  id="qD_1"
+                  data-i18n="[label]medical:boxD.1;[options]medical:yesNoOptions"
+                ></form-radio>
+              </li>
+              <li>
+                <form-radio
+                  id="qD_2"
+                  data-i18n="[label]medical:boxD.2;[options]medical:yesNoOptions"
+                ></form-radio>
+              </li>
+              <li>
+                <form-radio
+                  id="qD_3"
+                  data-i18n="[label]medical:boxD.3;[options]medical:yesNoOptions"
+                ></form-radio>
+              </li>
+              <li>
+                <form-radio
+                  id="qD_4"
+                  data-i18n="[label]medical:boxD.4;[options]medical:yesNoOptions"
+                ></form-radio>
+              </li>
+            </ol>
+          </fieldset>
+
+          <fieldset id="boxE" class="box">
+            <!-- Box E: If Q1 = true -->
+            <legend data-i18n="medical:boxE.title"></legend>
+            <ol class="radioList">
+              <li>
+                <form-radio
+                  id="qE_1"
+                  data-i18n="[label]medical:boxE.1;[options]medical:yesNoOptions"
+                ></form-radio>
+              </li>
+              <li>
+                <form-radio
+                  id="qE_2"
+                  data-i18n="[label]medical:boxE.2;[options]medical:yesNoOptions"
+                ></form-radio>
+              </li>
+              <li>
+                <form-radio
+                  id="qE_3"
+                  data-i18n="[label]medical:boxE.3;[options]medical:yesNoOptions"
+                ></form-radio>
+              </li>
+              <li>
+                <form-radio
+                  id="qE_4"
+                  data-i18n="[label]medical:boxE.4;[options]medical:yesNoOptions"
+                ></form-radio>
+              </li>
+            </ol>
+          </fieldset>
+
+          <fieldset id="boxF" class="box">
+            <!-- Box F: If Q1 = true -->
+            <legend data-i18n="medical:boxF.title"></legend>
+            <ol class="radioList">
+              <li>
+                <form-radio
+                  id="qF_1"
+                  data-i18n="[label]medical:boxF.1;[options]medical:yesNoOptions"
+                ></form-radio>
+              </li>
+              <li>
+                <form-radio
+                  id="qF_2"
+                  data-i18n="[label]medical:boxF.2;[options]medical:yesNoOptions"
+                ></form-radio>
+              </li>
+              <li>
+                <form-radio
+                  id="qF_3"
+                  data-i18n="[label]medical:boxF.3;[options]medical:yesNoOptions"
+                ></form-radio>
+              </li>
+              <li>
+                <form-radio
+                  id="qF_4"
+                  data-i18n="[label]medical:boxF.4;[options]medical:yesNoOptions"
+                ></form-radio>
+              </li>
+            </ol>
+          </fieldset>
+
+          <fieldset id="boxG" class="box">
+            <!-- Box G: If Q1 = true -->
+            <legend data-i18n="medical:boxG.title"></legend>
+            <ol class="radioList">
+              <li>
+                <form-radio
+                  id="GA_1"
+                  data-i18n="[label]medical:boxG.1;[options]medical:yesNoOptions"
+                ></form-radio>
+              </li>
+              <li>
+                <form-radio
+                  id="qG_2"
+                  data-i18n="[label]medical:boxG.2;[options]medical:yesNoOptions"
+                ></form-radio>
+              </li>
+              <li>
+                <form-radio
+                  id="qG_3"
+                  data-i18n="[label]medical:boxG.3;[options]medical:yesNoOptions"
+                ></form-radio>
+              </li>
+              <li>
+                <form-radio
+                  id="qG_4"
+                  data-i18n="[label]medical:boxG.4;[options]medical:yesNoOptions"
+                ></form-radio>
+              </li>
+            </ol>
+          </fieldset>
+        </fieldset>
+
+        <fieldset class="formStep">
+          <p>
+            If you answered NO to all 10 questions above, a medical evaluation is not required. Please read
+            and agree to the participant statement below by signing and dating it. Participant Statement: I
+            have answered all questions honestly, and understand that I accept responsibility for any
+            consequences resulting from any questions I may have answered inaccurately or for my failure to
+            disclose any existing or past health conditions
+          </p>
+          <p id="needMedical">
+            If you answered YES to questions 3, 5 or 10 above OR to any of the questions on page 2, please
+            read and agree to the statement above by signing and dating it AND take all three pages of this
+            form (Participant Questionnaire and the Physician’s Evaluation Form) to your physician for a
+            medical evaluation. Participation in a diving course requires your physician's approval.
+          </p>
+          <form-signature id="signature" data-i18n="[label]liability.signature" required></form-signature>
+        </fieldset>
+      </multi-step-form>
+    </div>
+  </form>
+</div>
+
+<script>
+  const MAP_Q_TO_BOXES = {
+    q1: "boxA",
+    q2: "boxB",
+    q4: "boxC",
+    q6: "boxD",
+    q7: "boxE",
+    q8: "boxF",
+    q9: "boxG",
+  };
+
+  function activateSecondaryBoxes(event) {
+    const qId = event.target.id;
+
+    if (qId in MAP_Q_TO_BOXES) {
+      const box = document.getElementById(MAP_Q_TO_BOXES[qId]);
+      const value = event.target.value == "true";
+      box.classList.toggle("visible", value);
+      box.querySelectorAll("form-radio").forEach(($radio) => {
+        $radio.required = value;
+      });
+    }
+  }
+
+  window.addEventListener("change", activateSecondaryBoxes);
+</script>
+
+<script>
+  const $secondaryQSet = document.getElementsByClassName("boxList").item(0);
+  const $multiForm = document.querySelector("multi-step-form");
+  const steps = document.querySelectorAll(".formStep");
+  const $sigSet = steps.item(steps.length - 1);
+
+  $multiForm.addEventListener("activated", function (event) {
+    if (event.target == $secondaryQSet && !needSecondary()) {
+      $multiForm.nextSet();
+    } else if (event.target == $sigSet) {
+      document.getElementById("needMedical").style.display = needMedical() ? "block" : "none";
+    }
+  });
+
+  function needSecondary() {
+    return document.getElementsByClassName("visible").length > 0;
+  }
+
+  const NEED_MEDICAL_REGEX = /q[A-Z]|q(?:3|5|10)/;
+  function needMedical() {
+    const formData = Object.fromEntries(new FormData(document.forms.item(0)));
+    return Object.keys(formData).some((key) => key.match(NEED_MEDICAL_REGEX) && formData[key] === "true");
+  }
+</script>

@@ -14,22 +14,31 @@ function testLiability() {
 }
 
 async function generateLiabilityPDF(clientData, destinationFolder) {
+  console.log("Generating liability PDF...");
   const pdfConst = LIABILITY_FORM_TO_PDF_MAP;
-  const pdfDoc = await loadGoogleFileToPdfLib(pdfConst.id);
-  const pdfForm = pdfDoc.getForm();
-
-  const liabilityData = getLiabilityData(clientData);
-
   try {
+    const pdfDoc = await loadGoogleFileToPdfLib(pdfConst.id);
+    const pdfForm = pdfDoc.getForm();
+
+    const liabilityData = getLiabilityData(clientData);
+    console.log("ok data");
+    console.log("ok data");
     fillLiabilityForm(pdfForm, pdfConst.form, liabilityData);
     sign(pdfDoc, pdfConst.signature, clientData.signature);
+    console.log("ok fill");
 
     const title = `${liabilityData.participantName} - ${pdfConst.title} - ${liabilityData.date}`;
     savePdfLibDocToGoogle(pdfDoc, destinationFolder, title);
+    console.log("ok save");
   } catch (e) {
     console.error(e.message);
     throw new Error("Could not generate Liability PDF");
   }
+}
+
+function formatDate(date) {
+  const DD_MM_YY_FORMATTER = new Intl.DateTimeFormat("fr-FR");
+  return DD_MM_YY_FORMATTER.format(date);
 }
 
 function getLiabilityData(clientData) {

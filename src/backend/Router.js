@@ -8,19 +8,23 @@ function getPage(pageName, params = {}) {
     //   pageInfo = { path: "admin/reception", title: "UDC test" };
     //   break;
     case "safeDiving":
-      pageInfo = { path: "safeDiving", title: "" };
+      pageInfo = { path: "forms/safeDiving", title: "" };
       break;
     case "tAndC":
-      pageInfo = { path: "tAndC", title: "" };
+      pageInfo = { path: "forms/tAndC", title: "" };
       break;
     case "liability":
-      pageInfo = { path: "liability", title: "" };
+      pageInfo = { path: "forms/liability", title: "" };
       break;
     case "home":
       pageInfo = { path: "home", title: "" };
       break;
     case "medical":
-      pageInfo = { path: "medical", title: "" };
+      pageInfo = { path: "forms/medical", title: "" };
+      break;
+
+    case "udc":
+      pageInfo = { path: "forms/udc", title: "" };
       break;
     default:
       pageInfo = { path: "index", title: "UDC signup form" };

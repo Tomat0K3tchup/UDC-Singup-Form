@@ -3,20 +3,29 @@ import { LitElement, css, html } from "https://cdn.jsdelivr.net/gh/lit/dist@3/co
 class LiabilityLayout extends LitElement {
   static styles = css``;
 
+  static properties = {
+    pkg: { type: String },
+  };
+
+  constructor() {
+    super();
+    this.pkg = "";
+  }
+
   createRenderRoot() {
     return this;
   }
 
   firstUpdated() {
     super.firstUpdated();
-    const fd = false;
-    const pkg = "aow";
-
-    this.pickLiability(fd, pkg);
+    if (window.urlParams.pkg) {
+      this.pkg = window.urlParams.pkg;
+    }
+    this.pickLiability();
   }
 
-  pickLiability(isFD, pkg) {
-    if (isFD) return;
+  pickLiability() {
+    if (this.pkg == "fd") return;
 
     document
       .querySelector(".coned")
@@ -26,7 +35,7 @@ class LiabilityLayout extends LitElement {
     $courseLiability.classList.remove("hidden");
     document.getElementById("generalLiability").classList.add("hidden");
 
-    if (pkg == "ow") return;
+    if (this.pkg == "ow") return;
 
     $courseLiability.querySelectorAll(".coned").forEach(($p) => {
       if ($p.classList.contains("hidden")) {
@@ -40,8 +49,6 @@ class LiabilityLayout extends LitElement {
 
   render() {
     return html`
-      <h2 data-i18n="liability:title"></h2>
-
       <p data-i18n="liability:intro"></p>
 
       <section>

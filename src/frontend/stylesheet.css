@@ -473,4 +473,48 @@ span.visible {
   border: none;
 }
 
-/****************Duet Date Picker Override****************/
+/****************Home navigation****************/
+
+/* Same as multi-step-form :host */
+.homeNav {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 0 10%;
+  margin: 1rem 0;
+}
+
+.homeNav h2 {
+  padding: 0 0 0.75rem 0;
+}
+
+.homeNav p {
+  padding: 0 0 1.5rem 0;
+}
+
+.homeNav nav {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1.5rem;
+  margin: auto;
+}
+
+.homeNav button {
+  padding: 0.5rem 1.5rem;
+  margin: auto;
+  background-color: var(--dark-blue);
+  border-radius: var(--border-radius);
+  border: 2px solid var(--dark-blue);
+  color: var(--main-accent-color);
+  font-weight: 800;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.homeNav button:disabled {
+  --grey: #cccccc;
+  background-color: var(--grey);
+  border: 2px solid var(--grey);
+  color: #707070;
+}

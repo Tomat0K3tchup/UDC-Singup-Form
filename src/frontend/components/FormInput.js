@@ -78,7 +78,8 @@ class FormInput extends LitElement {
     this.label = "";
     this.type = "text";
     this.id = "";
-    this.value = "";
+    this._value = "";
+    this.value = this._value;
     this.required = false;
     this._hasError = false;
   }
@@ -104,9 +105,13 @@ class FormInput extends LitElement {
 
   firstUpdated() {
     super.firstUpdated();
-    this.$input = this.shadowRoot.querySelector("input");
-    this.$errorMessage = this.shadowRoot.querySelector("span");
+    // this.$input = this.shadowRoot.querySelector("input");
+    this.$errorMessage = this.renderRoot.querySelector("span");
     this._internals.setFormValue("");
+  }
+
+  get $input() {
+    return this.renderRoot.querySelector("input");
   }
 
   updateValue(e) {
@@ -122,11 +127,31 @@ class FormInput extends LitElement {
   }
 
   set value(val) {
-    if (val !== this._value) {
-      this._value = val;
-      this.requestUpdate("value", this._value);
-      if (this._internals) this.updateFormValue();
-    }
+    if (val == this._value) return;
+    this._value = val;
+    this.requestUpdate("value", this._value);
+
+    const updateFormWhenReady = new Promise((resolve) => {
+      if (this.$input && this._internals) {
+        return resolve();
+      }
+
+      const observer = new MutationObserver((_) => {
+        if (this.$input && this._internals) {
+          resolve();
+          observer.disconnect();
+        }
+      });
+
+      observer.observe(this.renderRoot, {
+        childList: true,
+        subtree: true,
+      });
+    });
+
+    updateFormWhenReady.then((_) => {
+      this.updateFormValue();
+    });
   }
 
   get willValidate() {
@@ -159,6 +184,7 @@ class FormInput extends LitElement {
 
   updateFormValue() {
     this._internals.setFormValue(this.value);
+    if (!this.$input) return;
     this._internals.setValidity(this.$input.validity, this.$input.validationMessage, this.$input);
   }
 

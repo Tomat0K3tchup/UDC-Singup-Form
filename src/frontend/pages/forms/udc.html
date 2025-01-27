@@ -1,0 +1,160 @@
+<div class="formWidth formDropShadow">
+  <form name="udc-form" enctype="multipart/form-data" id="udc-form" onsubmit="handleFormSubmit(this)">
+    <div class="formWrapper">
+      <div class="zf-tempHeadContBdr">
+        <h1><em data-i18n="title"></em></h1>
+        <!-- <p class="zf-frmDesc">Please give accurate information.</p> -->
+      </div>
+
+      <multi-step-form>
+        <input type="hidden" value="<?= JSON.stringify(data.form) ?>" id="prefill" />
+        <input type="hidden" value="<?= JSON.stringify(data.form) ?>" id="path" />
+
+        <fieldset class="formStep">
+          <legend data-i18n="personal.title"></legend>
+          <input type="hidden" id="pkg" name="pkg" />
+          <div class="multiInput" id="full_name">
+            <form-input data-i18n="[label]personal.firstName" id="first_name" required></form-input>
+            <form-input data-i18n="[label]personal.lastName" id="last_name" required></form-input>
+          </div>
+          <date-picker data-i18n="[label]personal.dob" id="dob" required></date-picker>
+          <!-- <form-input data-i18n="[label]personal.email" id="email" type="email" required></form-input> -->
+          <!-- <form-input data-i18n="[label]personal.address" id="address" required></form-input>
+
+            <div class="formInput">
+              <div>
+                <label for="phone" data-i18n="[prepend]personal.phone"
+                  ><em class="important">*</em></label
+                >
+                <input id="phone" name="phone" type="tel" required />
+              </div>
+              <span id="phone_err" class="error invalid">Please enter a phone number.</span> 
+            </div> -->
+        </fieldset>
+
+        <!--<fieldset class="formStep">
+            <legend data-i18n="[label]emergency.title">Emergency Contact</legend>
+            <form-input data-i18n="[label]emergency.fullName" id="em_full_name" required></form-input>
+
+            <div class="formInput">
+              <div>
+                <label for="em_phone" data-i18n="[prepend]emergency.phone"
+                  ><em class="important">*</em></label
+                >
+                <input id="em_phone" name="em_phone" type="tel" required />
+              </div>
+              <!-- FIXME: plain text
+              <span id="phone_err" class="error invalid">Please enter a phone number.</span>
+            </div>
+
+            <form-input label="Relationship" id="em_relationship" required></form-input>
+
+            <form-accordion>
+              <form-radio
+                id="di"
+                slot="decision"
+                data-i18n="[label]emergency.di.label;[options]emergency.di.options"
+                required
+              ></form-radio>
+              <fieldset id="di_hidden" class="flx-form" slot="hidden">
+                <form-input data-i18n="[label]emergency.diProvider" id="di_provider"></form-input>
+                <form-input data-i18n="[label]emergency.diPolicyNb" id="di_policy_nb"></form-input>
+                <form-input data-i18n="[label]emergency.diOther" id="di_other"></form-input>
+              </fieldset>
+            </form-accordion>
+          </fieldset>
+
+          <fieldset class="formStep">
+            <legend data-i18n="id.title"></legend>
+            <div class="formInput">
+              <label for="id_country" data-i18n="id.country"><em class="important">*</em></label>
+              <?!= include_('dist/frontend/components/CountrySelect') ?>
+            </div>
+            <form-input data-i18n="[label]id.number" id="id_nb" required></form-input>
+            
+            <div class="multiInput">
+              <date-picker data-i18n="[label]id.issDate" id="id_iss_date" type="date" required></date-picker>
+              <date-picker data-i18n="[label]id.expDate" id="id_exp_date" type="date" required></date-picker>
+            </div>
+
+          </fieldset> -->
+
+        <!-- <fieldset class="formStep legal">
+          <?!= include_('dist/frontend/layouts/TAndC') ?>
+          <form-input data-i18n="[label]tAndC.accept" id="id_t_c" type="checkbox" required></form-input>
+        </fieldset> -->
+
+        <!-- <fieldset class="formStep legal">
+            <?!= include_('dist/frontend/layouts/SafeDiving') ?>
+            <form-signature
+              id="signature"
+              data-i18n="[label]liability.signature"
+              required
+            ></form-signature>
+          </fieldset> -->
+
+        <!-- <fieldset id="liabilityStep" class="formStep legal">
+            <liability-layout></liability-layout>
+            <form-signature
+              id="signature"
+              data-i18n="[label]liability.signature"
+              required
+            ></form-signature>
+          </fieldset> -->
+      </multi-step-form>
+      <success-failure-display></success-failure-display>
+    </div>
+  </form>
+</div>
+
+<!-- IntTelInput -->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/css/intlTelInput.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/js/intlTelInputWithUtils.min.js"></script>
+<script>
+  const $phoneInput = document.querySelector("#phone");
+  const $phoneInputErr = document.querySelector("#phone_err");
+  const $emPhoneInput = document.querySelector("#em_phone");
+  const itiOptions = {
+    initialCountry: "auto",
+    preferredCountries: ["us", "ca", "uk", "fr", "de", "hn", "nl", "be", "ch"],
+    geoIpLookup: _getCountryFromBrowser,
+    formatAsYouType: true,
+  };
+
+  $phoneInput.addEventListener("invalid", function (event) {
+    $phoneInput.classList.add("invalid");
+    $phoneInputErr.classList.add("visible");
+  });
+
+  $phoneInput.addEventListener("input", function (event) {
+    $phoneInput.classList.remove("invalid");
+    $phoneInputErr.classList.remove("visible");
+  });
+
+  function _getCountryFromBrowser(callback) {
+    const langCountryCode = navigator.languages ? navigator.languages[0] : navigator.language;
+
+    if (!langCountryCode) {
+      callback("us");
+      return;
+    }
+
+    try {
+      const lang = langCountryCode.split("-")[1].toLowerCase();
+      callback(lang);
+    } catch (error) {
+      callback(langCountryCode);
+    }
+  }
+
+  //TODO: reorder preferred languages list alphabetically
+  const phoneInputHandler = window.intlTelInput($phoneInput, itiOptions);
+  const emPhoneInputHandler = window.intlTelInput($emPhoneInput, itiOptions);
+
+  // customElements.whenDefined("duet-date-picker").then(() => {
+  //   document.querySelector("duet-date-picker").show();
+  // });
+</script>
