@@ -48,10 +48,8 @@
 
         <fieldset class="formStep">
           <legend data-i18n="id.title"></legend>
-          <div class="formInput">
-            <label for="id_country" data-i18n="id.country"><em class="important">*</em></label>
-            <?!= include_('dist/frontend/components/CountrySelect') ?>
-          </div>
+
+          <form-country-select data-i18n="[label]id.country" id="id_country"></form-country-select>
           <form-input data-i18n="[label]id.number" id="id_nb" required></form-input>
 
           <div class="multiInput">

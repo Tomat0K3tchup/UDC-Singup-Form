@@ -430,25 +430,18 @@ multi-step-form > fieldset,
 
 /****************IntlTelInput CSS Override****************/
 
-/* Same as formInput class */
-.itiFormInput {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.itiFormInput .container {
+.formInput .container {
   display: flex;
   flex-direction: column;
 }
 
-.itiFormInput div:has(input[type="checkbox"]) {
+.formInput div:has(input[type="checkbox"]) {
   flex-direction: row-reverse;
   justify-content: flex-end;
   align-items: center;
 }
 
-.itiFormInput input {
+.formInput input {
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius-sm);
   padding: 0.5rem 1rem;
@@ -456,38 +449,38 @@ multi-step-form > fieldset,
   font-size: 1rem;
 }
 
-.itiFormInput input[type="checkbox"] {
+.formInput input[type="checkbox"] {
   margin-right: 0.5rem;
 }
 
-.itiFormInput .invalid {
+.formInput .invalid {
   color: var(--error-color);
 }
 
-.itiFormInput input.invalid {
+.formInput input.invalid {
   border: 1px solid var(--error-color);
 }
 
-.itiFormInput span.invalid {
+.formInput span.invalid {
   padding: 0.4rem 0 0 0.5rem;
   font-size: 0.9rem;
   display: none;
 }
 
-.itiFormInput span.visible {
+.formInput span.visible {
   display: block;
 }
 
-.itiFormInput .important {
+.formInput .important {
   color: var(--error-color) !important;
 }
 
-.itiFormInput .iti input {
+.formInput .iti input {
   width: 100%;
 }
 
-.itiFormInput .iti input.iti__tel-input[type="tel"]:focus,
-.itiFormInput .iti button.iti__selected-country:focus {
+.formInput .iti input.iti__tel-input[type="tel"]:focus,
+.formInput .iti button.iti__selected-country:focus {
   outline: -webkit-focus-ring-color auto 1px;
 }
 

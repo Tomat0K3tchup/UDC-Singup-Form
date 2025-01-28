@@ -122,8 +122,9 @@
         const prefillKey = ["first_name", "last_name", "dob", "di", "di_policy_nb", "pkg"];
         prefillKey.forEach((id) => {
           const data = window.urlParams[id];
-          if (!data) return;
-          document.getElementById(id).value = data;
+          const ele = document.getElementById(id);
+          if (!data || !ele) return;
+          ele.value = data;
         });
       }
 
@@ -145,10 +146,12 @@
     <?!= include_('dist/locales')?> 
     <?!= include_('dist/frontend/i18n') ?>
 
+    <!-- Duet Date -->
     <script
       type="module"
       src="https://cdn.jsdelivr.net/npm/@duetds/date-picker@1.4.0/dist/duet/duet.esm.js"
     ></script>
+
     <!-- IntTelInput -->
     <link
       rel="stylesheet"
@@ -156,12 +159,20 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/js/intlTelInputWithUtils.min.js"></script>
 
+    <!-- TomSelect -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/tom-select@2.4.1/dist/css/tom-select.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.4.1/dist/js/tom-select.base.min.js"></script>
+
     <!-- Import custom components -->
     <!-- prettier-ignore -->
     <?!= include_('dist/frontend/components/FormInput') ?> 
     <?!= include_('dist/frontend/components/FormTab') ?> 
     <?!= include_('dist/frontend/components/FormRadio') ?> 
     <?!= include_('dist/frontend/components/FormPhone') ?> 
+    <?!= include_('dist/frontend/components/FormCountrySelect') ?> 
     <?!= include_('dist/frontend/components/FormAccordion') ?>
     <?!= include_('dist/frontend/components/FormSignature') ?>
     <?!= include_('dist/frontend/components/SpinnerModal') ?>
@@ -171,14 +182,16 @@
     <!-- Import custom layouts -->
     <!-- prettier-ignore -->
     <?!= include_('dist/frontend/layouts/Liability') ?>
+    <?!= include_('dist/frontend/layouts/SafeDiving') ?>
 
     <!-- Auto-fill the liability page with the customer's full name from the personal details -->
     <script>
       // Non ideal but allow the SPA to localize pages that were not loaded
       document.addEventListener("activated", (e) => $(e.target).localize());
-      document.addEventListener("activated", mirrorFullNameLiability);
+      document.addEventListener("activated", (e) => mirrorFullNameLiability(e));
       function mirrorFullNameLiability(e) {
-        if (!e.target.id == "liabilityStep") return;
+        console.log(e.target.id);
+        if (e.target.id != "liabilityStep") return;
         const $fullNameContainer = document.getElementById("full_name");
         const $inputs = $fullNameContainer.querySelectorAll("form-input");
 
