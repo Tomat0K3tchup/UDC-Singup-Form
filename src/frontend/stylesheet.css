@@ -430,32 +430,65 @@ multi-step-form > fieldset,
 
 /****************IntlTelInput CSS Override****************/
 
-.iti input {
+/* Same as formInput class */
+.itiFormInput {
+  display: flex;
+  flex-direction: column;
   width: 100%;
 }
 
-.iti input.iti__tel-input[type="tel"]:focus,
-.iti button.iti__selected-country:focus {
-  outline: -webkit-focus-ring-color auto 1px;
+.itiFormInput .container {
+  display: flex;
+  flex-direction: column;
 }
 
-.invalid {
+.itiFormInput div:has(input[type="checkbox"]) {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.itiFormInput input {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  padding: 0.5rem 1rem;
+  font-family: var(--body-font-family-text);
+  font-size: 1rem;
+}
+
+.itiFormInput input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+.itiFormInput .invalid {
   color: var(--error-color);
 }
 
-input.invalid {
+.itiFormInput input.invalid {
   border: 1px solid var(--error-color);
 }
 
-/* FIXME: iti elements should be components */
-.error {
-  display: none;
+.itiFormInput span.invalid {
   padding: 0.4rem 0 0 0.5rem;
   font-size: 0.9rem;
+  display: none;
 }
 
-span.visible {
+.itiFormInput span.visible {
   display: block;
+}
+
+.itiFormInput .important {
+  color: var(--error-color) !important;
+}
+
+.itiFormInput .iti input {
+  width: 100%;
+}
+
+.itiFormInput .iti input.iti__tel-input[type="tel"]:focus,
+.itiFormInput .iti button.iti__selected-country:focus {
+  outline: -webkit-focus-ring-color auto 1px;
 }
 
 /****************SigPad CSS Override****************/
@@ -477,8 +510,7 @@ span.visible {
   display: flex;
   flex-direction: column;
   align-items: start;
-  padding: 0 10%;
-  margin: 1rem 0;
+  padding: 1rem 10% 2rem 10%;
 }
 
 .homeNav h2 {

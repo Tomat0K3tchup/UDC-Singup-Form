@@ -9,8 +9,7 @@ class MultiStepForm extends LitElement {
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 0 10%;
-      margin: 1rem 0;
+      padding: 1rem 10% 2rem 10%;
     }
 
     button {

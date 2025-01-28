@@ -65,8 +65,11 @@
       function handleFormSubmit(form) {
         var payload = Object.fromEntries(new FormData(form));
 
-        // payload["phone"] = phoneInputHandler.getNumber();
-        // payload["em_phone"] = emPhoneInputHandler.getNumber();
+        // Because phone input is in the light DOM, it can't modify the form by itself
+        form.querySelectorAll("form-phone").forEach(($phoneInput) => {
+          if (!$phoneInput.value) return;
+          payload[$phoneInput.name] = $phoneInput.value;
+        });
 
         console.log(payload);
         toggleSpinner(true);
@@ -77,6 +80,8 @@
           first_name: payload.first_name,
           last_name: payload.last_name,
           dob: payload.dob,
+          di: payload.di,
+          di_policy_nb: payload.di_policy_nb,
         };
 
         if (!nextPage) {
@@ -144,12 +149,19 @@
       type="module"
       src="https://cdn.jsdelivr.net/npm/@duetds/date-picker@1.4.0/dist/duet/duet.esm.js"
     ></script>
+    <!-- IntTelInput -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/css/intlTelInput.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/js/intlTelInputWithUtils.min.js"></script>
 
     <!-- Import custom components -->
     <!-- prettier-ignore -->
     <?!= include_('dist/frontend/components/FormInput') ?> 
     <?!= include_('dist/frontend/components/FormTab') ?> 
     <?!= include_('dist/frontend/components/FormRadio') ?> 
+    <?!= include_('dist/frontend/components/FormPhone') ?> 
     <?!= include_('dist/frontend/components/FormAccordion') ?>
     <?!= include_('dist/frontend/components/FormSignature') ?>
     <?!= include_('dist/frontend/components/SpinnerModal') ?>

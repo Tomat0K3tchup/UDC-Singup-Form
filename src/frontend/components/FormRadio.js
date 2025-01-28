@@ -34,11 +34,12 @@ export class FormInputRadio extends window.FormInput {
     this.shadowRoot.dispatchEvent(composedShadowEvent);
   }
 
-  updated(changedProperties) {
-    if (changedProperties.has("options")) {
-      this.$input = this.renderRoot.querySelector("input");
-    }
-  }
+  // TODO: is that necessary anymore ?
+  // updated(changedProperties) {
+  //   if (changedProperties.has("options")) {
+  //     this.$input = this.renderRoot.querySelector("input");
+  //   }
+  // }
 
   render() {
     return html`
