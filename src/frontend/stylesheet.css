@@ -167,10 +167,6 @@ a:hover {
   text-decoration: underline;
 }
 
-.zf-clearBoth {
-  clear: both;
-}
-
 ol ul {
   list-style-type: disc;
   padding-left: 1.5rem;
@@ -190,7 +186,7 @@ ol ul {
 .formWrapper {
   transform: translate(calc(-1 * var(--drop-shadow-size)), var(--drop-shadow-size));
   background: #fff;
-  overflow: hidden;
+  /* overflow: hidden; */
   -webkit-border-radius: var(--border-radius-lg);
   -moz-border-radius: var(--border-radius-lg);
   border-radius: var(--border-radius-lg);
@@ -229,6 +225,7 @@ ol ul {
 
 .zf-tempHeadContBdr {
   background: var(--dark-blue);
+  border-radius: var(--border-radius-sm) var(--border-radius-sm) 0 0;
   margin: 0;
   padding: 0.6rem 2rem;
 }

@@ -10,14 +10,24 @@
         <h2>What are you doing with UDC:</h2>
         <p>If multiple answers apply, pick the first one in the list</p>
         <nav>
-          <button onclick="navigateTo('udc', {pkg: 'goPro', pathway: ['liability']})">GoPro</button>
-          <button onclick="navigateTo('udc', {pkg: 'ow',pathway: ['liability']})" disabled>
+          <button
+            onclick="navigateTo('udc', {pkg: 'goPro', pathway: ['medical', 'liability', 'safeDiving']})"
+            disabled
+          >
+            GoPro
+          </button>
+          <button
+            onclick="navigateTo('udc', {pkg: 'ow', pathway: ['medical', 'liability', 'safeDiving']})"
+            disabled
+          >
             Open Water
           </button>
-          <button onclick="navigateTo('udc', {pkg: 'aow',pathway: ['liability']})" disabled>
+          <button
+            onclick="navigateTo('udc', {pkg: 'aow', pathway: ['medical', 'liability', 'safeDiving']})"
+          >
             AOW, Rescue & Specs
           </button>
-          <button onclick="navigateTo('udc', {pkg: 'fd',pathway: ['liability']})">Fun dives</button>
+          <button onclick="navigateTo('udc', {pkg: 'fd', pathway: ['liability']})">Fun dives</button>
         </nav>
       </section>
     </div>

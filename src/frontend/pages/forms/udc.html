@@ -32,9 +32,9 @@
             </div> -->
         </fieldset>
 
-        <!--<fieldset class="formStep">
-            <legend data-i18n="[label]emergency.title">Emergency Contact</legend>
-            <form-input data-i18n="[label]emergency.fullName" id="em_full_name" required></form-input>
+        <fieldset class="formStep">
+          <legend data-i18n="[label]emergency.title">Emergency Contact</legend>
+          <!-- <form-input data-i18n="[label]emergency.fullName" id="em_full_name" required></form-input>
 
             <div class="formInput">
               <div>
@@ -44,45 +44,45 @@
                 <input id="em_phone" name="em_phone" type="tel" required />
               </div>
               <!-- FIXME: plain text
-              <span id="phone_err" class="error invalid">Please enter a phone number.</span>
-            </div>
+              <span id="phone_err" class="error invalid">Please enter a phone number.</span> 
+            </div> -->
 
-            <form-input label="Relationship" id="em_relationship" required></form-input>
+          <!-- <form-input label="Relationship" id="em_relationship" required></form-input> -->
 
-            <form-accordion>
-              <form-radio
-                id="di"
-                slot="decision"
-                data-i18n="[label]emergency.di.label;[options]emergency.di.options"
-                required
-              ></form-radio>
-              <fieldset id="di_hidden" class="flx-form" slot="hidden">
-                <form-input data-i18n="[label]emergency.diProvider" id="di_provider"></form-input>
-                <form-input data-i18n="[label]emergency.diPolicyNb" id="di_policy_nb"></form-input>
-                <form-input data-i18n="[label]emergency.diOther" id="di_other"></form-input>
-              </fieldset>
-            </form-accordion>
-          </fieldset>
+          <form-accordion>
+            <form-radio
+              id="di"
+              slot="decision"
+              data-i18n="[label]emergency.di.label;[options]emergency.di.options"
+              required
+            ></form-radio>
+            <fieldset id="di_hidden" class="flx-form" slot="hidden">
+              <form-input data-i18n="[label]emergency.diProvider" id="di_provider"></form-input>
+              <form-input data-i18n="[label]emergency.diPolicyNb" id="di_policy_nb"></form-input>
+              <form-input data-i18n="[label]emergency.diOther" id="di_other"></form-input>
+            </fieldset>
+          </form-accordion>
+        </fieldset>
 
-          <fieldset class="formStep">
-            <legend data-i18n="id.title"></legend>
-            <div class="formInput">
-              <label for="id_country" data-i18n="id.country"><em class="important">*</em></label>
-              <?!= include_('dist/frontend/components/CountrySelect') ?>
-            </div>
-            <form-input data-i18n="[label]id.number" id="id_nb" required></form-input>
-            
-            <div class="multiInput">
-              <date-picker data-i18n="[label]id.issDate" id="id_iss_date" type="date" required></date-picker>
-              <date-picker data-i18n="[label]id.expDate" id="id_exp_date" type="date" required></date-picker>
-            </div>
+        <!-- <fieldset class="formStep">
+          <legend data-i18n="id.title"></legend>
+          <div class="formInput">
+            <label for="id_country" data-i18n="id.country"><em class="important">*</em></label>
+            <?!= include_('dist/frontend/components/CountrySelect') ?>
+          </div>
+          <form-input data-i18n="[label]id.number" id="id_nb" required></form-input>
 
-          </fieldset> -->
+          <div class="multiInput">
+            <date-picker data-i18n="[label]id.issDate" id="id_iss_date" type="date" required></date-picker>
+            <date-picker data-i18n="[label]id.expDate" id="id_exp_date" type="date" required></date-picker>
+          </div>
+        </fieldset>
+        -->
 
-        <!-- <fieldset class="formStep legal">
+        <fieldset class="formStep legal">
           <?!= include_('dist/frontend/layouts/TAndC') ?>
           <form-input data-i18n="[label]tAndC.accept" id="id_t_c" type="checkbox" required></form-input>
-        </fieldset> -->
+        </fieldset>
 
         <!-- <fieldset class="formStep legal">
             <?!= include_('dist/frontend/layouts/SafeDiving') ?>

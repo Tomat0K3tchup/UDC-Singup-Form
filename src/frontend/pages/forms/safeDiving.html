@@ -1,1 +1,33 @@
-<p>Safe Diving</p>
+<div class="formWidth formDropShadow">
+  <form
+    name="safeDiving-form"
+    enctype="multipart/form-data"
+    id="safeDiving-form"
+    onsubmit="handleFormSubmit(this)"
+  >
+    <div class="formWrapper">
+      <div class="zf-tempHeadContBdr">
+        <h1><em data-i18n="safeDiving:title"></em></h1>
+        <!-- <p class="zf-frmDesc">Please give accurate information.</p> -->
+      </div>
+
+      <multi-step-form>
+        <fieldset class="formStep">
+          <legend data-i18n="personal.title"></legend>
+          <input type="hidden" id="pkg" name="pkg" />
+          <div class="multiInput" id="full_name">
+            <form-input data-i18n="[label]personal.firstName" id="first_name" required></form-input>
+            <form-input data-i18n="[label]personal.lastName" id="last_name" required></form-input>
+          </div>
+          <date-picker data-i18n="[label]personal.dob" id="dob" required></date-picker>
+        </fieldset>
+
+        <fieldset class="formStep legal">
+          <safe-diving-layout></safe-diving-layout>
+          <form-signature id="signature" data-i18n="[label]liability.signature" required></form-signature>
+        </fieldset>
+      </multi-step-form>
+      <success-failure-display></success-failure-display>
+    </div>
+  </form>
+</div>

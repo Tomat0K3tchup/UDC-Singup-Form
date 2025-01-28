@@ -1,8 +1,6 @@
 import { LitElement, css, html } from "https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js";
 
 class LiabilityLayout extends LitElement {
-  static styles = css``;
-
   static properties = {
     pkg: { type: String },
   };

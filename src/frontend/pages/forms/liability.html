@@ -20,6 +20,17 @@
             <form-input data-i18n="[label]personal.lastName" id="last_name" required></form-input>
           </div>
           <date-picker data-i18n="[label]personal.dob" id="dob" required></date-picker>
+          <form-accordion>
+            <form-radio
+              id="di"
+              slot="decision"
+              data-i18n="[label]emergency.di.label;[options]emergency.di.options"
+              required
+            ></form-radio>
+            <fieldset id="di_hidden" class="flx-form" slot="hidden">
+              <form-input data-i18n="[label]emergency.diPolicyNb" id="di_policy_nb"></form-input>
+            </fieldset>
+          </form-accordion>
         </fieldset>
 
         <fieldset id="liabilityStep" class="formStep legal">

@@ -32,8 +32,8 @@
         try {
           await google.script.run
             .withSuccessHandler((html) => {
-              onLoadHTML(html);
               handleParams(params);
+              onLoadHTML(html);
               // google.script.history.push({ page }, params, `${page}`);
             })
             .getPageContent(page);
@@ -113,7 +113,8 @@
 
       function prefillForm() {
         if (!window.urlParams) return;
-        const prefillKey = ["first_name", "last_name", "dob", "pkg"];
+        console.log("params", window.urlParams);
+        const prefillKey = ["first_name", "last_name", "dob", "di", "di_policy_nb", "pkg"];
         prefillKey.forEach((id) => {
           const data = window.urlParams[id];
           if (!data) return;
