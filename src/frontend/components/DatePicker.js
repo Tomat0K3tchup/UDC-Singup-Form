@@ -54,6 +54,12 @@ class DatePicker extends window.FormInput {
   //   return this;
   // }
 
+  constructor() {
+    super();
+    const year = new Date().getFullYear();
+    this.minDate = `${year - 100}-01-01`;
+  }
+
   firstUpdated() {
     super.firstUpdated();
     const $picker = this.shadowRoot.querySelector("duet-date-picker");
@@ -109,6 +115,7 @@ class DatePicker extends window.FormInput {
           class="date"
           identifier="${this.id}"
           class="${this._hasError ? "invalid" : ""}"
+          min="${this.minDate}"
           value="${this.value}"
           ?required=${this.required}
         ></duet-date-picker>

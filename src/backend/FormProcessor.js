@@ -22,8 +22,12 @@ const FormProcessor = class FormProcessor {
   }
 
   static _processUDCForm(formObject) {
-    const doc = SpreadsheetApp.openById(SPREADSHEET_ID);
-    const sheet = doc.getSheetByName(SHEET_NAME);
+    const propertyService = PropertiesService.getScriptProperties();
+    const sheetId = propertyService.getProperty("spreadsheetId");
+    const sheetName = propertyService.getProperty("sheetName");
+
+    const doc = SpreadsheetApp.openById(sheetId);
+    const sheet = doc.getSheetByName(sheetName);
 
     const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
     const nextRow = sheet.getLastRow() + 1;

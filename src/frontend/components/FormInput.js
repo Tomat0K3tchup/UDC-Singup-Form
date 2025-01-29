@@ -116,7 +116,7 @@ class FormInput extends LitElement {
 
   updateValue(e) {
     if (this.type == "checkbox") {
-      this.value = e.target.checked;
+      this.value = e.target.checked ? "Yes" : "No";
     } else {
       this.value = e.target.value;
     }

@@ -28,10 +28,33 @@ export class FormInputRadio extends window.FormInput {
     this.options = [];
   }
 
+  // set value(val) {
+  //   super.value = val;
+  //   console.log("options", this.options);
+  //   // this.$input.checked = val === this.value;
+  // }
+
   handleInput(e) {
     super.handleInput(e);
     const composedShadowEvent = new Event(e.type, { bubbles: true, composed: true });
     this.shadowRoot.dispatchEvent(composedShadowEvent);
+  }
+
+  get value() {
+    return super.value;
+  }
+
+  set value(val) {
+    super.value = val;
+
+    const checkedInput = this.renderRoot?.querySelector("input:checked");
+    if (!checkedInput || checkedInput.value != val) {
+      const toCheck = this.renderRoot?.querySelector(`input[value=${val}]`);
+      if (!toCheck) return;
+
+      toCheck.checked = true;
+      toCheck.dispatchEvent(new Event("change", { bubbles: true, composed: true }));
+    }
   }
 
   // TODO: is that necessary anymore ?

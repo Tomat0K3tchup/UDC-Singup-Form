@@ -21,17 +21,15 @@ async function generateLiabilityPDF(clientData, destinationFolder) {
     const pdfForm = pdfDoc.getForm();
 
     const liabilityData = getLiabilityData(clientData);
-    console.log("ok data");
-    console.log("ok data");
     fillLiabilityForm(pdfForm, pdfConst.form, liabilityData);
+    pdfForm.flatten();
     sign(pdfDoc, pdfConst.signature, clientData.signature);
-    console.log("ok fill");
 
     const title = `${liabilityData.participantName} - ${pdfConst.title} - ${liabilityData.date}`;
     savePdfLibDocToGoogle(pdfDoc, destinationFolder, title);
-    console.log("ok save");
-  } catch (e) {
+  } catch (message) {
     console.error(e.message);
+    if (errDetails != {}) Logger.log(errDetails);
     throw new Error("Could not generate Liability PDF");
   }
 }
@@ -46,33 +44,37 @@ function getLiabilityData(clientData) {
     shop: "Utila Dive Center",
     participantName: `${clientData.first_name} ${clientData.last_name}`,
     date: formatDate(clientData.date),
-    di_yesNo: clientData.di ? "Yes" : "No",
+    di_yesNo: clientData.di,
     di_policyNb: clientData.di_policy_nb.toString(),
   };
 }
 
 function fillLiabilityForm(pdfForm, map, data) {
   Object.keys(data).forEach((key) => {
-    if (typeof map[key] === "string") {
-      const field = pdfForm.getField(map[key]);
+    console.log(key);
+    try {
+      if (typeof map[key] === "string") {
+        const field = pdfForm.getField(map[key]);
 
-      if (field.constructor.name == "PDFTextField") {
-        field.setText(data[key]);
-      } else if (field.constructor.name == "PDFRadioGroup") {
-        field.select(data[key]);
-      } else {
-        console.warn(`Received unhandled field type: ${field.constructor.name}`);
-      }
-    } else {
-      const fields = map[key];
-
-      fields.forEach((fieldName) => {
-        try {
-          pdfForm.getField(fieldName).setText(data[key]);
-        } catch (e) {
-          throw new Error(`Failed to fill field ${fieldName}.`, { cause: e });
+        if (field.constructor.name == "PDFTextField") {
+          field.setText(data[key]);
+          console.log("Set Field", map[key], data[key]);
+        } else if (field.constructor.name == "PDFRadioGroup") {
+          field.select(data[key]);
+          console.log("Selected Field", map[key], data[key]);
+        } else {
+          console.warn(`Received unhandled field type: ${field.constructor.name}`);
         }
-      });
+      } else {
+        const fields = map[key];
+
+        fields.forEach((fieldName) => {
+          pdfForm.getField(fieldName).setText(data[key]);
+          console.log("Multiple Field", fieldName, data[key]);
+        });
+      }
+    } catch (e) {
+      throw new Error(`Failed to fill fields`, { cause: e });
     }
   });
 }

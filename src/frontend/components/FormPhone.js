@@ -10,24 +10,13 @@ export class FormInputPhone extends window.FormInput {
 
   firstUpdated() {
     super.firstUpdated();
-    const tom = new TomSelect("#id_country", {
-      sortField: {
-        field: "text",
-        direction: "asc",
-      },
-      lockOptgroupOrder: true,
-      maxOptions: null,
-      onInitialize: _generateLanguageLookupTom,
-    });
-
-    const preferredCountries = ["us", "ca", "uk", "fr", "de", "hn", "nl", "be", "ch"];
-    preferredCountries.forEach((countryCode) => {
-      const key = countryCode.toUpperCase();
-      const option = tom.options[key];
-      if (option) {
-        tom.options[key] = { ...option, optgroup: 1 };
-      }
-    });
+    const itiOptions = {
+      initialCountry: "auto",
+      preferredCountries: ["us", "ca", "uk", "fr", "de", "hn", "nl", "be", "ch"],
+      geoIpLookup: this._getCountryFromBrowser,
+      formatAsYouType: true,
+    };
+    this.itiHandler = window.intlTelInput(this.$input, itiOptions);
   }
 
   updateValue(e) {

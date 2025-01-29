@@ -27,7 +27,6 @@
       window.urlParams = {};
 
       async function navigateTo(page, params = null) {
-        console.log("navigating", page, params);
         toggleSpinner(true);
         try {
           await google.script.run
@@ -190,7 +189,6 @@
       document.addEventListener("activated", (e) => $(e.target).localize());
       document.addEventListener("activated", (e) => mirrorFullNameLiability(e));
       function mirrorFullNameLiability(e) {
-        console.log(e.target.id);
         if (e.target.id != "liabilityStep") return;
         const $fullNameContainer = document.getElementById("full_name");
         const $inputs = $fullNameContainer.querySelectorAll("form-input");

@@ -11,8 +11,10 @@ function withUI(fn) {
 
   try {
     fn();
-  } catch (e) {
-    ui.alert(e.message);
+  } catch ({ message, ...errDetails }) {
+    console.error(message);
+    if (errDetails != {}) Logger.log(errDetails);
+    ui.alert(message);
   }
 }
 
@@ -40,7 +42,7 @@ function createSelectedRowsDocuments() {
   });
 
   values.forEach((row) => createDocumentFromSpreadsheet(headers, row));
-  SpreadsheetApp.getUi().alert("All documents where created successfully");
+  SpreadsheetApp.getUi().alert("All documents created successfully!");
 }
 
 function createDocumentFromSpreadsheet(keysArray, valuesArray) {
@@ -49,7 +51,7 @@ function createDocumentFromSpreadsheet(keysArray, valuesArray) {
     return o;
   }, {});
 
-  const folder = createCustomerFolder(data);
+  const folder = FileManager.getOrCreateCustomerFolder(data);
   createCustomerDoc(data, folder);
-  generateLiabilityPDF(data, folder);
+  // generateLiabilityPDF(data, folder);
 }

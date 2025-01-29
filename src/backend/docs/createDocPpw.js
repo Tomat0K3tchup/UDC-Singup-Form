@@ -31,8 +31,9 @@ function searchAndReplace(doc, data) {
       } else {
         value = clientInfo[key];
       }
-      if (value == "TRUE" || value == "FALSE") {
-        searchAndReplaceBoolean(body, key, value === "TRUE");
+
+      if (value == "Yes" || value == "No") {
+        searchAndReplaceBoolean(body, key, value === "Yes");
         continue;
       }
       body.replaceText(`{{${key.toString()}}}`, value);

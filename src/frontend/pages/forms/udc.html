@@ -61,6 +61,7 @@
         <fieldset class="formStep legal">
           <?!= include_('dist/frontend/layouts/TAndC') ?>
           <form-input data-i18n="[label]tAndC.accept" id="id_t_c" type="checkbox" required></form-input>
+          <form-signature id="signature" data-i18n="[label]liability.signature" required></form-signature>
         </fieldset>
       </multi-step-form>
       <success-failure-display></success-failure-display>

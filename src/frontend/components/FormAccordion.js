@@ -7,7 +7,7 @@ class FormAccordion extends LitElement {
 
   constructor() {
     super();
-    this.toggleValue = "true";
+    this.toggleValue = "Yes";
   }
 
   firstUpdated() {
@@ -18,15 +18,15 @@ class FormAccordion extends LitElement {
     this.$hidden.style.display = "none";
   }
 
-  handleClick(e) {
+  handleChange(e) {
     // Because the event is fired in a shadow DOM via a slot we need to "break" the encapsulation
-    const display = e.composedPath()[0].value == this.toggleValue ? "flex" : "none";
+    const display = e.target.value == this.toggleValue ? "flex" : "none";
     this.$hidden.style.display = display;
   }
 
   render() {
     return html`
-      <slot name="decision" @click=${(e) => this.handleClick(e)}></slot>
+      <slot name="decision" @change=${(e) => this.handleChange(e)}></slot>
       <slot name="hidden"></slot>
     `;
   }
