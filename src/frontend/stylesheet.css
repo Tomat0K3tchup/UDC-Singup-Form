@@ -223,14 +223,14 @@ ol ul {
 
 /*****************template Header Starts Here****************/
 
-.zf-tempHeadContBdr {
+.headerBackground {
   background: var(--dark-blue);
-  border-radius: var(--border-radius-sm) var(--border-radius-sm) 0 0;
+  border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
   margin: 0;
   padding: 0.6rem 2rem;
 }
 
-.zf-tempHeadContBdr .zf-frmDesc {
+.headerBackground .zf-frmDesc {
   color: #dddddd;
   font-size: 0.9rem;
   font-weight: normal;

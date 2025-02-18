@@ -75,7 +75,7 @@
             "limits": {
               "ow": { "condition": "Open Water Divers", "text": "18m / 60 feet" },
               "aowAfter1998": {
-                "condition": "Advanced divers certifed after June 1998",
+                "condition": "Advanced divers certified after June 1998",
                 "text": "30m / 100 feet"
               },
               "dm": { "condition": "Divemasters", "text": "30m / 100 feet" },

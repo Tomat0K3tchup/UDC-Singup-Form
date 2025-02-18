@@ -30,7 +30,7 @@
   "tc": {
     "title": "Terms and Conditions",
     "rules": {
-      "reefTax": "Participation in the Dive Operator's Reef Tax Scheme is compulsory for everyone diving at Utila Dive Centre (UDC). This tax includes a contribution to conservation, the community, and the hyperbaric chamber facility.",
+      "reefTax": "Participation in the Dive Operator's Reef Tax Scheme is compulsory for everyone diving at Dive Center S.A hereafter \"Utila Dive Centre\". This tax includes a contribution to conservation, the community, and the hyperbaric chamber facility.",
       "depthLimits": {
         "description": "Strict depth limits are applied to all divers as follows:",
         "extra": {
@@ -39,7 +39,7 @@
           "dm": "<b>Divemasters:</b> 30m / 100 feet",
           "deep": "<b>Advanced divers certified before June 1998 or PADI Deep Divers:</b> 40m / 130 feet"
         },
-        "note": "UDC reserves the right to remove diving privileges from any diver who exceeds depth limits and/or follows unsafe diving practices."
+        "note": "Utila Dive Center reserves the right to remove diving privileges from any diver who exceeds depth limits and/or follows unsafe diving practices."
       },
       "tuneUp": {
         "description": "A refresher/tune-up is required for divers who have been inactive for the following periods:",
@@ -58,20 +58,20 @@
           "dolphins": "<b>250 Lps or $10</b> for Dolphins"
         }
       },
-      "liability": "UDC and the Mango Inn are exempt from liability for accidents or injuries occurring on the premises of either the dive shop or hotel. Please be careful as this is often a slippery and wet environment.",
-      "personalItems": "UDC and the Mango Inn are not responsible for any damage, loss or theft of any personal items. Both the Hotel and UDC provide lockers, where we advise that personal items are kept. UDC and the Mango Inn reserve the right to open at any time any locker that is not labelled with a name, or suspected to have perishable items or substances stored.",
-      "diveEquipment": "UDC and the Mango Inn are not responsible for dive equipment stored in their facilities as the service is offered in good faith.",
+      "liability": "Utila Dive Center and the Mango Inn are exempt from liability for accidents or injuries occurring on the premises of either the dive shop or hotel. Please be careful as this is often a slippery and wet environment.",
+      "personalItems": "Utila Dive Center and the Mango Inn are not responsible for any damage, loss or theft of any personal items. Both the Hotel and Utila Dive Center provide lockers, where we advise that personal items are kept. Utila Dive Center and the Mango Inn reserve the right to open at any time any locker that is not labelled with a name, or suspected to have perishable items or substances stored.",
+      "diveEquipment": "Utila Dive Center and the Mango Inn are not responsible for dive equipment stored in their facilities as the service is offered in good faith.",
       "gearIncluded": "For fun divers a full set of gear is included in the price of dives/package, including mask, fins, snorkel, dive light (when applicable). Dive watches and compasses are available upon request. Dive computers can be rented at a price of $10/day.",
       "equipmentForCourses": {
-        "general": "By the beginning of their course, UDC will provide each student with the necessary equipment.",
+        "general": "By the beginning of their course, Utila Dive Center will provide each student with the necessary equipment.",
         "goPro": "By the beginning of his/her course, each GoPro student is required to have his/her own: <b>Dive computer, Compass, Surface Marker Buoy (SMB), Wetsuit (if using one), Fins, Mask and Snorkel, Dive Light</b>"
       },
       "responsibilityForGear": {
-        "general": "Each customer is fully responsible for any UDC gear they use and will be charged full replacement cost for any equipment lost or damaged. Replacement costs are as follows: weights $4/pound, mask $30 (prescription $80), weight belt $10, BCD $300, regulator $300, fins $30, wetsuit $100, snorkel $5, watch $30, compass $75, dive computer $200, Zookeper $30, Lionfish Spear $50, PADI Course manual $30.",
-        "goPro": "All other dive equipment can be included in the course but customers are fully responsible for any UDC gear they use and will be charged full replacement cost for any equipment lost or damaged. Please ensure equipment is logged in and out and taken care of. Replacement costs are as follows: weights $4/pound, mask $30 (prescription $80), weight belt $10, BCD $300, regulator $300, fins $30, wetsuit $100, snorkel $5, watch $30, compass $75, dive computer $200, course book (Recreational) $30, ZooKeeper $30, Lionfish Spear $50."
+        "general": "Each customer is fully responsible for any Utila Dive Center gear they use and will be charged full replacement cost for any equipment lost or damaged. Replacement costs are as follows: weights $4/pound, mask $30 (prescription $80), weight belt $10, BCD $300, regulator $300, fins $30, wetsuit $100, snorkel $5, watch $30, compass $75, dive computer $200, Zookeper $30, Lionfish Spear $50, PADI Course manual $30.",
+        "goPro": "All other dive equipment can be included in the course but customers are fully responsible for any Utila Dive Center gear they use and will be charged full replacement cost for any equipment lost or damaged. Please ensure equipment is logged in and out and taken care of. Replacement costs are as follows: weights $4/pound, mask $30 (prescription $80), weight belt $10, BCD $300, regulator $300, fins $30, wetsuit $100, snorkel $5, watch $30, compass $75, dive computer $200, course book (Recreational) $30, ZooKeeper $30, Lionfish Spear $50."
       },
       "floodedRegulator": "There is a $20 service charge for any regulator rinsed without the dust cap. There is an $80 service charge if the submersible pressure gauge is flooded and needs replacement.",
-      "FFD4Life": "Unlimited diving is included in packages containing Divemaster and MSDT or IDC from January 2024. Should customers repeatedly turn up late or not at all UDC reserves the right to remove this offer. To begin the DM program, you must have at least 40 logged dives. If you have less than 40 dives, you may complete additional dives (called PreWeek Dives) for $10 per tank. For any dive cancellations for these guided dives, the office must be notified before 5.00pm on the day prior to the dive trip or the dives will be charged.",
+      "FFD4Life": "Unlimited diving is included in packages containing Divemaster and MSDT or IDC from January 2024. Should customers repeatedly turn up late or not at all Utila Dive Center reserves the right to remove this offer. To begin the DM program, you must have at least 40 logged dives. If you have less than 40 dives, you may complete additional dives (called PreWeek Dives) for $10 per tank. For any dive cancellations for these guided dives, the office must be notified before 5.00pm on the day prior to the dive trip or the dives will be charged.",
       "courseDelays": "Course schedules and dive trips are offered in good faith. The management reserves the right to delay the start ofa course / dive package and is not responsible for delays due to weather conditions or any other unexpected situations that may arise. Should a course be delayed for any reason, students in the Mango Inn will be charged standard room rates.",
       "reimbursement": "After a course or dive package has commenced, no reimbursements can be made.",
       "paymentUponArrival": {
@@ -79,13 +79,13 @@
         "goPro": "Full payment for all GoPro Packages must be completed prior to the start of any programs or dives."
       },
       "dormNights": "Dorm room nights at the Mango Inn are included in good faith and the number of nights included is dependent on the package bought by the client. Any additional nights at the Mango Inn are subject to availability and will be charged in full, and rates are subject to change at any time without previous notice.",
-      "photos": "UDC and the Mango Inn reserve the right to use any photos or video, taken at our facilities or from our boats, for marketing and advertising purposes including, but not limited to, social media, print, online ads etc.",
+      "photos": "Utila Dive Center and the Mango Inn reserve the right to use any photos or video, taken at our facilities or from our boats, for marketing and advertising purposes including, but not limited to, social media, print, online ads etc.",
       "reschedule": {
-        "general": "Should a student need to change their time frame please consult with the Instructor prior to making any plans in order to assess the feasibility of completing the training in the proposed time frame. UDC staff will do their utmost to accommodate time changes but cannot guarantee completion on last minute notice.",
-        "goPro": "Should a candidate need to change their time frame please consult with the GoPro staff (DM mentor, IDC Staff or management) prior to making any plans in order to assess the feasibility of completing the training in the proposed time frame. UDC staff will do their utmost to accommodate time changes but cannot guarantee completion on last minute notice."
+        "general": "Should a student need to change their time frame please consult with the Instructor prior to making any plans in order to assess the feasibility of completing the training in the proposed time frame. Utila Dive Center staff will do their utmost to accommodate time changes but cannot guarantee completion on last minute notice.",
+        "goPro": "Should a candidate need to change their time frame please consult with the GoPro staff (DM mentor, IDC Staff or management) prior to making any plans in order to assess the feasibility of completing the training in the proposed time frame. Utila Dive Center staff will do their utmost to accommodate time changes but cannot guarantee completion on last minute notice."
       },
       "makeUp": "Courses are scheduled so they can be finished in the number of days allocated. Should a student miss either a classroom or water session, he or she will have to reimburse the instructor at the rate of $20 per classroom session and $35 per water session. The session will be made up at the Instructor's convenience.",
-      "cardFees": "There is a 4.5% bank fee applied to any payments made with a credit/debit card. Charges can be made in Lempira or US Dollars depending on the credit card issuer and using the most current dive centre exchange rate, which is subject to change at any time without notice.",
+      "cardFees": "All prices are listed in USD. However, payments can also be made in Lempira at the most recent exchange rate set by the Dive center, which is subject to change at any time without notice. Additionally, payments can be made using credit or debit cards, but please note that a bank fee will apply.",
       "nbTanks": "Dive trips are two tanks; Single-tank trips are available only with specific 3-dive Resort packages. Night dives can be scheduled upon request as long as weather permits and are dependent on shop logistics and a minimum number of divers. Night dive trips are single tanks trips and are charged as a two-tank trip.",
       "goPro": "The GoPro package is a 'Development' program. Please be open-minded and display a professional attitude and demeanor during the program and be flexible to change.",
       "tablet": "When scheduling requires, tablets may be issued to students to study from. Students will be charged full replacement cost of $100 for any loss or damage including but not limited to water damage, theft and screen breakages."

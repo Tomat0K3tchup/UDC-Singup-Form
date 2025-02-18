@@ -34,12 +34,6 @@ export class FormInputRadio extends window.FormInput {
   //   // this.$input.checked = val === this.value;
   // }
 
-  handleInput(e) {
-    super.handleInput(e);
-    const composedShadowEvent = new Event(e.type, { bubbles: true, composed: true });
-    this.shadowRoot.dispatchEvent(composedShadowEvent);
-  }
-
   get value() {
     return super.value;
   }
@@ -47,22 +41,10 @@ export class FormInputRadio extends window.FormInput {
   set value(val) {
     super.value = val;
 
-    const checkedInput = this.renderRoot?.querySelector("input:checked");
-    if (!checkedInput || checkedInput.value != val) {
-      const toCheck = this.renderRoot?.querySelector(`input[value=${val}]`);
-      if (!toCheck) return;
-
-      toCheck.checked = true;
-      toCheck.dispatchEvent(new Event("change", { bubbles: true, composed: true }));
-    }
+    if (!this.renderRoot) return;
+    const composedShadowEvent = new Event("change", { bubbles: true, composed: true });
+    this.renderRoot.dispatchEvent(composedShadowEvent);
   }
-
-  // TODO: is that necessary anymore ?
-  // updated(changedProperties) {
-  //   if (changedProperties.has("options")) {
-  //     this.$input = this.renderRoot.querySelector("input");
-  //   }
-  // }
 
   render() {
     return html`
@@ -78,6 +60,7 @@ export class FormInputRadio extends window.FormInput {
                 type="radio"
                 id="${optionId}"
                 name="${this.id}"
+                ?checked="${this.value == option.value}"
                 value="${option.value}"
                 @change=${(e) => this.handleInput(e)}
                 @invalid=${() => this.toggleError(true)}
