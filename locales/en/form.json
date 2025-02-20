@@ -24,100 +24,14 @@
   },
   "id": {
     "title": "Passport Information",
+    "file": "Passport picture (png, jpeg, pdf)",
     "country": "Issuing Country",
     "number": "Passport number",
     "issDate": "Issue date",
     "expDate": "Expiration date"
   },
   "tAndC": {
-    "title": "Terms and Conditions",
-    "accept": "I have read, understood and I agree with the terms and conditions.",
-    "component": {
-      "refundPolicy": {
-        "title": "Refund Policy",
-        "courses": {
-          "title": "Courses",
-          "intro": "Should a student fail to complete their course for any reason, charges shall be levied as follows:",
-          "conditions": {
-            "reservation": {
-              "label": "After reservation only",
-              "details": "the $200 deposit will not be refunded."
-            },
-            "1day": {
-              "label": "After 1 day",
-              "details": "$150 + $3 reef fee + $90 materials and 1 free night at the hotel."
-            },
-            "2days": {
-              "label": "After 2 days if no boat/diving trip has been taken",
-              "details": "$180 + $6 reef fee + $90 materials and 2 free nights at the hotel."
-            },
-            "3days": {
-              "label": "After 2 days if the student has been on a boat/diving trip, or after 3 days regardless",
-              "details": "no refund will be offered."
-            }
-          }
-        },
-        "privateRoomUpgrade": {
-          "title": "Private Room Upgrade",
-          "description": "Should a student with a private room upgrade fail to complete his/her course (open water, advanced, rescue) and get reimbursed in any amount, the room upgrade discount will be cancelled, and regular room rates will apply."
-        },
-        "funDives": {
-          "title": "Fun dives",
-          "description": "For any cancellations for guided dives, the office must be notified before 5:00 PM on the day prior to the dive trip. Any last-minute cancellations are lost reservations and non-refundable. Free fun dives are offered as part of core course bookings (OW, AOW, Rescue) and are only valid until the day after the course has been completed and are not transferable."
-        }
-      },
-      "tc": {
-        "title": "Terms and Conditions",
-        "rules": {
-          "reefTax": "Participation in the Dive Operator\"s Reef Tax Scheme is compulsory for everyone diving at Utila Dive Centre (UDC). This tax includes a contribution to conservation, the community, and the hyperbaric chamber facility.",
-          "depthLimits": {
-            "description": "Strict depth limits are applied to all divers as follows:",
-            "limits": {
-              "ow": { "condition": "Open Water Divers", "text": "18m / 60 feet" },
-              "aowAfter1998": {
-                "condition": "Advanced divers certified after June 1998",
-                "text": "30m / 100 feet"
-              },
-              "dm": { "condition": "Divemasters", "text": "30m / 100 feet" },
-              "deep": {
-                "condition": "Advanced divers certified before June 1998 or PADI Deep Divers",
-                "text": "40m / 130 feet"
-              }
-            },
-            "note": "UDC reserves the right to remove diving privileges from any diver who exceeds depth limits and/or follows unsafe diving practices."
-          },
-          "tuneUp": {
-            "description": "A refresher/tune-up is required for divers who have been inactive for the following periods:",
-            "extra": {
-              "20": { "condition": "Less than 20 logged dives", "text": "6 months or more" },
-              "50": { "condition": "Less than 50 logged dives", "text": "1 year or more" },
-              "100": { "condition": "Less than 100 logged dives", "text": "2 years or more" }
-            }
-          },
-          "drugsOrAlcohol": "The use of drugs or alcohol before diving is strictly prohibited. Anyone arriving for class or fun dives under the influence or incapacitated will not be allowed to dive.",
-          "collectingReefItems": "Collecting shells, corals, sea fans, or any living or dead organisms from the reef is strictly prohibited by Honduran law. Please do not collect or touch anything and respect the reef and the environment.",
-          "largeGameEncounter": {
-            "description": "In the event of a large game encounter, should you choose to enter the water (this is not required), there is a mandatory minimum fee to be paid directly to the Captain upon return to the Dive Centre:",
-            "extra": {
-              "whaleSharks": { "condition": "350 Lps or $14", "text": "for Whale Sharks & Pilot Whales" },
-              "dolphins": { "condition": "250 Lps or $10", "text": "for Dolphins" }
-            }
-          },
-          "liability": "UDC and the Mango Inn are exempt from liability for accidents or injuries occurring on the premises of either the dive shop or hotel. Please be careful as this is often a slippery and wet environment.",
-          "personalItems": "UDC and the Mango Inn are not responsible for any damage, loss, or theft of personal items. Lockers are provided and personal items should be kept there.",
-          "diveEquipment": "UDC and the Mango Inn are not responsible for dive equipment stored in their facilities as the service is offered in good faith.",
-          "gearIncluded": "For fun divers, a full set of gear is included in the price of dives/packages. Dive computers can be rented at $10/day.",
-          "equipmentForCourses": "By the beginning of their course, UDC will provide each student with the necessary equipment.",
-          "responsibilityForGear": "Each customer is fully responsible for any UDC gear they use and will be charged full replacement cost for any lost or damaged equipment.",
-          "floodedRegulator": "There is a $20 service charge for any regulator rinsed without the dust cap.",
-          "courseDelays": "Course schedules and dive trips are offered in good faith. Management reserves the right to delay courses or trips due to weather or unexpected situations.",
-          "reimbursement": "After a course or dive package has commenced, no reimbursements can be made.",
-          "paymentUponArrival": "Full payment for all diving and course packages must be completed upon arrival.",
-          "dormNights": "Dorm room nights at the Mango Inn are included in good faith, but additional nights are subject to availability and charges.",
-          "photos": "UDC and the Mango Inn reserve the right to use any photos or videos taken at their facilities for marketing purposes."
-        }
-      }
-    }
+    "accept": "I have read, understood and I agree with the terms and conditions."
   },
   "liability": {
     "signature": "Participant Signature"
