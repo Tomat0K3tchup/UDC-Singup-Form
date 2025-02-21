@@ -1,0 +1,110 @@
+import { LitElement, css, html } from "https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js";
+
+export class FormInputFile extends window.FormInput {
+  static styles = [
+    window.FormInput.styles,
+    css`
+      input[type="file"] {
+        display: none;
+      }
+
+      /*Same as input from window.FormInput, not ideal solution to have it copy pasted*/
+      div#fileDisplay {
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius-sm);
+        padding: 0.5rem 1rem;
+        font-family: var(--body-font-family-text);
+        font-size: 1rem;
+      }
+    `,
+  ];
+
+  static properties = {
+    ...window.FormInput.properties,
+    accept: { type: String },
+    capture: { type: String },
+  };
+
+  constructor() {
+    super();
+    this.accept = "";
+    this.capture = "";
+    this.fileName = "Choose a file";
+  }
+
+  /* 
+    I don't get why value getter and setter can't be inherited if none of them are overridden
+    But since it's the case, I copy pasted them
+  */
+  get value() {
+    return this._value;
+  }
+
+  set value(val) {
+    if (val == this._value) return;
+    console.log("Setting value to", val);
+    this._value = val;
+
+    this.updateFormValue();
+  }
+
+  updateValue(e) {
+    const fileInput = e.target;
+    const fileName = fileInput.files[0] ? fileInput.files[0].name : "Choose a file";
+
+    this.fileName = fileName;
+
+    const reader = new FileReader();
+    reader.onload = (fileLoadEvent) => {
+      this.value = fileLoadEvent.target.result;
+    };
+
+    if (fileInput) {
+      reader.readAsDataURL(fileInput.files[0]);
+    }
+  }
+
+  get validity() {
+    const valueMissing = this.required && !this.value;
+    return { valueMissing: valueMissing, valid: !valueMissing };
+  }
+
+  get validationMessage() {
+    // Less than ideal for translation purposes. But emulated the hidden input
+    return this.validity.valueMissing ? "Please choose a file" : "";
+  }
+
+  checkValidity() {
+    // Emulate the trigger of an invalid event on the input since a hidden input isn't handled properly
+    const invalid = this.validity.valid;
+    if (!invalid) this.$input.dispatchEvent(new Event("invalid"));
+
+    return invalid;
+  }
+
+  // TODO: could add button at the end of the line to make element keyboard focusable
+  // TODO: properly handle errors
+  render() {
+    return html`
+      <div class="container">
+        <label class="${this._hasError ? "invalid" : ""}" for="${this.id}">
+          ${this.label}${this.required ? html`<em class="important">*</em>` : ""}
+          <input
+            id="${this.id}"
+            type="file"
+            accept="${this.accept}"
+            capture="${this.capture}"
+            @input=${(e) => this.handleInput(e)}
+            @blur=${this.onBlurValidation}
+            @invalid=${() => this.toggleError(true)}
+          />
+          <div id="fileDisplay" class="${this._hasError ? "invalid" : ""}">${this.fileName}</div>
+        </label>
+      </div>
+
+      <span class="invalid ${this._hasError ? "visible" : ""}">Error</span>
+    `;
+  }
+}
+
+customElements.define("form-file", FormInputFile);

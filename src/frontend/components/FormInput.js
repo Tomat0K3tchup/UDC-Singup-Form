@@ -105,7 +105,6 @@ class FormInput extends LitElement {
 
   firstUpdated() {
     super.firstUpdated();
-    // this.$input = this.shadowRoot.querySelector("input");
     this.$errorMessage = this.renderRoot.querySelector("span");
     this._internals.setFormValue("");
   }
@@ -184,9 +183,8 @@ class FormInput extends LitElement {
 
   updateFormValue() {
     this._internals.setFormValue(this.value);
-    console.log("updateFormValue", this.$input);
     if (!this.$input) return;
-    this._internals.setValidity(this.$input.validity, this.$input.validationMessage, this.$input);
+    this._internals.setValidity(this.validity, this.validationMessage, this.$input);
   }
 
   handleInput(e) {

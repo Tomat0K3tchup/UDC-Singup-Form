@@ -10,7 +10,7 @@
         <input type="hidden" value="<?= JSON.stringify(data.form) ?>" id="prefill" />
         <input type="hidden" value="<?= JSON.stringify(data.form) ?>" id="path" />
 
-        <fieldset class="formStep">
+        <!-- <fieldset class="formStep">
           <legend data-i18n="personal.title"></legend>
           <input type="hidden" id="pkg" name="pkg" />
           <div class="multiInput" id="full_name">
@@ -25,7 +25,7 @@
         </fieldset>
 
         <fieldset class="formStep">
-          <legend data-i18n="[label]emergency.title">Emergency Contact</legend>
+          <legend data-i18n="[label]emergency.title"></legend>
 
           <form-input data-i18n="[label]emergency.fullName" id="em_full_name" required></form-input>
           <form-phone data-i18n="[label]emergency.phone" id="em_phone" required></form-phone>
@@ -44,12 +44,19 @@
               <form-input data-i18n="[label]emergency.diOther" id="di_other"></form-input>
             </fieldset>
           </form-accordion>
-        </fieldset>
+        </fieldset> -->
 
         <fieldset class="formStep">
           <legend data-i18n="id.title"></legend>
 
           <form-country-select data-i18n="[label]id.country" id="id_country"></form-country-select>
+          <form-file
+            data-i18n="[label]id.file"
+            id="id_file"
+            accept="image/png, image/jpeg, application/pdf"
+            capture="environment"
+            required
+          ></form-file>
           <form-input data-i18n="[label]id.number" id="id_nb" required></form-input>
 
           <div class="multiInput">
