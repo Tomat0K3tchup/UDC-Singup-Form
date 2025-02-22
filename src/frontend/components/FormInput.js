@@ -166,6 +166,19 @@ class FormInput extends LitElement {
   }
 
   get validationMessage() {
+    const validity = this.validity;
+
+    if (validity.valueMissing) {
+      return $.t("errors.required");
+    }
+
+    if (validity.typeMismatch && this.type == "email") {
+      const matchAtRegex = /@/;
+      const matchAtAndDomainRegex = /.+@.+\..+/;
+      if (!this.value.match(matchAtRegex)) return $.t("errors.emailAt");
+      if (!this.value.match(matchAtAndDomainRegex)) return $.t("errors.emailDomain");
+    }
+
     return this.$input.validationMessage;
   }
 

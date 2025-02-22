@@ -1,42 +1,42 @@
 {
   "title": "Diver Medical",
-  "intro": "Recreational scuba diving and freediving requires good physical and mental health. There are a few medical conditions which can be hazardous while diving, listed below. Those who have, or are predisposed to, any of these conditions, should be evaluated by a  physician. This Diver Medical Participant Questionnaire provides a basis to determine if you should seek out that evaluation. If you  have any concerns about your diving fitness not represented on this form, consult with your physician before diving. If you are feeling  ill, avoid diving. If you think you may have a contagious disease, protect yourself and others by not participating in dive training and/ or dive activities. References to “diving” on this form encompass both recreational scuba diving and freediving. This form is principally  designed as an initial medical screen for new divers, but is also appropriate for divers taking continuing education. For your safety,  and that of others who may dive with you, answer all questions honestly.",
+  "intro": "Recreational scuba diving and freediving requires good physical and mental health. There are a few medical conditions which can be hazardous while diving, listed below. Those who have, or are predisposed to, any of these conditions, should be evaluated by a physician. This Diver Medical Participant Questionnaire provides a basis to determine if you should seek out that evaluation. If you have any concerns about your diving fitness not represented on this form, consult with your physician before diving. If you are feeling ill, avoid diving. If you think you may have a contagious disease, protect yourself and others by not participating in dive training and/ or dive activities. References to “diving” on this form encompass both recreational scuba diving and freediving. This form is principally designed as an initial medical screen for new divers, but is also appropriate for divers taking continuing education. For your safety, and that of others who may dive with you, answer all questions honestly.",
   "directions": "Complete this questionnaire as a prerequisite to a recreational scuba diving or freediving course. Note to women: If you are pregnant, or attempting to become pregnant, do not dive.",
   "yesNoOptions": "[{\"value\": \"true\", \"label\": \"Yes\"}, {\"value\": \"false\", \"label\": \"No\"}]",
   "q1": "I have had problems with my lungs, breathing, heart and/or blood affecting my normal physical or mental performance.",
   "q2": "I am over 45 years of age.",
-  "q3": "I struggle to perform moderate exercise (for example, walk 1.6 kilometer/one mile in 14 minutes or swim 200 meters/yards without resting), OR  I have been unable to participate in a normal physical activity due to fitness or health reasons within the past 12 months.",
+  "q3": "I struggle to perform moderate exercise (for example, walk 1.6 kilometer/one mile in 14 minutes or swim 200 meters/yards without resting), OR I have been unable to participate in a normal physical activity due to fitness or health reasons within the past 12 months.",
   "q4": "I have had problems with my eyes, ears, or nasal passages/sinuses.",
   "q5": "I have had surgery within the last 12 months, OR I have ongoing problems related to past surgery.",
-  "q6": "I have lost consciousness, had migraine headaches, seizures, stroke, significant head injury, or suffer from persistent neurologic  injury or disease.",
-  "q7": "I am currently undergoing treatment (or have required treatment within the last five years) for psychological problems, personality  disorder, panic attacks, or an addiction to drugs or alcohol; or, I have been diagnosed with a learning or developmental  disability.",
+  "q6": "I have lost consciousness, had migraine headaches, seizures, stroke, significant head injury, or suffer from persistent neurologic injury or disease.",
+  "q7": "I am currently undergoing treatment (or have required treatment within the last five years) for psychological problems, personality disorder, panic attacks, or an addiction to drugs or alcohol; or, I have been diagnosed with a learning or developmental disability.",
   "q8": "I have had back problems, hernia, ulcers, or diabetes.",
   "q9": "I have had stomach or intestine problems, including recent diarrhea.",
   "q10": "I am taking prescription medications (with the exception of birth control or anti-malarial drugs other than mefloquine (Lariam).",
   "boxA": {
-    "title": "BOX A – I HAVE/HAVE HAD:",
-    "1": "Chest surgery, heart surgery, heart valve surgery, an implantable medical device (eg, stent, pacemaker, neurostimulator), pneumothorax,  and/or chronic lung disease.",
+    "title": "BOX A - I HAVE/HAVE HAD:",
+    "1": "Chest surgery, heart surgery, heart valve surgery, an implantable medical device (eg, stent, pacemaker, neurostimulator), pneumothorax, and/or chronic lung disease.",
     "2": "Asthma, wheezing, severe allergies, hay fever or congested airways within the last 12 months that limits my physical activity/exercise.",
-    "3": "A problem or illness involving my heart such as: angina, chest pain on exertion, heart failure, immersion pulmonary edema, heart attack or stroke,  OR am taking medication for any heart condition.",
+    "3": "A problem or illness involving my heart such as: angina, chest pain on exertion, heart failure, immersion pulmonary edema, heart attack or stroke, OR am taking medication for any heart condition.",
     "4": "Recurrent bronchitis and currently coughing within the past 12 months, OR have been diagnosed with emphysema. Symptoms affecting my lungs, breathing, heart and/or blood in the last 30 days that impair my physical or mental performance.",
     "5": "Symptoms affecting my lungs, breathing, heart and/or blood in the last 30 days that impair my physical or mental performance."
   },
   "boxB": {
-    "title": "BOX B – I AM OVER 45 YEARS OF AGE AND:",
+    "title": "BOX B - I AM OVER 45 YEARS OF AGE AND:",
     "1": "I currently smoke or inhale nicotine by other means.",
     "2": "I have a high cholesterol level.",
     "3": "I have high blood pressure.",
-    "4": "I have had a close blood relative die suddenly or of cardiac disease or stroke before the age of 50, OR have a family history of heart disease  before age 50 (including abnormal heart rhythms, coronary artery disease or cardiomyopathy)."
+    "4": "I have had a close blood relative die suddenly or of cardiac disease or stroke before the age of 50, OR have a family history of heart disease before age 50 (including abnormal heart rhythms, coronary artery disease or cardiomyopathy)."
   },
   "boxC": {
-    "title": "BOX C – I HAVE/HAVE HAD:",
+    "title": "BOX C - I HAVE/HAVE HAD:",
     "1": "Sinus surgery within the last 6 months.",
     "2": "Ear disease or ear surgery, hearing loss, or problems with balance.",
     "3": "Recurrent sinusitis within the past 12 months.",
     "4": "Eye surgery within the past 3 months."
   },
   "boxD": {
-    "title": "BOX D – I HAVE/HAVE HAD:",
+    "title": "BOX D - I HAVE/HAVE HAD:",
     "1": "Head injury with loss of consciousness within the past 5 years.",
     "2": "Persistent neurologic injury or disease.",
     "3": "Recurring migraine headaches within the past 12 months, or take medications to prevent them.",
@@ -44,14 +44,14 @@
     "5": "Epilepsy, seizures, or convulsions, OR take medications to prevent them."
   },
   "boxE": {
-    "title": "BOX E – I HAVE/HAVE HAD:",
+    "title": "BOX E - I HAVE/HAVE HAD:",
     "1": "Behavioral health, mental or psychological problems requiring medical/psychiatric treatment.",
     "2": "Major depression, suicidal ideation, panic attacks, uncontrolled bipolar disorder requiring medication/psychiatric treatment.",
     "3": "Been diagnosed with a mental health condition or a learning/developmental disorder that requires ongoing care or special accommodation.",
     "4": "An addiction to drugs or alcohol requiring treatment within the last 5 years."
   },
   "boxF": {
-    "title": "BOX F – I HAVE/HAVE HAD:",
+    "title": "BOX F - I HAVE/HAVE HAD:",
     "1": "Recurrent back problems in the last 6 months that limit my everyday activity.",
     "2": "Back or spinal surgery within the last 12 months.",
     "3": "Diabetes, either drug or diet controlled, OR gestational diabetes within the last 12 months.",
@@ -59,7 +59,7 @@
     "5": "Active or untreated ulcers, problem wounds, or ulcer surgery within the last 6 months."
   },
   "boxG": {
-    "title": "BOX G – I HAVE HAD:",
+    "title": "BOX G - I HAVE HAD:",
     "1": "Ostomy surgery and do not have medical clearance to swim or engage in physical activity.",
     "2": "Dehydration requiring medical intervention within the last 7 days.",
     "3": "Active or untreated stomach or intestinal ulcers or ulcer surgery within the last 6 months.",

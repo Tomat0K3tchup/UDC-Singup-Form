@@ -91,7 +91,7 @@ class DatePicker extends window.FormInput {
         return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
       },
     };
-    picker.localization = { ...picker.localization, placeholder: "dd/mm/yyyy" };
+    picker.localization = { ...picker.localization, placeholder: $.t("placeholder.date") };
   }
 
   checkValidity() {

@@ -1,26 +1,14 @@
 {
   "refund": {
-    "title": "POLÍTICA DE REEMBOLSO",
+    "title": "Política de reembolso",
     "courses": {
-      "title": "CURSOS",
+      "title": "Cursos",
       "intro": "Si el estudiante decide no completar el curso por alguna razón, los cargos se ajustan de la siguiente manera:",
       "conditions": {
-        "reservation": {
-          "label": "Para las personas que hicieron sola la reservación:",
-          "details": "el depósito de $200 no es reembolsable."
-        },
-        "1day": {
-          "label": "Despuésde 1 día de curso:",
-          "details": "$150 + $3 impuesto de arrecife + $90 materiales +1 noche en el hotel"
-        },
-        "2days": {
-          "label": "Despuésde 2 díasde curso sino se ha realizado una salida en barco:",
-          "details": "$180 + $6 impuesto de arrecife + $90 materiales + 2 noches en el hotel"
-        },
-        "3days": {
-          "label": "Después de2 días si se ha realizado una salidaen barco, o después de 3 días en todos los casos:",
-          "details": "no hay reembolso"
-        }
+        "reservation": "<b>Para las personas que hicieron sola la reservación:</b> el depósito de $200 no es reembolsable.",
+        "1day": "<b>Después de 1 día de curso:</b> $150 + $3 impuesto de arrecife + $90 materiales +1 noche en el hotel",
+        "2days": "<b>Después de 2 días de curso sino se ha realizado una salida en barco: </b> $180 + $6 impuesto de arrecife + $90 materiales + 2 noches en el hotel",
+        "3days": "<b>Después de 2 días si se ha realizado una salida en barco, o después de 3 días en todos los casos:</b> no hay reembolso"
       }
     },
     "room": {
@@ -29,84 +17,79 @@
     },
     "funDives": {
       "title": "Buceos Guiados",
-      "description": "en caso de que el cliente tenga que cancelar los buceos guiados, se debe notificar al centro de buceo a más tardar a las 5pm del día anterior. De no ser así, se pierde la inmersión y losbuceosno son reembolsables. Los buceos gratis (free fun dives) ofrecidos como parte de un curso (OW, AOW, Rescue) solo son válidos hasta el día después de que se haya completado el curso, y no son transferibles a otra persona."
+      "description": "En caso de que el cliente tenga que cancelar los buceos guiados, se debe notificar al centro de buceo a más tardar a las 5pm del día anterior. De no ser así, se pierde la inmersión y los buceos no son reembolsables. Los buceos gratis (free fun dives) ofrecidos como parte de un curso (OW, AOW, Rescue) solo son válidos hasta el día después de que se haya completado el curso, y no son transferibles a otra persona."
     },
-    "tc": {
-      "title": "TÉRMINOS Y CONDICIONES",
-      "rules": {
-        "reefTax": "La participación en el sistema de impuestos para el cuidado del arrecife de la Isla de Utila (reef fees) es obligatorio para todas las personas que buceen con Utila Dive Centre (UDC). Este impuesto contribuye a la protección de los arrecifes, a la comunidad, y al cuidado y mantenimiento de la cámara hiperbárica.",
-        "depthLimits": {
-          "description": "Todos los buzos están sujetos a niveles de profundidad estrictos, de acuerdo con su nivel de certificación:",
-          "extra": {
-            "ow": {
-              "condition": "Open Water:",
-              "text": "18 mts / 60 pies"
-            },
-            "aow": {
-              "condition": "Avanzados certificados después de Junio de 1998:",
-              "text": "30 mts / 100 pies"
-            },
-            "dm": {
-              "condition": "Divemasters",
-              "text": "30mts / 100 pies"
-            },
-            "deep": {
-              "condition": "Avanzados certificados antes de Junio 1998 o con especialidad de buceo profundo:",
-              "text": "40 mts / 130 pies"
-            }
-          },
-          "note": "UDC se reserva el derecho de cancelar inmersiones acualquier buzo que no respete los límites de profundidad indicado spor su certificación o que siga prácticas de buceo no seguras."
+    "goPro": {
+      "title": "",
+      "noRefund": "",
+      "travelInsurance": "",
+      "equipmentPurchase": "",
+      "diveInsurance": ""
+    }
+  },
+  "tc": {
+    "title": "Términos y condiciones",
+    "rules": {
+      "reefTax": "La participación en el sistema de impuestos para el cuidado del arrecife de la Isla de Utila (reef fees) es obligatorio para todas las personas que buceen con Utila Dive Centre. Este impuesto contribuye a la protección de los arrecifes, a la comunidad, y al cuidado y mantenimiento de la cámara hiperbárica.",
+      "depthLimits": {
+        "description": "Todos los buzos están sujetos a niveles de profundidad estrictos, de acuerdo con su nivel de certificación:",
+        "extra": {
+          "ow": "<b>Open Water:</b> 18 mts / 60 pies",
+          "aow": "<b>Avanzados certificados después de Junio de 1998:</b> 30 mts / 100 pies",
+          "dm": "<b>Divemasters:</b> 30 mts / 100 pies",
+          "deep": "<b>Avanzados certificados antes de Junio 1998 o con especialidad de buceo profundo:</b> 40 mts / 130 pies"
         },
-        "tuneUp": {
-          "description": "Una sesión de repaso de conocimientos (tune up) es requerida para todo buzo que haya sido inactivo, dependiendo de su número de inmersiones, de la siguiente manera:",
-          "extra": {
-            "20": {
-              "condition": "Menos de 20 inmersiones",
-              "text": "y 6 meses o más de inactividad."
-            },
-            "50": {
-              "condition": "Menos de 50 inmersiones",
-              "text": "y 1 año o más de inactividad."
-            },
-            "100": {
-              "condition": "Menos de 100 inmersiones",
-              "text": "y 2 años o más de inactividad"
-            }
-          }
-        },
-        "drugsOrAlcohol": "El uso de drogas y/o alcohol antes de bucear está estrictamente prohibido, y UDC reserva el derecho de revocar los buceos a cualquier persona que se muestre signos de intoxicación.",
-        "reefItems": "El recoger conchas, corales, o cualquier organismo vivo o muerto del arrecife queda estrictamente prohibido por las leyes hondureñas. Losarrecifes deUtila están en un área marina protegida, por favor no recoja o toque nada, y respete el arrecife y el medio ambiente.",
-        "largeGameEncounter": {
-          "description": "En caso de que haya encuentros con grandes mamíferos marinos, si el buzo decide entrar en el agua para nadar con ellos (es opcional), deberá realizar un pago directamente al capitán al regresar al centro de buceo. Las tarifas son:",
-          "extra": {
-            "whaleSharks": {
-              "condition": "350 Lps o $14",
-              "text": "por ballenas y tiburón ballena"
-            },
-            "dolphins": {
-              "condition": "250 Lps or $10",
-              "text": "por delfines"
-            }
-          }
-        },
-        "liability": "UDC y Mango Inn quedan exentos de responsabilidad frente a accidentes o lesiones que ocurran en las instalaciones, por lo que se pide que los clientes sean cuidadosos, especialmente cuando el piso esté mojado.",
-        "personalItems": "UDC y Mango Inn quedan exentos de responsabilidad frente a cualquier pérdida, daños o robo de objetos personales. Las cajas de seguridad están disponibles para el uso de los clientes, las cuales se recomienda sean usadas y aseguradas con candado. UDC y el Mango Inn se reservan el derecho de abrir cualquier caja de seguridad que no tenga nombre, o en donde se sospeche haya alimentos perecederos o sustancias ilícitas.",
-        "diveEquipment": "UDC ofrece espacio en los cuartos de equipos para guardar el equipo de buceo para conveniencia de sus huéspedes, pero queda exento de responsabilidad frente a cualquier pérdida, daños o robo.",
-        "gearIncluded": "Para todos los buceos guiados y cursos (excluye paquete de resort), los precios incluyen equipo completo, incluyendo máscara, aletas, snorkel, y linterna (cuando aplique). Relojes de buceo y brújulas están disponibles bajo petición. Si el cliente así lo desea, puede rentar una computadora de buceo por $10/dia.",
-        "equipmentForCourses": "Durante los cursos de buceo, todos los estudiantes podrán hacer uso del equipo completo (BCD, regulador, ordenador, linterna y/o brújula (cuando seanecesario), traje de neopreno, lastre y cinturón de lastre, aletas, mascara y snorkel).",
-        "responsibilityForGear": "Cada buzo es responsable del equipo que se ofrece como parte de su paquete o curso, y en caso de pérdida o daños al equipo se cobrará el coste completo de remplazo. Los costos son: lastres$4/ libra, máscara $30 (con prescripción $80), cinturón de lastre $10, BCD $300, regulador $300, aletas $30, traje de neopreno $100, snorkel $5, reloj $30, brújula $75, ordenador de buceo $200, manual del curso $30.",
-        "floodedRegulator": "Se hará un cargo de $20 en caso de que el regulador sea enjuagado sin la tapa protectora.Se hará un cargo de $80 en caso de que el Manómetro Sumergible sea inundado y necesite reemplazo.",
-        "tablet": "Cuando sea necesario por horarios, se podrá prestar a los alumnos una tableta electrónica para estudiar. Se cobrará a los estudiantes el costo complete de remplazo de $100 por cualquier daño o pérdida incluyendo, pero no limitado a: daños por agua, robo o rotura de pantalla.",
-        "courseDelays": "Los cursos y los viajes de buceo están programados de buena fe. UDC se reserva el derecho de cancelar/posponer cursos o paquetes de buceos en caso de situaciones fuera de su alcance. Y no es responsable por las condiciones meteorológicas o cualquier otra situación inesperada que pudiera surgir. En caso de retrasos a los horarios de este tipo, las noches adicionales en el hotel se cobrarán a precio regular.",
-        "nbTanks": "Se usarán dos tanques en cada viaje de buceo, con excepción de los paquetes de Resort de 3 buceos por día. Los buceos nocturnos serán programados a petición de los clientes siempre que las condiciones meteorológicas permitan, y dependiendo de la logística del centro y el número mínimo de buzos. Los buceos nocturnos son de un solo tanque, pero se cobran como 2 tanques.",
-        "reimbursement": "Una vez que haya comenzado un curso o un paquete, en caso de cancelación, no se harán reembolsos completos, pero en caso de circunstancias extremas, como enfermedad o emergencia, que obliguen al estudiante a retirarse del curso, este podrá unirse al siguiente curso sin cargo adicional (a discreción de la gerencia).",
-        "paymentUponArrival": "Todas las cuentas deben ser canceladas antes de comenzar cualquier paquete o curso, sin excepción.",
-        "makeUp": "Los cursos están diseñados para terminar enlos días programados. Encaso deque unestudiante falte a alguna sesión tanto de clase como de agua, ésta se reprogramará en función a la disponibilidad del instructor, con un costo de $20 por sesiones de teoría o $35 por sesiones en agua.",
-        "cardFees": "Hay unrecargo bancario del 4.5 %para pagos con tarjeta decrédito/ débito. Los cargos se harán en lempiras o dólares americanos dependiendo del banco de expedición de la tarjeta de crédito, y se usará el ultimo tipo de cambio disponible en el centro, que se podrá actualizar sin previo aviso.",
-        "dormNights": "Las noches en el hotel Mango Inn incluidas en los paquetes o curso son ofrecidas de buena fé y dependiendo del número de días necesario para completar el curso o paquete. En caso de que el cliente desee extender suestancia, estará sujeto a disponibilidad, secobrarán a precio regular, y las tarifas estarán sujetas a cambio en cualquier momento sin previo aviso.",
-        "photos": "UDC y el Mango Inn se reservan el derecho de usar fotografías y videos tomadas en las instalaciones y/o barcos para material promocional como por ejemplo (pero no limitado a) redes sociales, medios impresos, online, etc.",
-        "reschedule": "En caso de que el estudiante necesite cambiar sus fechas de estancia y de curso, debe consultar al instructor lo antes posible antes de concretar sus planes para ver la viabilidad delcambio. El staff de UDC hará todo lo posible para acomodar cambios, pero no se puede garantizar el poder terminar cursos con cambios de fechas de última hora."
-      }
+        "note": "Utila Dive Center se reserva el derecho de cancelar inmersiones a cualquier buzo que no respete los límites de profundidad indicados por su certificación o que siga prácticas de buceo no seguras."
+      },
+      "tuneUp": {
+        "description": "Una sesión de repaso de conocimientos (tune up) es requerida para todo buzo que haya sido inactivo, dependiendo de su número de inmersiones, de la siguiente manera:",
+        "extra": {
+          "20": "<b>Menos de 20 inmersiones</b> y 6 meses o más de inactividad.",
+          "50": "<b>Menos de 50 inmersiones</b> y 1 año o más de inactividad.",
+          "100": "<b>Menos de 100 inmersiones</b> y 2 años o más de inactividad"
+        }
+      },
+      "drugsOrAlcohol": "El uso de drogas y/o alcohol antes de bucear está estrictamente prohibido, y Utila Dive Center reserva el derecho de revocar los buceos a cualquier persona que se muestre signos de intoxicación.",
+      "reefItems": "El recoger conchas, corales, o cualquier organismo vivo o muerto del arrecife queda estrictamente prohibido por las leyes hondureñas. Los arrecifes deUtila están en un área marina protegida, por favor no recoja o toque nada, y respete el arrecife y el medio ambiente.",
+      "largeGameEncounter": {
+        "description": "En caso de que haya encuentros con grandes mamíferos marinos, si el buzo decide entrar en el agua para nadar con ellos (es opcional), deberá realizar un pago directamente al capitán al regresar al centro de buceo. Las tarifas son:",
+        "extra": {
+          "whaleSharks": "<b>350 Lps o $14</b> por ballenas y tiburón ballena",
+          "dolphins": "<b>250 Lps o $10</b> por delfines"
+        }
+      },
+      "liability": "Utila Dive Center y Mango Inn quedan exentos de responsabilidad frente a accidentes o lesiones que ocurran en las instalaciones, por lo que se pide que los clientes sean cuidadosos, especialmente cuando el piso esté mojado.",
+      "personalItems": "Utila Dive Center y Mango Inn quedan exentos de responsabilidad frente a cualquier pérdida, daños o robo de objetos personales. Las cajas de seguridad están disponibles para el uso de los clientes, las cuales se recomienda sean usadas y aseguradas con candado. Utila Dive Center y el Mango Inn se reservan el derecho de abrir cualquier caja de seguridad que no tenga nombre, o en donde se sospeche haya alimentos perecederos o sustancias ilícitas.",
+      "diveEquipment": "Utila Dive Center ofrece espacio en los cuartos de equipos para guardar el equipo de buceo para conveniencia de sus huéspedes, pero queda exento de responsabilidad frente a cualquier pérdida, daños o robo.",
+      "gearIncluded": "Para todos los buceos guiados y cursos (excluye paquete de resort), los precios incluyen equipo completo, incluyendo máscara, aletas, snorkel, y linterna (cuando aplique). Relojes de buceo y brújulas están disponibles bajo petición. Si el cliente así lo desea, puede rentar una computadora de buceo por $10/dia.",
+      "equipmentForCourses": {
+        "general": "Durante los cursos de buceo, todos los estudiantes podrán hacer uso del equipo completo (BCD, regulador, ordenador, linterna y/o brújula (cuando sea necesario), traje de neopreno, lastre y cinturón de lastre, aletas, mascara y snorkel).",
+        "goPro": ""
+      },
+      "responsibilityForGear": {
+        "general": "Cada buzo es responsable del equipo que se ofrece como parte de su paquete o curso, y en caso de pérdida o daños al equipo se cobrará el coste completo de remplazo. Los costos son: lastres$4/ libra, máscara $30 (con prescripción $80), cinturón de lastre $10, BCD $300, regulador $300, aletas $30, traje de neopreno $100, snorkel $5, reloj $30, brújula $75, ordenador de buceo $200, manual del curso $30.",
+        "goPro": ""
+      },
+      "floodedRegulator": "Se hará un cargo de $20 en caso de que el regulador sea enjuagado sin la tapa protectora.Se hará un cargo de $80 en caso de que el Manómetro Sumergible sea inundado y necesite reemplazo.",
+      "FFD4Life": "",
+      "goProRoom": "",
+      "courseDelays": "Los cursos y los viajes de buceo están programados de buena fe. Utila Dive Center se reserva el derecho de cancelar/posponer cursos o paquetes de buceos en caso de situaciones fuera de su alcance. Y no es responsable por las condiciones meteorológicas o cualquier otra situación inesperada que pudiera surgir. En caso de retrasos a los horarios de este tipo, las noches adicionales en el hotel se cobrarán a precio regular.",
+      "reimbursement": "Una vez que haya comenzado un curso o un paquete, en caso de cancelación, no se harán reembolso completos, pero en caso de circunstancias extremas, como enfermedad o emergencia, que obliguen al estudiante a retirarse del curso, este podrá unirse al siguiente curso sin cargo adicional (a discreción de la gerencia).",
+      "paymentUponArrival": {
+        "general": "Todas las cuentas deben ser canceladas antes de comenzar cualquier paquete o curso, sin excepción.",
+        "goPro": ""
+      },
+      "dormNights": "Las noches en el hotel Mango Inn incluidas en los paquetes o curso son ofrecidas de buena fé y dependiendo del número de días necesario para completar el curso o paquete. En caso de que el cliente desee extender su estancia, estará sujeto a disponibilidad, se cobrarán a precio regular, y las tarifas estarán sujetas a cambio en cualquier momento sin previo aviso.",
+      "photos": "Utila Dive Center y el Mango Inn se reservan el derecho de usar fotografías y videos tomadas en las instalaciones y/o barcos para material promocional como por ejemplo (pero no limitado a) redes sociales, medios impresos, online, etc.",
+      "reschedule": {
+        "general": "En caso de que el estudiante necesite cambiar sus fechas de estancia y de curso, debe consultar al instructor lo antes posible antes de concretar sus planes para ver la viabilidad del cambio. El staff de Utila Dive Center hará todo lo posible para acomodar cambios, pero no se puede garantizar el poder terminar cursos con cambios de fechas de última hora.",
+        "goPro": ""
+      },
+      "makeUp": "Los cursos están diseñados para terminar en los días programados. Encaso deque un estudiante falte a alguna sesión tanto de clase como de agua, ésta se reprogramará en función a la disponibilidad del instructor, con un costo de $20 por sesiones de teoría o $35 por sesiones en agua.",
+      "cardFees": "",
+      "nbTanks": "Se usarán dos tanques en cada viaje de buceo, con excepción de los paquetes de Resort de 3 buceos por día. Los buceos nocturnos serán programados a petición de los clientes siempre que las condiciones meteorológicas permitan, y dependiendo de la logística del centro y el número mínimo de buzos. Los buceos nocturnos son de un solo tanque, pero se cobran como 2 tanques.",
+      "goPro": "",
+      "tablet": "Cuando sea necesario por horarios, se podrá prestar a los alumnos una tableta electrónica para estudiar. Se cobrará a los estudiantes el costo complete de remplazo de $100 por cualquier daño o pérdida incluyendo, pero no limitado a: daños por agua, robo o rotura de pantalla."
     }
   }
 }

@@ -1,34 +1,31 @@
 <body>
   <div class="formWidth formDropShadow">
     <div class="formWrapper">
-      <div class="headerBackground">
-        <h1><em data-i18n="title"></em></h1>
-        <!-- <p class="zf-frmDesc">Please give accurate information.</p> -->
-      </div>
+      <header-element data-i18n="[title]title"></header-element>
 
       <section class="homeNav">
-        <h2>What are you doing with UDC:</h2>
-        <p>If multiple answers apply, pick the first one in the list</p>
+        <h2 data-i18n="home.title"></h2>
+        <p data-i18n="home.description"></p>
         <nav>
           <button
             onclick="navigateTo('udc', {pkg: 'goPro', pathway: ['medical', 'liability', 'safeDiving']})"
             disabled
-          >
-            GoPro
-          </button>
+            data-i18n="home.goPro"
+          ></button>
           <button
             onclick="navigateTo('udc', {pkg: 'ow', pathway: ['medical', 'liability', 'safeDiving']})"
             disabled
-          >
-            Open Water
-          </button>
+            data-i18n="home.ow"
+          ></button>
           <button
             onclick="navigateTo('udc', {pkg: 'aow', pathway: ['medical', 'liability', 'safeDiving']})"
             disabled
-          >
-            AOW, Rescue & Specs
-          </button>
-          <button onclick="navigateTo('udc', {pkg: 'fd', pathway: ['liability']})">Fun dives</button>
+            data-i18n="home.aow"
+          ></button>
+          <button
+            onclick="navigateTo('udc', {pkg: 'fd', pathway: ['liability']})"
+            data-i18n="home.fd"
+          ></button>
         </nav>
       </section>
     </div>

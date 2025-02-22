@@ -1,16 +1,13 @@
 <div class="formWidth formDropShadow">
   <form name="udc-form" enctype="multipart/form-data" id="udc-form" onsubmit="handleFormSubmit(this)">
     <div class="formWrapper">
-      <div class="headerBackground">
-        <h1><em data-i18n="title"></em></h1>
-        <!-- <p class="zf-frmDesc">Please give accurate information.</p> -->
-      </div>
+      <header-element data-i18n="[title]title"></header-element>
 
       <multi-step-form>
         <input type="hidden" value="<?= JSON.stringify(data.form) ?>" id="prefill" />
         <input type="hidden" value="<?= JSON.stringify(data.form) ?>" id="path" />
 
-        <!-- <fieldset class="formStep">
+        <fieldset class="formStep">
           <legend data-i18n="personal.title"></legend>
           <input type="hidden" id="pkg" name="pkg" />
           <div class="multiInput" id="full_name">
@@ -44,7 +41,7 @@
               <form-input data-i18n="[label]emergency.diOther" id="di_other"></form-input>
             </fieldset>
           </form-accordion>
-        </fieldset> -->
+        </fieldset>
 
         <fieldset class="formStep">
           <legend data-i18n="id.title"></legend>

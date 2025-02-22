@@ -36,5 +36,25 @@
   "liability": {
     "signature": "Participant Signature"
   },
-  "test": ["ab", "bc", "ed"]
+  "wizard": {
+    "next": "Next",
+    "prev": "Previous",
+    "submit": "Submit",
+    "xStepsOfTotal": "of"
+  },
+  "errors": {
+    "required": "Please fill this field",
+    "email": "Por favor, introduce una dirección de correo válida"
+  },
+  "home": {
+    "title": "What are you doing with UDC:",
+    "description": "If multiple answers apply, pick the first one in the list",
+    "goPro": "GoPro",
+    "ow": "Open Water",
+    "aow": "AOW, Rescue & Specs",
+    "fd": "Fun dives"
+  },
+  "placeholder": {
+    "date": "dd/mm/yyyy"
+  }
 }

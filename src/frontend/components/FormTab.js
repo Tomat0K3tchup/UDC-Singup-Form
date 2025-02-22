@@ -88,7 +88,6 @@ class MultiStepForm extends LitElement {
     let isValid = true;
     for (let i = 0; i < elToValidate.length; i++) {
       isValid = elToValidate[i].checkValidity() && isValid;
-      console.log(isValid, elToValidate[i].id);
     }
 
     return isValid;
@@ -122,32 +121,31 @@ class MultiStepForm extends LitElement {
     const prevBtnDisplay = this.current == 0 ? "hidden" : "visible";
     this.$prevBtn.style.visibility = prevBtnDisplay;
 
-    const nextBtnText = this.current == this.totalSets - 1 ? "Submit" : "Next";
-    this.$nextBtn.innerHTML = nextBtnText;
-
     this.$sets.forEach(($set, idx) => {
       if (idx === this.current) {
         $set.style.display = "flex";
-        // $set.focus();
       } else $set.style.display = "none";
     });
     this.$currentSetNum.innerText = this.current + 1;
 
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-    // $(this.renderRoot).localize();
   }
 
   render() {
     return html`
       <slot></slot>
       <div>
-        <button data-i18n="test" id="mf-prev-btn" class="secondary" @click=${this.prevSet}>Previous</button>
+        <button data-i18n="test" id="mf-prev-btn" class="secondary" @click=${this.prevSet}>
+          ${$.t("wizard.prev")}
+        </button>
         <p>
-          <span id="mf-current" data-i18n="test"></span> of
+          <span id="mf-current" data-i18n="test"></span> ${$.t("wizard.xStepsOfTotal")}
           <span id="mf-total">${this.totalSets}</span>
         </p>
-        <button data-i18n="test" id="mf-next-btn" class="primary" @click=${this.nextSet}>Next</button>
+        <button data-i18n="test" id="mf-next-btn" class="primary" @click=${this.nextSet}>
+          ${this.current == this.totalSets - 1 ? $.t("wizard.submit") : $.t("wizard.next")}
+        </button>
       </div>
     `;
   }

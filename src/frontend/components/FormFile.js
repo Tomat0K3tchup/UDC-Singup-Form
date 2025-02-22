@@ -42,7 +42,6 @@ export class FormInputFile extends window.FormInput {
 
   set value(val) {
     if (val == this._value) return;
-    console.log("Setting value to", val);
     this._value = val;
 
     this.updateFormValue();

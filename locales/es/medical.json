@@ -1,0 +1,70 @@
+{
+  "title": "Informe Médico del Buceador",
+  "intro": "El buceo requiere una buena salud física y mental. Hay algunas condiciones médicas que pueden ser peligrosas durante la práctica del buceo, y que se enumeran a continuación. Aquellos que tienen o están predispuestos a cualquiera de estas condiciones, deben ser evaluados por un médico. Este Cuestionario de Médico del Buceador proporciona una base para determinar si Ud. debe buscar esa evaluación. Si tiene alguna inquietud acerca de su estado físico para la práctica del buceo y no están representadas en este formulario, consulte con su médico antes de bucear. Las referencias a “buceo” en este formulario abarcan tanto el buceo Recreativo con equipo autónomo como el buceo en apnea. Este formulario está diseñado principalmente como un examen médico inicial para los nuevos buceadores, pero también es apropiado para los buceadores que reciben educación continua. Por su seguridad y la de otras personas que pueden bucear con usted, responda a todas las preguntas honestamente.",
+  "directions": "El buceo requiere una buena salud física y mental. Hay algunas condiciones médicas que pueden ser peligrosas durante la práctica del buceo, y que se enumeran a continuación. Aquellos que tienen o están predispuestos a cualquiera de estas condiciones, deben ser evaluados por un médico. Este Cuestionario de Médico del Buceador proporciona una base para determinar si Ud. debe buscar esa evaluación. Si tiene alguna inquietud acerca de su estado físico para la práctica del buceo y no están representadas en este formulario, consulte con su médico antes de bucear. Las referencias a “buceo” en este formulario abarcan tanto el buceo Recreativo con equipo autónomo como el buceo en apnea. Este formulario está diseñado principalmente como un examen médico inicial para los nuevos buceadores, pero también es apropiado para los buceadores que reciben educación continua. Por su seguridad y la de otras personas que pueden bucear con usted, responda a todas las preguntas honestamente.",
+  "yesNoOptions": "[{\"value\": \"true\", \"label\": \"Si\"}, {\"value\": \"false\", \"label\": \"No\"}]",
+  "q1": "He tenido problemas con los pulmones, la respiración, el corazón y/o la sangre que afectan a mi rendimiento físico o mental normal",
+  "q2": "Tengo más de 45 año",
+  "q3": "Me cuesta realizar ejercicio moderado (por ejemplo, caminar 1,6 kilómetros/una milla en 12 minutos o nadar 200 metros/yardas sin descansar), O no he podido participar en una actividad física normal debido a razones de estado físico o de salud en los últimos 12 meses.",
+  "q4": "He tenido problemas con mis ojos, oídos, o fosas nasales / senos paranasales.",
+  "q5": "He tenido una cirugía en los últimos 12 meses, O tengo problemas continuos relacionados con una cirugía anterior.",
+  "q6": "He perdido el conocimiento, he tenido dolores de cabeza por migraña, convulsiones, accidente cerebrovascular, lesión significativa en la cabeza, o he sufrido de lesión o enfermedad neurológica persistente.",
+  "q7": "He tenido problemas psicológicos (o he recibido tratamiento psicológico en los últimos 5 años), me diagnosticaron una discapacidad de aprendizaje, trastorno de la personalidad, ataques de pánico o una adicción a las drogas o el alcohol, me han diagnosticado un problema de aprendizaje o de desarrollo.",
+  "q8": "He tenido problemas de espalda, hernia, úlceras o diabetes.",
+  "q9": "He tenido problemas estomacales o intestinales, incluyendo diarrea reciente.",
+  "q10": "Estoy tomando medicamentos recetados (con la excepción de los anticonceptivos o los medicamentos antipalúdicos que no sea Lariam-mefloquina).",
+  "boxA": {
+    "title": "CUADRO A - TENGO/HE TENIDO:",
+    "1": "Cirugía torácica, cirugía cardíaca, cirugía de válvulas cardíacas, un dispositivo médico implantado (por ejemplo, stent, marcapasos, neuroestimulador), neumotórax y/o enfermedad pulmonar crónica.",
+    "2": "Asma, sibilancias, alergias graves, fiebre del heno o vías respiratorias congestionadas en los últimos 12 meses que limite mi actividad física/ ejercicio.",
+    "3": "Un problema o enfermedad que involucra mi corazón como: angina de pecho, dolor en el pecho en el esfuerzo, insuficiencia cardíaca, edema pulmonar, miocardiopatía o accidente cerebrovascular, O estoy tomando medicamentos para cualquier afección cardíaca",
+    "4": "Bronquitis recurrente y tos persistente en los últimos 12 meses, O han sido diagnosticados con enfisema.",
+    "5": "Síntomas que afecten a mis pulmones, respiración, corazón y/o sangre en los últimos 30 días y que perjudiquen mi rendimiento físico o mental."
+  },
+  "boxB": {
+    "title": "CUADRO B - TENGO MÁS DE 45 AÑOS Y:",
+    "1": "Actualmente fumo o inhalo nicotina por otros medios",
+    "2": "Tengo un nivel alto de colesterol.",
+    "3": "Tengo presión arterial alta.",
+    "4": "He tenido un familiar (de 1er. O 2º grado de consanguinidar) que murió de muerte súbita o de enfermedad cardíaca o accidente cerebrovascular antes de los 50 años, O tengo antecedentes familiares de enfermedad cardíaca antes de los 50 años (incluidos ritmos cardíacos anormales, enfermedad de las arterias coronarias o cardiomiopatía)"
+  },
+  "boxC": {
+    "title": "CUADRO C - TENGO/HE TENIDO:",
+    "1": "Cirugía sinusal en los últimos 6 meses.",
+    "2": "Enfermedades del oído o cirugía del oído, pérdida de audición o alteraciones del equilibrio.",
+    "3": "Sinusitis recurrente en los últimos 12 meses.",
+    "4": "Cirugía ocular en los últimos 3 meses."
+  },
+  "boxD": {
+    "title": "CUADRO D - TENGO/HE TENIDO:",
+    "1": "Lesión en la cabeza con pérdida de conciencia en los últimos 5 años.",
+    "2": "Lesiones o enfermedades neurológicas persistentes.",
+    "3": "Dolores de cabeza recurrentes por migraña en los últimos 12 meses, o tomo medicamentos para prevenirlos.",
+    "4": "Desvanecimientos o desmayos (pérdida total/parcial de la conciencia) en los últimos 5 años.",
+    "5": "Epilepsia, ataques o convulsiones, O tomo medicamentos para prevenirlos."
+  },
+  "boxE": {
+    "title": "CUADRO E - TENGO/HE TENIDO:",
+    "1": "Salud conductual, problemas mentales o psicológicos que requieran tratamiento médico/psiquiátrico.",
+    "2": "Depresión Mayor, tendencia suicida, ataques de pánico, trastorno bipolar descontrolado que requiere medicación/tratamiento psiquiátrico.",
+    "3": "He sido diagnosticado con una condición de salud mental o un trastorno de aprendizaje/desarrollo que requiere atención continua o de un alojamiento especial.",
+    "4": "Una adicción a las drogas o al alcohol que requiere tratamiento en los últimos 5 años."
+  },
+  "boxF": {
+    "title": "CUADRO F - TENGO/HE TENIDO:",
+    "1": "Problemas recurrentes en la espalda en los últimos 6 meses que limitan mi actividad diaria.",
+    "2": "Cirugía de espalda o columna vertebral en los últimos 12 meses.",
+    "3": "Diabetes, ya sea controlada por medicación o por dieta, O diabetes gestacional en los últimos 12 meses.",
+    "4": "Una hernia no corregida que limita mis habilidades físicas",
+    "5": "Úlceras activas o no tratadas, heridas problemáticas o cirugía de úlceras en los últimos 6 meses."
+  },
+  "boxG": {
+    "title": "CUADRO G - TENGO:",
+    "1": "Cirugía de ostomía y no tengo autorización médica para nadar o participar en actividad física.",
+    "2": "Deshidratación que requiere intervención médica en los últimos 7 días.",
+    "3": "Úlceras estomacales o intestinales activas o no tratadas o cirugía de úlceras en los últimos 6 meses.",
+    "4": "Ardor de estómago frecuente, regurgitación o enfermedad por reflujo gastroesofágico (ERGE).",
+    "5": "Colitis ulcerosa activa o no controlada o enfermedad de Crohn.",
+    "6": "Cirugía bariátrica en los últimos 12 meses."
+  }
+}

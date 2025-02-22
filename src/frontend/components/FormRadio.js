@@ -28,12 +28,6 @@ export class FormInputRadio extends window.FormInput {
     this.options = [];
   }
 
-  // set value(val) {
-  //   super.value = val;
-  //   console.log("options", this.options);
-  //   // this.$input.checked = val === this.value;
-  // }
-
   get value() {
     return super.value;
   }

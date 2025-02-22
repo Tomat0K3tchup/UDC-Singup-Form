@@ -7,8 +7,7 @@
     "dob": "Fecha de nacimiento",
     "email": "Correo electrónico",
     "address": "Dirección de correo",
-    "phone": "Número de teléphono",
-    "fullName": "Nombre Completo"
+    "phone": "Número de teléfono"
   },
   "emergency": {
     "title": "Contacto de Emergencia",
@@ -17,24 +16,46 @@
     "phone": "Número de teléfono",
     "di": {
       "label": "Tengo un Seguro de buceo",
-      "options": "[{'value': 'true', 'label': 'Si'}, {'value': 'false', 'label': 'No'}]"
+      "options": "[{\"value\": \"Yes\", \"label\": \"Si\"}, {\"value\": \"No\", \"label\": \"No\"}]"
     },
-    "diProvider": "Compañía de Seguro de bueco",
+    "diProvider": "Compañía de Seguro de buceo",
     "diPolicyNb": "Número de póliza",
     "diOther": "Otros detalles de seguro de viaje"
   },
   "id": {
-    "title": "Información de identidad Hondureña",
+    "title": "Información de identidad",
     "country": "País de expedición",
+    "file": "Foto del documento de identidad (png, jpeg, pdf)",
     "number": "Número",
     "issDate": "Fecha de expedición",
     "expDate": "Fecha de expiración"
   },
   "tAndC": {
-    "title": "",
     "accept": "He leído, entiendo y acepto los términos y condiciones."
   },
   "liability": {
-    "signature": ""
+    "signature": "Firma del participante"
+  },
+  "wizard": {
+    "next": "Siguiente",
+    "prev": "Anterior",
+    "submit": "Enviar",
+    "xStepsOfTotal": "de"
+  },
+  "errors": {
+    "required": "Rellene este campo",
+    "emailAt": "Por favor incluya \"@\" en la dirección de correo electrónico.",
+    "emailDomain": "Por favor, introduzca la parte que falta después del símbolo \"@\""
+  },
+  "home": {
+    "title": "Qué vas a hacer con UDC:",
+    "description": "Elija la primera respuesta que se se aplica",
+    "goPro": "GoPro",
+    "ow": "Open Water",
+    "aow": "Avanzados, Rescate y especialidades",
+    "fd": "Buceos guiados"
+  },
+  "placeholder": {
+    "date": "dd/mm/aaaa"
   }
 }
