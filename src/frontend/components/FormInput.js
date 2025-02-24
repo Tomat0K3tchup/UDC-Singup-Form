@@ -24,7 +24,8 @@ class FormInput extends LitElement {
       align-items: center;
     }
 
-    input {
+    input,
+    .input {
       border: 1px solid var(--border-color);
       border-radius: var(--border-radius-sm);
       padding: 0.5rem 1rem;
@@ -40,7 +41,8 @@ class FormInput extends LitElement {
       color: var(--error-color);
     }
 
-    input.invalid {
+    input.invalid,
+    .input.invalid {
       border: 1px solid var(--error-color);
     }
 

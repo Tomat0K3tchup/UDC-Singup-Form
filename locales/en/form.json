@@ -44,7 +44,8 @@
   },
   "errors": {
     "required": "Please fill this field",
-    "email": "Por favor, introduce una dirección de correo válida"
+    "emailAt": "Please include the missing \"@\"",
+    "emailDomain": "Please include the missing part after the \"@\""
   },
   "home": {
     "title": "What are you doing with UDC:",

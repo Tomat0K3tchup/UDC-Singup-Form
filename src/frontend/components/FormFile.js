@@ -7,15 +7,6 @@ export class FormInputFile extends window.FormInput {
       input[type="file"] {
         display: none;
       }
-
-      /*Same as input from window.FormInput, not ideal solution to have it copy pasted*/
-      div#fileDisplay {
-        border: 1px solid var(--border-color);
-        border-radius: var(--border-radius-sm);
-        padding: 0.5rem 1rem;
-        font-family: var(--body-font-family-text);
-        font-size: 1rem;
-      }
     `,
   ];
 
@@ -68,11 +59,6 @@ export class FormInputFile extends window.FormInput {
     return { valueMissing: valueMissing, valid: !valueMissing };
   }
 
-  get validationMessage() {
-    // Less than ideal for translation purposes. But emulated the hidden input
-    return this.validity.valueMissing ? "Please choose a file" : "";
-  }
-
   checkValidity() {
     // Emulate the trigger of an invalid event on the input since a hidden input isn't handled properly
     const invalid = this.validity.valid;
@@ -82,7 +68,6 @@ export class FormInputFile extends window.FormInput {
   }
 
   // TODO: could add button at the end of the line to make element keyboard focusable
-  // TODO: properly handle errors
   render() {
     return html`
       <div class="container">
@@ -97,7 +82,7 @@ export class FormInputFile extends window.FormInput {
             @blur=${this.onBlurValidation}
             @invalid=${() => this.toggleError(true)}
           />
-          <div id="fileDisplay" class="${this._hasError ? "invalid" : ""}">${this.fileName}</div>
+          <div id="fileDisplay" class="input ${this._hasError ? "invalid" : ""}">${this.fileName}</div>
         </label>
       </div>
 

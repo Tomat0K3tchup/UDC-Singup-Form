@@ -20,8 +20,7 @@ export class FormSignature extends window.FormInput {
 
       .sigWrapper {
         height: 5rem;
-        border: 1px solid var(--main-bg-color);
-        border-radius: 2px;
+        padding: 0;
       }
 
       canvas {
@@ -70,10 +69,15 @@ export class FormSignature extends window.FormInput {
 
   resizeCanvas() {
     const ratio = Math.max(window.devicePixelRatio || 1, 1);
+    const [newWidth, newHeight] = [this.$canvas.offsetWidth * ratio, this.$canvas.offsetHeight * ratio];
+
+    if (Math.abs(this.$canvas.width - newWidth) < 1 && Math.abs(this.$canvas.height - newHeight) < 1)
+      return;
+
     this.$canvas.width = this.$canvas.offsetWidth * ratio;
     this.$canvas.height = this.$canvas.offsetHeight * ratio;
     this.$canvas.getContext("2d").scale(ratio, ratio);
-    this.signaturePad.clear(); // otherwise isEmpty() might return incorrect value
+    this.clear(); // otherwise isEmpty() might return incorrect value
   }
 
   clear() {
@@ -81,25 +85,34 @@ export class FormSignature extends window.FormInput {
     this.updateValue();
   }
 
-  // checkValidity() {
-  //   if (this.signaturePad.isEmpty()) {
-  //     //FIXME: error handling
-  //     return alert("Please provide a signature first.");
-  //   }
+  get validity() {
+    const valueMissing = this.required && this.signaturePad.isEmpty();
+    return { valueMissing: valueMissing, valid: !valueMissing };
+  }
 
-  //   var data = this.signaturePad.toDataURL("image/png");
-  //   console.log(data);
-  // }
+  checkValidity() {
+    // Emulate the trigger of an invalid event on the input since a hidden input isn't handled properly
+    const invalid = this.validity.valid;
+    if (!invalid) this.$input.dispatchEvent(new Event("invalid"));
+
+    return invalid;
+  }
 
   render() {
     return html`
       <div class="sigNav">
         <button @click=${this.clear}>Clear</button>
       </div>
-      <div class="sigWrapper" @invalid=${() => this.toggleError(true)}>
+      <div class="sigWrapper input ${this._hasError ? "invalid" : ""}">
         <canvas></canvas>
-        <input type="hidden" id="${this.id}" name="${this.name || this.id}" />
+        <input
+          type="hidden"
+          id="${this.id}"
+          name="${this.name || this.id}"
+          @invalid=${() => this.toggleError(true)}
+        />
       </div>
+      <span class="invalid ${this._hasError ? "visible" : ""}">Error</span>
     `;
   }
 }
