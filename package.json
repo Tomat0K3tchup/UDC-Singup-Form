@@ -15,5 +15,9 @@
     "transpile-code": "node ./scripts/export-js-to-html.js --watch",
     "export-locales": "node ./scripts/export-locales.js --watch",
     "prettier": "npx prettier -w ."
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.2"
   }
 }

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title><?= data.title ?></title>
+    <title><%= title %></title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -16,11 +16,10 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link rel="stylesheet" href="/css/stylesheet.css" />
 
-    <!-- prettier-ignore -->
-    <?!= include_('dist/frontend/stylesheet') ?> 
-    <?!= include_('dist/frontend/js/formHandling') ?>
-    <?!= include_('dist/frontend/js/navigation') ?>
+    <script src="/js/formHandling.js"></script>
+    <script src="/js/navigation.js"></script>
 
     <script>
       window.urlParams = {};
@@ -137,12 +136,12 @@
     </script>
   </head>
   <body>
-    <div id="content"></div>
+    <%- include(page); %>
     <spinner-modal></spinner-modal>
 
-    <!-- prettier-ignore -->
-    <?!= include_('dist/locales')?> 
-    <?!= include_('dist/frontend/i18n') ?>
+    <!-- prettier-ignore
+     include('dist/locales')%> 
+     include('dist/frontend/i18n') %> -->
 
     <!-- Duet Date -->
     <script
@@ -166,24 +165,24 @@
 
     <!-- Import custom components -->
     <!-- prettier-ignore -->
-    <?!= include_('dist/frontend/components/FormInput') ?> 
-    <?!= include_('dist/frontend/components/FormTab') ?> 
-    <?!= include_('dist/frontend/components/FormRadio') ?> 
-    <?!= include_('dist/frontend/components/FormPhone') ?> 
-    <?!= include_('dist/frontend/components/FormFile') ?> 
-    <?!= include_('dist/frontend/components/FormCountrySelect') ?> 
-    <?!= include_('dist/frontend/components/FormAccordion') ?>
-    <?!= include_('dist/frontend/components/FormSignature') ?>
-    <?!= include_('dist/frontend/components/SpinnerModal') ?>
-    <?!= include_('dist/frontend/components/SuccessFailureDisplay') ?>
-    <?!= include_('dist/frontend/components/DatePicker') ?>
-    <?!= include_('dist/frontend/components/LanguageSelector') ?>
-    <?!= include_('dist/frontend/elements/Header') ?>
+    <script src="/js/components/FormInput"></script>
+    <script src="/js/components/FormTab"></script>
+    <script src="/js/components/FormRadio"></script>
+    <script src="/js/components/FormPhone"></script>
+    <script src="/js/components/FormFile"></script>
+    <script src="/js/components/FormCountrySelect"></script>
+    <script src="/js/components/FormAccordion"></script>
+    <script src="/js/components/FormSignature"></script>
+    <script src="/js/components/SpinnerModal"></script>
+    <script src="/js/components/SuccessFailureDisplay"></script>
+    <script src="/js/components/DatePicker"></script>
+    <script src="/js/components/LanguageSelector"></script>
+    <!-- include('dist/frontend/elements/Header"></script>-->
 
     <!-- Import custom layouts -->
     <!-- prettier-ignore -->
-    <?!= include_('dist/frontend/layouts/Liability') ?>
-    <?!= include_('dist/frontend/layouts/SafeDiving') ?>
+    <!-- include('dist/frontend/layouts/Liability"></script>
+    include('dist/frontend/layouts/SafeDiving"></script> -->
 
     <!-- Auto-fill the liability page with the customer's full name from the personal details -->
     <script>
