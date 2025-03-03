@@ -16,9 +16,6 @@ class LiabilityLayout extends LitElement {
 
   firstUpdated() {
     super.firstUpdated();
-    if (window.urlParams.pkg) {
-      this.pkg = window.urlParams.pkg;
-    }
     this.pickLiability();
   }
 

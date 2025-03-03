@@ -91,8 +91,8 @@ video {
   --border-color: #767676;
   --error-color: #dd0011;
 
-  --body-font-family: Inter, Rubik, Open Sans, Roboto, sans-serif;
-  --body-font-family-text: Arial, Helvetica, sans-serif;
+  --font-family-title: Montserrat, sans-serif;
+  --font-family-text: Arial, Helvetica, sans-serif;
   --body-font-size: 1rem;
   --body-font-weight: 400;
   --body-line-height: 1.5;
@@ -112,7 +112,7 @@ body {
   min-height: 100vh;
 
   color: var(--main-bg-color);
-  font-family: var(--body-font-family-text);
+  font-family: var(--font-family-text);
   font-size: var(--body-font-size);
   font-weight: var(--body-font-weight);
   line-height: var(--body-line-height);
@@ -147,7 +147,7 @@ button {
   color: var(--main-accent-color);
   font-size: 1.5rem;
   font-weight: 900;
-  font-family: Montserrat, sans-serif;
+  font-family: var(--font-family-title);
   text-transform: uppercase;
   border-radius: var(--border-radius);
 }
@@ -210,7 +210,7 @@ ol ul {
 
 h1,
 h2 {
-  font-family: Montserrat, sans-serif;
+  font-family: var(--font-family-title);
 }
 
 h1 {
@@ -332,6 +332,13 @@ multi-step-form > fieldset,
   text-transform: uppercase;
 }
 
+/* TODO: better formatting for important padi inline block */
+.ack {
+  padding: 1rem;
+  background: #f6d92a9e;
+  border-radius: var(--border-radius-lg);
+}
+
 /****************Tom select CSS Override ****************/
 
 .countrySelect .optgroup-header {
@@ -370,7 +377,7 @@ multi-step-form > fieldset,
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius-sm);
   padding: 0.5rem 1rem;
-  font-family: var(--body-font-family-text);
+  font-family: var(--font-family-text);
   font-size: 1rem;
 }
 
@@ -413,7 +420,7 @@ multi-step-form > fieldset,
 
 .sigPad .typeItDesc,
 .sigPad .drawItDesc {
-  font-family: var(--body-font-family-text);
+  font-family: var(--font-family-text);
   font-size: var(--body-font-size);
   font-weight: var(--body-font-weight);
   line-height: var(--body-line-height);
@@ -447,7 +454,7 @@ multi-step-form > fieldset,
   margin: auto;
 }
 
-.homeNav button {
+.homeNav a {
   padding: 0.5rem 1.5rem;
   margin: auto;
   background-color: var(--dark-blue);
@@ -455,11 +462,12 @@ multi-step-form > fieldset,
   border: 2px solid var(--dark-blue);
   color: var(--main-accent-color);
   font-weight: 800;
+  font-family: var(--font-family-title);
   text-transform: uppercase;
   text-align: center;
 }
 
-.homeNav button:disabled {
+.homeNav a.disabled {
   --grey: #cccccc;
   background-color: var(--grey);
   border: 2px solid var(--grey);

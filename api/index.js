@@ -31,6 +31,7 @@
 import express from "express";
 import path from "path";
 import indexRouter from "./Router.js";
+// import FormProcessor from "../src/backend/FormProcessor.js";
 
 const app = express();
 
@@ -42,11 +43,22 @@ app.set("view engine", "ejs");
 // Set views directory
 app.set("views", path.join(__dirname, "../views"));
 
-// Serve static files
 app.use(express.static(path.join(__dirname, "../public")));
+app.use(express.json());
 
 // Use routes
 app.use("/", indexRouter);
+
+// app.post("/form", (req, res) => {
+//   const { formId, ...formObject } = req.body;
+//   try {
+//     FormProcessor.processForm(formId, formObject);
+//   } catch (e) {
+//     console.error(e.message);
+//   } finally {
+//     res.send("Form submitted");
+//   }
+// });
 
 // app.listen(3000, () => {
 //   console.log("Server is running on http://localhost:3000");

@@ -5,7 +5,8 @@
     "@types/google-apps-script": "^1.0.89",
     "lit": "^3.2.1",
     "npm-run-all": "^4.1.5",
-    "prettier": "^3.4.2"
+    "prettier": "^3.4.2",
+    "vite": "^6.2.0"
   },
   "scripts": {
     "start": "npm-run-all --parallel clasp transpile-code export-locales",
@@ -18,6 +19,10 @@
   },
   "dependencies": {
     "ejs": "^3.1.10",
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "i18next": "^24.2.2",
+    "i18next-browser-languagedetector": "^8.0.4",
+    "i18next-http-backend": "^3.0.2",
+    "jquery-i18next": "^1.2.1"
   }
 }

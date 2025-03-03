@@ -7,8 +7,15 @@ const SPREADSHEET_ID = "1mO4clKaXB5KSpBq7cF8CDWtWiNadSouvTPqC83YhegY";
 const SHEET_NAME = "Form Responses";
 
 /** Endpoint router of the webapp. As of now, the only route served is the default. It serves index.html */
-function doGet(req) {
-  return getPage("index");
+function doGet() {
+  return ContentService.createTextOutput("GAS is working");
+}
+
+function doPost(req) {
+  const { formId, ...formObject } = req.parameter;
+  res = processForm(formId, formObject);
+
+  return res;
 }
 
 function processForm(formId, formObject) {
@@ -17,38 +24,16 @@ function processForm(formId, formObject) {
 
   try {
     FormProcessor.processForm(formId, formObject);
+    return ContentService.createTextOutput(JSON.stringify({ result: "ok" })).setMimeType(
+      ContentService.MimeType.JSON,
+    );
   } catch (e) {
-    // return ContentService
-    //   .createTextOutput(JSON.stringify({ 'result': 'error', 'error': e }))
-    //   .setMimeType(ContentService.MimeType.JSON)
     console.error(e.message);
     Logger.log(e);
+    return ContentService.createTextOutput(JSON.stringify({ result: "error", error: e })).setMimeType(
+      ContentService.MimeType.JSON,
+    );
   } finally {
     lock.releaseLock();
   }
-}
-
-function processAndSendNextPage(formId, formObject, page) {
-  processForm(formId, formObject);
-
-  if (page) {
-    return getPageContent(page);
-  } else {
-    return null;
-  }
-}
-
-// function handleFormResponseMedical(formObject) {
-//   const data = transformDataFromMedical(formObject);
-//   generateMedicalPDF(data);
-// }
-
-/**
- * Helper function to include script and stylesheet into the html code.
- * This is to avoid a limitation of the App Script editor
- * .js files are "html" files with a <script> tag
- * .css files are "html" files with a <style> tag
- */
-function include_(filename) {
-  return HtmlService.createHtmlOutputFromFile(filename).getContent();
 }

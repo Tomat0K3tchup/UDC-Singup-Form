@@ -1,10 +1,5 @@
 <div class="formWidth formDropShadow">
-  <form
-    name="liability-form"
-    enctype="multipart/form-data"
-    id="liability-form"
-    onsubmit="handleFormSubmit(this)"
-  >
+  <form name="liability-form" enctype="multipart/form-data" id="liability-form">
     <div class="formWrapper">
       <header-element data-i18n="[title]liability:title"></header-element>
 
@@ -31,7 +26,7 @@
         </fieldset>
 
         <fieldset id="liabilityStep" class="formStep legal">
-          <liability-layout></liability-layout>
+          <liability-layout pkg="<%= pkg %>"></liability-layout>
           <form-signature id="signature" data-i18n="[label]liability.signature" required></form-signature>
         </fieldset>
       </multi-step-form>

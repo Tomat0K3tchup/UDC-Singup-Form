@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title><%= title %></title>
+    <link rel="icon" href="/public/assets/udc-logo-tiny.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -19,129 +20,13 @@
     <link rel="stylesheet" href="/css/stylesheet.css" />
 
     <script src="/js/formHandling.js"></script>
-    <script src="/js/navigation.js"></script>
 
-    <script>
-      window.urlParams = {};
-
-      async function navigateTo(page, params = null) {
-        toggleSpinner(true);
-        try {
-          await google.script.run
-            .withSuccessHandler((html) => {
-              handleParams(params);
-              onLoadHTML(html);
-              // google.script.history.push({ page }, params, `${page}`);
-            })
-            .getPageContent(page);
-        } catch (error) {
-          console.error("Error fetching page content:", error);
-        }
-      }
-
-      function handleParams(_params) {
-        if (!_params) return;
-        window.urlParams = { ..._params };
-      }
-
-      window.onpopstate = (event) => {
-        const page = event.state?.page || "home"; // Default to home if no state
-        navigateTo(page);
-      };
-
-      // Initialize with the default page on load
-      window.onload = () => {
-        toggleSpinner();
-        google.script.url.getLocation((location) => {
-          const initialPage = location.hash.replace("#", "") || "home";
-          const params = location.parameters;
-          navigateTo(initialPage, params);
-        });
-      };
-
-      function handleFormSubmit(form) {
-        var payload = Object.fromEntries(new FormData(form));
-
-        // Because phone input is in the light DOM, it can't modify the form by itself
-        form.querySelectorAll("form-phone").forEach(($phoneInput) => {
-          if (!$phoneInput.value) return;
-          payload[$phoneInput.name] = $phoneInput.value;
-        });
-
-        console.log(payload);
-        toggleSpinner(true);
-
-        const nextPage = window.urlParams?.pathway?.shift();
-        window.urlParams = {
-          ...window.urlParams,
-          first_name: payload.first_name,
-          last_name: payload.last_name,
-          dob: payload.dob,
-          di: payload.di,
-          di_policy_nb: payload.di_policy_nb,
-        };
-
-        if (!nextPage) {
-          google.script.run.withSuccessHandler(handleSuccess).processForm(form.id, payload);
-          return;
-        }
-        google.script.run.withSuccessHandler(onLoadHTML).processAndSendNextPage(form.id, payload, nextPage);
-      }
-
-      function toggleSpinner(force = undefined) {
-        document.querySelector("spinner-modal").toggle(force);
-      }
-
-      function onLoadHTML(html) {
-        try {
-          const content = document.getElementById("content");
-          content.innerHTML = html;
-
-          $(content).localize();
-          preventFormSubmit();
-          prefillForm();
-        } catch (error) {
-          console.error("Error injecting HTML:", error);
-        } finally {
-          toggleSpinner(false);
-        }
-      }
-
-      function handleSuccess() {
-        document.querySelector("multi-step-form").style.display = "none";
-        document.querySelector("success-failure-display").toggleVisibility();
-        toggleSpinner(false);
-      }
-
-      function prefillForm() {
-        if (!window.urlParams) return;
-        console.log("params", window.urlParams);
-        const prefillKey = ["first_name", "last_name", "dob", "di", "di_policy_nb", "pkg"];
-        prefillKey.forEach((id) => {
-          const data = window.urlParams[id];
-          const ele = document.getElementById(id);
-          if (!data || !ele) return;
-          ele.value = data;
-        });
-      }
-
-      // Prevent forms from submitting.
-      function preventFormSubmit() {
-        const $form = document.forms.item(0);
-        if (!$form) return;
-        $form.addEventListener("submit", function (event) {
-          event.preventDefault();
-        });
-      }
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <script type="module" src="/js/i18n.js"></script>
   </head>
   <body>
     <%- include(page); %>
     <spinner-modal></spinner-modal>
-
-    <!-- prettier-ignore
-     include('dist/locales')%> 
-     include('dist/frontend/i18n') %> -->
 
     <!-- Duet Date -->
     <script
@@ -164,30 +49,26 @@
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.4.1/dist/js/tom-select.base.min.js"></script>
 
     <!-- Import custom components -->
-    <!-- prettier-ignore -->
-    <script src="/js/components/FormInput"></script>
-    <script src="/js/components/FormTab"></script>
-    <script src="/js/components/FormRadio"></script>
-    <script src="/js/components/FormPhone"></script>
-    <script src="/js/components/FormFile"></script>
-    <script src="/js/components/FormCountrySelect"></script>
-    <script src="/js/components/FormAccordion"></script>
-    <script src="/js/components/FormSignature"></script>
-    <script src="/js/components/SpinnerModal"></script>
-    <script src="/js/components/SuccessFailureDisplay"></script>
-    <script src="/js/components/DatePicker"></script>
-    <script src="/js/components/LanguageSelector"></script>
-    <!-- include('dist/frontend/elements/Header"></script>-->
+    <script type="module" src="/js/components/FormInput.js"></script>
+    <script type="module" src="/js/components/FormTab.js"></script>
+    <script type="module" src="/js/components/FormRadio.js"></script>
+    <script type="module" src="/js/components/FormPhone.js"></script>
+    <script type="module" src="/js/components/FormFile.js"></script>
+    <script type="module" src="/js/components/FormCountrySelect.js"></script>
+    <script type="module" src="/js/components/FormAccordion.js"></script>
+    <script type="module" src="/js/components/FormSignature.js"></script>
+    <script type="module" src="/js/components/SpinnerModal.js"></script>
+    <script type="module" src="/js/components/SuccessFailureDisplay.js"></script>
+    <script type="module" src="/js/components/DatePicker.js"></script>
+    <script type="module" src="/js/components/LanguageSelector.js"></script>
+    <script type="module" src="/js/elements/Header.js"></script>
 
-    <!-- Import custom layouts -->
-    <!-- prettier-ignore -->
-    <!-- include('dist/frontend/layouts/Liability"></script>
-    include('dist/frontend/layouts/SafeDiving"></script> -->
+    <script type="module" src="/js/layouts/Liability.js"></script>
+    <script type="module" src="/js/layouts/SafeDiving.js"></script>
+    <script type="module" src="/js/layouts/TC.js"></script>
 
     <!-- Auto-fill the liability page with the customer's full name from the personal details -->
     <script>
-      // Non ideal but allow the SPA to localize pages that were not loaded
-      document.addEventListener("activated", (e) => $(e.target).localize());
       document.addEventListener("activated", (e) => mirrorFullNameLiability(e));
       function mirrorFullNameLiability(e) {
         if (e.target.id != "liabilityStep") return;

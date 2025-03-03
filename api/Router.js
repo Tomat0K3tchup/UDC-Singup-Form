@@ -68,18 +68,33 @@ router.get("/", (req, res) => {
   });
 });
 
-router.get("/page1", (req, res) => {
+router.get("/udc", (req, res) => {
+  const pkg = _sanitizePkg(req.query.pkg);
   res.render("index", {
-    title: "Page 1",
-    page: "page1",
+    title: "UDC",
+    page: "udc",
+    pkg: pkg,
   });
 });
 
-router.get("/page2", (req, res) => {
+router.get("/liability", (req, res) => {
+  const pkg = _sanitizePkg(req.query.pkg);
   res.render("index", {
-    title: "Page 2",
-    page: "page2",
+    title: "Liability Release",
+    page: "liability",
+    pkg: pkg,
   });
 });
+
+router.get("/test", (req, res) => {
+  res.render("test");
+});
+
+function _sanitizePkg(reqPkg) {
+  const allowedPkg = ["fd", "ow", "aow", "goPro"];
+  const pkg = reqPkg && allowedPkg.includes(reqPkg) ? reqPkg : "fd";
+
+  return pkg;
+}
 
 export default router;
