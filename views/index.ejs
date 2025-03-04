@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= title %></title>
+    <link rel="icon" href="/public/assets/udc-logo-tiny.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+      integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="/css/stylesheet.css" />
+
+    <script src="/js/formHandling.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <script type="module" src="/js/i18n.js"></script>
+  </head>
+  <body>
+    <%- include(page); %>
+    <spinner-modal></spinner-modal>
+
+    <!-- Duet Date -->
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/@duetds/date-picker@1.4.0/dist/duet/duet.esm.js"
+    ></script>
+
+    <!-- IntTelInput -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/css/intlTelInput.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/js/intlTelInputWithUtils.min.js"></script>
+
+    <!-- TomSelect -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/tom-select@2.4.1/dist/css/tom-select.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.4.1/dist/js/tom-select.base.min.js"></script>
+
+    <!-- Import custom components -->
+    <script type="module" src="/js/components/FormInput.js"></script>
+    <script type="module" src="/js/components/FormTab.js"></script>
+    <script type="module" src="/js/components/FormRadio.js"></script>
+    <script type="module" src="/js/components/FormPhone.js"></script>
+    <script type="module" src="/js/components/FormFile.js"></script>
+    <script type="module" src="/js/components/FormCountrySelect.js"></script>
+    <script type="module" src="/js/components/FormAccordion.js"></script>
+    <script type="module" src="/js/components/FormSignature.js"></script>
+    <script type="module" src="/js/components/SpinnerModal.js"></script>
+    <script type="module" src="/js/components/SuccessFailureDisplay.js"></script>
+    <script type="module" src="/js/components/DatePicker.js"></script>
+    <script type="module" src="/js/components/LanguageSelector.js"></script>
+    <script type="module" src="/js/elements/Header.js"></script>
+
+    <script type="module" src="/js/layouts/Liability.js"></script>
+    <script type="module" src="/js/layouts/SafeDiving.js"></script>
+    <script type="module" src="/js/layouts/TC.js"></script>
+
+    <!-- Auto-fill the liability page with the customer's full name from the personal details -->
+    <script>
+      document.addEventListener("activated", (e) => mirrorFullNameLiability(e));
+      function mirrorFullNameLiability(e) {
+        if (e.target.id != "liabilityStep") return;
+        const $fullNameContainer = document.getElementById("full_name");
+        const $inputs = $fullNameContainer.querySelectorAll("form-input");
+
+        const fullName = $inputs[0].value + " " + $inputs[1].value;
+        const $nodesToReplace = document.getElementsByClassName("liabilityName");
+
+        Array.from($nodesToReplace).forEach(($node) => {
+          $node.innerHTML = fullName;
+        });
+      }
+    </script>
+  </body>
+</html>

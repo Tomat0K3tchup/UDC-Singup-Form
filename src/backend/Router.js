@@ -45,11 +45,14 @@ function getPageHTMLOutput(pageInfo, params) {
 
   template.data = { title: pageInfo.title, form: formPrefill };
 
-  return template
-    .evaluate()
-    .setTitle(pageInfo.title)
-    .addMetaTag("viewport", "width=device-width, initial-scale=1")
-    .setFaviconUrl("https://utiladivecenter.com/img/logo/UDC-LOGO-TINY.png");
+  return (
+    template
+      .evaluate()
+      .setTitle(pageInfo.title)
+      .addMetaTag("viewport", "width=device-width, initial-scale=1")
+      // .addMetaTag("Content-Security-Policy", "frame-ancestors 'self'")
+      .setFaviconUrl("https://utiladivecenter.com/img/logo/UDC-LOGO-TINY.png")
+  );
 }
 
 function getPageContent(pageName, params) {

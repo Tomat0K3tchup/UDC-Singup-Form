@@ -4,13 +4,8 @@
 # except the extensions…
 !appsscript.json
 !src/backend/**
-!dist/**
 !lib/**
-# !**/*.gs
-# !**/*.js
-# !**/*.ts
 
 # ignore even valid files if in…
 .git/**
 node_modules/**
-dist/frontend/archive/**

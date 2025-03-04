@@ -1,4 +1,9 @@
 import { LitElement, css, html } from "https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js";
+// import {
+//   t,
+//   updateWhenLocaleChanges,
+// } from "https://cdn.jsdelivr.net/npm/@weavedev/lit-i18next@2.0.0-rc.0/+esm";
+import { translate as t } from "https://cdn.jsdelivr.net/npm/lit-i18n@4.1.0/+esm";
 
 class MultiStepForm extends LitElement {
   static formAssociated = true;
@@ -136,15 +141,13 @@ class MultiStepForm extends LitElement {
     return html`
       <slot></slot>
       <div>
-        <button data-i18n="test" id="mf-prev-btn" class="secondary" @click=${this.prevSet}>
-          ${$.t("wizard.prev")}
-        </button>
+        <button id="mf-prev-btn" class="secondary" @click=${this.prevSet}>${t("wizard.prev")}</button>
         <p>
-          <span id="mf-current" data-i18n="test"></span> ${$.t("wizard.xStepsOfTotal")}
+          <span id="mf-current"></span> ${t("wizard.xStepsOfTotal")}
           <span id="mf-total">${this.totalSets}</span>
         </p>
-        <button data-i18n="test" id="mf-next-btn" class="primary" @click=${this.nextSet}>
-          ${this.current == this.totalSets - 1 ? $.t("wizard.submit") : $.t("wizard.next")}
+        <button id="mf-next-btn" class="primary" @click=${this.nextSet}>
+          ${this.current == this.totalSets - 1 ? t("wizard.submit") : t("wizard.next")}
         </button>
       </div>
     `;

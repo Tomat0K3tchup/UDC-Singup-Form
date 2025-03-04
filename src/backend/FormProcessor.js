@@ -1,4 +1,4 @@
-const FormProcessor = class FormProcessor {
+class FormProcessor {
   static processForm(formId, formObject) {
     const redactedForm = { ...formObject, signature: "redacted", id_file: "redacted" };
     console.info("Processing", formId, redactedForm);
@@ -40,8 +40,10 @@ const FormProcessor = class FormProcessor {
 
     sheet.getRange(nextRow, 1, 1, newRow.length).setValues([newRow]);
 
-    const folder = FileManager.getOrCreateCustomerFolder(formObject);
-    FormProcessor._generatePassportFile(formObject.id_file, folder);
+    if (formObject.id_file) {
+      const folder = FileManager.getOrCreateCustomerFolder(formObject);
+      FormProcessor._generatePassportFile(formObject.id_file, folder);
+    }
     //FIXME: checkboxes ??
     // const diCol = 11,
     //   tAndCCol = 19;
@@ -75,4 +77,4 @@ const FormProcessor = class FormProcessor {
     const blob = Utilities.newBlob(Utilities.base64Decode(data), mimeType, "ID picture");
     destinationFolder.createFile(blob);
   }
-};
+}
