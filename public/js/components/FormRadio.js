@@ -1,10 +1,11 @@
 import { LitElement, css, html } from "https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js";
+import { FormInput } from "./FormInput.js";
 
-export class FormInputRadio extends window.FormInput {
-  static properties = { ...window.FormInput.properties, options: { type: Object } };
+export class FormInputRadio extends FormInput {
+  static properties = { ...FormInput.properties, options: { type: Object } };
 
   static styles = [
-    window.FormInput.styles,
+    FormInput.styles,
     css`
       fieldset {
         margin: 0;

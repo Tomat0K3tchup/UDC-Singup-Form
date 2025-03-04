@@ -1,9 +1,10 @@
 import { LitElement, css, html } from "https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js";
 import SignaturePad from "https://cdn.jsdelivr.net/npm/signature_pad@5.0.4/+esm";
+import { FormInput } from "./FormInput.js";
 
-export class FormSignature extends window.FormInput {
+export class FormSignature extends FormInput {
   static styles = [
-    window.FormInput.styles,
+    FormInput.styles,
     css`
       :host {
         display: flex;

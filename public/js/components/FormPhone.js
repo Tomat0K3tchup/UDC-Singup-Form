@@ -1,7 +1,8 @@
 import { LitElement, css, html } from "https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js";
+import { FormInput } from "./FormInput.js";
 
-export class FormInputPhone extends window.FormInput {
-  static styles = window.FormInput.styles;
+export class FormInputPhone extends FormInput {
+  static styles = FormInput.styles;
 
   // Not ideal but used to import flag dropdown (except if better solution is available)
   createRenderRoot() {
@@ -21,7 +22,6 @@ export class FormInputPhone extends window.FormInput {
 
   updateValue(e) {
     this.value = this.itiHandler.getNumber();
-    console.log(this.value);
   }
 
   _getCountryFromBrowser(callback) {

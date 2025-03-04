@@ -1,12 +1,11 @@
 import { LitElement, css, html } from "https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js";
 // import "https://cdn.jsdelivr.net/npm/@duetds/date-picker@1.4.0/dist/duet/duet.esm.js";
 // import "https://cdn.jsdelivr.net/npm/@duetds/date-picker@1.4.0/dist/duet/duet.js;";
+import { FormInput } from "./FormInput.js";
 
-class DatePicker extends window.FormInput {
-  // static properties = { ...window.FormInput.properties };
-
+class DatePicker extends FormInput {
   static styles = [
-    window.FormInput.styles,
+    FormInput.styles,
     css`
       :host {
         --duet-color-primary: var(--main-bg-color);

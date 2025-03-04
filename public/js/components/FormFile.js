@@ -1,8 +1,9 @@
 import { LitElement, css, html } from "https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js";
+import { FormInput } from "./FormInput.js";
 
-export class FormInputFile extends window.FormInput {
+export class FormInputFile extends FormInput {
   static styles = [
-    window.FormInput.styles,
+    FormInput.styles,
     css`
       input[type="file"] {
         display: none;
@@ -11,7 +12,7 @@ export class FormInputFile extends window.FormInput {
   ];
 
   static properties = {
-    ...window.FormInput.properties,
+    ...FormInput.properties,
     accept: { type: String },
     capture: { type: String },
   };

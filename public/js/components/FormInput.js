@@ -5,7 +5,7 @@ import { LitElement, css, html } from "https://cdn.jsdelivr.net/gh/lit/dist@3/co
 
 const NAME_VALIDATION_REGEX = /^\s*[\p{L}](([ ,.'-](?<!( {2}|[,.'-]{2})))*[\p{L}])*[ ,.'-]?$/u;
 
-class FormInput extends LitElement {
+export class FormInput extends LitElement {
   static formAssociated = true;
   static styles = css`
     /* Same as formInput class */
@@ -236,4 +236,3 @@ class FormInput extends LitElement {
 }
 
 customElements.define("form-input", FormInput);
-window.FormInput = FormInput;

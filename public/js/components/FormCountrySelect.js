@@ -1,6 +1,7 @@
 import { LitElement, css, html } from "https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js";
+import { FormInput } from "./FormInput.js";
 
-export class FormCountrySelect extends window.FormInput {
+export class FormCountrySelect extends FormInput {
   // Not ideal but used to import flag dropdown (except if better solution is available)
   createRenderRoot() {
     return this;

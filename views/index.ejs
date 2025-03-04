@@ -6,7 +6,7 @@
 
     <title><%= title %></title>
 
-    <link rel="icon" href="/public/assets/udc-logo-tiny.png" />
+    <link rel="icon" type="image/png" href="/assets/udc-logo-tiny.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -52,23 +52,9 @@
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.4.1/dist/js/tom-select.base.min.js"></script>
 
     <!-- Import custom components -->
-    <script type="module" src="/js/components/FormInput.js"></script>
-    <script type="module" src="/js/components/FormTab.js"></script>
-    <script type="module" src="/js/components/FormRadio.js"></script>
-    <script type="module" src="/js/components/FormPhone.js"></script>
-    <script type="module" src="/js/components/FormFile.js"></script>
-    <script type="module" src="/js/components/FormCountrySelect.js"></script>
-    <script type="module" src="/js/components/FormAccordion.js"></script>
-    <script type="module" src="/js/components/FormSignature.js"></script>
-    <script type="module" src="/js/components/SpinnerModal.js"></script>
-    <script type="module" src="/js/components/SuccessFailureDisplay.js"></script>
-    <script type="module" src="/js/components/DatePicker.js"></script>
-    <script type="module" src="/js/components/LanguageSelector.js"></script>
+    <script type="module" src="/js/components/index.js"></script>
     <script type="module" src="/js/elements/Header.js"></script>
-
-    <script type="module" src="/js/layouts/Liability.js"></script>
-    <script type="module" src="/js/layouts/SafeDiving.js"></script>
-    <script type="module" src="/js/layouts/TC.js"></script>
+    <script type="module" src="/js/layouts/index.js"></script>
 
     <!-- Auto-fill the liability page with the customer's full name from the personal details -->
     <script>
