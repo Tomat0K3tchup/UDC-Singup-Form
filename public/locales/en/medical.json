@@ -1,7 +1,7 @@
 {
   "title": "Diver Medical",
-  "intro": "Recreational scuba diving and freediving requires good physical and mental health. There are a few medical conditions which can be hazardous while diving, listed below. Those who have, or are predisposed to, any of these conditions, should be evaluated by a physician. This Diver Medical Participant Questionnaire provides a basis to determine if you should seek out that evaluation. If you have any concerns about your diving fitness not represented on this form, consult with your physician before diving. If you are feeling ill, avoid diving. If you think you may have a contagious disease, protect yourself and others by not participating in dive training and/ or dive activities. References to “diving” on this form encompass both recreational scuba diving and freediving. This form is principally designed as an initial medical screen for new divers, but is also appropriate for divers taking continuing education. For your safety, and that of others who may dive with you, answer all questions honestly.",
-  "directions": "Complete this questionnaire as a prerequisite to a recreational scuba diving or freediving course. Note to women: If you are pregnant, or attempting to become pregnant, do not dive.",
+  "intro": "Recreational scuba diving and freediving requires good physical and mental health. There are a few medical conditions which can be hazardous while diving, listed below. Those who have, or are predisposed to, any of these conditions, should be evaluated by a physician. <b>This Diver Medical Participant Questionnaire provides a basis to determine if you should seek out that evaluation. If you have any concerns about your diving fitness not represented on this form, consult with your physician before diving.</b> If you are feeling ill, avoid diving. If you think you may have a contagious disease, protect yourself and others by not participating in dive training and/ or dive activities. References to “diving” on this form encompass both recreational scuba diving and freediving. This form is principally designed as an initial medical screen for new divers, but is also appropriate for divers taking continuing education. For your safety, and that of others who may dive with you, answer all questions honestly.",
+  "directions": "Complete this questionnaire as a prerequisite to a recreational scuba diving or freediving course.<br/><br/> <b>Note to women:</b> If you are pregnant, or attempting to become pregnant, do not dive.",
   "yesNoOptions": "[{\"value\": \"true\", \"label\": \"Yes\"}, {\"value\": \"false\", \"label\": \"No\"}]",
   "q1": "I have had problems with my lungs, breathing, heart and/or blood affecting my normal physical or mental performance.",
   "q2": "I am over 45 years of age.",
@@ -66,5 +66,9 @@
     "4": "Frequent heartburn, regurgitation, or gastroesophageal reflux disease (GERD).",
     "5": "Active or uncontrolled ulcerative colitis or Crohn's disease.",
     "6": "Bariatric surgery within the last 12 months."
+  },
+  "signature": {
+    "noMedical": "<b>You answered NO to all 10 questions, a medical evaluation is not required.</b> Please read and agree to the participant statement below by signing and dating it. Participant Statement: I have answered all questions honestly, and understand that I accept responsibility for any consequences resulting from any questions I may have answered inaccurately or for my failure to disclose any existing or past health conditions",
+    "medical": "<b>You answered YES to questions 3, 5 or 10 OR to any of the secondary questions</b>, please read and agree to the statement above by signing and dating it AND <b>take all three pages of this form (Participant Questionnaire and the Physician's Evaluation Form) to your physician for a medical evaluation.</b> Participation in a diving course requires your physician's approval."
   }
 }

@@ -86,6 +86,15 @@ router.get("/liability", (req, res) => {
   });
 });
 
+router.get("/medical", (req, res) => {
+  const pkg = _sanitizePkg(req.query.pkg);
+  res.render("index", {
+    title: "Diver Medical",
+    page: "medical",
+    pkg: pkg,
+  });
+});
+
 router.get("/test", (req, res) => {
   res.render("test");
 });
