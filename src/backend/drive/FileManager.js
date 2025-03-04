@@ -19,7 +19,6 @@ const FileManager = class FileManager {
 
   static _createCustomerFolder(folder, data) {
     const name = `${data.first_name} ${data.last_name}`;
-    // FIXME: package might need to be cleaned up
     const customerFolderName =
       data.pkg == "fd" ? `${name}` : `${data.instructor} - ${data.package} - ${name}`;
     return folder.createFolder(customerFolderName);

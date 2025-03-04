@@ -64,12 +64,8 @@ class Spinner extends LitElement {
   }
 
   toggle(force = undefined) {
-    console.log("init hidden", this.hidden);
     this.hidden = force !== undefined ? !force : !this.hidden;
     this.$container.style.display = this.hidden ? "none" : "flex";
-
-    console.log("toggle", force);
-    console.log("hidden", this.hidden);
 
     if (!this.hidden) {
       this.disableScroll();
