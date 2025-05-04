@@ -1,4 +1,12 @@
+# Node
 node_modules
-dist
+
+# IDE
 .vscode
+
+# Deployment
+dist
 .vercel
+
+# JJ
+.jj
