@@ -1,7 +1,7 @@
 import { LitElement, css, html } from "https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js";
 // FIXME: Rn the i18n process is a mix of lit-i18n inside render and accessing the global jQuery object for outside of render
 // This is less than ideal
-// import { translate as t } from "https://cdn.jsdelivr.net/npm/lit-i18n@4.1.0/+esm";
+import { t } from "../i18n.js";
 
 const NAME_VALIDATION_REGEX = /^\s*[\p{L}](([ ,.'-](?<!( {2}|[,.'-]{2})))*[\p{L}])*[ ,.'-]?$/u;
 
@@ -167,6 +167,9 @@ export class FormInput extends LitElement {
   }
 
   checkValidity() {
+    if (this._internals) {
+      this.updateFormValue();
+    }
     return this.$input.checkValidity();
   }
 
@@ -174,14 +177,14 @@ export class FormInput extends LitElement {
     const validity = this.validity;
 
     if (validity.valueMissing) {
-      return window.$.t("errors.required");
+      return t("errors.required");
     }
 
     if (validity.typeMismatch && this.type == "email") {
       const matchAtRegex = /@/;
       const matchAtAndDomainRegex = /.+@.+\..+/;
-      if (!this.value.match(matchAtRegex)) return window.$.t("errors.emailAt");
-      if (!this.value.match(matchAtAndDomainRegex)) return window.$.t("errors.emailDomain");
+      if (!this.value.match(matchAtRegex)) return t("errors.emailAt");
+      if (!this.value.match(matchAtAndDomainRegex)) return t("errors.emailDomain");
     }
 
     return this.$input.validationMessage;

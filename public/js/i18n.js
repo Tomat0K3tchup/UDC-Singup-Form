@@ -1,4 +1,4 @@
-import { translate as t, initLitI18n } from "https://cdn.jsdelivr.net/npm/lit-i18n@4.1.0/+esm";
+import { translate, initLitI18n } from "https://cdn.jsdelivr.net/npm/lit-i18n@4.1.0/+esm";
 import i18next from "https://cdn.jsdelivr.net/npm/i18next@20.4.0/+esm";
 import jqueryI18next from "https://cdn.jsdelivr.net/npm/jquery-i18next@1.2.1/+esm";
 import HttpBackend from "https://cdn.jsdelivr.net/npm/i18next-http-backend@3.0.2/+esm";
@@ -43,3 +43,4 @@ i18next.on("languageChanged", function (lng) {
 });
 
 export const i18n = i18next;
+export const t = translate;
