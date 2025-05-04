@@ -1,26 +1,13 @@
-// import { i18next } from '@weavedev/lit-i18next';
 import { translate as t, initLitI18n } from "https://cdn.jsdelivr.net/npm/lit-i18n@4.1.0/+esm";
 import i18next from "https://cdn.jsdelivr.net/npm/i18next@20.4.0/+esm";
 import jqueryI18next from "https://cdn.jsdelivr.net/npm/jquery-i18next@1.2.1/+esm";
 import HttpBackend from "https://cdn.jsdelivr.net/npm/i18next-http-backend@3.0.2/+esm";
 import LanguageDetector from "https://cdn.jsdelivr.net/npm/i18next-browser-languagedetector@8.0.4/+esm";
 
-// class MyApp extends LitElment {
-//   i18nInit = i18next.init({
-//      ...options
-//   });
-
-//   protected async performUpdate(): Promise<unknown> {
-//     await this.i18nInit;
-
-//     return super.performUpdate();
-//   }
-// }
-
 // TODO: Transform to have this work with esm modules
 
 const namespaces = ["form", "liability", "medical", "safeDiving", "tAndC"];
-const supportedLngs = ["en"];
+export const supportedLngs = ["en", "es"];
 
 i18next
   .use(HttpBackend)
@@ -54,3 +41,5 @@ i18next.on("languageChanged", function (lng) {
     $("body").localize();
   }
 });
+
+export const i18n = i18next;

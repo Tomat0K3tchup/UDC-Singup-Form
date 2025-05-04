@@ -1,4 +1,5 @@
 import { LitElement, css, html } from "https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js";
+import { i18n, supportedLngs } from "../i18n.js";
 
 class LanguageSelector extends LitElement {
   static styles = css`
@@ -12,20 +13,31 @@ class LanguageSelector extends LitElement {
   `;
   constructor() {
     super();
-    this.lngs = $.i18n.options.supportedLngs.filter((lng) => lng !== "cimode");
+    this.lngs = supportedLngs;
+    this.languageResources = "public/locales/{{lng}}/{{ns}}.json";
+  }
+
+  firstUpdated() {
+    super.firstUpdated();
+
+    console.log(i18n);
+
+    i18n.on("initialized", () => {
+      this.$select.value = i18n.language;
+      this.requestUpdate();
+    });
+
+    i18n.on("languageChanged", () => {
+      this.requestUpdate();
+    });
   }
 
   get $select() {
     return this.renderRoot.querySelector("select");
   }
 
-  firstUpdated() {
-    super.firstUpdated();
-    this.$select.value = $.i18n.resolvedLanguage;
-  }
-
   handleChange() {
-    $.i18n.changeLanguage(this.$select.value);
+    i18n.changeLanguage(this.$select.value);
   }
 
   render() {
