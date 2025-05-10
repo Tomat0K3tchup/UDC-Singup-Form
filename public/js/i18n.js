@@ -20,7 +20,7 @@ import LanguageDetector from "https://cdn.jsdelivr.net/npm/i18next-browser-langu
 // TODO: Transform to have this work with esm modules
 
 const namespaces = ["form", "liability", "medical", "safeDiving", "tAndC"];
-const supportedLngs = ["en", "es"];
+const supportedLngs = ["en"];
 
 i18next
   .use(HttpBackend)
@@ -30,6 +30,7 @@ i18next
     {
       debug: false,
       load: "languageOnly",
+      preload: supportedLngs,
       backend: { loadPath: "/locales/{{lng}}/{{ns}}.json" },
       ns: namespaces,
       supportedLngs: supportedLngs,
