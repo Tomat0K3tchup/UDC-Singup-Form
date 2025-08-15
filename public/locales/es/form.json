@@ -6,7 +6,7 @@
     "lastName": "Apellido",
     "dob": "Fecha de nacimiento",
     "email": "Correo electrónico",
-    "address": "Dirección de correo",
+    "address": "Dirección de domicilio",
     "phone": "Número de teléfono"
   },
   "emergency": {

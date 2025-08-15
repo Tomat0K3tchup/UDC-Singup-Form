@@ -31,7 +31,7 @@
 import express from "express";
 import path from "path";
 import indexRouter from "./Router.js";
-// import FormProcessor from "../src/backend/FormProcessor.js";
+import {FormProcessor} from "../src/backend/FormProcessor.js";
 
 const app = express();
 
@@ -49,20 +49,20 @@ app.use(express.json());
 // Use routes
 app.use("/", indexRouter);
 
-// app.post("/form", (req, res) => {
-//   const { formId, ...formObject } = req.body;
-//   try {
-//     FormProcessor.processForm(formId, formObject);
-//   } catch (e) {
-//     console.error(e.message);
-//   } finally {
-//     res.send("Form submitted");
-//   }
+app.post("/form", (req, res) => {
+  const { formId, ...formObject } = req.body;
+  try {
+    FormProcessor.processForm(formId, formObject);
+  } catch (e) {
+    console.error(e.message);
+  } finally {
+    res.send("Form submitted");
+  }
 
-// });
-
-app.listen(3000, () => {
-  console.log("Server is running on http://localhost:3000");
 });
+
+// app.listen(3000, () => {
+//   console.log("Server is running on http://localhost:3000");
+// });
 
 export default app;

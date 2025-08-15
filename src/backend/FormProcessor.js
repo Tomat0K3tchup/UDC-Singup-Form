@@ -1,4 +1,4 @@
-class FormProcessor {
+export class FormProcessor {
   static processForm(formId, formObject) {
     const redactedForm = { ...formObject, signature: "redacted", id_file: "redacted" };
     console.info("Processing", formId, redactedForm);
