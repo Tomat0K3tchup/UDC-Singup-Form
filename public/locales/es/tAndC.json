@@ -59,7 +59,7 @@
       "largeGameEncounter": {
         "description": "En caso de que durante el recorrido se presenten encuentros con grandes mamíferos marinos, como ballenas, tiburón ballena o delfines, el buzo puede optar por entrar al agua para nadar con ellos (actividad opcional). Si decide hacerlo, deberá realizar un pago directamente al capitán al regresar al centro de buceo, según las siguientes tarifas:",
         "extra": {
-          "whaleSharks": "<b>350 Lps</b> por encuentros con ballenas o tiburón ballena",
+          "whaleSharks": "<b>500 Lps</b> por encuentros con ballenas o tiburón ballena",
           "dolphins": "<b>250 Lps</b> por encuentros con delfines"
         }
       },

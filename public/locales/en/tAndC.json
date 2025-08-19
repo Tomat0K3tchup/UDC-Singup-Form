@@ -54,7 +54,7 @@
       "largeGameEncounter": {
         "description": "In the event of a large game encounter, should you choose to enter the water (this is not required), there is a mandatory minimum fee to be paid directly to the Captain upon return to the Dive Centre:",
         "extra": {
-          "whaleSharks": "<b>350 Lps or $14</b> for Whale Sharks & Pilot Whales",
+          "whaleSharks": "<b>500 Lps or $20</b> for Whale Sharks & Pilot Whales",
           "dolphins": "<b>250 Lps or $10</b> for Dolphins"
         }
       },
@@ -74,7 +74,7 @@
       "FFD4Life": "Unlimited diving is included in packages containing Divemaster and MSDT or IDC from January 2024. Should customers repeatedly turn up late or not at all Utila Dive Center reserves the right to remove this offer. To begin the DM program, you must have at least 40 logged dives. If you have less than 40 dives, you may complete additional dives (called PreWeek Dives) for $10 per tank. For any dive cancellations for these guided dives, the office must be notified before 5.00pm on the day prior to the dive trip or the dives will be charged.",
       "goProRoom": "If you plan to be away for a week or more, we kindly ask that you remove your equipment from the GoPro room. Please keep in mind that our team conducts occasional random cleanups in this area to maintain organization and safety. Utila Dive Center cannot be held responsible for any items that may go missing during this process. We recommend taking your equipment with you or storing it in a secure location to ensure its safety.",
       "courseDelays": "Course schedules and dive trips are offered in good faith. The management reserves the right to delay the start ofa course / dive package and is not responsible for delays due to weather conditions or any other unexpected situations that may arise. Should a course be delayed for any reason, students in the Mango Inn will be charged standard room rates.",
-      "reimbursement": "After a course or dive package has commenced, no reimbursements can be made.",
+      "reimbursement": "After course or dive package has commenced, no reimbursements can be made on the entire package. However, should sickness or other special circumstances force a candidate to withdraw from the program then they can join the next scheduled course at no extra charge (at the discretion of the management).",
       "paymentUponArrival": {
         "general": "Full payment for all diving and course packages and accommodation must be completed upon arrival and prior to the start of any program or dives.",
         "goPro": "Full payment for all GoPro Packages must be completed prior to the start of any programs or dives."
@@ -87,7 +87,7 @@
       },
       "makeUp": "Courses are scheduled so they can be finished in the number of days allocated. Should a student miss either a classroom or water session, he or she will have to reimburse the instructor at the rate of $20 per classroom session and $35 per water session. The session will be made up at the Instructor's convenience.",
       "cardFees": "All prices are listed in USD. However, payments can also be made in Lempira at the most recent exchange rate set by the Dive center, which is subject to change at any time without notice. Additionally, payments can be made using credit or debit cards, but please note that a bank fee will apply.",
-      "nbTanks": "Dive trips are two tanks; Single-tank trips are available only with specific 3-dive Resort packages. Night dives can be scheduled upon request as long as weather permits and are dependent on shop logistics and a minimum number of divers. Night dive trips are single tanks trips and are charged as a two-tank trip.",
+      "nbTanks": "Dive trips are two tanks; If a diver decides to skip the second dive (whether due to seasickness, not feeling well, or any other reason), they forfeit that dive. It cannot be rescheduled or replaced with a \"one-tank\" on another trip. Night dives can be scheduled upon request as long as weather permits and are dependent on shop",
       "goPro": "The GoPro package is a 'Development' program. Please be open-minded and display a professional attitude and demeanor during the program and be flexible to change.",
       "tablet": "When scheduling requires, tablets may be issued to students to study from. Students will be charged full replacement cost of $100 for any loss or damage including but not limited to water damage, theft and screen breakages."
     }
