@@ -6,7 +6,7 @@
       "intro": "Si el estudiante decide no completar el curso por cualquier motivo, se aplicarán los siguientes cargos según el progreso realizado:",
       "conditions": {
         "reservation": "<b>Reservas:</b> El depósito de $200 no es reembolsable en ningún caso.",
-        "1day": "<b>Después de 1 día de curso:</b> $150 (instrucción)  + $3 (impuesto de arrecife) + $110 (materiales) + 1 noche en dormitorio compartido gratis.",
+        "1day": "<b>Después de 1 día de curso:</b> $150 (instrucción) + $3 (impuesto de arrecife) + $110 (materiales) + 1 noche en dormitorio compartido gratis.",
         "2days": "<b>Después de 2 días de curso, si no se ha realizado ninguna salida en barco:</b> $180 (instrucción) + $6 (impuesto de arrecife) + $110 (materiales) + 2 noches en dormitorio compartido gratis.",
         "3days": "<b>Después de 2 días si ya se realizó una salida en barco, o después de 3 días en todos los casos:</b> No aplica ningún reembolso."
       }
@@ -22,7 +22,6 @@
         "title": "Importante:",
         "ffd": "Los buceos gratis ofrecidos como parte de un curso (Open Water, Advanced, Rescue) solo pueden utilizarse hasta el día siguiente de haber finalizado el curso. No son acumulables ni transferibles a otra persona."
       }
-    
     },
     "goPro": {
       "title": "",
@@ -78,8 +77,8 @@
       "floodedRegulator": "Se hará un cargo de $20 en caso de que el regulador sea enjuagado sin la tapa protectora. Se hará un cargo de $80 en caso de que el Manómetro Sumergible sea inundado y necesite reemplazo.",
       "FFD4Life": "",
       "goProRoom": "",
-      "tablet": "Cuando sea necesario por horarios, se podrá prestar a los alumnos una tableta electrónica para estudiar. Se cobrará a los estudiantes el costo completo de remplazo de $100 por cualquier daño o pérdida incluyendo, pero no limitado a: daños por agua, robo o rotura de pantalla.",
-      "courseDelays": "Los cursos y viajes de buceo están programados de buena fe. UDC se reserva el derecho de cancelar o posponer cursos y paquetes de buceo en caso de situaciones fuera de su control y No se hace responsable por condiciones meteorológicas adversas u otras circunstancias imprevistas. En caso de retrasos por este tipo de situaciones, las noches adicionales de hotel se cobrarán a tarifa regular.",
+      "tablet": "Cuando sea necesario por horarios, se podrá prestar a los alumnos una tableta electrónica para estudiar. Se cobrará a los estudiantes el costo completo de reemplazo de $100 por cualquier daño o pérdida incluyendo, pero no limitado a: daños por agua, robo o rotura de pantalla.",
+      "courseDelays": "Los cursos y viajes de buceo están programados de buena fe. UDC se reserva el derecho de cancelar o posponer cursos y paquetes de buceo en caso de situaciones fuera de su control y no se hace responsable por condiciones meteorológicas adversas u otras circunstancias imprevistas. En caso de retrasos por este tipo de situaciones, las noches adicionales de hotel se cobrarán a tarifa regular.",
       "nbTanks": "Cada viaje de buceo incluye el uso de dos tanques. Los buceos nocturnos se programan a solicitud de los clientes, siempre que las condiciones meteorológicas lo permitan y dependiendo de la logística del centro y el número mínimo de participantes. Los buceos nocturnos son de un solo tanque, pero se cobran como si fueran de dos tanques.",
       "reimbursement": "Una vez que haya comenzado un curso o paquete de buceo, no se realizarán reembolsos completos en caso de cancelación. Sin embargo, en situaciones extremas como enfermedad o emergencia, el estudiante podrá unirse a un curso futuro sin costo adicional, sujeto a la aprobación de la gerencia.",
       "makeUp": "Los cursos están diseñados para finalizar en los días establecidos. Si un estudiante se ausenta de una sesión teórica o práctica, esta se reprogramará según la disponibilidad del instructor. La reprogramación tendrá un costo de $20 por sesiones teóricas y $35 por sesiones en el agua.",

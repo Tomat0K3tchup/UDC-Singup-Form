@@ -12,7 +12,7 @@
   "emergency": {
     "title": "Emergency Contact",
     "fullName": "Full Name",
-    "relation": "Relationship",
+    "relation": "Relación",
     "phone": "Phone",
     "di": {
       "label": "Do you have a dive insurance?",
