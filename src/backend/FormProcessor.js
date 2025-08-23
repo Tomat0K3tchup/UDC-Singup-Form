@@ -1,19 +1,27 @@
+const FormsTypes = Object.freeze({
+  UDC: 'udc-form',
+  LIABILITY: 'liability-form',
+  SAFE_DIVING: 'safeDiving-form',
+  MEDICAL: 'medical-form'
+});
+
+
 export class FormProcessor {
   static processForm(formId, formObject) {
     const redactedForm = { ...formObject, signature: "redacted", id_file: "redacted" };
     console.info("Processing", formId, redactedForm);
 
     switch (formId) {
-      case "udc-form":
+      case FormsTypes.UDC:
         FormProcessor._processUDCForm(formObject);
         break;
-      case "liability-form":
+      case FormsTypes.LIABILITY:
         FormProcessor._processLiabilityForm(formObject);
         break;
-      case "safeDiving-form":
+      case FormsTypes.LIABILITY:
         FormProcessor._processSafeDiving(formObject);
         break;
-      case "medical-form":
+      case FormsTypes.MEDICAL:
         FormProcessor._processMedicalForm(formObject);
         break;
       default:
