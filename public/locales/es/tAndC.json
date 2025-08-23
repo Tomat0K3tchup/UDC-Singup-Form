@@ -6,8 +6,8 @@
       "intro": "Si el estudiante decide no completar el curso por cualquier motivo, se aplicarán los siguientes cargos según el progreso realizado:",
       "conditions": {
         "reservation": "<b>Reservas:</b> El depósito de $200 no es reembolsable en ningún caso.",
-        "1day": "<b>Después de 1 día de curso:</b> $150 (instrucción)  + $3 (impuesto de arrecife) + $90 (materiales) + 1 noche en dormitorio compartido gratis.",
-        "2days": "<b>Después de 2 días de curso, si no se ha realizado ninguna salida en barco:</b> $180 (instrucción) + $6 (impuesto de arrecife) + $90 (materiales) + 2 noches en dormitorio compartido gratis.",
+        "1day": "<b>Después de 1 día de curso:</b> $150 (instrucción)  + $3 (impuesto de arrecife) + $110 (materiales) + 1 noche en dormitorio compartido gratis.",
+        "2days": "<b>Después de 2 días de curso, si no se ha realizado ninguna salida en barco:</b> $180 (instrucción) + $6 (impuesto de arrecife) + $110 (materiales) + 2 noches en dormitorio compartido gratis.",
         "3days": "<b>Después de 2 días si ya se realizó una salida en barco, o después de 3 días en todos los casos:</b> No aplica ningún reembolso."
       }
     },
