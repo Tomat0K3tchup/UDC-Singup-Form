@@ -35,12 +35,18 @@ i18next
   );
 
 i18next.on("languageChanged", function (lng) {
-  console.log("languageChanged", lng);
-
   if ($.i18n) {
     $("body").localize();
   }
+  updateFormLanguage(lng);
 });
+
+function updateFormLanguage(lng) {
+  const langInput = document.getElementById("form_language");
+  if (langInput) langInput.value = lng;
+}
+
+document.addEventListener("DOMContentLoaded", updateFormLanguage);
 
 export const i18n = i18next;
 export const t = translate;
