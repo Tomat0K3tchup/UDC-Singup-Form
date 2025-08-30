@@ -1,12 +1,11 @@
 const FormsTypes = Object.freeze({
-  UDC: 'udc-form',
-  LIABILITY: 'liability-form',
-  SAFE_DIVING: 'safeDiving-form',
-  MEDICAL: 'medical-form'
+  UDC: "udc-form",
+  LIABILITY: "liability-form",
+  SAFE_DIVING: "safeDiving-form",
+  MEDICAL: "medical-form",
 });
 
-
-export class FormProcessor {
+class FormProcessor {
   static processForm(formId, formObject) {
     const redactedForm = { ...formObject, signature: "redacted", id_file: "redacted" };
     console.info("Processing", formId, redactedForm);
