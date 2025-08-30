@@ -21,7 +21,10 @@ function withUI(fn) {
 const createSelectedRowsDocumentsWithUi = () => withUI(createSelectedRowsDocuments);
 
 function createSelectedRowsDocuments() {
-  const sheet = SpreadsheetApp.getActive().getSheetByName(SHEET_NAME);
+  const propertyService = PropertiesService.getScriptProperties();
+  const sheetName = propertyService.getProperty("sheetName");
+
+  const sheet = SpreadsheetApp.getActive().getSheetByName(sheetName);
 
   const selection = sheet.getSelection();
   if (!selection) throw new Error("Please select the rows you want to use for paperwork creation.");
