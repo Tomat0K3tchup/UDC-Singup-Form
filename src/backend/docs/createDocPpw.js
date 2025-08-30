@@ -4,9 +4,14 @@ const DESTINATION_FOLDER_ID = "1eUidUtWoJaFE6MzZE-9p3exhd03UNagU";
 const DEBUG_CREATE_FILE = true;
 const DEBUG_FILE_ID = "1gI_7XX1kzRNJXaYkVTbqmUEZK_OD3kKVGR_mIxPwJts";
 
-function createTemplatedDoc(destinationFolder) {
+const LANG_TO_TEMPLATE_ID_MAP = {
+  en: "1KC-eK-c23lJdM4egjqk60v3l9SbQ0_ZW9KCPa-EEZPQ",
+  es: "1K1nt-WWDd-luARLEhCWPqPy4ztJEWiVuORHN3F-Yt34",
+};
+
+function createTemplatedDoc(destinationFolder, lang) {
   // FIXME: no partial updates
-  var template = DriveApp.getFileById(TEMPLATE_FILE_ID);
+  var template = DriveApp.getFileById(LANG_TO_TEMPLATE_ID_MAP[lang]);
   return template.makeCopy(destinationFolder);
 }
 
@@ -75,7 +80,8 @@ function searchAndReplaceBoolean(body, key, value) {
 }
 
 function createCustomerDoc(data, destinationFolder) {
-  var file = createTemplatedDoc(destinationFolder);
+  const lang = data.form_language || "en";
+  var file = createTemplatedDoc(destinationFolder, lang);
   var doc = DocumentApp.openById(file.getId());
 
   searchAndReplace(doc, data);
