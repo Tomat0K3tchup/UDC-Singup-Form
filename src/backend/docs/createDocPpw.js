@@ -9,9 +9,18 @@ const LANG_TO_TEMPLATE_ID_MAP = {
   es: "1K1nt-WWDd-luARLEhCWPqPy4ztJEWiVuORHN3F-Yt34",
 };
 
+const DEFAULT_LANG = "en";
+
+function parseLanguageCode(code) {
+  if (typeof code !== "string") return null;
+  return code.split("-")[0].toLowerCase();
+}
+
 function createTemplatedDoc(destinationFolder, lang) {
   // FIXME: no partial updates
-  var template = DriveApp.getFileById(LANG_TO_TEMPLATE_ID_MAP[lang]);
+  const parseLang = parseLanguageCode(lang);
+  const templateKey = parseLang in LANG_TO_TEMPLATE_ID_MAP ? parseLang : DEFAULT_LANG;
+  const template = DriveApp.getFileById(LANG_TO_TEMPLATE_ID_MAP[templateKey]);
   return template.makeCopy(destinationFolder);
 }
 
@@ -80,9 +89,13 @@ function searchAndReplaceBoolean(body, key, value) {
 }
 
 function createCustomerDoc(data, destinationFolder) {
-  const lang = data.form_language || "en";
-  var file = createTemplatedDoc(destinationFolder, lang);
-  var doc = DocumentApp.openById(file.getId());
+  const lang = data.form_language;
+  try {
+    var file = createTemplatedDoc(destinationFolder, lang);
+    var doc = DocumentApp.openById(file.getId());
+  } catch (e) {
+    console.error(e);
+  }
 
   searchAndReplace(doc, data);
   insertImageAndExport(doc, data.signature);
