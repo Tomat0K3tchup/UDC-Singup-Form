@@ -78,7 +78,6 @@ export class FormInputFile extends FormInput {
             id="${this.id}"
             type="file"
             accept="${this.accept}"
-            capture="${this.capture}"
             @input=${(e) => this.handleInput(e)}
             @blur=${this.onBlurValidation}
             @invalid=${() => this.toggleError(true)}
