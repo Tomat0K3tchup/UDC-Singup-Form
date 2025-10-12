@@ -8,23 +8,27 @@ const FormsTypes = Object.freeze({
 class FormProcessor {
   static processForm(formId, formObject) {
     const redactedForm = { ...formObject, signature: "redacted", id_file: "redacted" };
-    console.info("Processing", formId, redactedForm);
+    Logger.info("Processing", formId, redactedForm);
 
-    switch (formId) {
-      case FormsTypes.UDC:
-        FormProcessor._processUDCForm(formObject);
-        break;
-      case FormsTypes.LIABILITY:
-        FormProcessor._processLiabilityForm(formObject);
-        break;
-      case FormsTypes.LIABILITY:
-        FormProcessor._processSafeDiving(formObject);
-        break;
-      case FormsTypes.MEDICAL:
-        FormProcessor._processMedicalForm(formObject);
-        break;
-      default:
-        console.error("Invalid formId: " + formId);
+    try {
+      switch (formId) {
+        case FormsTypes.UDC:
+          FormProcessor._processUDCForm(formObject);
+          break;
+        case FormsTypes.LIABILITY:
+          FormProcessor._processLiabilityForm(formObject);
+          break;
+        case FormsTypes.LIABILITY:
+          FormProcessor._processSafeDiving(formObject);
+          break;
+        case FormsTypes.MEDICAL:
+          FormProcessor._processMedicalForm(formObject);
+          break;
+        default:
+          Logger.error("Invalid formId: " + formId);
+      }
+    } catch (e) {
+      Logger.error(e);
     }
   }
 
