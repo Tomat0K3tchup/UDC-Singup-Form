@@ -5,10 +5,9 @@
       "title": "Courses",
       "intro": "Should a student fail to complete their course for any reason, charges shall be levied as follows:",
       "conditions": {
-        "reservation": "<b>After reservation only: </b> the $200 deposit will not be refunded.",
-        "1day": "<b>After 1 day: </b> 150 + $3 reef fee + $110 materials and 1 free night at the hotel.",
-        "2days": "<b>After 2 days if no boat/diving trip has been taken: </b> 180 + $6 reef fee + $110 materials and 2 free nights at the hotel.",
-        "3days": "<b>After 2 days if the student has been on a boat/diving trip, or after 3 days regardless: </b> no refund will be offered."
+        "reservation": "<b>After reservation only:</b> the $200 deposit will not be refunded.",
+        "1day": "<b>If the student withdraws in the course of the first day:</b> $150 + $3 reef fee + $100 materials + 1 free night at the hotel.",
+        "more": "<b>After completing Day 1 or more:</b> No refund will be offered."
       }
     },
     "room": {

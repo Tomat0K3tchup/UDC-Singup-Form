@@ -54,10 +54,7 @@ class TAndCLayout extends LitElement {
             <p data-i18n="[html]tAndC:refund.courses.conditions.1day"></p>
           </li>
           <li>
-            <p data-i18n="[html]tAndC:refund.courses.conditions.2days"></p>
-          </li>
-          <li>
-            <p data-i18n="[html]tAndC:refund.courses.conditions.3days"></p>
+            <p data-i18n="[html]tAndC:refund.courses.conditions.more"></p>
           </li>
         </ul>
 
