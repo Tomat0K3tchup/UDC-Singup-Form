@@ -15,7 +15,7 @@ async function handleFormSubmit(event) {
     const body = new URLSearchParams(payload);
 
     const response = await fetch(
-      "https://script.google.com/macros/s/AKfycbxXYwcBcGuOi_GCAyTJ53OprOxPeyh1eA3JoNWKt3_0wveaLtQKIfd5Wglh9RnNZV8/exec",
+      "https://script.google.com/macros/s/AKfycbxMJBv7SQsFBsIz2emct58L-sPo_r-3MAhOmgowSQf4HiPuzkH0XZ1NCzm5__f0bU7Y/exec",
       {
         method: "POST",
         // cache: "no-cache",
