@@ -1,9 +1,3 @@
-const TEMPLATE_FILE_ID = "1KC-eK-c23lJdM4egjqk60v3l9SbQ0_ZW9KCPa-EEZPQ";
-const DESTINATION_FOLDER_ID = "1eUidUtWoJaFE6MzZE-9p3exhd03UNagU";
-// FIXME: use properties
-const DEBUG_CREATE_FILE = true;
-const DEBUG_FILE_ID = "1gI_7XX1kzRNJXaYkVTbqmUEZK_OD3kKVGR_mIxPwJts";
-
 const LANG_TO_TEMPLATE_ID_MAP = {
   en: "1KC-eK-c23lJdM4egjqk60v3l9SbQ0_ZW9KCPa-EEZPQ",
   es: "1K1nt-WWDd-luARLEhCWPqPy4ztJEWiVuORHN3F-Yt34",
@@ -40,7 +34,7 @@ function searchAndReplace(doc, data) {
   for (const key in clientInfo) {
     try {
       var value;
-      if (key == "dob" || key.includes("date")) {
+      if (isDateKey(key) && clientInfo[key] !== "") {
         value = formatDate(new Date(clientInfo[key]));
       } else {
         value = clientInfo[key];
@@ -100,6 +94,10 @@ function createCustomerDoc(data, destinationFolder) {
   searchAndReplace(doc, data);
   insertImageAndExport(doc, data.signature);
   file.setName(`${data.first_name} ${data.last_name} - ${formatDate(data.date)}`);
+}
+
+function isDateKey(key) {
+  return key == "dob" || key.includes("date");
 }
 
 function formatDate(date) {
