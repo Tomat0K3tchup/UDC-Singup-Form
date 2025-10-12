@@ -1,3 +1,15 @@
+const FOLDER_NAMES = {
+  REC: "Recreational",
+  GO_PRO: "GoPro",
+};
+
+const PACKAGE_NAMES = {
+  FD: "fd",
+  OW: "ow",
+  CONED: "aow",
+  GO_PRO: "goPro",
+};
+
 const FileManager = class FileManager {
   static getOrCreateCustomerFolder(data) {
     const currentWeekFolder = FileManager._getOrCreateWeekFolder();
@@ -20,7 +32,7 @@ const FileManager = class FileManager {
   static _createCustomerFolder(folder, data) {
     const name = `${data.first_name} ${data.last_name}`;
     const customerFolderName =
-      data.pkg == "fd" ? `${name}` : `${data.instructor} - ${data.package} - ${name}`;
+      data.pkg == PACKAGE_NAMES.FD ? `${name}` : `${data.instructor} - ${data.package} - ${name}`;
     return folder.createFolder(customerFolderName);
   }
 
@@ -56,8 +68,8 @@ const FileManager = class FileManager {
       throw new Error("Couldn't create folder for current week.");
     }
 
-    newFolder.createFolder("Courses");
-    newFolder.createFolder("Fun Divers");
+    newFolder.createFolder(FOLDER_NAMES.REC);
+    newFolder.createFolder(FOLDER_NAMES.GO_PRO);
 
     // Update Property Service with new folder ID and last update date
     propertyService.setProperty("lastWeekUpdateDate", nextSunday.toISOString());
@@ -102,7 +114,9 @@ const FileManager = class FileManager {
   }
 
   static _subPkgFolder(weekFolder, pkg) {
-    const folderName = pkg.toLowerCase().includes("fd") ? "Fun Divers" : "Courses";
+    const folderName = pkg.toLowerCase().includes(PACKAGE_NAMES.GO_PRO)
+      ? FOLDER_NAMES.GO_PRO
+      : FOLDER_NAMES.REC;
 
     const folderIt = weekFolder.getFoldersByName(folderName);
     if (!folderIt.hasNext()) throw new Error("Failed to find a valid folder");
@@ -115,10 +129,10 @@ const FileManager = class FileManager {
   }
 
   static _getWeekRange(date) {
-    const day = date.getDay();
-    const diffToMonday = (day === 0 ? -6 : 1) - day; // Adjust for Sunday (0)
+    const weekDayOfToday = date.getDay();
+    const diffInDayToPreviousMonday = (weekDayOfToday === 0 ? -6 : 1) - weekDayOfToday; // Adjust for Sunday (0)
     const lastMonday = new Date(date);
-    lastMonday.setDate(lastMonday.getDate() + diffToMonday);
+    lastMonday.setDate(lastMonday.getDate() + diffInDayToPreviousMonday);
 
     const lastMondayNoTime = new Date(
       lastMonday.getFullYear(),
