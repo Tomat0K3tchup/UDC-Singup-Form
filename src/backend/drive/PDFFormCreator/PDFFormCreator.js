@@ -18,13 +18,11 @@ function testLiability() {
 
 async function generateLiabilityPDF(clientData, destinationFolder) {
   console.log("Generating liability PDF...");
-  const pdfConst = LIABILITY_FORM_TO_PDF_MAP_SP;
+  const lang = clientData.lang | "en";
+  const pdfConst = LIABILITY_FORM_TO_PDF_MAP[lang];
   try {
     const pdfDoc = await loadGoogleFileToPdfLib(pdfConst.id);
     const pdfForm = pdfDoc.getForm();
-
-    //const pdfFields = pdfForm.getFields()
-    //pdfFields.forEach(field => console.log(field.getName()))
 
     const liabilityData = getLiabilityData(clientData);
     fillLiabilityForm(pdfForm, pdfConst.form, liabilityData);

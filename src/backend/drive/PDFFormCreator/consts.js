@@ -70,6 +70,11 @@ const MAP_SIGN = {
 };
 
 const LIABILITY_FORM_TO_PDF_MAP = {
+  en: EN_LIABILITY_FORM_TO_PDF_MAP,
+  es: ES_LIABILITY_FORM_TO_PDF_MAP,
+};
+
+const EN_LIABILITY_FORM_TO_PDF_MAP = {
   id: "1CSRdWSEvVDd62O0gcbAqlxQklw1_NpH2",
   title: "Liability Release",
   form: {
@@ -91,7 +96,7 @@ const LIABILITY_FORM_TO_PDF_MAP = {
   },
 };
 
-const LIABILITY_FORM_TO_PDF_MAP_SP = {
+const ES_LIABILITY_FORM_TO_PDF_MAP = {
   id: "14WWnmZ2NQ8-vUf-soi-OI9naOE6sL4ml",
   title: "Contrato de Descargo de Responsabilidad",
   form: {
@@ -106,9 +111,9 @@ const LIABILITY_FORM_TO_PDF_MAP_SP = {
     di_policyNb: "Números de póliza",
   },
   signature: {
-    page: 1,
+    page: 0,
     X: 0.275,
-    Y: 0.295,
+    Y: 0.095,
     GUARDIAN: {
       X: 0.275,
       Y: 0.255,
