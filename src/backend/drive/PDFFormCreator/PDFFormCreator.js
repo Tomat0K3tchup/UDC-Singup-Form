@@ -6,19 +6,25 @@ function testLiability() {
     last_name: "Doe",
     date: new Date(),
     signature: SIG,
+    pkg: "goPro",
     di: false,
     di_policy_nb: "1234",
   };
 
-  generateLiabilityPDF(clientData);
+  //const folder = FileManager.getOrCreateCustomerFolder(clientData);
+  const folder = null;
+  generateLiabilityPDF(clientData, folder);
 }
 
 async function generateLiabilityPDF(clientData, destinationFolder) {
   console.log("Generating liability PDF...");
-  const pdfConst = LIABILITY_FORM_TO_PDF_MAP;
+  const pdfConst = LIABILITY_FORM_TO_PDF_MAP_SP;
   try {
     const pdfDoc = await loadGoogleFileToPdfLib(pdfConst.id);
     const pdfForm = pdfDoc.getForm();
+
+    //const pdfFields = pdfForm.getFields()
+    //pdfFields.forEach(field => console.log(field.getName()))
 
     const liabilityData = getLiabilityData(clientData);
     fillLiabilityForm(pdfForm, pdfConst.form, liabilityData);
@@ -27,7 +33,7 @@ async function generateLiabilityPDF(clientData, destinationFolder) {
 
     const title = `${liabilityData.participantName} - ${pdfConst.title} - ${liabilityData.date}`;
     savePdfLibDocToGoogle(pdfDoc, destinationFolder, title);
-  } catch (message) {
+  } catch (e) {
     console.error(e.message);
     if (errDetails != {}) Logger.log(errDetails);
     throw new Error("Could not generate Liability PDF");
@@ -51,32 +57,70 @@ function getLiabilityData(clientData) {
 
 function fillLiabilityForm(pdfForm, map, data) {
   Object.keys(data).forEach((key) => {
-    console.log(key);
+    console.info("Trying to fill", key);
     try {
       if (typeof map[key] === "string") {
-        const field = pdfForm.getField(map[key]);
-
-        if (field.constructor.name == "PDFTextField") {
-          field.setText(data[key]);
-          console.log("Set Field", map[key], data[key]);
-        } else if (field.constructor.name == "PDFRadioGroup") {
-          field.select(data[key]);
-          console.log("Selected Field", map[key], data[key]);
-        } else {
-          console.warn(`Received unhandled field type: ${field.constructor.name}`);
-        }
-      } else {
+        fillSinglePDFField(pdfForm, map[key], data[key]);
+      } else if (map[key] instanceof Array) {
         const fields = map[key];
 
         fields.forEach((fieldName) => {
-          pdfForm.getField(fieldName).setText(data[key]);
-          console.log("Multiple Field", fieldName, data[key]);
+          fillSinglePDFField(pdfForm, fieldName, data[key]);
         });
+      } else {
+        checkBoxValue = data[key];
+        fieldIdentifier = map[key][checkBoxValue];
+
+        if (fieldIdentifier === undefined) {
+          throw Error("Received invalid value for choosing text box");
+        }
+
+        fillSinglePDFField(pdfForm, fieldIdentifier, checkBoxValue);
       }
     } catch (e) {
+      console.error(e);
       throw new Error(`Failed to fill fields`, { cause: e });
     }
   });
+}
+
+const PDFLibObjectTypes = {
+  TEXT: "PDFTextField",
+  RADIO: "PDFRadioGroup",
+  CHECKBOX: "PDFCheckBox",
+};
+
+function isTextField(pdfField) {
+  return pdfField.constructor.name == PDFLibObjectTypes.TEXT;
+}
+
+function isRadioField(pdfField) {
+  return pdfField.constructor.name == PDFLibObjectTypes.RADIO;
+}
+
+function isCheckBox(pdfField) {
+  return pdfField.constructor.name == PDFLibObjectTypes.CHECKBOX;
+}
+
+function fillSinglePDFField(pdfForm, pdfFieldIdentifier, fillValue) {
+  console.log(pdfFieldIdentifier);
+  pdfField = pdfForm.getField(pdfFieldIdentifier);
+  console.log(pdfField);
+
+  if (isTextField(pdfField)) {
+    console.log("Set Field", pdfFieldIdentifier, fillValue);
+
+    pdfField.setText(fillValue);
+  } else if (isRadioField(pdfField)) {
+    console.log("Selected Field", pdfFieldIdentifier, fillValue);
+
+    pdfField.select(fillValue);
+  } else if (isCheckBox(pdfField)) {
+    console.log("Checked Field", pdfFieldIdentifier, fillValue);
+    pdfField.check();
+  } else {
+    console.warn(`Received unhandled field type: ${pdfField.constructor.name}`);
+  }
 }
 
 async function generateMedicalPDF(clientData, destinationFolder) {

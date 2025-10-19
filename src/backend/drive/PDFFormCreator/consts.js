@@ -1,5 +1,3 @@
-// (?<=No_\d').
-
 const MEDICAL_FORM_TO_PDF_MAP = {
   id: "1FN5e_z_5bvIqXuaU1ho08awKCL9AGQ8m",
   title: "Medical Form",
@@ -71,7 +69,6 @@ const MAP_SIGN = {
   },
 };
 
-// "1XxaIgvBfxYTAbaH4kCMBXuIqPHQYMqeN"
 const LIABILITY_FORM_TO_PDF_MAP = {
   id: "1CSRdWSEvVDd62O0gcbAqlxQklw1_NpH2",
   title: "Liability Release",
@@ -82,6 +79,31 @@ const LIABILITY_FORM_TO_PDF_MAP = {
     dateMinor: "Date DayMonthYear_2",
     di_yesNo: "No/Yes",
     di_policyNb: "Policy Number",
+  },
+  signature: {
+    page: 1,
+    X: 0.275,
+    Y: 0.295,
+    GUARDIAN: {
+      X: 0.275,
+      Y: 0.255,
+    },
+  },
+};
+
+const LIABILITY_FORM_TO_PDF_MAP_SP = {
+  id: "14WWnmZ2NQ8-vUf-soi-OI9naOE6sL4ml",
+  title: "Contrato de Descargo de Responsabilidad",
+  form: {
+    shop: ["Instalación o embarcación", "Instalación o embarcación_2"],
+    participantName: ["Nombre del buceador", "Nombre del buceador_2"],
+    date: "Fecha díamesaño",
+    dateMinor: "Fecha díamesaño_2",
+    di_yesNo: {
+      false: "Check Box7",
+      true: "Check Box8",
+    },
+    di_policyNb: "Números de póliza",
   },
   signature: {
     page: 1,
