@@ -7,6 +7,10 @@
     "dob": "Date of Birth",
     "email": "Email",
     "address": "Postal address",
+    "city": "City",
+    "postcode": "Post code",
+    "state": "State",
+    "country": "Country",
     "phone": "Phone"
   },
   "emergency": {
