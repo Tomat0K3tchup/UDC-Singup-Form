@@ -1,5 +1,3 @@
-const MEDICAL_PDF_ID_SPA = "1-c85xqY8GSalZBMHWVG4cuQAV20JOf-R";
-
 function testLiability() {
   const clientData = {
     first_name: "Janette",
@@ -18,7 +16,7 @@ function testLiability() {
 
 async function generateLiabilityPDF(clientData, destinationFolder) {
   console.log("Generating liability PDF...");
-  const lang = clientData.lang | "en";
+  const lang = clientData.lang || "en";
   const pdfConst = LIABILITY_FORM_TO_PDF_MAP[lang];
   try {
     const pdfDoc = await loadGoogleFileToPdfLib(pdfConst.id);
