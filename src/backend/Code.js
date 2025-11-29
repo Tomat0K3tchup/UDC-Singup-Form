@@ -5,7 +5,6 @@ function doGet() {
 
 function doPost(req) {
   const { formId, ...formObject } = req.parameter;
-  Logger.log(formId);
   res = processForm(formId, formObject);
 
   return res;
@@ -21,8 +20,7 @@ function processForm(formId, formObject) {
       ContentService.MimeType.JSON,
     );
   } catch (e) {
-    Logger.error(e.message);
-    Logger.log(e);
+    console.error(e);
     return ContentService.createTextOutput(JSON.stringify({ result: "error", error: e })).setMimeType(
       ContentService.MimeType.JSON,
     );

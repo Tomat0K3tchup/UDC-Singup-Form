@@ -1,4 +1,16 @@
 {
   "scriptId": "1uy4lmOZOTe9do2JUJyeKqnPtdc7f_YMyU5JNXjxlPoxhExU_-xXx9j64",
-  "rootDir": "."
+  "rootDir": "",
+  "projectId": "284076648259",
+  "scriptExtensions": [
+    ".js",
+    ".gs"
+  ],
+  "htmlExtensions": [
+    ".html"
+  ],
+  "jsonExtensions": [
+    ".json"
+  ],
+  "filePushOrder": []
 }

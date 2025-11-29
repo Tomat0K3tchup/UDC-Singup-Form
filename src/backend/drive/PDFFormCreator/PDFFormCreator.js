@@ -30,8 +30,8 @@ async function generateLiabilityPDF(clientData, destinationFolder) {
     const title = `${liabilityData.participantName} - ${pdfConst.title} - ${liabilityData.date}`;
     savePdfLibDocToGoogle(pdfDoc, destinationFolder, title);
   } catch (e) {
-    console.error(e.message);
-    if (errDetails != {}) Logger.log(errDetails);
+    console.error(e);
+    if (errDetails != {}) console.log(errDetails);
     throw new Error("Could not generate Liability PDF");
   }
 }
@@ -53,7 +53,7 @@ function getLiabilityData(clientData) {
 
 function fillLiabilityForm(pdfForm, map, data) {
   Object.keys(data).forEach((key) => {
-    console.info("Trying to fill", key);
+    console.debug("Trying to fill", key);
     try {
       if (typeof map[key] === "string") {
         fillSinglePDFField(pdfForm, map[key], data[key]);
@@ -99,20 +99,18 @@ function isCheckBox(pdfField) {
 }
 
 function fillSinglePDFField(pdfForm, pdfFieldIdentifier, fillValue) {
-  console.log(pdfFieldIdentifier);
   pdfField = pdfForm.getField(pdfFieldIdentifier);
-  console.log(pdfField);
 
   if (isTextField(pdfField)) {
-    console.log("Set Field", pdfFieldIdentifier, fillValue);
+    console.debug("Set Field", pdfFieldIdentifier, fillValue);
 
     pdfField.setText(fillValue);
   } else if (isRadioField(pdfField)) {
-    console.log("Selected Field", pdfFieldIdentifier, fillValue);
+    console.debug("Selected Field", pdfFieldIdentifier, fillValue);
 
     pdfField.select(fillValue);
   } else if (isCheckBox(pdfField)) {
-    console.log("Checked Field", pdfFieldIdentifier, fillValue);
+    console.debug("Checked Field", pdfFieldIdentifier, fillValue);
     pdfField.check();
   } else {
     console.warn(`Received unhandled field type: ${pdfField.constructor.name}`);
