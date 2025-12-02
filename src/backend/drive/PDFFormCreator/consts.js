@@ -69,11 +69,6 @@ const MAP_SIGN = {
   },
 };
 
-const LIABILITY_FORM_TO_PDF_MAP = {
-  en: EN_LIABILITY_FORM_TO_PDF_MAP,
-  es: ES_LIABILITY_FORM_TO_PDF_MAP,
-};
-
 const EN_LIABILITY_FORM_TO_PDF_MAP = {
   id: "1CSRdWSEvVDd62O0gcbAqlxQklw1_NpH2",
   title: "Liability Release",
@@ -119,4 +114,9 @@ const ES_LIABILITY_FORM_TO_PDF_MAP = {
       Y: 0.255,
     },
   },
+};
+
+const LIABILITY_FORM_TO_PDF_MAP = {
+  en: EN_LIABILITY_FORM_TO_PDF_MAP,
+  es: ES_LIABILITY_FORM_TO_PDF_MAP,
 };
