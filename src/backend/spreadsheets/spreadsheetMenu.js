@@ -12,12 +12,17 @@ function onOpen() {
 function withUI(fn) {
   const ui = SpreadsheetApp.getUi();
 
+  const requestId = generateRequestId();
+  setRequestId(requestId);
+
   try {
     fn();
   } catch ({ message, ...errDetails }) {
     Logger.error(message);
     if (errDetails != {}) Logger.log(errDetails);
     ui.alert(message);
+  } finally {
+    clearRequestId();
   }
 }
 
@@ -57,6 +62,7 @@ function createDocumentFromSpreadsheet(keysArray, valuesArray) {
     return o;
   }, {});
 
+  Logger.info("Creating document for customer:", data.first_name, data.last_name);
   const folder = FileManager.getOrCreateCustomerFolder(data);
   createCustomerDoc(data, folder);
   // generateLiabilityPDF(data, folder);
@@ -66,38 +72,51 @@ function promptAndAddEditor() {
   const ui = SpreadsheetApp.getUi();
   const propertyService = PropertiesService.getScriptProperties();
 
-  const folderId = propertyService.getProperty("storageFolderId");
+  const requestId = generateRequestId();
+  setRequestId(requestId);
+  Logger.info("Starting add editor operation");
 
-  // Prompt for the email address
-  const response = ui.prompt(
-    "Add Editor",
-    "Enter an email address to add as editor:",
-    ui.ButtonSet.OK_CANCEL,
-  );
+  try {
+    const folderId = propertyService.getProperty("storageFolderId");
 
-  // Handle user's response
-  if (response.getSelectedButton() == ui.Button.OK) {
-    const email = response.getResponseText().trim();
+    // Prompt for the email address
+    const response = ui.prompt(
+      "Add Editor",
+      "Enter an email address to add as editor:",
+      ui.ButtonSet.OK_CANCEL,
+    );
 
-    if (email && validateEmail(email)) {
-      try {
-        // Add as editor to spreadsheet
-        const ss = SpreadsheetApp.getActiveSpreadsheet();
-        ss.addEditor(email);
+    // Handle user's response
+    if (response.getSelectedButton() == ui.Button.OK) {
+      const email = response.getResponseText().trim();
 
-        // Add as editor to folder
-        const folder = DriveApp.getFolderById(folderId);
-        folder.addEditor(email);
+      if (email && validateEmail(email)) {
+        try {
+          // Add as editor to spreadsheet
+          const ss = SpreadsheetApp.getActiveSpreadsheet();
+          ss.addEditor(email);
+          Logger.info("Added editor to spreadsheet:", email);
 
-        ui.alert("✅ Success", `${email} was added as an editor.`, ui.ButtonSet.OK);
-      } catch (e) {
-        ui.alert("❌ Error", `${e.message}`, ui.ButtonSet.OK);
+          // Add as editor to folder
+          const folder = DriveApp.getFolderById(folderId);
+          folder.addEditor(email);
+          Logger.info("Added editor to folder:", email);
+
+          ui.alert("✅ Success", `${email} was added as an editor.`, ui.ButtonSet.OK);
+        } catch (e) {
+          Logger.error("Failed to add editor:", e.message);
+          ui.alert("❌ Error", `${e.message}`, ui.ButtonSet.OK);
+        }
+      } else {
+        Logger.warn("Invalid email address provided:", email);
+        ui.alert("⚠️ Invalid email address. Please try again.");
       }
     } else {
-      ui.alert("⚠️ Invalid email address. Please try again.");
+      Logger.info("Add editor operation canceled by user");
+      ui.alert("Operation canceled.");
     }
-  } else {
-    ui.alert("Operation canceled.");
+  } finally {
+    clearRequestId();
   }
 }
 
