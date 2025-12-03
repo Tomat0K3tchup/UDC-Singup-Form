@@ -15,8 +15,8 @@ function withUI(fn) {
   try {
     fn();
   } catch ({ message, ...errDetails }) {
-    console.error(message);
-    if (errDetails != {}) console.log(errDetails);
+    Logger.error(message);
+    if (errDetails != {}) Logger.log(errDetails);
     ui.alert(message);
   }
 }

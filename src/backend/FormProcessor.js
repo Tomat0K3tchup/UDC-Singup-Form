@@ -8,7 +8,7 @@ const FormsTypes = Object.freeze({
 class FormProcessor {
   static processForm(formId, formObject) {
     const redactedForm = { ...formObject, signature: "redacted", id_file: "redacted" };
-    console.debug("Processing", formId, redactedForm);
+    Logger.debug("Processing", formId, redactedForm);
 
     try {
       switch (formId) {
@@ -25,10 +25,10 @@ class FormProcessor {
           FormProcessor._processMedicalForm(formObject);
           break;
         default:
-          console.warn("Invalid formId: " + formId);
+          Logger.warn("Invalid formId: " + formId);
       }
     } catch (e) {
-      console.error(e);
+      Logger.error(e);
     }
   }
 

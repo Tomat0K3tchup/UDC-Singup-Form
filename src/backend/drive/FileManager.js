@@ -25,7 +25,7 @@ const FileManager = class FileManager {
     const returnFolder = folderIt.next();
 
     if (folderIt.hasNext()) throw new Error("Found multiple folders for the customer name");
-    console.log("Found existing customer folder");
+    Logger.log("Found existing customer folder");
     return returnFolder;
   }
 
@@ -51,7 +51,7 @@ const FileManager = class FileManager {
     if (!!lastUpdateDate && lastUpdateDate >= lastMonday) {
       const currentWeekFolderId = propertyService.getProperty("currentWeekFolderId");
       const folder = DriveApp.getFolderById(currentWeekFolderId);
-      console.info("Found valid week folder " + folder.getName());
+      Logger.info("Found valid week folder " + folder.getName());
       return folder;
     }
 
@@ -75,7 +75,7 @@ const FileManager = class FileManager {
     propertyService.setProperty("lastWeekUpdateDate", nextSunday.toISOString());
     propertyService.setProperty("currentWeekFolderId", newFolder.getId());
 
-    console.info("Created new week folder " + newFolder.getName());
+    Logger.info("Created new week folder " + newFolder.getName());
     return newFolder;
   }
 
@@ -90,7 +90,7 @@ const FileManager = class FileManager {
     if (!!lastUpdateDate && lastUpdateDate > firstDayOfThisMonth) {
       const currentMonthFolderId = propertyService.getProperty("currentMonthFolderId");
       const folder = DriveApp.getFolderById(currentMonthFolderId);
-      console.info("Found valid month folder " + folder.getName());
+      Logger.info("Found valid month folder " + folder.getName());
       return folder;
     }
 
@@ -109,7 +109,7 @@ const FileManager = class FileManager {
     propertyService.setProperty("lastMonthUpdateDate", today.toISOString());
     propertyService.setProperty("currentMonthFolderId", newFolder.getId());
 
-    console.info("Created new month folder " + newFolder.getName());
+    Logger.info("Created new month folder " + newFolder.getName());
     return newFolder;
   }
 

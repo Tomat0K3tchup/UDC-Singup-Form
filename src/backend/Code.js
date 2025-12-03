@@ -4,6 +4,9 @@ function doGet() {
 }
 
 function doPost(req) {
+  const requestId = generateRequestId();
+  setRequestId(requestId);
+
   const { formId, ...formObject } = req.parameter;
   res = processForm(formId, formObject);
 
@@ -20,11 +23,12 @@ function processForm(formId, formObject) {
       ContentService.MimeType.JSON,
     );
   } catch (e) {
-    console.error(e);
+    Logger.error(e);
     return ContentService.createTextOutput(JSON.stringify({ result: "error", error: e })).setMimeType(
       ContentService.MimeType.JSON,
     );
   } finally {
     lock.releaseLock();
+    clearRequestId();
   }
 }

@@ -15,7 +15,7 @@ function testLiability() {
 }
 
 async function generateLiabilityPDF(clientData, destinationFolder) {
-  console.log("Generating liability PDF...");
+  Logger.log("Generating liability PDF...");
   const lang = clientData.lang || "en";
   const pdfConst = LIABILITY_FORM_TO_PDF_MAP[lang];
   try {
@@ -30,8 +30,8 @@ async function generateLiabilityPDF(clientData, destinationFolder) {
     const title = `${liabilityData.participantName} - ${pdfConst.title} - ${liabilityData.date}`;
     savePdfLibDocToGoogle(pdfDoc, destinationFolder, title);
   } catch (e) {
-    console.error(e);
-    if (errDetails != {}) console.log(errDetails);
+    Logger.error(e);
+    if (errDetails != {}) Logger.log(errDetails);
     throw new Error("Could not generate Liability PDF");
   }
 }
@@ -53,7 +53,7 @@ function getLiabilityData(clientData) {
 
 function fillLiabilityForm(pdfForm, map, data) {
   Object.keys(data).forEach((key) => {
-    console.debug("Trying to fill", key);
+    Logger.debug("Trying to fill", key);
     try {
       if (typeof map[key] === "string") {
         fillSinglePDFField(pdfForm, map[key], data[key]);
@@ -74,7 +74,7 @@ function fillLiabilityForm(pdfForm, map, data) {
         fillSinglePDFField(pdfForm, fieldIdentifier, checkBoxValue);
       }
     } catch (e) {
-      console.error(e);
+      Logger.error(e);
       throw new Error(`Failed to fill fields`, { cause: e });
     }
   });
@@ -102,18 +102,18 @@ function fillSinglePDFField(pdfForm, pdfFieldIdentifier, fillValue) {
   pdfField = pdfForm.getField(pdfFieldIdentifier);
 
   if (isTextField(pdfField)) {
-    console.debug("Set Field", pdfFieldIdentifier, fillValue);
+    Logger.debug("Set Field", pdfFieldIdentifier, fillValue);
 
     pdfField.setText(fillValue);
   } else if (isRadioField(pdfField)) {
-    console.debug("Selected Field", pdfFieldIdentifier, fillValue);
+    Logger.debug("Selected Field", pdfFieldIdentifier, fillValue);
 
     pdfField.select(fillValue);
   } else if (isCheckBox(pdfField)) {
-    console.debug("Checked Field", pdfFieldIdentifier, fillValue);
+    Logger.debug("Checked Field", pdfFieldIdentifier, fillValue);
     pdfField.check();
   } else {
-    console.warn(`Received unhandled field type: ${pdfField.constructor.name}`);
+    Logger.warn(`Received unhandled field type: ${pdfField.constructor.name}`);
   }
 }
 
@@ -131,7 +131,7 @@ async function generateMedicalPDF(clientData, destinationFolder) {
     const title = `${medicalData.participantName} - ${pdfConst.title} - ${medicalData.date}`;
     savePdfLibDocToGoogle(pdfDoc, destinationFolder, title);
   } catch (e) {
-    console.error(e);
+    Logger.error(e);
     throw new Error("Couldn't fill medical form", { cause: e });
   }
 }
@@ -229,7 +229,7 @@ async function loadGoogleFileToPdfLib(id) {
     const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
     return pdfDoc;
   } catch (error) {
-    console.error("Error loading PDF:", error.message, "docId:", id);
+    Logger.error("Error loading PDF:", error.message, "docId:", id);
     throw new Error("Error loading PDF template");
   }
 }

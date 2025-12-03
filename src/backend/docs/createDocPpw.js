@@ -46,7 +46,7 @@ function searchAndReplace(doc, data) {
       }
       body.replaceText(`{{${key.toString()}}}`, value);
     } catch (e) {
-      console.warn(e.message);
+      Logger.warn(e.message);
     }
   }
 }
@@ -88,7 +88,7 @@ function createCustomerDoc(data, destinationFolder) {
     var file = createTemplatedDoc(destinationFolder, lang);
     var doc = DocumentApp.openById(file.getId());
   } catch (e) {
-    console.error(e);
+    Logger.error(e);
   }
 
   searchAndReplace(doc, data);
