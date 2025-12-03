@@ -67,7 +67,7 @@ const Logger = {
     if (args.length == 0) {
       return;
     }
-    console.debug(formatMessage(args[0]), ...args.slice(1));
+    console.log(formatMessage(args[0]), ...args.slice(1));
   },
 
   info: function (...args) {
@@ -81,13 +81,13 @@ const Logger = {
     if (args.length == 0) {
       return;
     }
-    console.log(formatMessage(args[0]), ...args.slice(1));
+    console.warn(formatMessage(args[0]), ...args.slice(1));
   },
 
   error: function (...args) {
     if (args.length == 0) {
       return;
     }
-    console.log(formatMessage(args[0]), ...args.slice(1));
+    console.error(formatMessage(args[0]), ...args.slice(1));
   },
 };
