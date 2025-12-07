@@ -70,6 +70,11 @@ function searchAndReplaceBoolean(body, key, value) {
   // Find all occurrences of the pattern
   const foundElement = body.findText(`{{${key}}}`);
 
+  if (!foundElement) {
+    Logger.warn(`Boolean placeholder {{${key}}} not found in template`);
+    return;
+  }
+
   const element = foundElement.getElement();
   const start = foundElement.getStartOffset();
   const end = foundElement.getEndOffsetInclusive();
