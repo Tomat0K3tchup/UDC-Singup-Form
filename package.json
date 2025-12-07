@@ -10,8 +10,8 @@
     "vite": "^6.2.0"
   },
   "scripts": {
-    "deploy-backend-new-version": "clasp deploy -i AKfycbxMJBv7SQsFBsIz2emct58L-sPo_r-3MAhOmgowSQf4HiPuzkH0XZ1NCzm5__f0bU7Y",
-    "update-actual-version": "clasp push",
+    "deploy-backend": "clasp push && clasp deploy -i AKfycbxMJBv7SQsFBsIz2emct58L-sPo_r-3MAhOmgowSQf4HiPuzkH0XZ1NCzm5__f0bU7Y",
+    "deploy-spreadsheet-only": "clasp push",
     "prettier": "prettier -w ."
   },
   "dependencies": {
