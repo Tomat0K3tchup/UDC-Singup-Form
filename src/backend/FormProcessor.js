@@ -43,18 +43,29 @@ class FormProcessor {
     const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
     const nextRow = sheet.getLastRow() + 1;
 
+    const folder = FileManager.getOrCreateCustomerFolder(formObject);
+    let signatureUrl = "";
+
+    // Handle signature - store in Drive and get URL
+    if (formObject.signature) {
+      const signatureFile = FormProcessor._generateSignatureFile(formObject.signature, folder);
+      signatureUrl = signatureFile.getUrl();
+    }
+
+    // Handle ID file
+    if (formObject.id_file) {
+      FormProcessor._generatePassportFile(formObject.id_file, folder);
+    }
+
     const newRow = headers.map((header) => {
       if (header == "date") return new Date();
+      if (header == "signature") return signatureUrl; // Store URL instead of base64
       if (header in formObject) return formObject[header];
       return "";
     });
 
     sheet.getRange(nextRow, 1, 1, newRow.length).setValues([newRow]);
 
-    if (formObject.id_file) {
-      const folder = FileManager.getOrCreateCustomerFolder(formObject);
-      FormProcessor._generatePassportFile(formObject.id_file, folder);
-    }
     //FIXME: checkboxes ??
     // const diCol = 11,
     //   tAndCCol = 19;
@@ -87,5 +98,13 @@ class FormProcessor {
 
     const blob = Utilities.newBlob(Utilities.base64Decode(data), mimeType, "ID picture");
     destinationFolder.createFile(blob);
+  }
+
+  static _generateSignatureFile(fileData, destinationFolder) {
+    const [metadata, data] = fileData.split(",");
+    const mimeType = metadata.match(/data:([^;]+);base64/)[1];
+
+    const blob = Utilities.newBlob(Utilities.base64Decode(data), mimeType, "Signature");
+    return destinationFolder.createFile(blob);
   }
 }

@@ -113,12 +113,28 @@ function formatDate(date) {
   return `${day}-${month}-${year}`;
 }
 
-function insertImageAndExport(doc, base64String) {
-  if (!base64String) throw new Error("Please provide a signature for the customer");
-  const dataPart = base64String.split(",")[1];
+function insertImageAndExport(doc, signatureData) {
+  if (!signatureData) throw new Error("Please provide a signature for the customer");
 
-  if (!dataPart) throw new Error("The provided signature is invalid");
-  var blob = Utilities.newBlob(Utilities.base64Decode(dataPart));
+  let blob;
+
+  // Check if signature is a URL or base64
+  if (signatureData.startsWith("http")) {
+    // Load signature from Google Drive URL
+    try {
+      const fileId = extractFileIdFromUrl(signatureData);
+      const file = DriveApp.getFileById(fileId);
+      blob = file.getBlob();
+    } catch (e) {
+      Logger.error("Failed to load signature from URL:", signatureData, e);
+      throw new Error("Could not load signature from Drive");
+    }
+  } else {
+    // Handle base64 data URL
+    const dataPart = signatureData.split(",")[1];
+    if (!dataPart) throw new Error("The provided signature is invalid");
+    blob = Utilities.newBlob(Utilities.base64Decode(dataPart));
+  }
 
   doc.getBody().appendImage(blob);
 
@@ -130,8 +146,26 @@ function insertImageAndExport(doc, base64String) {
   // console.log(file.getUrl());
 
   // // Alternatively you can upload the image to Drive too if you like.
-  // var mimeType = eval("MimeType." + base64String.split(",")[0].split("/")[1].split(";")[0].toUpperCase());
+  // var mimeType = eval("MimeType." + signatureData.split(",")[0].split("/")[1].split(";")[0].toUpperCase());
 
   // var blob = Utilities.newBlob(decoded, mimeType, "nameOfImage");
   // var image = DriveApp.createFile(blob);
+}
+
+function extractFileIdFromUrl(url) {
+  // Handle different Google Drive URL formats
+  // https://drive.google.com/file/d/FILE_ID/view
+  // https://drive.google.com/open?id=FILE_ID
+  const patterns = [
+    /\/file\/d\/([a-zA-Z0-9_-]+)/,
+    /[?&]id=([a-zA-Z0-9_-]+)/,
+    /\/d\/([a-zA-Z0-9_-]+)/,
+  ];
+
+  for (const pattern of patterns) {
+    const match = url.match(pattern);
+    if (match) return match[1];
+  }
+
+  throw new Error("Could not extract file ID from URL: " + url);
 }
