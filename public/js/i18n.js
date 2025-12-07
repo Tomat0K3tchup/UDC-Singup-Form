@@ -10,6 +10,17 @@ const namespaces = ["form", "liability", "medical", "safeDiving", "tAndC"];
 // export const supportedLngs = ["en", "es"];
 export const supportedLngs = ["en"];
 
+// Show spinner when i18n starts loading
+// Wait for custom element to be fully rendered before showing
+customElements.whenDefined("spinner-modal").then(() => {
+  const spinnerElement = document.querySelector("spinner-modal");
+  if (spinnerElement) {
+    spinnerElement.updateComplete.then(() => {
+      toggleSpinner(true);
+    });
+  }
+});
+
 i18next
   .use(HttpBackend)
   .use(LanguageDetector)
