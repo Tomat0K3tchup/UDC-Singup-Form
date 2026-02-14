@@ -1,0 +1,215 @@
+/* UDC page-specific styles */
+
+[x-cloak] {
+  display: none !important;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+/* Required field asterisk */
+.formInput:has(input:required) > label::after,
+.formInput > fieldset:has(input:required) > legend::after,
+[required] > label::after {
+  content: "*";
+  color: var(--error-color);
+  font-style: italic;
+}
+
+/* Form step fieldsets */
+fieldset.formStep {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 1rem 0;
+}
+
+/* Header */
+.formHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--dark-blue);
+  border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+  padding: 2rem;
+}
+
+/* Language selector */
+.langSelect {
+  font-family: var(--font-family-text);
+  background: white;
+  padding: 0.5rem;
+  border-radius: var(--border-radius-sm);
+  color: var(--main-bg-color);
+}
+
+/* Wizard content area */
+.wizardContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 10% 2rem 10%;
+}
+
+/* Radio option spacing */
+.radioOption {
+  padding: 0.5rem 0 0 1rem;
+}
+
+/* Wizard navigation bar */
+.wizardNav {
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem 0 0;
+  width: 100%;
+  position: relative;
+}
+
+/* Shared wizard button styles */
+.wizardBtn {
+  flex-grow: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: Montserrat, sans-serif;
+  text-transform: uppercase;
+  border-radius: var(--border-radius);
+  border: 2px solid var(--dark-blue);
+  padding: 0.5rem;
+}
+
+.wizardBtn.secondary {
+  background-color: #fff;
+  color: var(--dark-blue);
+}
+
+.wizardBtn.primary {
+  background-color: var(--dark-blue);
+  color: var(--main-accent-color);
+}
+
+/* Spacer when prev button is hidden */
+.wizardSpacer {
+  width: 1px;
+}
+
+/* Step counter */
+.stepCounter {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Success display */
+.successDisplay {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 80vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.successIcon {
+  height: 10rem;
+  width: 10rem;
+  margin-bottom: 1rem;
+}
+
+.successText {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Spinner overlay */
+.spinnerOverlay {
+  background: #000a;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 9999;
+}
+
+.spinner {
+  width: 2rem;
+  padding: 0.6rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--main-accent-color);
+  --_m: conic-gradient(#0000 0%, #000), linear-gradient(#000 0 0) content-box;
+  -webkit-mask: var(--_m);
+  mask: var(--_m);
+  -webkit-mask-composite: source-out;
+  mask-composite: subtract;
+  animation: spin 1s infinite linear;
+}
+
+/* ─── Duet Date Picker theming ─── */
+duet-date-picker {
+  --duet-color-primary: var(--main-bg-color);
+  --duet-color-text: #333;
+  --duet-color-text-active: #fff;
+  --duet-color-placeholder: #666;
+  --duet-color-button: #fff0;
+  --duet-color-surface: #fff;
+  --duet-color-overlay: rgba(0, 0, 0, 0.8);
+  --duet-color-border: var(--border-color);
+  --duet-font: var(--font-family-text);
+  --duet-font-normal: var(--body-font-weight);
+  --duet-font-bold: bold;
+  --duet-radius: var(--border-radius-sm);
+  --duet-z-index: 600;
+}
+
+.udcDatePicker.invalid duet-date-picker {
+  --duet-color-border: var(--error-color);
+}
+
+/* ─── Signature pad ─── */
+.udcSignature {
+  width: 50%;
+}
+
+div.formInput > .sigHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.sigClearBtn {
+  border: none;
+  color: var(--main-bg-color);
+  font-weight: bold;
+  background: transparent;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.25rem;
+}
+
+.sigWrapper {
+  height: 5rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+}
+
+.sigWrapper canvas {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 700px) {
+  .udcSignature {
+    width: 100%;
+  }
+}

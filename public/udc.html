@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>UDC Check In</title>
+
+    <link rel="icon" type="image/png" href="/assets/udc-logo-tiny.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+      integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="/css/stylesheet.css" />
+    <link rel="stylesheet" href="/css/udc.css" />
+
+    <!-- Duet Date Picker -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@duetds/date-picker@1.4.0/dist/duet/duet.esm.js"></script>
+
+    <!-- intl-tel-input -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/css/intlTelInput.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.1/build/js/intlTelInputWithUtils.min.js"></script>
+
+    <!-- TomSelect -->
+    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.4.1/dist/css/tom-select.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.4.1/dist/js/tom-select.base.min.js"></script>
+
+    <!-- signature_pad -->
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@5.0.4/dist/signature_pad.umd.min.js"></script>
+
+    <!-- Alpine.js -->
+    <script type="module">
+      import Alpine from "https://cdn.jsdelivr.net/npm/alpinejs@3/dist/module.esm.js";
+      import alpineI18nPlugin from "/js/alpine-i18n.js";
+      import "/js/alpine-components.js";
+      import "/js/udc-elements.js";
+
+      Alpine.plugin(alpineI18nPlugin);
+      window.Alpine = Alpine;
+      Alpine.start();
+    </script>
+  </head>
+  <body>
+    <div class="formWidth formDropShadow">
+      <form
+        name="udc-form"
+        id="udc-form"
+        enctype="multipart/form-data"
+        x-data="udcForm"
+        @submit.prevent="submitForm"
+        x-cloak
+      >
+        <div class="formWrapper">
+          <!-- Header -->
+          <header class="formHeader">
+            <h1 x-text="$t('title')" x-show="$store.i18n.ready"></h1>
+            <select
+              class="langSelect"
+              @change="$store.i18n.lang = $event.target.value; switchLang($event.target.value)"
+            >
+              <template x-for="lng in supportedLngs" :key="lng">
+                <option :value="lng" x-text="lng.toUpperCase()" :selected="lng === $store.i18n.lang"></option>
+              </template>
+            </select>
+          </header>
+
+          <!-- Wizard -->
+          <div x-show="!success" class="wizardContent">
+            <input type="hidden" name="pkg" :value="pkg" />
+            <input type="hidden" name="form_language" :value="$store.i18n.lang" />
+
+            <!-- Step 0: Personal Details -->
+            <fieldset class="formStep" x-show="step === 0" x-cloak>
+              <legend x-text="$t('personal.title')"></legend>
+
+              <div class="multiInput" id="full_name">
+                <div class="formInput" :class="showError && 'invalid'" x-data="formField">
+                  <label for="first_name" x-text="$t('personal.firstName')"></label>
+                  <input
+                    name="first_name"
+                    id="first_name"
+                    required
+                    @blur="validate"
+                    @invalid.prevent="onInvalid"
+                    @input="clearError"
+                  />
+                  <span x-show="showError" x-cloak x-text="error"></span>
+                </div>
+                <div class="formInput" :class="showError && 'invalid'" x-data="formField">
+                  <label for="last_name" x-text="$t('personal.lastName')"></label>
+                  <input
+                    name="last_name"
+                    id="last_name"
+                    required
+                    @blur="validate"
+                    @invalid.prevent="onInvalid"
+                    @input="clearError"
+                  />
+                  <span x-show="showError" x-cloak x-text="error"></span>
+                </div>
+              </div>
+
+              <div
+                class="formInput udcDatePicker"
+                :class="showError && 'invalid'"
+                id="dob"
+                required
+                x-data="udcDatePicker"
+                @invalid.prevent="onInvalid"
+              >
+                <label :class="showError && 'invalid'" x-text="$t('personal.dob')"></label>
+                <duet-date-picker identifier="dob" min="1926-01-01"></duet-date-picker>
+                <input type="hidden" name="dob" :value="dateValue" />
+                <span class="invalid" x-show="showError" x-cloak x-text="error"></span>
+              </div>
+
+              <div class="formInput" :class="showError && 'invalid'" x-data="formField">
+                <label for="email" x-text="$t('personal.email')"></label>
+                <input
+                  name="email"
+                  id="email"
+                  type="email"
+                  required
+                  @blur="validate"
+                  @invalid.prevent="onInvalid"
+                  @input="clearError"
+                />
+                <span x-show="showError" x-cloak x-text="error"></span>
+              </div>
+
+              <div class="formInput" :class="showError && 'invalid'" x-data="formField">
+                <label for="address" x-text="$t('personal.address')"></label>
+                <input
+                  name="address"
+                  id="address"
+                  required
+                  @blur="validate"
+                  @invalid.prevent="onInvalid"
+                  @input="clearError"
+                />
+                <span x-show="showError" x-cloak x-text="error"></span>
+              </div>
+
+              <div class="formInput" :class="showError && 'invalid'" x-data="formField">
+                <label for="city" x-text="$t('personal.city')"></label>
+                <input
+                  name="city"
+                  id="city"
+                  required
+                  @blur="validate"
+                  @invalid.prevent="onInvalid"
+                  @input="clearError"
+                />
+                <span x-show="showError" x-cloak x-text="error"></span>
+              </div>
+
+              <div class="formInput" :class="showError && 'invalid'" x-data="formField">
+                <label for="postcode" x-text="$t('personal.postcode')"></label>
+                <input
+                  name="postcode"
+                  id="postcode"
+                  required
+                  @blur="validate"
+                  @invalid.prevent="onInvalid"
+                  @input="clearError"
+                />
+                <span x-show="showError" x-cloak x-text="error"></span>
+              </div>
+
+              <div class="formInput" :class="showError && 'invalid'" x-data="formField">
+                <label for="state" x-text="$t('personal.state')"></label>
+                <input
+                  name="state"
+                  id="state"
+                  required
+                  @blur="validate"
+                  @invalid.prevent="onInvalid"
+                  @input="clearError"
+                />
+                <span x-show="showError" x-cloak x-text="error"></span>
+              </div>
+
+              <div class="formInput" :class="showError && 'invalid'" x-data="formField">
+                <label for="country" x-text="$t('personal.country')"></label>
+                <input
+                  name="country"
+                  id="country"
+                  required
+                  @blur="validate"
+                  @invalid.prevent="onInvalid"
+                  @input="clearError"
+                />
+                <span x-show="showError" x-cloak x-text="error"></span>
+              </div>
+
+              <udc-phone
+                name="phone"
+                id="phone"
+                required
+                x-data="formField"
+                @change="clearError"
+                @invalid.prevent="onInvalid"
+              >
+                <label :class="showError && 'invalid'" x-text="$t('personal.phone')"></label>
+                <span class="invalid" x-show="showError" x-cloak x-text="error"></span>
+              </udc-phone>
+            </fieldset>
+
+            <!-- Step 1: Emergency Contact -->
+            <fieldset class="formStep" x-show="step === 1" x-cloak>
+              <legend x-text="$t('emergency.title')"></legend>
+
+              <div class="formInput" :class="showError && 'invalid'" x-data="formField">
+                <label for="em_full_name" x-text="$t('emergency.fullName')"></label>
+                <input
+                  name="em_full_name"
+                  id="em_full_name"
+                  required
+                  @blur="validate"
+                  @invalid.prevent="onInvalid"
+                  @input="clearError"
+                />
+                <span x-show="showError" x-cloak x-text="error"></span>
+              </div>
+
+              <udc-phone
+                name="em_phone"
+                id="em_phone"
+                required
+                x-data="formField"
+                @change="clearError"
+                @invalid.prevent="onInvalid"
+              >
+                <label :class="showError && 'invalid'" x-text="$t('emergency.phone')"></label>
+                <span class="invalid" x-show="showError" x-cloak x-text="error"></span>
+              </udc-phone>
+
+              <div class="formInput" :class="showError && 'invalid'" x-data="formField">
+                <label for="em_relationship">Relationship</label>
+                <input
+                  name="em_relationship"
+                  id="em_relationship"
+                  required
+                  @blur="validate"
+                  @invalid.prevent="onInvalid"
+                  @input="clearError"
+                />
+                <span x-show="showError" x-cloak x-text="error"></span>
+              </div>
+
+              <!-- Dive Insurance radio + accordion -->
+              <div class="formInput" x-data="formField">
+                <fieldset>
+                  <legend :class="showError && 'invalid'" x-text="$t('emergency.di.label')"></legend>
+                  <p class="radioOption">
+                    <input
+                      type="radio"
+                      id="di_yes"
+                      name="di"
+                      value="Yes"
+                      x-model="di"
+                      required
+                      @invalid.prevent="onInvalid"
+                      @change="clearError"
+                    />
+                    <label for="di_yes">Yes</label>
+                  </p>
+                  <p class="radioOption">
+                    <input
+                      type="radio"
+                      id="di_no"
+                      name="di"
+                      value="No"
+                      x-model="di"
+                      @invalid.prevent="onInvalid"
+                      @change="clearError"
+                    />
+                    <label for="di_no">No</label>
+                  </p>
+                </fieldset>
+                <span class="invalid" x-show="showError" x-cloak x-text="error"></span>
+              </div>
+
+              <!-- Accordion: shown when di === 'Yes' -->
+              <fieldset class="flx-form" x-show="di === 'Yes'" x-transition>
+                <div class="formInput" x-data="formField">
+                  <label for="di_provider" x-text="$t('emergency.diProvider')"></label>
+                  <input name="di_provider" id="di_provider" />
+                </div>
+                <div class="formInput" x-data="formField">
+                  <label for="di_policy_nb" x-text="$t('emergency.diPolicyNb')"></label>
+                  <input name="di_policy_nb" id="di_policy_nb" />
+                </div>
+                <div class="formInput" x-data="formField">
+                  <label for="di_other" x-text="$t('emergency.diOther')"></label>
+                  <input name="di_other" id="di_other" />
+                </div>
+              </fieldset>
+            </fieldset>
+
+            <!-- Step 2: Passport Information -->
+            <fieldset class="formStep" x-show="step === 2" x-cloak>
+              <legend x-text="$t('id.title')"></legend>
+
+              <udc-country-select
+                name="id_country"
+                id="id_country"
+                x-data="formField"
+                @change="clearError"
+                @invalid.prevent="onInvalid"
+              >
+                <label :class="showError && 'invalid'" x-text="$t('id.country')"></label>
+                <span class="invalid" x-show="showError" x-cloak x-text="error"></span>
+              </udc-country-select>
+
+              <udc-file-input
+                name="id_file"
+                id="id_file"
+                accept="image/*"
+                required
+                x-data="formField"
+                @change="clearError"
+                @invalid.prevent="onInvalid"
+              >
+                <label :class="showError && 'invalid'" x-text="$t('id.file')"></label>
+                <span class="invalid" x-show="showError" x-cloak x-text="error"></span>
+              </udc-file-input>
+
+              <div class="formInput" :class="showError && 'invalid'" x-data="formField">
+                <label for="id_nb" x-text="$t('id.number')"></label>
+                <input
+                  name="id_nb"
+                  id="id_nb"
+                  required
+                  @blur="validate"
+                  @invalid.prevent="onInvalid"
+                  @input="clearError"
+                />
+                <span x-show="showError" x-cloak x-text="error"></span>
+              </div>
+
+              <div class="multiInput">
+                <div
+                  class="formInput udcDatePicker"
+                  :class="showError && 'invalid'"
+                  id="id_iss_date"
+                  required
+                  x-data="udcDatePicker"
+                  @invalid.prevent="onInvalid"
+                >
+                  <label x-text="$t('id.issDate')"></label>
+                  <duet-date-picker identifier="id_iss_date" min="1926-01-01"></duet-date-picker>
+                  <input type="hidden" name="id_iss_date" :value="dateValue" />
+                  <span x-show="showError" x-cloak x-text="error"></span>
+                </div>
+
+                <div
+                  class="formInput udcDatePicker"
+                  :class="showError && 'invalid'"
+                  id="id_exp_date"
+                  required
+                  x-data="udcDatePicker"
+                  @invalid.prevent="onInvalid"
+                >
+                  <label x-text="$t('id.expDate')"></label>
+                  <duet-date-picker identifier="id_exp_date"></duet-date-picker>
+                  <input type="hidden" name="id_exp_date" :value="dateValue" />
+                  <span x-show="showError" x-cloak x-text="error"></span>
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- Step 3: T&C + Signature -->
+            <fieldset class="formStep legal" x-show="step === 3" x-cloak>
+              <!-- T&C content -->
+              <section x-show="pkg !== 'goPro'">
+                <h2 x-text="$t('tAndC:refund.title')"></h2>
+                <h3 x-text="$t('tAndC:refund.courses.title')"></h3>
+                <p x-text="$t('tAndC:refund.courses.intro')"></p>
+                <ul>
+                  <li><p x-html="$t('tAndC:refund.courses.conditions.reservation')"></p></li>
+                  <li><p x-html="$t('tAndC:refund.courses.conditions.1day')"></p></li>
+                  <li><p x-html="$t('tAndC:refund.courses.conditions.more')"></p></li>
+                </ul>
+                <h3 x-text="$t('tAndC:refund.room.title')"></h3>
+                <p x-text="$t('tAndC:refund.room.description')"></p>
+                <h3 x-text="$t('tAndC:refund.funDives.title')"></h3>
+                <p x-text="$t('tAndC:refund.funDives.description')"></p>
+              </section>
+
+              <section x-show="pkg === 'goPro'">
+                <h2 x-text="$t('tAndC:refund.goPro.title')"></h2>
+                <ul>
+                  <li><p x-html="$t('tAndC:refund.goPro.noRefund')"></p></li>
+                  <li><p x-html="$t('tAndC:refund.goPro.travelInsurance')"></p></li>
+                  <li><p x-html="$t('tAndC:refund.goPro.equipmentPurchase')"></p></li>
+                  <li><p x-html="$t('tAndC:refund.goPro.diveInsurance')"></p></li>
+                </ul>
+              </section>
+
+              <section>
+                <h2 x-text="$t('tAndC:tc.title')"></h2>
+                <ol class="tAndCList">
+                  <li><p x-text="$t('tAndC:tc.rules.reefTax')"></p></li>
+                  <li>
+                    <div>
+                      <p x-text="$t('tAndC:tc.rules.depthLimits.description')"></p>
+                      <ul>
+                        <li><p x-html="$t('tAndC:tc.rules.depthLimits.extra.ow')"></p></li>
+                        <li><p x-html="$t('tAndC:tc.rules.depthLimits.extra.aow')"></p></li>
+                        <li><p x-html="$t('tAndC:tc.rules.depthLimits.extra.dm')"></p></li>
+                        <li><p x-html="$t('tAndC:tc.rules.depthLimits.extra.deep')"></p></li>
+                      </ul>
+                      <p x-text="$t('tAndC:tc.rules.depthLimits.note')"></p>
+                    </div>
+                  </li>
+                  <li>
+                    <div>
+                      <p x-text="$t('tAndC:tc.rules.tuneUp.description')"></p>
+                      <ul>
+                        <li><p x-html="$t('tAndC:tc.rules.tuneUp.extra.20')"></p></li>
+                        <li><p x-html="$t('tAndC:tc.rules.tuneUp.extra.50')"></p></li>
+                        <li><p x-html="$t('tAndC:tc.rules.tuneUp.extra.100')"></p></li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li><p x-text="$t('tAndC:tc.rules.drugsOrAlcohol')"></p></li>
+                  <li><p x-text="$t('tAndC:tc.rules.reefItems')"></p></li>
+                  <li>
+                    <div>
+                      <p x-text="$t('tAndC:tc.rules.largeGameEncounter.description')"></p>
+                      <ul>
+                        <li><p x-html="$t('tAndC:tc.rules.largeGameEncounter.extra.whaleSharks')"></p></li>
+                        <li><p x-html="$t('tAndC:tc.rules.largeGameEncounter.extra.dolphins')"></p></li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li><p x-text="$t('tAndC:tc.rules.liability')"></p></li>
+                  <li><p x-text="$t('tAndC:tc.rules.personalItems')"></p></li>
+                  <li><p x-text="$t('tAndC:tc.rules.diveEquipment')"></p></li>
+                  <li x-show="pkg !== 'goPro'"><p x-text="$t('tAndC:tc.rules.gearIncluded')"></p></li>
+                  <li>
+                    <p
+                      x-text="$t(pkg === 'goPro' ? 'tAndC:tc.rules.equipmentForCourses.goPro' : 'tAndC:tc.rules.equipmentForCourses.general')"
+                    ></p>
+                  </li>
+                  <li>
+                    <p
+                      x-text="$t(pkg === 'goPro' ? 'tAndC:tc.rules.responsibilityForGear.goPro' : 'tAndC:tc.rules.responsibilityForGear.general')"
+                    ></p>
+                  </li>
+                  <li><p x-text="$t('tAndC:tc.rules.floodedRegulator')"></p></li>
+                  <li><p x-text="$t('tAndC:tc.rules.tablet')"></p></li>
+                  <li><p x-text="$t('tAndC:tc.rules.courseDelays')"></p></li>
+                  <li x-show="pkg !== 'goPro'"><p x-text="$t('tAndC:tc.rules.nbTanks')"></p></li>
+                  <li x-show="pkg !== 'goPro'"><p x-text="$t('tAndC:tc.rules.reimbursement')"></p></li>
+                  <li x-show="pkg === 'goPro'"><p x-text="$t('tAndC:tc.rules.FFD4Life')"></p></li>
+                  <li x-show="pkg === 'goPro'"><p x-text="$t('tAndC:tc.rules.goProRoom')"></p></li>
+                  <li><p x-text="$t('tAndC:tc.rules.makeUp')"></p></li>
+                  <li>
+                    <p
+                      x-text="$t(pkg === 'goPro' ? 'tAndC:tc.rules.reschedule.goPro' : 'tAndC:tc.rules.reschedule.general')"
+                    ></p>
+                  </li>
+                  <li>
+                    <p
+                      x-text="$t(pkg === 'goPro' ? 'tAndC:tc.rules.paymentUponArrival.goPro' : 'tAndC:tc.rules.paymentUponArrival.general')"
+                    ></p>
+                  </li>
+                  <li><p x-text="$t('tAndC:tc.rules.cardFees')"></p></li>
+                  <li><p x-text="$t('tAndC:tc.rules.dormNights')"></p></li>
+                  <li x-show="pkg === 'goPro'"><p x-text="$t('tAndC:tc.rules.goPro')"></p></li>
+                  <li><p x-text="$t('tAndC:tc.rules.photos')"></p></li>
+                </ol>
+              </section>
+
+              <!-- Accept checkbox -->
+              <div class="formInput" x-data="formField">
+                <div>
+                  <label for="id_t_c" :class="showError && 'invalid'" x-text="$t('tAndC.accept')"></label>
+                  <input
+                    type="checkbox"
+                    name="id_t_c"
+                    id="id_t_c"
+                    required
+                    value="Yes"
+                    @invalid.prevent="onInvalid"
+                    @change="clearError"
+                  />
+                </div>
+                <span class="invalid" x-show="showError" x-cloak x-text="error"></span>
+              </div>
+
+              <!-- Signature -->
+              <div
+                class="formInput udcSignature"
+                id="signature"
+                required
+                x-data="udcSignature"
+                :class="showError && 'invalid'"
+                @invalid.prevent="onInvalid"
+              >
+                <div class="sigHeader">
+                  <label x-text="$t('liability.signature')"></label>
+                  <button type="button" class="sigClearBtn" @click="clearSignature()">Clear</button>
+                </div>
+                <div class="sigWrapper">
+                  <canvas x-ref="canvas"></canvas>
+                </div>
+                <input type="hidden" name="signature" :value="signatureValue" />
+                <span class="invalid" x-show="showError" x-cloak x-text="error"></span>
+              </div>
+            </fieldset>
+
+            <!-- Wizard navigation -->
+            <div class="wizardNav">
+              <button
+                type="button"
+                class="wizardBtn secondary"
+                x-show="step > 0"
+                @click="prevStep()"
+                x-text="$t('wizard.prev')"
+              ></button>
+              <span x-show="step === 0" class="wizardSpacer"></span>
+              <p class="stepCounter">
+                <span x-text="step + 1"></span>
+                <span x-text="$t('wizard.xStepsOfTotal')"></span>
+                <span x-text="totalSteps"></span>
+              </p>
+              <button
+                type="button"
+                class="wizardBtn primary"
+                @click="nextStep()"
+                x-text="step === totalSteps - 1 ? $t('wizard.submit') : $t('wizard.next')"
+              ></button>
+            </div>
+          </div>
+
+          <!-- Success display -->
+          <div class="successDisplay" x-show="success" x-cloak>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="successIcon">
+              <path
+                fill="#FFD43B"
+                d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"
+              />
+            </svg>
+            <span class="successText">
+              Thank you for completing the check-in form.<br />
+              Please go to the reception desk to finalize the process.
+            </span>
+          </div>
+
+          <!-- Spinner -->
+          <div class="spinnerOverlay" x-show="loading || !$store.i18n.ready" x-cloak x-transition>
+            <div class="spinner"></div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
