@@ -12,6 +12,7 @@
   "scripts": {
     "deploy-backend": "sh -c 'clasp push && clasp deploy -i AKfycbxMJBv7SQsFBsIz2emct58L-sPo_r-3MAhOmgowSQf4HiPuzkH0XZ1NCzm5__f0bU7Y -d \"${0:-Deployment update}\"' --",
     "deploy-spreadsheet-only": "clasp push",
+    "dev": "node --env-file=.env --watch dev.js",
     "prettier": "prettier -w ."
   },
   "dependencies": {
