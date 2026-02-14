@@ -46,8 +46,7 @@ class Spinner extends LitElement {
   firstUpdated() {
     super.firstUpdated();
     this.$container = this.renderRoot.querySelector(".bg");
-    // Initialize display state without toggling
-    // this.$container.style.display = this.hidden ? "none" : "flex";
+    this.$container.style.display = "none";
   }
 
   disableScroll() {

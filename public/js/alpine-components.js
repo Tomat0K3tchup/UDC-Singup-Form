@@ -3,6 +3,8 @@ import { i18next, supportedLngs } from "/js/alpine-i18n.js";
 const PREFILL_KEYS = ["first_name", "last_name", "dob", "di", "di_policy_nb", "pkg"];
 
 document.addEventListener("alpine:init", () => {
+  Alpine.store("loading", { active: false });
+
   Alpine.data("formField", () => ({
     error: "",
     showError: false,
@@ -213,7 +215,7 @@ document.addEventListener("alpine:init", () => {
       if (!valid) return;
 
       if (this.step + 1 >= this.totalSteps) {
-        this.$root.requestSubmit();
+        this.$root.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
         return;
       }
 

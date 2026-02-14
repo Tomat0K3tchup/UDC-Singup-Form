@@ -557,13 +557,18 @@
               Please go to the reception desk to finalize the process.
             </span>
           </div>
-
-          <!-- Spinner -->
-          <div class="spinnerOverlay" x-show="loading || !$store.i18n.ready" x-cloak x-transition>
-            <div class="spinner"></div>
-          </div>
         </div>
       </form>
+    </div>
+
+    <div
+      class="spinnerOverlay"
+      x-data
+      x-show="$store.loading.active || !$store.i18n.ready"
+      x-cloak
+      x-effect="document.body.style.overflow = ($store.loading.active || !$store.i18n.ready) ? 'hidden' : ''"
+    >
+      <div class="spinner"></div>
     </div>
   </body>
 </html>
