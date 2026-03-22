@@ -7,6 +7,7 @@ function testLiability() {
     pkg: "goPro",
     di: false,
     di_policy_nb: "1234",
+    form_language: "es",
   };
 
   //const folder = FileManager.getOrCreateCustomerFolder(clientData);
@@ -16,7 +17,7 @@ function testLiability() {
 
 async function generateLiabilityPDF(clientData, destinationFolder) {
   Logger.log("Generating liability PDF...");
-  const lang = clientData.lang || "en";
+  const lang = clientData.form_language || "en";
   const pdfConst = LIABILITY_FORM_TO_PDF_MAP[lang];
   try {
     const pdfDoc = await loadGoogleFileToPdfLib(pdfConst.id);
@@ -65,7 +66,8 @@ function fillLiabilityForm(pdfForm, map, data) {
         });
       } else {
         checkBoxValue = data[key];
-        fieldIdentifier = map[key][checkBoxValue];
+        fieldIdentifier =
+          map[key][checkBoxValue] ?? map[key][checkBoxValue === "Yes"];
 
         if (fieldIdentifier === undefined) {
           throw Error("Received invalid value for choosing text box");

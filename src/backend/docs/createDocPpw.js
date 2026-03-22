@@ -20,6 +20,7 @@ function createTemplatedDoc(destinationFolder, lang) {
 
 function searchAndReplace(doc, data) {
   var body = doc.getBody();
+  const lang = parseLanguageCode(data.form_language) || DEFAULT_LANG;
 
   // FIXME: not so many keys
   var clientInfo = {
@@ -41,7 +42,7 @@ function searchAndReplace(doc, data) {
       }
 
       if (value == "Yes" || value == "No") {
-        searchAndReplaceBoolean(body, key, value === "Yes");
+        searchAndReplaceBoolean(body, key, value === "Yes", lang);
         continue;
       }
       body.replaceText(`{{${key.toString()}}}`, value);
@@ -51,20 +52,22 @@ function searchAndReplace(doc, data) {
   }
 }
 
-function searchAndReplaceBoolean(body, key, value) {
+function searchAndReplaceBoolean(body, key, value, lang) {
   // Start and end index of the element to strikethrough in the string will be added
   const spaces = 10;
-  const replacementString = "Yes" + " ".repeat(spaces) + "No";
+  const yesLabel = lang === "es" ? "Sí" : "Yes";
+  const noLabel = "No";
+  const replacementString = yesLabel + " ".repeat(spaces) + noLabel;
   const OFFSET_MAP = {
     // offset of No
     true: {
-      offset: spaces + 3, // spaces + Yes.length - 1
-      length: 1, // No.length - 1
+      offset: spaces + yesLabel.length,
+      length: noLabel.length - 1,
     },
     // offset of Yes
     false: {
       offset: 0,
-      length: 2, // Yes.length - 1
+      length: yesLabel.length - 1,
     },
   };
   // Find all occurrences of the pattern
