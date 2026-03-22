@@ -10,3 +10,6 @@ dist
 
 # JJ
 .jj
+
+# Local env
+.env
