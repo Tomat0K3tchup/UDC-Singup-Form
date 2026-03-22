@@ -202,7 +202,7 @@ document.addEventListener("alpine:init", () => {
       if (!current) return;
 
       const elements = current.querySelectorAll(
-        "input, select, textarea, .udcDatePicker, udc-phone, udc-country-select, udc-file-input, .udcSignature",
+        "input, select, textarea, .udcDatePicker, .udcSignature",
       );
 
       let valid = true;
@@ -238,15 +238,18 @@ document.addEventListener("alpine:init", () => {
         const payload = Object.fromEntries(new FormData(form));
 
         form.querySelectorAll("udc-phone").forEach((phone) => {
-          if (phone.value) payload[phone.getAttribute("name")] = phone.value;
+          const input = phone.querySelector("input[type=tel]");
+          if (input && phone.value) payload[input.name] = phone.value;
         });
 
-        form.querySelectorAll("udc-file-input").forEach((file) => {
-          if (file.value) payload[file.getAttribute("name")] = file.value;
+        form.querySelectorAll("udc-file-input").forEach((fi) => {
+          const input = fi.querySelector("input[type=file]");
+          if (input && fi.value) payload[input.name] = fi.value;
         });
 
         form.querySelectorAll("udc-country-select").forEach((cs) => {
-          if (cs.value) payload[cs.getAttribute("name")] = cs.value;
+          const select = cs.querySelector("select");
+          if (select && cs.value) payload[select.name] = cs.value;
         });
 
         payload.formId = form.id;

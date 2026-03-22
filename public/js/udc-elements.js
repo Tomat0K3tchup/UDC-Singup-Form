@@ -1,25 +1,7 @@
 // ─── udc-phone ───
 class UdcPhone extends HTMLElement {
   connectedCallback() {
-    this._name = this.getAttribute("name") || this.id;
-    this._required = this.hasAttribute("required");
-
-    this.classList.add("formInput");
-
-    const container = document.createElement("div");
-    container.className = "container";
-
-    const input = document.createElement("input");
-    input.type = "tel";
-    input.id = this.id + "_input";
-    input.name = this._name;
-    if (this._required) input.required = true;
-
-    container.appendChild(input);
-    this.appendChild(container);
-    this._input = input;
-
-    const itiOpts = {
+    this._iti = window.intlTelInput(this.querySelector("input[type=tel]"), {
       initialCountry: "auto",
       preferredCountries: ["us", "ca", "uk", "fr", "de", "hn", "nl", "be", "ch"],
       geoIpLookup: (cb) => {
@@ -32,31 +14,11 @@ class UdcPhone extends HTMLElement {
         }
       },
       formatAsYouType: true,
-    };
-    this._iti = window.intlTelInput(input, itiOpts);
-
-    input.addEventListener("input", () => {
-      this.dispatchEvent(new Event("change", { bubbles: true }));
     });
-
-    const label = this.querySelector("label");
-    if (label) label.addEventListener("click", () => this._input?.focus());
   }
 
   get value() {
     return this._iti ? this._iti.getNumber() : "";
-  }
-
-  set value(v) {
-    if (this._iti) this._iti.setNumber(v);
-  }
-
-  checkValidity() {
-    if (this._required && !this.value) {
-      this.dispatchEvent(new Event("invalid", { bubbles: true }));
-      return false;
-    }
-    return true;
   }
 }
 
@@ -65,32 +27,10 @@ customElements.define("udc-phone", UdcPhone);
 // ─── udc-file-input ───
 class UdcFileInput extends HTMLElement {
   connectedCallback() {
-    this._name = this.getAttribute("name") || this.id;
-    this._required = this.hasAttribute("required");
-    this._accept = this.getAttribute("accept") || "";
     this._value = "";
+    const fileInput = this.querySelector("input[type=file]");
+    const display = this.querySelector(".fileDisplay");
 
-    this.classList.add("formInput");
-
-    const container = document.createElement("div");
-    container.className = "container";
-
-    const fileInput = document.createElement("input");
-    fileInput.type = "file";
-    fileInput.id = this.id + "_file";
-    if (this._accept) fileInput.accept = this._accept;
-    fileInput.style.display = "none";
-
-    const display = document.createElement("div");
-    display.className = "input";
-    display.textContent = "Choose a file";
-    display.style.cursor = "pointer";
-    this._display = display;
-
-    const labelEl = this.querySelector("label");
-    if (labelEl) {
-      labelEl.addEventListener("click", () => fileInput.click());
-    }
     display.addEventListener("click", () => fileInput.click());
 
     fileInput.addEventListener("change", () => {
@@ -100,26 +40,13 @@ class UdcFileInput extends HTMLElement {
       const reader = new FileReader();
       reader.onload = (ev) => {
         this._value = ev.target.result;
-        this.dispatchEvent(new Event("change", { bubbles: true }));
       };
       reader.readAsDataURL(file);
     });
-
-    container.appendChild(fileInput);
-    container.appendChild(display);
-    this.appendChild(container);
   }
 
   get value() {
     return this._value;
-  }
-
-  checkValidity() {
-    if (this._required && !this._value) {
-      this.dispatchEvent(new Event("invalid", { bubbles: true }));
-      return false;
-    }
-    return true;
   }
 }
 
@@ -206,25 +133,7 @@ const COUNTRIES = [
 
 class UdcCountrySelect extends HTMLElement {
   connectedCallback() {
-    this._name = this.getAttribute("name") || this.id;
-    this._required = this.hasAttribute("required");
-
-    this.classList.add("formInput");
-
-    const container = document.createElement("div");
-    container.className = "container";
-
-    const select = document.createElement("select");
-    select.name = this._name;
-    select.id = this.id + "_select";
-    select.className = "countrySelect";
-    if (this._required) select.required = true;
-
-    // Empty default
-    const emptyOpt = document.createElement("option");
-    emptyOpt.value = "";
-    emptyOpt.textContent = "Select a country ...";
-    select.appendChild(emptyOpt);
+    const select = this.querySelector("select");
 
     COUNTRIES.forEach((g) => {
       const optgroup = document.createElement("optgroup");
@@ -238,11 +147,7 @@ class UdcCountrySelect extends HTMLElement {
       select.appendChild(optgroup);
     });
 
-    container.appendChild(select);
-    this.appendChild(container);
-    this._select = select;
-
-    const tom = new TomSelect(select, {
+    this._tom = new TomSelect(select, {
       sortField: { field: "text", direction: "asc" },
       lockOptgroupOrder: true,
       maxOptions: null,
@@ -253,7 +158,6 @@ class UdcCountrySelect extends HTMLElement {
           if (opt) this.options[key] = { ...opt, optgroup: "Suggestions" };
         });
 
-        // Auto-select based on browser language
         const langCode = navigator.languages ? navigator.languages[0] : navigator.language;
         if (langCode) {
           try {
@@ -263,30 +167,10 @@ class UdcCountrySelect extends HTMLElement {
         }
       },
     });
-    this._tom = tom;
-
-    select.addEventListener("change", () => {
-      this.dispatchEvent(new Event("change", { bubbles: true }));
-    });
-
-    const label = this.querySelector("label");
-    if (label) label.addEventListener("click", () => this._tom?.focus());
   }
 
   get value() {
     return this._tom ? this._tom.getValue() : "";
-  }
-
-  set value(v) {
-    if (this._tom) this._tom.setValue(v, true);
-  }
-
-  checkValidity() {
-    if (this._required && !this.value) {
-      this.dispatchEvent(new Event("invalid", { bubbles: true }));
-      return false;
-    }
-    return true;
   }
 }
 
