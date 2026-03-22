@@ -104,7 +104,7 @@ export function createCustomerDoc(data: CustomerData, destinationFolder: Folder)
 
   searchAndReplace(doc!, data);
   insertImageAndExport(doc!, data.signature);
-  file!.setName(`${data.first_name} ${data.last_name} - ${formatDate(data.date as Date)}`);
+  file!.setName(`${data.first_name} ${data.last_name} - ${formatDate(new Date(data.date!))}`);
 }
 
 export function isDateKey(key: string): boolean {

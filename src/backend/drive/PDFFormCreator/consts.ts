@@ -5,10 +5,17 @@ export interface SignaturePosition {
   GUARDIAN?: { X: number; Y: number };
 }
 
+export interface BooleanFieldMap {
+  true: string;
+  false: string;
+}
+
+export type PDFFieldMapping = string | string[] | BooleanFieldMap;
+
 export interface PDFFormConfig {
   id: string;
   title: string;
-  form: Record<string, string | string[] | { true: string; false: string } | Record<string, string>>;
+  form: Record<string, PDFFieldMapping>;
   signature: SignaturePosition;
 }
 

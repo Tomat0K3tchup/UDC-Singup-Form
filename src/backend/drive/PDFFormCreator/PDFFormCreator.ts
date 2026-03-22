@@ -1,5 +1,11 @@
 import { AppLogger } from "../../Logger";
-import { LIABILITY_FORM_TO_PDF_MAP, MEDICAL_FORM_TO_PDF_MAP, SignaturePosition, PDFFormConfig } from "./consts";
+import {
+  LIABILITY_FORM_TO_PDF_MAP,
+  MEDICAL_FORM_TO_PDF_MAP,
+  SignaturePosition,
+  PDFFormConfig,
+  BooleanFieldMap,
+} from "./consts";
 import { PDFDocument, PDFTextField, PDFRadioGroup, PDFCheckBox } from "pdf-lib";
 import type { PDFForm, PDFField } from "pdf-lib";
 import { CustomerData, MedicalCustomerData } from "../../types";
@@ -10,10 +16,10 @@ export function testLiability(): void {
   const clientData: CustomerData = {
     first_name: "Janette",
     last_name: "Doe",
-    date: new Date(),
+    date: new Date().toISOString(),
     signature: SIG,
     pkg: "goPro",
-    di: false,
+    di: "false",
     di_policy_nb: "1234",
     form_language: "es",
   };
@@ -24,7 +30,7 @@ export function testLiability(): void {
 
 export async function generateLiabilityPDF(clientData: CustomerData, destinationFolder: Folder): Promise<void> {
   AppLogger.log("Generating liability PDF...");
-  const lang = (clientData.form_language as string) || "en";
+  const lang = clientData.form_language || "en";
   const pdfConst = LIABILITY_FORM_TO_PDF_MAP[lang];
   try {
     const pdfDoc = await loadGoogleFileToPdfLib(pdfConst.id);
@@ -52,7 +58,7 @@ export function getLiabilityData(clientData: CustomerData) {
   return {
     shop: "Utila Dive Center",
     participantName: `${clientData.first_name} ${clientData.last_name}`,
-    date: formatDate(clientData.date as Date),
+    date: formatDate(new Date(clientData.date!)),
     di_yesNo: clientData.di,
     di_policyNb: String(clientData.di_policy_nb),
   };
@@ -71,8 +77,9 @@ export function fillLiabilityForm(pdfForm: PDFForm, map: PDFFormConfig["form"], 
         });
       } else {
         const checkBoxValue = data[key];
-        const fieldMap = map[key] as Record<string, string>;
-        const fieldIdentifier = fieldMap[checkBoxValue as string] ?? fieldMap[String(checkBoxValue === "Yes")];
+        const fieldMap = map[key] as BooleanFieldMap;
+        const boolKey = checkBoxValue === "true" || checkBoxValue === "Yes" ? "true" : "false";
+        const fieldIdentifier = fieldMap[boolKey];
 
         if (fieldIdentifier === undefined) {
           throw Error("Received invalid value for choosing text box");
@@ -136,8 +143,8 @@ export async function generateMedicalPDF(clientData: MedicalCustomerData, destin
 }
 
 export function transformDataFromMedical(data: MedicalCustomerData) {
-  const today = formatDate(new Date(data.date as string));
-  const dob = formatDate(new Date(data.dob as string));
+  const today = formatDate(new Date(data.date!));
+  const dob = formatDate(new Date(data.dob!));
   return {
     ...data,
     participantName: `${data.first_name} ${data.last_name}`,
@@ -208,9 +215,10 @@ export function fillMedicalForm(
   for (const question in clientData) {
     if (!question.includes("q")) continue;
 
-    const questionMap = answerToDocMap[question] as Record<string, string> | undefined;
+    const questionMap = answerToDocMap[question] as BooleanFieldMap | undefined;
     if (!questionMap) continue;
-    const fieldName = questionMap[clientData[question] as string];
+    const boolKey = clientData[question] === "true" ? "true" : "false";
+    const fieldName = questionMap[boolKey];
 
     if (!fieldName) continue;
     pdfForm.getCheckBox(fieldName).check();

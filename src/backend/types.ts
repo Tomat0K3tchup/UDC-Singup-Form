@@ -3,13 +3,13 @@ export interface CustomerData {
   last_name: string;
   pkg: string;
   dob?: string;
-  date?: string | Date;
+  date?: string;
   signature?: string;
   instructor?: string;
   package?: string;
   form_language?: string;
-  di?: string | boolean;
-  di_policy_nb?: string | number;
+  di?: string;
+  di_policy_nb?: string;
   id_file?: string;
 }
 
