@@ -12,7 +12,8 @@
     "vite": "^6.2.0"
   },
   "scripts": {
-    "build:gas": "vite build --config vite.config.gas.ts && cp appsscript.json dist/gas/",
+    "build:gas": "[ -f dist/gas/PDFLib.js ] || vite build --mode lib --config vite.config.gas.ts && vite build --config vite.config.gas.ts && cp appsscript.json dist/gas/",
+    "build:gas-lib": "vite build --mode lib --config vite.config.gas.ts",
     "typecheck:gas": "tsc --noEmit --project tsconfig.gas.json",
     "deploy-backend": "pnpm run build:gas && clasp push && sh -c 'clasp deploy -i AKfycbxMJBv7SQsFBsIz2emct58L-sPo_r-3MAhOmgowSQf4HiPuzkH0XZ1NCzm5__f0bU7Y -d \"${0:-Deployment update}\"' --",
     "deploy-spreadsheet-only": "pnpm run build:gas && clasp push",

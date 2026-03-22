@@ -1,6 +1,6 @@
 import { AppLogger } from "../../Logger";
 import { LIABILITY_FORM_TO_PDF_MAP, MEDICAL_FORM_TO_PDF_MAP, SignaturePosition, PDFFormConfig } from "./consts";
-import { PDFDocument } from "pdf-lib";
+import { PDFDocument, PDFTextField, PDFRadioGroup, PDFCheckBox } from "pdf-lib";
 import type { PDFForm, PDFField } from "pdf-lib";
 import { CustomerData } from "../../types";
 
@@ -88,22 +88,16 @@ export function fillLiabilityForm(pdfForm: PDFForm, map: PDFFormConfig["form"], 
   });
 }
 
-export const PDFLibObjectTypes = {
-  TEXT: "PDFTextField",
-  RADIO: "PDFRadioGroup",
-  CHECKBOX: "PDFCheckBox",
-} as const;
-
 export function isTextField(pdfField: PDFField): boolean {
-  return pdfField.constructor.name == PDFLibObjectTypes.TEXT;
+  return pdfField instanceof PDFTextField;
 }
 
 export function isRadioField(pdfField: PDFField): boolean {
-  return pdfField.constructor.name == PDFLibObjectTypes.RADIO;
+  return pdfField instanceof PDFRadioGroup;
 }
 
 export function isCheckBox(pdfField: PDFField): boolean {
-  return pdfField.constructor.name == PDFLibObjectTypes.CHECKBOX;
+  return pdfField instanceof PDFCheckBox;
 }
 
 export function fillSinglePDFField(pdfForm: PDFForm, pdfFieldIdentifier: string, fillValue: unknown): void {
