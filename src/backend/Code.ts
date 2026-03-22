@@ -22,9 +22,7 @@ export function processForm(formId: string, formObject: CustomerData): GoogleApp
 
   try {
     FormProcessor.processForm(formId, formObject);
-    return ContentService.createTextOutput(JSON.stringify({ result: "ok" })).setMimeType(
-      ContentService.MimeType.JSON,
-    );
+    return ContentService.createTextOutput(JSON.stringify({ result: "ok" })).setMimeType(ContentService.MimeType.JSON);
   } catch (e) {
     AppLogger.error(e);
     return ContentService.createTextOutput(JSON.stringify({ result: "error", error: e })).setMimeType(

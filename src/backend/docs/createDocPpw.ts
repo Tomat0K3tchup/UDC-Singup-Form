@@ -143,11 +143,7 @@ export function insertImageAndExport(doc: Document, signatureData: string | unde
 }
 
 export function extractFileIdFromUrl(url: string): string {
-  const patterns = [
-    /\/file\/d\/([a-zA-Z0-9_-]+)/,
-    /[?&]id=([a-zA-Z0-9_-]+)/,
-    /\/d\/([a-zA-Z0-9_-]+)/,
-  ];
+  const patterns = [/\/file\/d\/([a-zA-Z0-9_-]+)/, /[?&]id=([a-zA-Z0-9_-]+)/, /\/d\/([a-zA-Z0-9_-]+)/];
 
   for (const pattern of patterns) {
     const match = url.match(pattern);

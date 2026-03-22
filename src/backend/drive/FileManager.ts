@@ -118,9 +118,7 @@ export class FileManager {
   }
 
   static _subPkgFolder(weekFolder: Folder, pkg: string): Folder {
-    const folderName = pkg.toLowerCase().includes(PACKAGE_NAMES.GO_PRO)
-      ? FOLDER_NAMES.GO_PRO
-      : FOLDER_NAMES.REC;
+    const folderName = pkg.toLowerCase().includes(PACKAGE_NAMES.GO_PRO) ? FOLDER_NAMES.GO_PRO : FOLDER_NAMES.REC;
 
     const folderIt = weekFolder.getFoldersByName(folderName);
     if (!folderIt.hasNext()) throw new Error("Failed to find a valid folder");
@@ -139,11 +137,7 @@ export class FileManager {
     const lastMonday = new Date(date);
     lastMonday.setDate(lastMonday.getDate() + diffInDayToPreviousMonday);
 
-    const lastMondayNoTime = new Date(
-      lastMonday.getFullYear(),
-      lastMonday.getMonth(),
-      lastMonday.getDate(),
-    );
+    const lastMondayNoTime = new Date(lastMonday.getFullYear(), lastMonday.getMonth(), lastMonday.getDate());
 
     const nextSunday = new Date(lastMondayNoTime);
     nextSunday.setDate(lastMondayNoTime.getDate() + 6);

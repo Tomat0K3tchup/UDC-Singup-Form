@@ -2,12 +2,12 @@ import { AppLogger } from "../../Logger";
 import { LIABILITY_FORM_TO_PDF_MAP, MEDICAL_FORM_TO_PDF_MAP, SignaturePosition, PDFFormConfig } from "./consts";
 import { PDFDocument, PDFTextField, PDFRadioGroup, PDFCheckBox } from "pdf-lib";
 import type { PDFForm, PDFField } from "pdf-lib";
-import { CustomerData } from "../../types";
+import { CustomerData, MedicalCustomerData } from "../../types";
 
 type Folder = GoogleAppsScript.Drive.Folder;
 
 export function testLiability(): void {
-  const clientData = {
+  const clientData: CustomerData = {
     first_name: "Janette",
     last_name: "Doe",
     date: new Date(),
@@ -18,8 +18,8 @@ export function testLiability(): void {
     form_language: "es",
   };
 
-  const folder = null;
-  generateLiabilityPDF(clientData as any, folder as any);
+  const folder = null as unknown as Folder;
+  generateLiabilityPDF(clientData, folder);
 }
 
 export async function generateLiabilityPDF(clientData: CustomerData, destinationFolder: Folder): Promise<void> {
@@ -63,23 +63,22 @@ export function fillLiabilityForm(pdfForm: PDFForm, map: PDFFormConfig["form"], 
     AppLogger.debug("Trying to fill", key);
     try {
       if (typeof map[key] === "string") {
-        fillSinglePDFField(pdfForm, map[key] as string, data[key]);
+        fillSinglePDFField(pdfForm, map[key] as string, data[key] as string | undefined);
       } else if (map[key] instanceof Array) {
         const fields = map[key] as string[];
         fields.forEach((fieldName) => {
-          fillSinglePDFField(pdfForm, fieldName, data[key]);
+          fillSinglePDFField(pdfForm, fieldName, data[key] as string | undefined);
         });
       } else {
         const checkBoxValue = data[key];
         const fieldMap = map[key] as Record<string, string>;
-        const fieldIdentifier =
-          fieldMap[checkBoxValue as string] ?? fieldMap[String(checkBoxValue === "Yes")];
+        const fieldIdentifier = fieldMap[checkBoxValue as string] ?? fieldMap[String(checkBoxValue === "Yes")];
 
         if (fieldIdentifier === undefined) {
           throw Error("Received invalid value for choosing text box");
         }
 
-        fillSinglePDFField(pdfForm, fieldIdentifier, checkBoxValue);
+        fillSinglePDFField(pdfForm, fieldIdentifier, checkBoxValue as string | undefined);
       }
     } catch (e) {
       AppLogger.error(e);
@@ -88,36 +87,36 @@ export function fillLiabilityForm(pdfForm: PDFForm, map: PDFFormConfig["form"], 
   });
 }
 
-export function isTextField(pdfField: PDFField): boolean {
+export function isTextField(pdfField: PDFField): pdfField is PDFTextField {
   return pdfField instanceof PDFTextField;
 }
 
-export function isRadioField(pdfField: PDFField): boolean {
+export function isRadioField(pdfField: PDFField): pdfField is PDFRadioGroup {
   return pdfField instanceof PDFRadioGroup;
 }
 
-export function isCheckBox(pdfField: PDFField): boolean {
+export function isCheckBox(pdfField: PDFField): pdfField is PDFCheckBox {
   return pdfField instanceof PDFCheckBox;
 }
 
-export function fillSinglePDFField(pdfForm: PDFForm, pdfFieldIdentifier: string, fillValue: unknown): void {
+export function fillSinglePDFField(pdfForm: PDFForm, pdfFieldIdentifier: string, fillValue: string | undefined): void {
   const pdfField = pdfForm.getField(pdfFieldIdentifier);
 
   if (isTextField(pdfField)) {
     AppLogger.debug("Set Field", pdfFieldIdentifier, fillValue);
-    (pdfField as any).setText(fillValue);
+    pdfField.setText(fillValue);
   } else if (isRadioField(pdfField)) {
     AppLogger.debug("Selected Field", pdfFieldIdentifier, fillValue);
-    (pdfField as any).select(fillValue);
+    pdfField.select(fillValue as string);
   } else if (isCheckBox(pdfField)) {
     AppLogger.debug("Checked Field", pdfFieldIdentifier, fillValue);
-    (pdfField as any).check();
+    pdfField.check();
   } else {
     AppLogger.warn(`Received unhandled field type: ${pdfField.constructor.name}`);
   }
 }
 
-export async function generateMedicalPDF(clientData: CustomerData, destinationFolder: Folder): Promise<void> {
+export async function generateMedicalPDF(clientData: MedicalCustomerData, destinationFolder: Folder): Promise<void> {
   const pdfConst = MEDICAL_FORM_TO_PDF_MAP;
   const pdfDoc = await loadGoogleFileToPdfLib(pdfConst.id);
   const pdfForm = pdfDoc.getForm();
@@ -136,7 +135,7 @@ export async function generateMedicalPDF(clientData: CustomerData, destinationFo
   }
 }
 
-export function transformDataFromMedical(data: CustomerData) {
+export function transformDataFromMedical(data: MedicalCustomerData) {
   const today = formatDate(new Date(data.date as string));
   const dob = formatDate(new Date(data.dob as string));
   return {
@@ -149,28 +148,63 @@ export function transformDataFromMedical(data: CustomerData) {
 }
 
 export function testMedical(): void {
-  const clientData = {
+  const clientData: MedicalCustomerData = {
     first_name: "T",
     last_name: "M",
+    pkg: "fd",
     dob: "01/01/1999",
-    q1: "false", q2: "true", q3: "false", q4: "false", q5: "false",
-    q6: "false", q7: "false", q8: "false", q9: "false", q10: "false",
-    qA_1: "", qA_2: "", qA_3: "", qA_4: "", qA_5: "",
-    qB_1: "true", qB_2: "true", qB_3: "false", qB_4: "false",
-    qC_1: "", qC_2: "", qC_3: "", qC_4: "",
-    qD_1: "", qD_2: "", qD_3: "", qD_4: "",
-    qE_1: "", qE_2: "", qE_3: "", qE_4: "",
-    qF_1: "", qF_2: "", qF_3: "", qF_4: "",
-    GA_1: "", qG_2: "", qG_3: "", qG_4: "",
+    q1: "false",
+    q2: "true",
+    q3: "false",
+    q4: "false",
+    q5: "false",
+    q6: "false",
+    q7: "false",
+    q8: "false",
+    q9: "false",
+    q10: "false",
+    qA_1: "",
+    qA_2: "",
+    qA_3: "",
+    qA_4: "",
+    qA_5: "",
+    qB_1: "true",
+    qB_2: "true",
+    qB_3: "false",
+    qB_4: "false",
+    qC_1: "",
+    qC_2: "",
+    qC_3: "",
+    qC_4: "",
+    qD_1: "",
+    qD_2: "",
+    qD_3: "",
+    qD_4: "",
+    qE_1: "",
+    qE_2: "",
+    qE_3: "",
+    qE_4: "",
+    qF_1: "",
+    qF_2: "",
+    qF_3: "",
+    qF_4: "",
+    qG_1: "",
+    qG_2: "",
+    qG_3: "",
+    qG_4: "",
     signature: SIG,
   };
 
   // @ts-expect-error DESTINATION_FOLDER_ID is set in GAS script properties — deferred fix
   const destFolder = DriveApp.getFolderById(DESTINATION_FOLDER_ID);
-  generateMedicalPDF(clientData as any, destFolder);
+  generateMedicalPDF(clientData, destFolder);
 }
 
-export function fillMedicalForm(pdfForm: PDFForm, answerToDocMap: PDFFormConfig["form"], clientData: Record<string, unknown>): void {
+export function fillMedicalForm(
+  pdfForm: PDFForm,
+  answerToDocMap: PDFFormConfig["form"],
+  clientData: Record<string, unknown>,
+): void {
   for (const question in clientData) {
     if (!question.includes("q")) continue;
 
@@ -179,18 +213,18 @@ export function fillMedicalForm(pdfForm: PDFForm, answerToDocMap: PDFFormConfig[
     const fieldName = questionMap[clientData[question] as string];
 
     if (!fieldName) continue;
-    (pdfForm.getField(fieldName) as any).check();
+    pdfForm.getCheckBox(fieldName).check();
   }
 
   (answerToDocMap.participantName as string[]).forEach((nameInForm) => {
-    (pdfForm.getField(nameInForm) as any).setText(clientData.participantName);
+    pdfForm.getTextField(nameInForm).setText(clientData.participantName as string);
   });
 
   (answerToDocMap.dob as string[]).forEach((dobInForm) => {
-    (pdfForm.getField(dobInForm) as any).setText(clientData.dob);
+    pdfForm.getTextField(dobInForm).setText(clientData.dob as string);
   });
 
-  (pdfForm.getField(answerToDocMap.date as string) as any).setText(clientData.date);
+  pdfForm.getTextField(answerToDocMap.date as string).setText(clientData.date as string);
 }
 
 export async function loadGoogleFileToPdfLib(id: string): Promise<PDFDocument> {
@@ -199,16 +233,23 @@ export async function loadGoogleFileToPdfLib(id: string): Promise<PDFDocument> {
   try {
     const pdfDoc = await PDFDocument.load(existingPdfBytes);
     return pdfDoc;
-  } catch (error: any) {
-    AppLogger.error("Error loading PDF:", error.message, "docId:", id);
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
+    AppLogger.error("Error loading PDF:", message, "docId:", id);
     throw new Error("Error loading PDF template");
   }
 }
 
-export async function savePdfLibDocToGoogle(pdfDoc: PDFDocument, destinationFolder: Folder, name: string): Promise<void> {
+export async function savePdfLibDocToGoogle(
+  pdfDoc: PDFDocument,
+  destinationFolder: Folder,
+  name: string,
+): Promise<void> {
   const pdfBytes = await pdfDoc.save();
 
-  const blob = Utilities.newBlob([...pdfBytes]).setContentType(MimeType.PDF).setName(name);
+  const blob = Utilities.newBlob([...pdfBytes])
+    .setContentType(MimeType.PDF)
+    .setName(name);
   destinationFolder.createFile(blob);
 }
 

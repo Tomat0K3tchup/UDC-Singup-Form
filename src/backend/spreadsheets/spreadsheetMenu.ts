@@ -64,7 +64,7 @@ export function createDocumentFromSpreadsheet(keysArray: string[], valuesArray: 
   var data = keysArray.reduce((o: Record<string, unknown>, key, idx) => {
     o[key] = valuesArray[idx];
     return o;
-  }, {}) as CustomerData;
+  }, {}) as unknown as CustomerData;
 
   AppLogger.info("Creating document for customer:", data.first_name, data.last_name);
   const folder = FileManager.getOrCreateCustomerFolder(data);
@@ -82,11 +82,7 @@ export function promptAndAddEditor(): void {
   try {
     const folderId = propertyService.getProperty("storageFolderId");
 
-    const response = ui.prompt(
-      "Add Editor",
-      "Enter an email address to add as editor:",
-      ui.ButtonSet.OK_CANCEL,
-    );
+    const response = ui.prompt("Add Editor", "Enter an email address to add as editor:", ui.ButtonSet.OK_CANCEL);
 
     if (response.getSelectedButton() == ui.Button.OK) {
       const email = response.getResponseText().trim();

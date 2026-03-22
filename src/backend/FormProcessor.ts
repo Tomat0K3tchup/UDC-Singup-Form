@@ -1,7 +1,7 @@
 import { AppLogger } from "./Logger";
 import { FileManager } from "./drive/FileManager";
 import { generateLiabilityPDF, generateMedicalPDF } from "./drive/PDFFormCreator/PDFFormCreator";
-import { CustomerData } from "./types";
+import { CustomerData, MedicalCustomerData } from "./types";
 
 type Folder = GoogleAppsScript.Drive.Folder;
 
@@ -27,10 +27,9 @@ export class FormProcessor {
         case FormsTypes.LIABILITY:
           FormProcessor._processLiabilityForm(formObject);
           break;
-        // BUG: duplicate LIABILITY case — should be SAFE_DIVING (deferred fix)
-        case FormsTypes.LIABILITY:
-          FormProcessor._processSafeDiving(formObject);
-          break;
+        // case FormsTypes.SAFE_DIVING:
+        //   FormProcessor._processSafeDiving(formObject);
+        //   break;
         case FormsTypes.MEDICAL:
           FormProcessor._processMedicalForm(formObject);
           break;
@@ -68,7 +67,7 @@ export class FormProcessor {
     const newRow = headers.map((header) => {
       if (header == "date") return new Date();
       if (header == "signature") return signatureUrl;
-      if (header in formObject) return formObject[header];
+      if (header in formObject) return (formObject as unknown as Record<string, unknown>)[header];
       return "";
     });
 
@@ -86,7 +85,7 @@ export class FormProcessor {
 
   static _processMedicalForm(formObject: CustomerData): void {
     const folder = FileManager.getOrCreateCustomerFolder(formObject);
-    generateMedicalPDF(formObject, folder);
+    generateMedicalPDF(formObject as MedicalCustomerData, folder);
   }
 
   static _generatePassportFile(fileData: string, destinationFolder: Folder): void {

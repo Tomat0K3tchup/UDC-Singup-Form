@@ -1,10 +1,6 @@
 // Entry point — import all modules and expose GAS globals
 import { doGet, doPost } from "./Code";
-import {
-  onOpen,
-  createSelectedRowsDocumentsWithUi,
-  promptAndAddEditor,
-} from "./spreadsheets/spreadsheetMenu";
+import { onOpen, createSelectedRowsDocumentsWithUi, promptAndAddEditor } from "./spreadsheets/spreadsheetMenu";
 import { testLiability as testLiabilityPDF, testMedical } from "./drive/PDFFormCreator/PDFFormCreator";
 import { testLiability } from "./drive/tests";
 
