@@ -20,13 +20,13 @@ The project has two distinct halves:
 - Express (`api/Router.js`) defines only one route: `GET /medical` → EJS render
 - All other paths resolve to static HTML in `public/` via Vercel's static file serving
 
-| Route | File | Framework |
-|-------|------|-----------|
-| `/home` | `public/home.html` | Static |
-| `/udc` | `public/udc.html` | Alpine.js |
-| `/liability` | `public/liability.html` | Alpine.js |
-| `/medical` | `views/index.ejs` → `views/medical.ejs` | Express + EJS + Lit |
-| `/pages/forms/safeDiving` | `public/pages/forms/safeDiving.html` | Static |
+| Route                     | File                                    | Framework           |
+| ------------------------- | --------------------------------------- | ------------------- |
+| `/home`                   | `public/home.html`                      | Static              |
+| `/udc`                    | `public/udc.html`                       | Alpine.js           |
+| `/liability`              | `public/liability.html`                 | Alpine.js           |
+| `/medical`                | `views/index.ejs` → `views/medical.ejs` | Express + EJS + Lit |
+| `/pages/forms/safeDiving` | `public/pages/forms/safeDiving.html`    | Static              |
 
 ### Key integration point
 

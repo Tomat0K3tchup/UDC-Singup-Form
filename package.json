@@ -1,5 +1,13 @@
 {
   "type": "module",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "i18next": "^24.2.2",
+    "i18next-browser-languagedetector": "^8.0.4",
+    "i18next-http-backend": "^3.0.2",
+    "jquery-i18next": "^1.2.1"
+  },
   "devDependencies": {
     "@google/clasp": "^2.4.2",
     "@types/google-apps-script": "^1.0.89",
@@ -19,13 +27,5 @@
     "deploy-spreadsheet-only": "pnpm run build:gas && clasp push",
     "dev": "node --env-file=.env --watch dev.js",
     "prettier": "prettier -w ."
-  },
-  "dependencies": {
-    "ejs": "^3.1.10",
-    "express": "^4.21.2",
-    "i18next": "^24.2.2",
-    "i18next-browser-languagedetector": "^8.0.4",
-    "i18next-http-backend": "^3.0.2",
-    "jquery-i18next": "^1.2.1"
   }
 }

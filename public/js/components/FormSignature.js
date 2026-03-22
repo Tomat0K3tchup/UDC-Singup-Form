@@ -72,8 +72,7 @@ export class FormSignature extends FormInput {
     const ratio = Math.max(window.devicePixelRatio || 1, 1);
     const [newWidth, newHeight] = [this.$canvas.offsetWidth * ratio, this.$canvas.offsetHeight * ratio];
 
-    if (Math.abs(this.$canvas.width - newWidth) < 1 && Math.abs(this.$canvas.height - newHeight) < 1)
-      return;
+    if (Math.abs(this.$canvas.width - newWidth) < 1 && Math.abs(this.$canvas.height - newHeight) < 1) return;
 
     this.$canvas.width = this.$canvas.offsetWidth * ratio;
     this.$canvas.height = this.$canvas.offsetHeight * ratio;
@@ -106,12 +105,7 @@ export class FormSignature extends FormInput {
       </div>
       <div class="sigWrapper input ${this._hasError ? "invalid" : ""}">
         <canvas></canvas>
-        <input
-          type="hidden"
-          id="${this.id}"
-          name="${this.name || this.id}"
-          @invalid=${() => this.toggleError(true)}
-        />
+        <input type="hidden" id="${this.id}" name="${this.name || this.id}" @invalid=${() => this.toggleError(true)} />
       </div>
       <span class="invalid ${this._hasError ? "visible" : ""}">Error</span>
     `;

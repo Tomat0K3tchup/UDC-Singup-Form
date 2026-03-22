@@ -154,7 +154,12 @@
             </fieldset>
 
             <!-- Step 2: Liability Release + Signature -->
-            <fieldset class="formStep legal" x-show="isStep($el)" x-effect="if (isStep($el)) $nextTick(() => mirrorName())" x-cloak>
+            <fieldset
+              class="formStep legal"
+              x-show="isStep($el)"
+              x-effect="if (isStep($el)) $nextTick(() => mirrorName())"
+              x-cloak
+            >
               <p x-text="$t('liability:intro')"></p>
 
               <!-- Non-agency section -->
@@ -162,7 +167,9 @@
                 <h3 x-text="$t('liability:nonAgency.title')"></h3>
                 <p x-html="$t('liability:nonAgency.nonPadi')"></p>
                 <p x-text="$t('liability:nonAgency.franchise')"></p>
-                <p x-html="$t(isCourse ? 'liability:nonAgency.padiLiability.courses' : 'liability:nonAgency.padiLiability.general')"></p>
+                <p
+                  x-html="$t(isCourse ? 'liability:nonAgency.padiLiability.courses' : 'liability:nonAgency.padiLiability.general')"
+                ></p>
               </section>
 
               <!-- General Liability (fun dives only) -->
@@ -192,16 +199,22 @@
                 <p x-html="$t('liability:courses.ow.dcsRisk')"></p>
                 <p x-html="$t('liability:courses.ow.boatRisk')"></p>
                 <p x-show="isConEd" x-html="$t('liability:courses.conEd.allTraining')"></p>
-                <p x-html="$t(isConEd ? 'liability:courses.conEd.udcLiability' : 'liability:courses.ow.udcLiability')"></p>
+                <p
+                  x-html="$t(isConEd ? 'liability:courses.conEd.udcLiability' : 'liability:courses.ow.udcLiability')"
+                ></p>
                 <p x-html="$t('liability:courses.ow.personalRisk')"></p>
-                <p x-html="$t(isConEd ? 'liability:courses.conEd.staffLiability' : 'liability:courses.ow.staffLiability')"></p>
+                <p
+                  x-html="$t(isConEd ? 'liability:courses.conEd.staffLiability' : 'liability:courses.ow.staffLiability')"
+                ></p>
                 <p x-show="isConEd" x-html="$t('liability:courses.conEd.medicalCondition')"></p>
                 <p x-html="$t('liability:courses.ow.divingRisk')"></p>
                 <p x-html="$t('liability:courses.ow.lawfulAge')"></p>
                 <p x-show="isConEd" x-html="$t('liability:courses.conEd.validityPeriod')"></p>
                 <p x-html="$t('liability:courses.ow.liabilityWaiver')"></p>
                 <p x-show="isConEd" x-html="$t('liability:courses.conEd.completedMedical')"></p>
-                <p x-html="$t(isConEd ? 'liability:courses.conEd.legalStatement' : 'liability:courses.ow.legalStatement')"></p>
+                <p
+                  x-html="$t(isConEd ? 'liability:courses.conEd.legalStatement' : 'liability:courses.ow.legalStatement')"
+                ></p>
                 <p x-html="$t('liability:courses.ow.fullyInformed')"></p>
               </section>
 
