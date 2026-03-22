@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2020"],
+    "types": ["google-apps-script"],
+    "strict": true,
+    "allowJs": false,
+    "checkJs": false,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "rootDir": "src/backend"
+  },
+  "include": ["src/backend/**/*.ts", "src/backend/**/*.js"],
+  "exclude": ["node_modules", "dist"]
+}

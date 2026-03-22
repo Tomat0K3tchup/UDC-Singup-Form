@@ -1,19 +1,22 @@
-/** Endpoint router of the webapp. As of now, the only route served is the default. It serves index.html */
-function doGet() {
+import { generateRequestId, setRequestId, clearRequestId, AppLogger } from "./Logger";
+import { FormProcessor } from "./FormProcessor";
+import { CustomerData } from "./types";
+
+export function doGet(): GoogleAppsScript.Content.TextOutput {
   return ContentService.createTextOutput("GAS is working");
 }
 
-function doPost(req) {
+export function doPost(req: GoogleAppsScript.Events.DoPost): GoogleAppsScript.Content.TextOutput {
   const requestId = generateRequestId();
   setRequestId(requestId);
 
   const { formId, ...formObject } = req.parameter;
-  res = processForm(formId, formObject);
+  const res = processForm(formId, formObject as unknown as CustomerData);
 
   return res;
 }
 
-function processForm(formId, formObject) {
+export function processForm(formId: string, formObject: CustomerData): GoogleAppsScript.Content.TextOutput {
   const lock = LockService.getScriptLock();
   lock.tryLock(10000);
 
@@ -23,7 +26,7 @@ function processForm(formId, formObject) {
       ContentService.MimeType.JSON,
     );
   } catch (e) {
-    Logger.error(e);
+    AppLogger.error(e);
     return ContentService.createTextOutput(JSON.stringify({ result: "error", error: e })).setMimeType(
       ContentService.MimeType.JSON,
     );

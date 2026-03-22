@@ -1,4 +1,18 @@
-const MEDICAL_FORM_TO_PDF_MAP = {
+export interface SignaturePosition {
+  page: number;
+  X: number;
+  Y: number;
+  GUARDIAN?: { X: number; Y: number };
+}
+
+export interface PDFFormConfig {
+  id: string;
+  title: string;
+  form: Record<string, string | string[] | { true: string; false: string } | Record<string, string>>;
+  signature: SignaturePosition;
+}
+
+export const MEDICAL_FORM_TO_PDF_MAP: PDFFormConfig = {
   id: "1FN5e_z_5bvIqXuaU1ho08awKCL9AGQ8m",
   title: "Medical Form",
   form: {
@@ -57,7 +71,7 @@ const MEDICAL_FORM_TO_PDF_MAP = {
   },
 };
 
-const MAP_SIGN = {
+export const MAP_SIGN = {
   CONED: {
     page: 1,
     X: 0.28,
@@ -69,7 +83,7 @@ const MAP_SIGN = {
   },
 };
 
-const EN_LIABILITY_FORM_TO_PDF_MAP = {
+export const EN_LIABILITY_FORM_TO_PDF_MAP: PDFFormConfig = {
   id: "1CSRdWSEvVDd62O0gcbAqlxQklw1_NpH2",
   title: "Liability Release",
   form: {
@@ -91,7 +105,7 @@ const EN_LIABILITY_FORM_TO_PDF_MAP = {
   },
 };
 
-const ES_LIABILITY_FORM_TO_PDF_MAP = {
+export const ES_LIABILITY_FORM_TO_PDF_MAP: PDFFormConfig = {
   id: "14WWnmZ2NQ8-vUf-soi-OI9naOE6sL4ml",
   title: "Contrato de Descargo de Responsabilidad",
   form: {
@@ -116,7 +130,7 @@ const ES_LIABILITY_FORM_TO_PDF_MAP = {
   },
 };
 
-const LIABILITY_FORM_TO_PDF_MAP = {
+export const LIABILITY_FORM_TO_PDF_MAP: Record<string, PDFFormConfig> = {
   en: EN_LIABILITY_FORM_TO_PDF_MAP,
   es: ES_LIABILITY_FORM_TO_PDF_MAP,
 };

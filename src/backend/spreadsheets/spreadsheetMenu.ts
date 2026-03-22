@@ -1,4 +1,9 @@
-function onOpen() {
+import { AppLogger, generateRequestId, setRequestId, clearRequestId } from "../Logger";
+import { FileManager } from "../drive/FileManager";
+import { createCustomerDoc } from "../docs/createDocPpw";
+import { CustomerData } from "../types";
+
+export function onOpen(): void {
   const ui = SpreadsheetApp.getUi();
   // prettier-ignore
   ui.createMenu("UDC Admin")
@@ -9,7 +14,7 @@ function onOpen() {
     .addToUi()
 }
 
-function withUI(fn) {
+export function withUI(fn: () => void): void {
   const ui = SpreadsheetApp.getUi();
 
   const requestId = generateRequestId();
@@ -17,33 +22,32 @@ function withUI(fn) {
 
   try {
     fn();
-  } catch ({ message, ...errDetails }) {
-    Logger.error(message);
-    if (errDetails != {}) Logger.log(errDetails);
-    ui.alert(message);
+  } catch (e: any) {
+    AppLogger.error(e.message);
+    ui.alert(e.message);
   } finally {
     clearRequestId();
   }
 }
 
-const createSelectedRowsDocumentsWithUi = () => withUI(createSelectedRowsDocuments);
+export const createSelectedRowsDocumentsWithUi = (): void => withUI(createSelectedRowsDocuments);
 
-function createSelectedRowsDocuments() {
+export function createSelectedRowsDocuments(): void {
   const propertyService = PropertiesService.getScriptProperties();
   const sheetName = propertyService.getProperty("sheetName");
 
-  const sheet = SpreadsheetApp.getActive().getSheetByName(sheetName);
+  const sheet = SpreadsheetApp.getActive().getSheetByName(sheetName!);
 
-  const selection = sheet.getSelection();
+  const selection = sheet!.getSelection();
   if (!selection) throw new Error("Please select the rows you want to use for paperwork creation.");
 
-  const selectedRanges = selection.getActiveRangeList().getRanges();
+  const selectedRanges = selection.getActiveRangeList()!.getRanges();
   if (selectedRanges[0].getRow() <= 3) throw new Error("Please select rows lower than row 3 (headers).");
 
-  const nbCells = sheet.getLastColumn();
-  const headers = sheet.getRange(1, 1, 1, nbCells).getValues()[0];
+  const nbCells = sheet!.getLastColumn();
+  const headers = sheet!.getRange(1, 1, 1, nbCells).getValues()[0] as string[];
 
-  let values = [];
+  let values: unknown[][] = [];
   selectedRanges.forEach((range) => {
     const col = range.getColumn();
     const nbCellRange = range.getLastColumn();
@@ -56,63 +60,58 @@ function createSelectedRowsDocuments() {
   SpreadsheetApp.getUi().alert("All documents created successfully!");
 }
 
-function createDocumentFromSpreadsheet(keysArray, valuesArray) {
-  var data = keysArray.reduce((o, key, idx) => {
+export function createDocumentFromSpreadsheet(keysArray: string[], valuesArray: unknown[]): void {
+  var data = keysArray.reduce((o: Record<string, unknown>, key, idx) => {
     o[key] = valuesArray[idx];
     return o;
-  }, {});
+  }, {}) as CustomerData;
 
-  Logger.info("Creating document for customer:", data.first_name, data.last_name);
+  AppLogger.info("Creating document for customer:", data.first_name, data.last_name);
   const folder = FileManager.getOrCreateCustomerFolder(data);
   createCustomerDoc(data, folder);
-  // generateLiabilityPDF(data, folder);
 }
 
-function promptAndAddEditor() {
+export function promptAndAddEditor(): void {
   const ui = SpreadsheetApp.getUi();
   const propertyService = PropertiesService.getScriptProperties();
 
   const requestId = generateRequestId();
   setRequestId(requestId);
-  Logger.info("Starting add editor operation");
+  AppLogger.info("Starting add editor operation");
 
   try {
     const folderId = propertyService.getProperty("storageFolderId");
 
-    // Prompt for the email address
     const response = ui.prompt(
       "Add Editor",
       "Enter an email address to add as editor:",
       ui.ButtonSet.OK_CANCEL,
     );
 
-    // Handle user's response
     if (response.getSelectedButton() == ui.Button.OK) {
       const email = response.getResponseText().trim();
 
       if (email && validateEmail(email)) {
         try {
-          // Add as editor to spreadsheet
           const ss = SpreadsheetApp.getActiveSpreadsheet();
           ss.addEditor(email);
-          Logger.info("Added editor to spreadsheet:", email);
+          AppLogger.info("Added editor to spreadsheet:", email);
 
-          // Add as editor to folder
-          const folder = DriveApp.getFolderById(folderId);
+          const folder = DriveApp.getFolderById(folderId!);
           folder.addEditor(email);
-          Logger.info("Added editor to folder:", email);
+          AppLogger.info("Added editor to folder:", email);
 
           ui.alert("✅ Success", `${email} was added as an editor.`, ui.ButtonSet.OK);
-        } catch (e) {
-          Logger.error("Failed to add editor:", e.message);
+        } catch (e: any) {
+          AppLogger.error("Failed to add editor:", e.message);
           ui.alert("❌ Error", `${e.message}`, ui.ButtonSet.OK);
         }
       } else {
-        Logger.warn("Invalid email address provided:", email);
+        AppLogger.warn("Invalid email address provided:", email);
         ui.alert("⚠️ Invalid email address. Please try again.");
       }
     } else {
-      Logger.info("Add editor operation canceled by user");
+      AppLogger.info("Add editor operation canceled by user");
       ui.alert("Operation canceled.");
     }
   } finally {
@@ -120,8 +119,7 @@ function promptAndAddEditor() {
   }
 }
 
-// Optional: Simple email validation
-function validateEmail(email) {
+export function validateEmail(email: string): boolean {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return regex.test(email);
 }

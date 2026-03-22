@@ -1,29 +1,36 @@
-const LANG_TO_TEMPLATE_ID_MAP = {
+import { AppLogger } from "../Logger";
+import { CustomerData } from "../types";
+
+type Document = GoogleAppsScript.Document.Document;
+type Body = GoogleAppsScript.Document.Body;
+type Folder = GoogleAppsScript.Drive.Folder;
+
+export const LANG_TO_TEMPLATE_ID_MAP: Record<string, string> = {
   en: "1KC-eK-c23lJdM4egjqk60v3l9SbQ0_ZW9KCPa-EEZPQ",
   es: "1K1nt-WWDd-luARLEhCWPqPy4ztJEWiVuORHN3F-Yt34",
 };
 
-const DEFAULT_LANG = "en";
+export const DEFAULT_LANG = "en";
 
-function parseLanguageCode(code) {
+export function parseLanguageCode(code: unknown): string | null {
   if (typeof code !== "string") return null;
   return code.split("-")[0].toLowerCase();
 }
 
-function createTemplatedDoc(destinationFolder, lang) {
+export function createTemplatedDoc(destinationFolder: Folder, lang: string): GoogleAppsScript.Drive.File {
   // FIXME: no partial updates
   const parseLang = parseLanguageCode(lang);
-  const templateKey = parseLang in LANG_TO_TEMPLATE_ID_MAP ? parseLang : DEFAULT_LANG;
+  const templateKey = parseLang && parseLang in LANG_TO_TEMPLATE_ID_MAP ? parseLang : DEFAULT_LANG;
   const template = DriveApp.getFileById(LANG_TO_TEMPLATE_ID_MAP[templateKey]);
   return template.makeCopy(destinationFolder);
 }
 
-function searchAndReplace(doc, data) {
+export function searchAndReplace(doc: Document, data: CustomerData): void {
   var body = doc.getBody();
   const lang = parseLanguageCode(data.form_language) || DEFAULT_LANG;
 
   // FIXME: not so many keys
-  var clientInfo = {
+  var clientInfo: Record<string, unknown> = {
     ...data,
     name: `${data.first_name} ${data.last_name}`,
   };
@@ -34,9 +41,9 @@ function searchAndReplace(doc, data) {
 
   for (const key in clientInfo) {
     try {
-      var value;
+      var value: unknown;
       if (isDateKey(key) && clientInfo[key] !== "") {
-        value = formatDate(new Date(clientInfo[key]));
+        value = formatDate(new Date(clientInfo[key] as string));
       } else {
         value = clientInfo[key];
       }
@@ -45,36 +52,32 @@ function searchAndReplace(doc, data) {
         searchAndReplaceBoolean(body, key, value === "Yes", lang);
         continue;
       }
-      body.replaceText(`{{${key.toString()}}}`, value);
-    } catch (e) {
-      Logger.warn(e.message);
+      body.replaceText(`{{${key.toString()}}}`, String(value));
+    } catch (e: any) {
+      AppLogger.warn(e.message);
     }
   }
 }
 
-function searchAndReplaceBoolean(body, key, value, lang) {
-  // Start and end index of the element to strikethrough in the string will be added
+export function searchAndReplaceBoolean(body: Body, key: string, value: boolean, lang: string): void {
   const spaces = 10;
   const yesLabel = lang === "es" ? "Sí" : "Yes";
   const noLabel = "No";
   const replacementString = yesLabel + " ".repeat(spaces) + noLabel;
-  const OFFSET_MAP = {
-    // offset of No
+  const OFFSET_MAP: Record<string, { offset: number; length: number }> = {
     true: {
       offset: spaces + yesLabel.length,
       length: noLabel.length - 1,
     },
-    // offset of Yes
     false: {
       offset: 0,
       length: yesLabel.length - 1,
     },
   };
-  // Find all occurrences of the pattern
   const foundElement = body.findText(`{{${key}}}`);
 
   if (!foundElement) {
-    Logger.warn(`Boolean placeholder {{${key}}} not found in template`);
+    AppLogger.warn(`Boolean placeholder {{${key}}} not found in template`);
     return;
   }
 
@@ -86,79 +89,60 @@ function searchAndReplaceBoolean(body, key, value, lang) {
   text.deleteText(start, end);
   text.insertText(start, replacementString);
 
-  const { offset, length } = OFFSET_MAP[value];
+  const { offset, length } = OFFSET_MAP[String(value)];
   text.setStrikethrough(start + offset, start + offset + length, true);
 }
 
-function createCustomerDoc(data, destinationFolder) {
+export function createCustomerDoc(data: CustomerData, destinationFolder: Folder): void {
   const lang = data.form_language;
   try {
-    var file = createTemplatedDoc(destinationFolder, lang);
+    var file = createTemplatedDoc(destinationFolder, lang || DEFAULT_LANG);
     var doc = DocumentApp.openById(file.getId());
   } catch (e) {
-    Logger.error(e);
+    AppLogger.error(e);
   }
 
-  searchAndReplace(doc, data);
-  insertImageAndExport(doc, data.signature);
-  file.setName(`${data.first_name} ${data.last_name} - ${formatDate(data.date)}`);
+  searchAndReplace(doc!, data);
+  insertImageAndExport(doc!, data.signature);
+  file!.setName(`${data.first_name} ${data.last_name} - ${formatDate(data.date as Date)}`);
 }
 
-function isDateKey(key) {
+export function isDateKey(key: string): boolean {
   return key == "dob" || key.includes("date");
 }
 
-function formatDate(date) {
-  const day = String(date.getDate()).padStart(2, "0"); // Get the day and pad with 0 if needed
-  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed, so add 1
-  const year = date.getFullYear(); // Get the full year
+export function formatDate(date: Date): string {
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
 
   return `${day}-${month}-${year}`;
 }
 
-function insertImageAndExport(doc, signatureData) {
+export function insertImageAndExport(doc: Document, signatureData: string | undefined): void {
   if (!signatureData) throw new Error("Please provide a signature for the customer");
 
-  let blob;
+  let blob: GoogleAppsScript.Base.Blob;
 
-  // Check if signature is a URL or base64
   if (signatureData.startsWith("http")) {
-    // Load signature from Google Drive URL
     try {
       const fileId = extractFileIdFromUrl(signatureData);
       const file = DriveApp.getFileById(fileId);
       blob = file.getBlob();
     } catch (e) {
-      Logger.error("Failed to load signature from URL:", signatureData, e);
+      AppLogger.error("Failed to load signature from URL:", signatureData, e);
       throw new Error("Could not load signature from Drive");
     }
   } else {
-    // Handle base64 data URL
     const dataPart = signatureData.split(",")[1];
     if (!dataPart) throw new Error("The provided signature is invalid");
     blob = Utilities.newBlob(Utilities.base64Decode(dataPart));
   }
 
   doc.getBody().appendImage(blob);
-
-  // // Export to PDF
-  // var docBlob = doc.getAs('application/pdf');
-  // /* Add the PDF extension */
-  // docBlob.setName(doc.getName() + ".pdf");
-  // var file = DriveApp.createFile(docBlob);
-  // console.log(file.getUrl());
-
-  // // Alternatively you can upload the image to Drive too if you like.
-  // var mimeType = eval("MimeType." + signatureData.split(",")[0].split("/")[1].split(";")[0].toUpperCase());
-
-  // var blob = Utilities.newBlob(decoded, mimeType, "nameOfImage");
-  // var image = DriveApp.createFile(blob);
 }
 
-function extractFileIdFromUrl(url) {
-  // Handle different Google Drive URL formats
-  // https://drive.google.com/file/d/FILE_ID/view
-  // https://drive.google.com/open?id=FILE_ID
+export function extractFileIdFromUrl(url: string): string {
   const patterns = [
     /\/file\/d\/([a-zA-Z0-9_-]+)/,
     /[?&]id=([a-zA-Z0-9_-]+)/,

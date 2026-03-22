@@ -5,13 +5,17 @@
     "@types/google-apps-script": "^1.0.89",
     "lit": "^3.2.1",
     "npm-run-all": "^4.1.5",
+    "pdf-lib": "^1.17.1",
     "prettier": "^3.4.2",
+    "typescript": "^5.9.3",
     "vercel": "^41.7.0",
     "vite": "^6.2.0"
   },
   "scripts": {
-    "deploy-backend": "sh -c 'clasp push && clasp deploy -i AKfycbxMJBv7SQsFBsIz2emct58L-sPo_r-3MAhOmgowSQf4HiPuzkH0XZ1NCzm5__f0bU7Y -d \"${0:-Deployment update}\"' --",
-    "deploy-spreadsheet-only": "clasp push",
+    "build:gas": "vite build --config vite.config.gas.ts && cp appsscript.json dist/gas/",
+    "typecheck:gas": "tsc --noEmit --project tsconfig.gas.json",
+    "deploy-backend": "pnpm run build:gas && clasp push && sh -c 'clasp deploy -i AKfycbxMJBv7SQsFBsIz2emct58L-sPo_r-3MAhOmgowSQf4HiPuzkH0XZ1NCzm5__f0bU7Y -d \"${0:-Deployment update}\"' --",
+    "deploy-spreadsheet-only": "pnpm run build:gas && clasp push",
     "dev": "node --env-file=.env --watch dev.js",
     "prettier": "prettier -w ."
   },
