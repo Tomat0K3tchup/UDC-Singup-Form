@@ -77,8 +77,8 @@
             <input type="hidden" name="pkg" :value="pkg" />
             <input type="hidden" name="form_language" :value="$store.i18n.lang" />
 
-            <!-- Step 0: Personal Details -->
-            <fieldset class="formStep" x-show="step === 0" x-cloak>
+            <!-- Step 1: Personal Details -->
+            <fieldset class="formStep" x-show="isStep($el)" x-cloak>
               <legend x-text="$t('personal.title')"></legend>
 
               <div class="multiInput" id="full_name">
@@ -216,8 +216,8 @@
               </udc-phone>
             </fieldset>
 
-            <!-- Step 1: Emergency Contact -->
-            <fieldset class="formStep" x-show="step === 1" x-cloak>
+            <!-- Step 2: Emergency Contact -->
+            <fieldset class="formStep" x-show="isStep($el)" x-cloak>
               <legend x-text="$t('emergency.title')"></legend>
 
               <div class="formInput" :class="showError && 'invalid'" x-data="formField">
@@ -260,7 +260,6 @@
                 <span x-show="showError" x-cloak x-text="error"></span>
               </div>
 
-              <!-- Dive Insurance radio + accordion -->
               <div class="formInput" x-data="formField">
                 <fieldset>
                   <legend :class="showError && 'invalid'" x-text="$t('emergency.di.label')"></legend>
@@ -293,7 +292,6 @@
                 <span class="invalid" x-show="showError" x-cloak x-text="error"></span>
               </div>
 
-              <!-- Accordion: shown when di === 'Yes' -->
               <fieldset class="flx-form" x-show="di === 'Yes'" x-transition>
                 <div class="formInput" x-data="formField">
                   <label for="di_provider" x-text="$t('emergency.diProvider')"></label>
@@ -310,8 +308,8 @@
               </fieldset>
             </fieldset>
 
-            <!-- Step 2: Passport Information -->
-            <fieldset class="formStep" x-show="step === 2" x-cloak>
+            <!-- Step 3: Passport Information -->
+            <fieldset class="formStep" x-show="isStep($el)" x-cloak>
               <legend x-text="$t('id.title')"></legend>
 
               <udc-country-select class="formInput" :class="showError && 'invalid'" x-data="formField">
@@ -337,11 +335,11 @@
                   id="id_file"
                   accept="image/*"
                   required
-                  style="display:none"
+                  style="display: none"
                   @change="clearError"
                   @invalid.prevent="onInvalid"
                 />
-                <div class="fileDisplay input" style="cursor:pointer">Choose a file</div>
+                <div class="fileDisplay input" style="cursor: pointer">Choose a file</div>
                 <span x-show="showError" x-cloak x-text="error"></span>
               </udc-file-input>
 
@@ -389,8 +387,8 @@
               </div>
             </fieldset>
 
-            <!-- Step 3: T&C + Signature -->
-            <fieldset class="formStep legal" x-show="step === 3" x-cloak>
+            <!-- Step 4: T&C + Signature -->
+            <fieldset class="formStep legal" x-show="isStep($el)" x-cloak>
               <!-- T&C content -->
               <section x-show="pkg !== 'goPro'">
                 <h2 x-text="$t('tAndC:refund.title')"></h2>

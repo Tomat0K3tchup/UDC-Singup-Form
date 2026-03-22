@@ -164,17 +164,25 @@ document.addEventListener("alpine:init", () => {
 
   Alpine.data("udcForm", () => ({
     step: 0,
-    totalSteps: 4,
+    totalSteps: 0,
     pkg: "",
     di: "",
-    loading: false,
+    get loading() { return this.$store.loading.active; },
+    set loading(v) { this.$store.loading.active = v; },
     success: false,
     supportedLngs,
+    _steps: [],
 
     init() {
       const params = new URLSearchParams(window.location.search);
       this.pkg = params.get("pkg") || "fd";
+      this._steps = [...this.$root.querySelectorAll("fieldset.formStep")];
+      this.totalSteps = this._steps.length;
       this.$nextTick(() => this.prefill(params));
+    },
+
+    isStep(el) {
+      return this._steps.indexOf(el) === this.step;
     },
 
     prefill(params) {
