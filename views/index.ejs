@@ -54,23 +54,5 @@
     <!-- Import custom components -->
     <script type="module" src="/js/components/index.js"></script>
     <script type="module" src="/js/elements/Header.js"></script>
-    <script type="module" src="/js/layouts/index.js"></script>
-
-    <!-- Auto-fill the liability page with the customer's full name from the personal details -->
-    <script>
-      document.addEventListener("activated", (e) => mirrorFullNameLiability(e));
-      function mirrorFullNameLiability(e) {
-        if (e.target.id != "liabilityStep") return;
-        const $fullNameContainer = document.getElementById("full_name");
-        const $inputs = $fullNameContainer.querySelectorAll("form-input");
-
-        const fullName = $inputs[0].value + " " + $inputs[1].value;
-        const $nodesToReplace = document.getElementsByClassName("liabilityName");
-
-        Array.from($nodesToReplace).forEach(($node) => {
-          $node.innerHTML = fullName;
-        });
-      }
-    </script>
   </body>
 </html>
