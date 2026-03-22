@@ -61,5 +61,9 @@
   },
   "placeholder": {
     "date": "dd/mm/yyyy"
+  },
+  "success": {
+    "thankYou": "Thank you for completing the check-in form.",
+    "goToReception": "Please go to the reception desk to finalize the process."
   }
 }

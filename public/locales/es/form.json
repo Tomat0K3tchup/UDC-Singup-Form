@@ -57,5 +57,9 @@
   },
   "placeholder": {
     "date": "dd/mm/aaaa"
+  },
+  "success": {
+    "thankYou": "Gracias por completar el formulario de registro.",
+    "goToReception": "Por favor, diríjase a la recepción para finalizar el proceso."
   }
 }
