@@ -1,1 +1,6 @@
-{ "version": 2, "cleanUrls": true, "rewrites": [{ "source": "/(.*)", "destination": "/api" }] }
+{
+  "version": 2,
+  "cleanUrls": true,
+  "redirects": [{ "source": "/", "destination": "/home", "statusCode": 308 }],
+  "rewrites": [{ "source": "/(.*)", "destination": "/api" }]
+}
