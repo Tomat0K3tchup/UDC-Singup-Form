@@ -11,10 +11,6 @@ router.get("/medical", (req, res) => {
   });
 });
 
-router.get("/test", (req, res) => {
-  res.render("test");
-});
-
 function _sanitizePkg(reqPkg) {
   const allowedPkg = ["fd", "ow", "aow", "goPro"];
   const pkg = reqPkg && allowedPkg.includes(reqPkg) ? reqPkg : "fd";
