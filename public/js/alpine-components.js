@@ -162,20 +162,34 @@ document.addEventListener("alpine:init", () => {
     },
   }));
 
-  Alpine.data("udcForm", () => ({
+  Alpine.data("wizardForm", () => ({
     step: 0,
     totalSteps: 0,
-    pkg: "",
+    pkg: "fd",
     di: "",
-    get loading() { return this.$store.loading.active; },
-    set loading(v) { this.$store.loading.active = v; },
     success: false,
     supportedLngs,
     _steps: [],
 
+    get loading() {
+      return this.$store.loading.active;
+    },
+    set loading(v) {
+      this.$store.loading.active = v;
+    },
+
+    get isCourse() {
+      return this.pkg !== "fd";
+    },
+    get isConEd() {
+      return this.pkg !== "fd" && this.pkg !== "ow";
+    },
+
     init() {
+      const allowedPkg = ["fd", "ow", "aow", "goPro"];
       const params = new URLSearchParams(window.location.search);
-      this.pkg = params.get("pkg") || "fd";
+      const raw = params.get("pkg");
+      this.pkg = raw && allowedPkg.includes(raw) ? raw : "fd";
       this._steps = [...this.$root.querySelectorAll("fieldset.formStep")];
       this.totalSteps = this._steps.length;
       this.$nextTick(() => this.prefill(params));
@@ -189,7 +203,6 @@ document.addEventListener("alpine:init", () => {
       PREFILL_KEYS.forEach((id) => {
         const val = params.get(id);
         if (!val) return;
-
         if (id === "pkg") {
           this.pkg = val;
           return;
@@ -198,20 +211,25 @@ document.addEventListener("alpine:init", () => {
           this.di = val;
           return;
         }
-
         const el = document.getElementById(id);
         if (el) el.value = val;
       });
     },
 
+    mirrorName() {
+      const firstName = this.$root.querySelector("#first_name")?.value || "";
+      const lastName = this.$root.querySelector("#last_name")?.value || "";
+      const fullName = (firstName + " " + lastName).trim();
+      this.$root.querySelectorAll(".liabilityName").forEach((el) => {
+        el.innerHTML = fullName;
+      });
+    },
+
     nextStep() {
-      const fieldsets = this.$root.querySelectorAll("fieldset.formStep");
-      const current = fieldsets[this.step];
+      const current = this._steps[this.step];
       if (!current) return;
 
-      const elements = current.querySelectorAll(
-        "input, select, textarea, .udcDatePicker, .udcSignature",
-      );
+      const elements = current.querySelectorAll("input, select, textarea, .udcDatePicker, .udcSignature");
 
       let valid = true;
       elements.forEach((el) => {

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Home Page</title>
+
+    <link rel="icon" type="image/png" href="/assets/udc-logo-tiny.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+      integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="/css/stylesheet.css" />
+
+    <script src="/js/formHandling.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <script type="module" src="/js/i18n.js"></script>
+  </head>
+  <body>
+    <div class="formWidth formDropShadow">
+      <div class="formWrapper">
+        <header-element data-i18n="[title]title"></header-element>
+
+        <section class="homeNav">
+          <h2 data-i18n="home.title"></h2>
+          <p data-i18n="home.description"></p>
+          <nav>
+            <a class="disabled" data-i18n="home.goPro"></a>
+            <a href="/udc?pkg=fd&pathway=liability" data-i18n="home.fd"></a>
+          </nav>
+        </section>
+      </div>
+    </div>
+    <spinner-modal></spinner-modal>
+
+    <!-- Import custom components -->
+    <script type="module" src="/js/components/index.js"></script>
+    <script type="module" src="/js/elements/Header.js"></script>
+  </body>
+</html>
